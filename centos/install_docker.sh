@@ -1,6 +1,4 @@
-# Installing docker on centos
-# Used for my linode server
-# 2/10/22
+# Installing docker 
 
 # uninstall old versions
 sudo yum remove docker \
@@ -10,12 +8,9 @@ sudo yum remove docker \
 
 # set up the repository
 sudo yum install -y yum-utils;
-# sudo yum-config-manager \
-#     --add-repo \
-#     https://download.docker.com/linux/centos/docker-ce.repo;
-
-sudo dnf config-manager \
-    --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo;
 
 # install docker engine
 sudo yum install docker-ce docker-ce-cli containerd.io
