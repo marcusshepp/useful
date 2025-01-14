@@ -41,7 +41,9 @@ import subprocess
 from dataclasses import dataclass
 from enum import Enum, auto
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, Optional
+
+PATH_TO_WORKING_DIRECTORY = "~/p/LegBone/EvaAPI"
 
 EVA_ASCII = """
 ███████╗██╗   ██╗ █████╗ 
@@ -320,9 +322,11 @@ def parse_arguments() -> argparse.Namespace:
 
 def main() -> None:
     print(EVA_ASCII)
+    print("Welcome to the Eva Migration Manager! 🦴")
+    print("Working Directory: ", PATH_TO_WORKING_DIRECTORY)
     
     args = parse_arguments()
-    working_directory = os.path.expanduser("~/p/LegBone/EvaAPI")
+    working_directory = os.path.expanduser(PATH_TO_WORKING_DIRECTORY)
     
     manager = MigrationManager(working_directory)
     
