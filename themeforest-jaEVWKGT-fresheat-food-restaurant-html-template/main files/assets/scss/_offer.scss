@@ -1,0 +1,87 @@
+
+
+.offer-card {
+    
+    &.style1 {
+        padding: 0px 0px 18px 30px; 
+        display: flex;
+        gap: 0px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        .offer-content {
+            h6 {
+                color: $theme-color; 
+                font-family: $title-font;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 900;
+                line-height: 1;  
+                text-transform: uppercase;
+                margin-bottom: 15px;
+                margin-top: 63px;
+            }
+
+            h3 {
+                color: $white; 
+                font-family: $title-font;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 900;
+                line-height: 1;  
+                text-transform: uppercase;
+                margin-bottom: 15px;
+            }
+
+            p {
+                color: $theme-color-2; 
+                font-family: $title-font;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 900;
+                line-height: 1;  
+                text-transform: capitalize;
+                margin-bottom: 32px;
+            }
+        }
+
+        .offer-thumb {
+            position: relative;
+            .thumbImg {
+                width: 276px;
+                height: 260px;
+                object-fit: contain;
+
+                @include breakpoint (max-xxxl) {
+                    width: 139px;
+                }
+
+                @include breakpoint (max-lg) { 
+                    width: 276px;
+                }
+            }
+            .shape {
+                position: absolute;
+                top: 0;
+                left: -30px;
+            }
+        }
+
+        @include breakpoint (max-lg) {
+            justify-content: space-between;
+        }
+        @include breakpoint (max-md) {
+            flex-direction: column-reverse;
+        }
+    }
+}
+
+.offer-section {
+    position: relative;
+
+    .offer-shape {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+}

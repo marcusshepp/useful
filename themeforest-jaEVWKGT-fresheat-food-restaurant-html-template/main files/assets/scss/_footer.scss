@@ -1,0 +1,447 @@
+
+
+.footer-top {
+    padding: 50px 50px;
+    background: $theme-color-2;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    .fancy-box {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        .item1 {
+            i {
+                width: 39px;
+                height: 39px;
+                line-height: 39px;
+                text-align: center;
+                background: $white;
+                color: $theme-color-2;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+}
+        }
+
+        .item2 {
+            h6 {
+                color: $white; 
+                font-family: $body-font;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                text-transform: capitalize;
+                margin-bottom: 10px;
+            }
+
+            p { 
+                color: $white;  
+                font-family: $title-font;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+        }
+    }
+}
+
+
+.footer-widgets-wrapper {
+    padding: 90px 0 120px;
+    position: relative;
+    z-index: 9;
+
+    .shape1{
+        position: absolute;
+        bottom: 56px;
+        left: 0;
+        z-index: -1;
+    }
+
+    .shape2{
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        z-index: -1;
+    }
+
+
+    .shape3{
+        position: absolute;
+        top: -40%;
+        right: 0;
+        z-index: -1;
+    }
+
+
+    .shape4{
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: -1;
+    }
+
+
+  
+
+
+    @include breakpoint(max-xl){
+        padding: 70px 0 100px;
+    }
+
+    @include breakpoint(max-lg){
+        padding: 50px 0 70px;
+    }
+
+    .single-footer-widget {
+        margin-top: 30px;
+
+        form {
+            .form-control {
+                display: flex;
+                min-width: 260px;
+                padding: 8px 16px;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                border: none;
+                border-radius: 8px;
+                background: $white;
+                overflow: hidden;
+                .email { 
+                    border: none;
+                }
+
+                button { 
+                    text-align: center;
+                    background: $theme-color-2;
+                    color: $white;
+                    border-radius: 8px;
+                    padding: 10px 15px;
+                }
+
+                &.style2 {
+                    background: transparent;
+                    padding-left: 0;
+                    justify-content: start;
+                    gap: 10px;
+
+                    label {
+                        color: #FFF; 
+                        font-family: $body-font;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 28px;  
+
+                        a {
+                            color: #FFF; 
+                            font-family: $body-font;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 28px;  
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                @include breakpoint (max-xl) {
+                    max-width: 270px;
+                }
+            }
+
+        }
+        .widget-head {
+            margin-bottom: 30px;
+
+            @include breakpoint (max-sm){
+               margin-bottom: 20px;
+            }
+
+            h3 {
+                font-weight: bold;
+                color: $white;
+                font-size: 24px;
+                display: inline-block;
+                position: relative;
+                padding-bottom: 20px;
+
+                &::before {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    content: "";
+                    width: 25px;
+                    height: 2px;
+                    background-color: $theme-color-2;
+                }
+
+                &::after {
+                    position: absolute;
+                    bottom: 0;
+                    left: 40px;
+                    content: "";
+                    width: 55px;
+                    height: 2px;
+                    background-color: $white;
+                }
+
+                @include breakpoint (max-md){
+                    font-size: 23px;
+                }
+
+                @include breakpoint (max-sm){
+                    font-size: 20px;
+                }
+            }
+
+            h4 {
+                font-weight: bold;
+                color: $white;
+                font-size: 24px;
+                display: inline-block;
+            }
+
+            .footer-input {
+                position: relative;
+
+                input {
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    width: 100%;
+                    color: rgba(255, 255, 255, 0.69);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+                    padding-bottom: 20px;
+
+                    &::placeholder {
+                        color: rgba(255, 255, 255, 0.69);
+                    }
+                }
+
+                .newsletter-btn {
+                    position: absolute;
+                    top: 10px;
+                    right: 0;
+                    color: $white;
+
+                    i {
+                        font-size: 22px;
+                        transform: rotate(-40deg);
+                    }
+                }
+            }
+        }
+
+        .footer-content {
+            p {
+                color: rgba(255, 255, 255, 0.85);
+            }
+
+            .social-icon {
+                margin-top: 40px;
+                gap: 10px;
+                position: relative;
+                z-index: 9;
+
+                @include breakpoint (max-sm){
+                    margin-top: 20px;
+                }
+
+                a {
+                    width: 36px;
+                    height: 36px;
+                    line-height: 36px;
+                    text-align: center;
+                    border: 1px solid rgba(255, 255, 255, .2);
+                    background-color: transparent;
+                    color: $white;
+
+                    &:hover {
+                        background-color: $theme-color;
+                        color: $white!important;
+                    }
+                }
+            }
+            
+            .footer-input {
+                position: relative;
+                margin-top: 40px;
+
+                input {
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    padding: 18px 20px;
+                    width: 100%;
+                    border-radius: 8px;
+                    border: 1px solid rgba(255, 255, 255, .3);
+                    color: rgba(255, 255, 255, .8);
+
+                    &::placeholder {
+                        color: rgba(255, 255, 255, .8);
+                    }
+                }
+
+                .newsletter-btn {
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                    width: 60px;
+                    height: 55px;
+                    line-height: 60px;
+                    border-radius: 8px;
+                    text-align: center;
+                    background-color: $theme-color;
+                    color: $white;
+                    bottom: 5px;
+
+                    i {
+                        font-size: 24px;
+                    }
+                }
+            }
+        }
+
+        .list-area {
+            display: inline-block;
+            li {
+                
+                @include transition;
+                font-weight: 500;
+
+                &:not(:last-child){
+                    margin-bottom: 20px;
+                }
+
+                a {
+                    color: $white;
+
+                    i {
+                        margin-right: 5px;
+                    }
+                }
+
+                &:hover {
+                    margin-left: 5px;
+                    a {
+                        color: $theme-color;
+                    }
+                }
+            }
+       }
+    }
+}
+
+.footer-bottom {
+    position: relative;
+    z-index: 9;
+    background: $theme-color;
+
+    .footer-wrapper {  
+      padding: 18px 0; 
+        @include breakpoint (max-md){
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center !important;
+        }
+
+        p {
+            color: $white;
+ 
+                a {
+                    color: $white!important;
+                    &:hover {
+                        color: $white!important;
+                    }
+                } 
+        }
+        
+        .brand-logo {
+            @include flex;
+            gap: 20px;
+
+            li {
+                border: 1px solid rgba(255, 255, 255, 0.50);
+                padding: 5px 7px;
+                border-radius: 6px;
+
+                a {
+                    color: $white;
+                    &:hover {
+                        color: $white!important;
+                    }
+                }
+            }
+        }
+    
+    }
+}
+ 
+.contact-info-area {
+    padding-top: 120px;
+    @include flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    padding-bottom: 50px;
+
+    @include breakpoint (max-xxl){
+        flex-wrap: wrap;
+        gap: 40px;
+        padding-top: 80px;
+        justify-content: initial;
+    }
+
+    @include breakpoint (max-sm){
+        gap: 30px;
+    }
+
+    .contact-info-items {
+        @include flex;
+        gap: 20px;
+        justify-content: space-between;
+        position: relative;
+
+        @include breakpoint (max-xl){
+            flex-wrap: wrap;
+        }
+
+        .icon {
+            width: 65px;
+            height: 65px;
+            line-height: 65px;
+            text-align: center;
+            position: relative;
+            border: 2px dotted $white;
+            border-radius: 50%;
+            font-size: 30px;
+            color: $white;
+        }
+
+        .content {
+            p {
+                color: $white;
+                margin-bottom: 5px;
+            }
+
+            h3 {
+                font-size: 24px;
+                color: $white;
+                text-transform: initial;
+
+                a {
+                    color: $white;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,144 @@
+/*-----------------------------------------------------------------
+Theme Name: Fresheat
+Author: Gramentheme
+Author URI: https://themeforest.net/user/gramentheme 
+Version: 1.0.0 
+Description: Fresheat food & Restaurant Html Template  <
+ 
+-------------------------------------------------------------------
+ CSS TABLE OF CONTENTS
+-------------------------------------------------------------------
+
+01.Mixins
+02.Variables
+03.Typography
+04.Buttons 
+05.Gutter 
+06.Container 
+07.Animation 
+08.Helping 
+09.MeanMenu 
+10.Preloader
+11.Title 
+12.Common 
+13.Header 
+14.Footer 
+15.Contact 
+16.Banner 
+17.Breadcumb
+18.Marquee
+19.Gallery
+20.Testimonial
+21.Chefe
+22.History 
+23.Timer
+24.Menu
+25.Cta
+26.Popular Dishes
+27.About
+28.Services
+29.Offer
+30.Food Items
+31.Faq
+32.Wcu
+33.Blog
+34.Blog Extra
+35.Sidebar
+36.Shop
+37.Cart
+38.Checkout
+39.Wishlist
+40.Woocommerce
+
+------------------------------------------------------------------*/
+
+
+//>> Basic Start <<//
+
+/* 01.Mixins */
+@import "_mixins";
+/* 02.Variables */
+@import "_variables";
+/* 03.Typography */
+@import "_typography";
+/* 04.Buttons */
+@import "_buttons";
+/* 05.Gutter */
+@import "_gutter";
+/* 06.Container */
+@import "_container";
+/* 07.Animation */
+@import "_animation"; 
+/* 08.Helping */
+@import "_helping"; 
+/* 09.MeanMenu */
+@import "_meanmenu";
+/* 10.Preloader */
+@import "_preloader";
+//>> Basic End <<//	
+
+
+//>> Template Section Style Start <<//  
+
+/* 11.Title */
+@import "_title";
+/* 12.Common */
+@import "_common";
+/* 13.Header */
+@import "_header"; 
+/* 14.Footer */
+@import "_footer"; 
+/* 15.Contact */
+@import "_contact"; 
+/* 16.Banner */
+@import "_banner";    
+/* 17.Breadcumb */
+@import "_breadcumb";
+/* 18.Marquee */
+@import "_marquee";
+/* 19.Gallery */
+@import "_gallery";
+/* 20.Testimonial */
+@import "_testimonial";
+/* 21.Chefe */
+@import "_chefe"; 
+/* 22.History */
+@import "_history";
+/* 23.Timer */
+@import "_timer";
+/* 24.Menu */
+@import "_menu";
+/* 25.Cta */
+@import "_cta";
+/* 26.Popular Dishes */
+@import "_popular-dishes.scss";
+/* 27.About */
+@import "_about";
+/* 28.Services */
+@import "_services";
+/* 29.Offer */  
+@import "_offer"; 
+/* 30.Food Items */  
+@import "_food-items";
+/* 31.Faq */  
+@import "_faq";
+/* 32.Wcu */  
+@import "_wcu";
+/* 33.Blog */
+@import "_blog";
+/* 34.Blog Extra */
+@import "_blog-extra";
+/* 35.Sidebar */
+@import "_sidebar"; 
+/* 36.Shop */
+@import "_shop"; 
+/* 37.Cart */
+@import "_cart"; 
+/* 38.Checkout */
+@import "_checkout"; 
+/* 39.Wishlist */
+@import "_wishlist"; 
+/* 40.Woocommerce */
+@import "_woocommerce"; 
+//>> Template Section Style End <<//
+

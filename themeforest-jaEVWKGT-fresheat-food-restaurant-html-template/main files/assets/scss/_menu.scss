@@ -1,0 +1,344 @@
+.food-menu-wrapper {
+
+    &.style2 {
+        background-color: $white;
+    }
+
+}
+
+.food-menu-section  {
+    position: relative;
+
+    .burger-shape {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+
+        @include breakpoint (max-xl){
+            display: none;
+        }
+    }
+
+    .fry-shape {
+        position: absolute;
+        top: 45%;
+        right: 0;
+        transform: translateY(-50%);
+
+        @include breakpoint (max-xl){
+            display: none;
+        }
+    }
+}
+
+.food-menu-tab-wrapper {
+    &.style-bg {
+        background-color: $white;
+        border-radius: 20px;
+        padding: 75px 130px;
+
+        @include breakpoint (max-lg){
+            padding: 60px 30px;
+        }
+    }
+}
+
+.food-menu-tab {
+    // max-width: 1173px;
+    // margin: 0 auto;
+
+    .nav-pills {
+        justify-content: center;
+        border-bottom: 1px solid $border-color-2;
+        padding-bottom: 30px;
+        margin-top: 30px;
+
+        .nav-link {
+            padding: 5px 24px 0px 0px;
+            margin: 10px 0;
+            color: $title-color;
+            font-family: $title-font;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 30px;
+            margin-right: 24px;
+            border-right: 1px dashed $border-color-2;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            -ms-border-radius: 0px;
+            -o-border-radius: 0px;
+
+            img {
+                margin-right: 10px;
+            }
+
+            &.active {
+                color: $theme-color;
+                background-color: transparent;
+            }
+
+            @include breakpoint (max-md) {
+                border: 0;
+            }
+        }
+
+    }
+
+    .tab-content {
+        margin-top: 36px;
+    }
+
+    &.style2 {
+       padding: 0 120px;
+
+       @include breakpoint (max-xxxl){
+            padding: 0 70px;
+       }
+
+       @include breakpoint (max-xl){
+            padding: 0 50px;
+        }
+
+       @include breakpoint (max-md){
+            padding: 0 40px;
+        }
+
+        .nav-pills {
+            justify-content: center;
+            border-bottom: 0px;
+            padding-bottom: 0px;
+            margin-top: 30px;
+
+            .nav-link {
+                padding: 5px 24px 0px 0px;
+                margin: 10px 0;
+                color: $title-color;
+                font-family: $title-font;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 30px;
+                margin-right: 24px;
+                border-right: 0px;
+                border-radius: 0px;
+                -webkit-border-radius: 0px;
+                -moz-border-radius: 0px;
+                -ms-border-radius: 0px;
+                -o-border-radius: 0px;
+
+                img {
+                    margin-right: 10px;
+                }
+
+                &.active {
+                    color: $theme-color-2;
+                    background-color: transparent;
+                }
+
+                @include breakpoint (max-md) {
+                    border: 0;
+                }
+            }
+
+        }
+
+        .tab-content {
+            margin-top: 0px;
+        }
+
+        .single-menu-items {
+            .details {
+                .menu-content {
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid $border-color-2;
+
+                    h3 {
+                        color: $title-color;
+                        font-family: $title-font;
+                        font-size: 20px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 30px;
+                        text-transform: capitalize;
+                        margin-bottom: 5px;
+
+                        &.active {
+                            color: $theme-color-2 !important;
+                        }
+                    }
+
+                    p {
+                        color: $text-color;
+                        font-family: $body-font;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 24px;
+                        max-width: 350px;
+                    }
+
+                }
+            }
+        }
+
+
+    }
+}
+
+.single-menu-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+   
+    @include breakpoint (max-xxl) {
+        margin-top: 25px;
+    }
+
+    @include breakpoint (max-xxs) {
+       flex-wrap: wrap;
+       gap: 25px;
+    }
+    
+    .details {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .menu-content {
+            h3 {
+                color: $title-color;
+                font-family: $title-font;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 50px;
+                text-transform: capitalize;
+                margin-bottom: 0px;
+                cursor: pointer;
+
+                &.active {
+                    color: $theme-color !important;
+                }
+
+                @include breakpoint (max-xxl) {
+                    font-size: 21px;
+                    line-height: 30px;
+                    margin-bottom: 0px;
+                }
+            }
+
+            a {
+                h3 {
+                    color: $title-color;
+                    font-family: $title-font;
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 50px;
+                    text-transform: capitalize;
+                    margin-bottom: 0px;
+                    
+                @include breakpoint (max-xxl) {
+                    font-size: 21px;
+                    line-height: 30px;
+                    margin-bottom: 0px;
+                }
+                }
+            }
+
+            p {
+                color: $text-color;
+                font-family: $body-font;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px;
+                margin-top: -0.3em;
+            }
+        }
+    }
+
+    h6 {
+        color: $title-color;
+        text-align: right;
+        font-family: $title-font;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 28px;
+    }
+
+}
+
+.food-menu-tab-wrapper {
+    &.style2 {
+        background-color: $white;
+        margin-top: 40px;
+
+        .nav-item {
+            width: 100%;
+
+            .single-menu-items {
+                margin-top: 10px;
+
+                .details {
+                    .menu-content {
+                        text-align: left;
+                    }
+                }
+            }
+        }
+
+        .nav-pills .nav-link {
+            width: 100%;
+        }
+
+        .nav-pills .nav-link.active,
+        .nav-pills .show>.nav-link {
+            color: $theme-color;
+            background-color: transparent;
+
+            .menu-content {
+                h3 {
+                    color: $theme-color;
+                }
+            }
+        }
+
+        .menuthumb {
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+
+    &.style3 {
+        position: relative;
+        z-index: 1;
+
+        .shape1 {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+        }
+
+        .shape2 {
+            position: absolute;
+            top: 73px;
+            right: 20px;
+        }
+
+        .shape3 {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+        }
+    }
+}

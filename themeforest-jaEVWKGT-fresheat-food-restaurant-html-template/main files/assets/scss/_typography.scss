@@ -1,0 +1,153 @@
+/* --------------------------------------------
+    Template Default Fonts & Fonts Styles
+ ---------------------------------------------- */
+ @import url('https://fonts.googleapis.com/css2?family=Engagement&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+ 
+ 
+
+//font-family: "Font Awesome 6 Free";
+$fa: "Font Awesome 6 Pro";
+
+body {
+    font-family: $body-font;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 28px;
+    color: $text-color;
+    background-color: $white;
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+	padding: 0;
+}
+
+input:focus{
+	color:  $text-color;
+	outline: none;
+}
+
+input { 
+    &::placeholder {
+        color: $text-color;
+    }
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $title-font;
+    margin: 0px;
+	padding: 0;
+    color: $title-color;
+	text-transform: capitalize;
+	@include transition;
+}
+
+h1 {
+	font-size: 42px;
+	font-weight: 700;
+	line-height: 120%;
+}
+
+h2 {
+	font-size: 40px;
+	line-height: 145%;
+	font-weight: 700;
+
+	@include breakpoint(max-md){
+		font-size: 34px;
+	}
+
+	@include breakpoint(max-sm){
+		font-size: 28px;
+	}
+}
+
+h3 {
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 145%;
+
+	@include breakpoint(max-md){
+		font-size: 16px;
+	}
+}
+
+h4 {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 130%;
+}
+
+h5 {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+h6 {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 145%;
+}
+
+a {
+    text-decoration: none;
+	color: $text-color;
+    outline: none !important;
+    cursor: pointer; 
+	@include transition;
+	&:hover{
+		color: $theme-color!important;
+	}
+}
+
+p {
+    margin: 0px;
+	@include transition;
+}
+
+span {
+	margin: 0px;
+	@include transition;
+}
+
+ 
+input.form-control, 
+textarea.form-control { 
+	outline: none;
+	box-shadow: none;
+	background-color: #f8f9fa;
+	border-color: #D4DCFF;
+	padding: 15px 10px;
+	font-size: 1rem;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	-o-border-radius: 0;
+	border: none;
+}
+
+ 
+input.form-control:focus, 
+textarea.form-control:focus {
+    background-color: #f8f9fa; 
+	border-color: #D4DCFF;
+    outline: none;
+    box-shadow: none;
+}

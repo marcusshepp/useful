@@ -1,0 +1,155 @@
+
+.marquee-wrapper {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: $theme-color;
+    z-index: 9;
+
+    &.style-1 {
+        background-color: transparent;
+        line-height: 55px; 
+        margin-bottom: -50px; 
+        @include breakpoint (max-xl){ 
+            margin: -10px 0px;   
+        }
+
+        &.text-slider {
+            height: auto;
+        }
+    }
+
+    &.style-2 {
+        background-color: transparent;
+        line-height: 55px;
+        margin-bottom: 80px;
+
+        @include breakpoint (max-md){
+            margin-bottom: 30px;
+        }
+    }
+}
+
+.text-slider {
+    font-size: 50px;
+    height: 100px;
+    line-height: 90px;
+    font-weight: 700;
+    text-transform: capitalize;
+    color: $white;
+    
+    &:not(:last-child){
+        margin-right: 30px;
+    }
+
+    @include breakpoint (max-md){
+        font-size: 36px;
+    }
+
+    img {
+        margin-bottom: 10px;
+    }
+
+   
+}
+
+.marquee-inner {
+    position: absolute;
+    display: inline-flex;
+    width: 200%;
+}
+
+.marquee-list {
+    float: left;
+    width: 50%;
+}
+
+.marquee-item {
+    float: left;
+    transition: animation 0.2s ease-out;
+
+    &.style1 {    
+        .text-style {
+            @include transition;
+            background-image: linear-gradient($theme-color,$theme-color);
+            background-position: 0 95%;
+            background-repeat: no-repeat;
+            background-size: 0% 2px;
+            color: #bcb8b1;   
+            font-family: $title-font;
+            font-size: 80px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            text-transform: uppercase;
+
+            &:hover {
+                color: $theme-color;
+                background-size: 100% 3px;
+                opacity: 1;
+            }
+        }
+    }
+
+    &.style-2 {
+        .text-slider { 
+            margin-right: 40px; 
+            color: $white; 
+            font-family: $title-font;
+            font-size: 100px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            text-transform: uppercase;
+            opacity: 0.06;
+
+            @include breakpoint (max-md){
+                font-size: 70px;
+            }
+        }
+
+        .text-style {
+            @include transition;
+            background-image: linear-gradient($theme-color,$theme-color);
+            background-position: 0 95%;
+            background-repeat: no-repeat;
+            background-size: 0% 2px;
+
+            &:hover {
+                color: $theme-color;
+                background-size: 100% 3px;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.marquee-inner.to-left {
+    animation: marqueeLeft 25s linear infinite;
+}
+
+@keyframes marqueeLeft {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+.marquee-inner.to-right {
+    animation: marqueeRight 25s linear infinite;
+}
+
+@keyframes marqueeRight {
+    0% {
+       right : 0;
+    }
+    100% {
+        right: -100%;
+    }
+}
+
+.marque-section-2 {
+    position: relative; 
+}

@@ -1,0 +1,28 @@
+
+
+.wcu-wrapper {
+    &.style1 {
+        position: relative;
+        .shape1 {
+            position: absolute;
+            bottom: -100px;
+            left: 40px;
+            z-index: 1;
+        }
+
+        .shape2 {
+            position: absolute;
+            top: -40px;
+            right: 0px;
+            z-index: 1;
+        }
+
+        .wcu-thumb {
+            @include breakpoint (max-xl){
+                img {
+                    @include imgw;
+                }
+            }
+        }
+    }
+}
