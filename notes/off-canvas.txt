@@ -1,0 +1,199 @@
+offcanvas html
+
+<div class="fix-area">
+  <div class="offcanvas__info">
+    <div class="offcanvas__wrapper">
+      <div class="offcanvas__content">
+        <div
+          class="offcanvas__top mb-5 d-flex justify-content-between align-items-center"
+        >
+          <div class="offcanvas__logo">
+            <a routerLink="/">
+              <img src="/img/old/logo.png" class="logo-img" alt="logo-img" />
+            </a>
+          </div>
+          <div class="offcanvas__close">
+            <button>
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="mobile-menu fix mb-3"></div>
+        <div class="offcanvas__contact">
+          <h4>Contact Info</h4>
+          <ul>
+            <li class="d-flex align-items-center">
+              <div class="offcanvas__contact-icon">
+                <i class="fal fa-map-marker-alt"></i>
+              </div>
+              <div class="offcanvas__contact-text">
+                <a target="_blank" [href]="socials.GOOGLE"
+                  >{{contact.ADDRESS}}</a
+                >
+              </div>
+            </li>
+            <li class="d-flex align-items-center">
+              <div class="offcanvas__contact-icon mr-15">
+                <i class="fal fa-envelope"></i>
+              </div>
+              <div class="offcanvas__contact-text">
+                <a [href]="contact.PHONE_LINK"
+                  ><span class="mailto:info@enofik.com"
+                    >{{contact.EMAIL}}</span
+                  ></a
+                >
+              </div>
+            </li>
+            <li class="d-flex align-items-center">
+              <div class="offcanvas__contact-icon mr-15">
+                <i class="fal fa-clock"></i>
+              </div>
+              <div class="offcanvas__contact-text">
+                <a target="_blank" href="#">Mon-Sat, 09am - 10pm</a>
+              </div>
+            </li>
+            <li class="d-flex align-items-center">
+              <div class="offcanvas__contact-icon mr-15">
+                <i class="far fa-phone"></i>
+              </div>
+              <div class="offcanvas__contact-text">
+                <a [href]="contact.PHONE_LINK">{{contact.PHONE}}</a>
+              </div>
+            </li>
+          </ul>
+          <div class="header-button mt-4"></div>
+          <div class="social-icon d-flex align-items-center">
+            <a target="_blank" [href]="socials.FACEBOOK"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a target="_blank" [href]="socials.YELP"
+              ><i class="fab fa-yelp"></i
+            ></a>
+            <a target="_blank" [href]="socials.GOOGLE"
+              ><i class="fab fa-google"></i
+            ></a>
+            <a target="_blank" [href]="socials.INSTAGRAM"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="offcanvas__overlay"></div>
+
+header html
+
+<app-preloader></app-preloader>
+<!--<div class="mouse-cursor cursor-outer"></div>-->
+<!--<div class="mouse-cursor cursor-inner"></div>-->
+<!---->
+<button id="back-top" class="back-to-top">
+  <i class="fa-regular fa-arrow-up"></i>
+</button>
+
+<app-offcanvas></app-offcanvas>
+
+<header class="header-section">
+  <div class="black-bg"></div>
+  <div class="red-bg"></div>
+  <div class="container-fluid">
+    <div class="main-header-wrapper">
+      <div class="logo-image">
+        <a routerLink="/">
+          <img src="/img/old/logo.png" class="logo-img" alt="logo-img" />
+        </a>
+      </div>
+      <div class="main-header-items">
+        <div class="header-top-wrapper">
+          <span><i class="fa-regular fa-clock"></i> 09:00 am - 10:00 pm</span>
+          <div class="social-icon d-flex align-items-center">
+            <span>Follow Us:</span>
+            <a target="_blank" [href]="socials.FACEBOOK"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a target="_blank" [href]="socials.YELP"
+              ><i class="fab fa-yelp"></i
+            ></a>
+            <a target="_blank" [href]="socials.GOOGLE"
+              ><i class="fab fa-google"></i
+            ></a>
+            <a target="_blank" [href]="socials.INSTAGRAM"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+        <div id="header-sticky" class="header-1">
+          <div class="mega-menu-wrapper">
+            <div class="header-main">
+              <div class="logo">
+                <a href="#" class="header-logo">
+                  <img
+                    src="/img/old/logo.png"
+                    class="logo-img"
+                    alt="logo-img"
+                  />
+                </a>
+              </div>
+              <div class="header-left">
+                <div class="mean__menu-wrapper">
+                  <div class="main-menu">
+                    <nav id="mobile-menu">
+                      <ul>
+                        <li>
+                          <a routerLink="/"> Home </a>
+                        </li>
+                        <li>
+                          <a routerLink="catering"> Catering </a>
+                        </li>
+                        <li>
+                          <a routerLink="menu"> Menu </a>
+                        </li>
+                        <li class="has-dropdown">
+                          <a href="#">
+                            Contact
+                            <i class="fa-regular fa-plus"></i>
+                          </a>
+                          <ul class="submenu">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Feedback</a></li>
+                            <li><a routerLink="reviews">Reviews</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="header-right d-flex justify-content-end align-items-center"
+              >
+                <div class="header__hamburger d-xl-block my-auto">
+                  <div class="sidebar__toggle">
+                    <i class="fas fa-bars"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+with the above code,
+
+the header on the desktop view is correct,
+
+but when the navsigation is rendered on mobile
+
+it repeats the menu items twice
+
+this is the rendered html inside of class=mobile-menu div
+when on mobile
+
+<div class="mean-bar"><a href="#nav" class="meanmenu-reveal" style="right: 0px; left: auto; display: inline;"><span><span><span></span></span></span></a><nav class="mean-nav"><ul _ngcontent-ng-c2230713318="" style="display: none;"><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" routerlink="/" ng-reflect-router-link="/" href="http://localhost:4200/"> Home </a></li><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" routerlink="catering" ng-reflect-router-link="catering" href="http://localhost:4200/catering"> Catering </a></li><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" routerlink="menu" ng-reflect-router-link="menu" href="http://localhost:4200/menu"> Menu </a></li><li _ngcontent-ng-c2230713318="" class="has-dropdown"><a _ngcontent-ng-c2230713318="" href="#"> Contact <i _ngcontent-ng-c2230713318="" class="fa-regular fa-plus"></i></a><ul _ngcontent-ng-c2230713318="" class="submenu" style="display: none;"><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" href="#">Contact Us</a></li><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" href="#">Feedback</a></li><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" routerlink="reviews" ng-reflect-router-link="reviews" href="http://localhost:4200/reviews">Reviews</a></li></ul><a class="mean-expand" href="#" style="font-size: 18px"><i class="far fa-plus"></i></a></li></ul></nav></div><div class="mean-bar"><a href="#nav" class="meanmenu-reveal" style="right: 0px; left: auto; display: inline;"><span><span><span></span></span></span></a><nav class="mean-nav"><ul _ngcontent-ng-c2230713318="" style="display: none;"><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" routerlink="/" ng-reflect-router-link="/" href="http://localhost:4200/"> Home </a></li><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" routerlink="catering" ng-reflect-router-link="catering" href="http://localhost:4200/catering"> Catering </a></li><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" routerlink="menu" ng-reflect-router-link="menu" href="http://localhost:4200/menu"> Menu </a></li><li _ngcontent-ng-c2230713318="" class="has-dropdown"><a _ngcontent-ng-c2230713318="" href="#"> Contact <i _ngcontent-ng-c2230713318="" class="fa-regular fa-plus"></i></a><ul _ngcontent-ng-c2230713318="" class="submenu" style="display: none;"><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" href="#">Contact Us</a></li><li _ngcontent-ng-c2230713318=""><a _ngcontent-ng-c2230713318="" href="#">Feedback</a></li><li _ngcontent-ng-c2230713318="" class="mean-last"><a _ngcontent-ng-c2230713318="" routerlink="reviews" ng-reflect-router-link="reviews" href="http://localhost:4200/reviews">Reviews</a></li></ul><a class="mean-expand" href="#" style="font-size: 18px"><i class="far fa-plus"></i></a></li></ul></nav></div>
+fix this to only show the menu items once on mobile

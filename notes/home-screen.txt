@@ -1,0 +1,16 @@
+I need to create a TUI application
+
+it's going to be written in go lang 
+it will utilize bubbletea and bubbles libraries
+
+when activated, it will show a list of projects to choose from 
+
+the way that the projects are kwown is that the application can also be used as a cli tool
+
+so for example as a user
+i can cd into the directory i want to add as a project.
+and then run the command `home-screen add` and it will add the current directory as a project
+
+the home screen will allow vim keybindings to navigate the list of projects
+
+pressing enter will open the project in neovim

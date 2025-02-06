@@ -1,0 +1,87 @@
+I have a website business where I create and host websites for small businesses.
+
+I have an anthropic api account.
+
+i want to create a cli tool that helps with my website business 
+
+This should use python 
+
+The work flow that I usually follow is 
+
+Buy a template that is usually html css and jquery
+
+Then port that template into angular 
+
+Try my best to optimise the application for seo and performance
+
+Create many components with the html and make it more angular specific
+
+Then I host the website for the client
+
+I need a tool that helps me do this faster and more efficiently
+
+I need to brainstorm this a bit more
+and come up with possible ways that I can use ai with the python tool to help me be more efficient with my website business
+
+Some ideas I had were generating angular components with ai 
+or generating seo tags with ai
+or generating performance optimisations with ai
+
+Some kind of way where the prompts are more optimised for my website business or the tool is more optimised for my website business
+
+i'm not sure where to go from here
+
+
+----
+It sounds like you have a clear workflow for your website business, and using AI could definitely help you streamline and automate several parts of the process. Let's brainstorm a few ideas on how to make this Python CLI tool helpful for your specific needs:
+1. Angular Component Generation with AI
+
+    Idea: The tool could take HTML/CSS snippets from the template and convert them into Angular components automatically.
+    Approach: You could create a function where you input a block of HTML, and the AI generates an Angular component, including the necessary bindings, TypeScript logic, and structure that fits into your Angular project.
+    Benefit: It would save time during the porting process and ensure that the components are structured consistently.
+
+2. SEO Tag Generation with AI
+
+    Idea: After you port a website to Angular, the AI could analyze the page content and generate SEO-friendly tags, meta descriptions, and even improve the structure for better search engine visibility.
+    Approach: You can feed the AI content from each page, and it would return suggestions for meta tags, schema markup, or adjustments to the header structure (like using appropriate heading levels for better SEO).
+    Benefit: This would help ensure every page you build is optimized for search engines right from the start, without needing to research keywords manually.
+
+3. Performance Optimization Suggestions
+
+    Idea: The tool could analyze the Angular project and recommend performance improvements (e.g., lazy loading, image optimization, preloading strategies).
+    Approach: AI could scan through your files and detect areas where performance could be enhanced, like large image files, unused CSS, or non-lazy-loaded components. The tool could then provide concrete suggestions to optimize the website.
+    Benefit: This could automatically give you a checklist of areas to optimize and even generate code snippets for some improvements.
+
+4. Template Cleanup and Conversion
+
+    Idea: Automate the process of converting jQuery-heavy templates into more Angular-friendly, modern components.
+    Approach: You could have a "template conversion" mode in the CLI, where the AI helps strip out legacy jQuery and convert it into Angular animations or functionality, replacing outdated parts of the template with modern Angular equivalents.
+    Benefit: This would ensure you don’t have to manually remove or refactor old code and keep the new project clean and efficient.
+
+5. AI-Assisted Content Generation
+
+    Idea: If you provide content for your client’s websites, AI could assist in generating basic content or improving the readability of existing content.
+    Approach: The tool could generate placeholder text, or rewrite provided content to be more SEO-optimized, readable, and client-friendly.
+    Benefit: Saves time on content creation, while ensuring it’s optimized for the web.
+
+6. Build Process Optimization
+
+    Idea: The CLI tool could assist in automating parts of the deployment process, such as bundling, minifying, or checking for potential issues before going live.
+    Approach: Use AI to inspect the build output and provide suggestions for potential issues or build optimizations (e.g., removing unnecessary assets, ensuring code splitting).
+    Benefit: Automating this process helps catch mistakes early and ensures that the deployment is as efficient as possible.
+
+Possible Features for the CLI Tool:
+
+    Component Generator: Feed in a piece of HTML, and it converts it into an Angular component.
+    SEO Optimizer: Analyze a page’s content and recommend/insert SEO tags, keywords, etc.
+    Performance Scanner: Scan the project and suggest lazy-loading, compression, etc.
+    Template Cleaner: Replace jQuery with Angular animations and modern features.
+    Deployment Assistant: Automate build optimizations and checks before hosting.
+
+Next Steps:
+
+    You could start by defining which part of your workflow you want to optimize first. For instance, the component generator could be a good starting point as it would automate the porting of HTML templates into Angular.
+    You can explore integrating the Anthropic API into your Python tool, focusing on prompts that are tailored to your use case.
+    Consider the user interface of the CLI tool—how would you like to interact with it, and what would make the tool easy to use and highly efficient for your daily work?
+
+Once you’ve decided on an initial feature to build, I can help sketch out how to implement the tool and integrate the API. Does any particular idea stand out to you right now?

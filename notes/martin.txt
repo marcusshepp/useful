@@ -1,0 +1,291 @@
+<div class="th-hero-wrapper hero-1" id="hero">
+    <div
+        class="swiper th-slider hero-slider1"
+        id="heroSlide1"
+        data-slider-options='{"effect":"fade", "autoHeight": "true"}'
+        data-mask-src="/images/hero/hero_bg-shape-mask.png"
+    >
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div
+                    class="hero-inner"
+                    data-bg-src="/images/old-site/hero.jpg"
+                    data-overlay="black"
+                    data-opacity="6"
+                >
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-6">
+                                <div class="hero-style1">
+                                    <span
+                                        class="sub-title text-theme after-none"
+                                        data-ani="slideinup"
+                                        data-ani-delay="0.2s"
+                                        >Welcome to the track</span
+                                    >
+                                    <h1 class="hero-title text-white">
+                                        <span
+                                            class="title1"
+                                            data-ani="slideinup"
+                                            data-ani-delay="0.4s"
+                                        >
+                                            This IS
+                                        </span>
+                                        <span
+                                            class="title1"
+                                            data-ani="slideinup"
+                                            data-ani-delay="0.4s"
+                                        >
+                                            Motocross
+                                        </span>
+                                    </h1>
+                                    <p
+                                        class="hero-text text-white"
+                                        data-ani="slideinup"
+                                        data-ani-delay="0.5s"
+                                    >
+                                        Martin MX Park features 2 motocross
+                                        tracks. We have our main track and
+                                        completely reconfigured junior track for
+                                        the younger riders. Our motocross track
+                                        is located just off US 131, in Martin,
+                                        Michigan.
+                                    </p>
+
+                                    <div
+                                        *ngIf="!openPractice || !openPractice.isActive"
+                                        class="btn-wrap"
+                                        data-ani="slideinup"
+                                        data-ani-delay="0.7s"
+                                    >
+                                        <a routerLink="/track-info" class="th-btn"
+                                            >VIEW Track Info</a
+                                        >
+                                        <div class="hero-counter-wrap">
+                                            <div class="counter-number-wrap">
+                                                <div class="counter-number">
+                                                    60
+                                                </div>
+                                                k
+                                                <span class="fw-light">+</span>
+                                            </div>
+                                            <h4 class="counter-title">
+                                                Satisfied Riders
+                                            </h4>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        *ngIf="openPractice && openPractice.isActive"
+                                        class="btn-wrap"
+                                        data-ani="slideinup"
+                                        data-ani-delay="0.7s"
+                                    >
+                                        <div class="hero-counter-wrap">
+                                            <h4 class="counter-title" *ngIf="!openPractice.isCancelled">Practice is Open</h4>
+                                            <ng-container *ngIf="openPractice.isCancelled">
+                                                <h4 class="counter-title">Practice is Cancelled for Today</h4>
+                                                <ng-container *ngIf="openPractice.reasonForCancel">
+                                                    <br />
+                                                    <h4 class="counter-title">Due to: {{ openPractice.reasonForCancel }}</h4>
+                                                </ng-container>
+                                            </ng-container>
+                                        </div>
+                                        <a routerLink="/pricing" class="th-btn" *ngIf="!openPractice.isCancelled">Sign Up Now</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div
+                    class="hero-inner"
+                    data-bg-src="/images/hero/hero_bg_1_2.jpg"
+                    data-overlay="black"
+                    data-opacity="6"
+                >
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-6">
+                                <div class="hero-style1">
+                                    <span
+                                        class="sub-title text-theme after-none"
+                                        data-ani="slideinup"
+                                        data-ani-delay="0.2s"
+                                        >Keep Your Body Fitness With
+                                        Workouts</span
+                                    >
+                                    <h1 class="hero-title text-white">
+                                        <span
+                                            class="title1"
+                                            data-ani="slideinup"
+                                            data-ani-delay="0.4s"
+                                        >
+                                            Your Fitness
+                                        </span>
+                                        <span
+                                            class="title1"
+                                            data-ani="slideinup"
+                                            data-ani-delay="0.4s"
+                                        >
+                                            Your Victory
+                                        </span>
+                                    </h1>
+                                    <p
+                                        class="hero-text text-white"
+                                        data-ani="slideinup"
+                                        data-ani-delay="0.5s"
+                                    >
+                                        Gym workouts are structured exercise
+                                        sessions conducted in a fitness facility
+                                        equipped with various exercise machines,
+                                        free weights, and amenities.
+                                    </p>
+                                    <div
+                                        class="btn-wrap"
+                                        data-ani="slideinup"
+                                        data-ani-delay="0.7s"
+                                    >
+                                        <a href="schedule.html" class="th-btn"
+                                            >VIEW CLASS SCHEDULE</a
+                                        >
+                                        <div class="hero-counter-wrap">
+                                            <div class="counter-number-wrap">
+                                                <div class="counter-number">
+                                                    2
+                                                </div>
+                                                k
+                                                <span class="fw-light">+</span>
+                                            </div>
+                                            <h4 class="counter-title">
+                                                Satisfied Customer
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 align-self-end">
+                                <div
+                                    class="hero-img1"
+                                    data-ani="slideinright"
+                                    data-ani-delay="0.5s"
+                                >
+                                    <img
+                                        src="/images/hero/hero_1_2.jpg"
+                                        alt="Image"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-shadow-text">GYM</div>
+                    <div
+                        class="hero-bg-shape1"
+                        data-bg-src="/images/hero/hero_bg_ovarlay1_1.png"
+                    ></div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="icon-box">
+            <button
+                data-slider-prev="#heroSlider1"
+                class="slider-arrow slider-prev"
+            >
+                <span class="icon"></span>
+            </button>
+            <button
+                data-slider-next="#heroSlider1"
+                class="slider-arrow slider-next"
+            >
+                <span class="icon"></span>
+            </button>
+        </div> -->
+    </div>
+</div>
+<div id="about" class="mt-30 mb-30 contact-area-1 position-relative z-index-common">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5">
+                <div class="contact-wrap1 bg-black2">
+                    <div class="title-area mb-40">
+                        <h2 class="sec-title text-white">Park Contact Info</h2>
+                    </div>
+                    <div class="contact-feature">
+                        <div class="box-icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="box-title h5 text-white">Open On</h3>
+                            <p class="box-text">
+                                Wednesday 3 - 8pm, Saturday 10am - 3pm, and
+                                Sunday 11am - 4pm
+                            </p>
+                        </div>
+                    </div>
+                    <div class="contact-feature">
+                        <div class="box-icon">
+                            <i class="far fa-location-dot"></i>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="box-title h5 text-white">Address</h3>
+                            <p class="box-text">
+                                1479 12th St, Martin, MI 49070
+                            </p>
+                        </div>
+                    </div>
+                    <div class="contact-feature">
+                        <div class="box-icon">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="box-title h5 text-white">
+                                Email Address
+                            </h3>
+                            <p class="box-text">
+                                <a href="mailto:helpInfo&#64;fitkitexample.com"
+                                    >martinmxpark&#64;gmail.com</a
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    <div class="contact-feature">
+                        <div class="box-icon">
+                            <i class="far fa-phone"></i>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="box-title h5 text-white">
+                                Phone Number
+                            </h3>
+                            <p class="box-text">
+                                <a href="tel:6164269232">(616) 426-9232</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7">
+                <div class="contact-map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2940.259210665853!2d-85.66419858760385!3d42.52854817105737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8819d46af1e2c68d%3A0xc146fdd90291ccc3!2sMartin%20MX%20Park!5e0!3m2!1sen!2sus!4v1731548985004!5m2!1sen!2sus"
+                        width="600"
+                        height="450"
+                        style="border: 0"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+above is some html from my agnular project.
+
+is a large michigan motocross track called Martin MX
+
+help me create Schema Markup (Structured Data) for my website and explain where I should put it.

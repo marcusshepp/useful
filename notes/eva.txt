@@ -1,0 +1,9 @@
+- no search in user admin
+
+- res management buttons are too tall
+
+- message templates defaults to all view
+  - journal templates defaults to favorites
+  - journal daily builder defaults to all view
+
+- can't search for tied to in tie bar table

@@ -1,0 +1,372 @@
+<section class="popular-dishes-section fix section-padding">
+  <div class="popular-dishes-wrapper style1">
+    <div class="shape1 d-none d-xxl-block">
+      <img src="/img/shape/popularDishesShape1_1.png" alt="shape" />
+    </div>
+    <div class="shape2 float-bob-y d-none d-xxl-block">
+      <img src="/img/shape/popularDishesShape1_2.png" alt="shape" />
+    </div>
+    <div class="container">
+      <div class="title-area">
+        <div class="sub-title text-center wow fadeInUp" data-wow-delay="0.5s">
+          <img class="me-1" src="/img/icon/titleIcon.svg" alt="icon" />POPULAR
+          DISHES<img class="ms-1" src="/img/icon/titleIcon.svg" alt="icon" />
+        </div>
+        <h2 class="title wow fadeInUp" data-wow-delay="0.7s">
+          Best selling Dishes
+        </h2>
+      </div>
+      <div class="dishes-card-wrap style1">
+        <div class="dishes-card style1 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="dishes-thumb">
+            <img src="/img/dishes/dishes1_1.png" alt="thmb" />
+          </div>
+          <a href="#">
+            <h3>Chicken Fried Rice</h3>
+          </a>
+          <p>The registration fee</p>
+          <h6>$100.99</h6>
+          <div class="social-profile">
+            <!--<span class="plus-btn">-->
+            <!--  <a href="#"> <i class="fa-regular fa-heart"></i></a-->
+            <!--></span>-->
+            <ul>
+              <!--<li>-->
+              <!--  <a href="#"-->
+              <!--    ><i class="fa-regular fa-basket-shopping-simple"></i-->
+              <!--  ></a>-->
+              <!--</li>-->
+              <li>
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  ><i class="fa-light fa-eye"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="dishes-card style1 wow fadeInUp" data-wow-delay="0.4s">
+          <div class="social-profile">
+            <!--<span class="plus-btn">-->
+            <!--  <a href="#"> <i class="fa-regular fa-heart"></i></a-->
+            <!--></span>-->
+            <ul>
+              <!--<li>-->
+              <!--  <a href="#"-->
+              <!--    ><i class="fa-regular fa-basket-shopping-simple"></i-->
+              <!--  ></a>-->
+              <!--</li>-->
+              <li>
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  ><i class="fa-light fa-eye"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+          <div class="dishes-thumb">
+            <img src="/img/dishes/dishes1_2.png" alt="thmb" />
+          </div>
+          <a href="#">
+            <h3>Chinese Pasta</h3>
+          </a>
+          <p>The registration fee</p>
+          <h6>$15.99</h6>
+        </div>
+        <!--<div class="dishes-card style1 wow fadeInUp" data-wow-delay="0.6s">-->
+        <!--  <div class="social-profile">-->
+        <!--    <span class="plus-btn">-->
+        <!--      <a href="#"> <i class="fa-regular fa-heart"></i></a-->
+        <!--    ></span>-->
+        <!--    <ul>-->
+        <!--      <li>-->
+        <!--        <a href="#"-->
+        <!--          ><i class="fa-regular fa-basket-shopping-simple"></i-->
+        <!--        ></a>-->
+        <!--      </li>-->
+        <!--      <li>-->
+        <!--        <a-->
+        <!--          href="#"-->
+        <!--          data-bs-toggle="modal"-->
+        <!--          data-bs-target="#exampleModal"-->
+        <!--          ><i class="fa-light fa-eye"></i-->
+        <!--        ></a>-->
+        <!--      </li>-->
+        <!--    </ul>-->
+        <!--  </div>-->
+        <!--  <div class="dishes-thumb">-->
+        <!--    <img src="/img/dishes/dishes1_3.png" alt="thmb" />-->
+        <!--  </div>-->
+        <!--  <a href="#">-->
+        <!--    <h3>Chicken Pizza</h3>-->
+        <!--  </a>-->
+        <!--  <p>The registration fee</p>-->
+        <!--  <h6>$26.99</h6>-->
+        <!--</div>-->
+        <!--<div class="dishes-card style1 wow fadeInUp" data-wow-delay="0.8s">-->
+        <!--  <div class="social-profile">-->
+        <!--    <span class="plus-btn">-->
+        <!--      <a href="#"> <i class="fa-regular fa-heart"></i></a-->
+        <!--    ></span>-->
+        <!--    <ul>-->
+        <!--      <li>-->
+        <!--        <a href="#"-->
+        <!--          ><i class="fa-regular fa-basket-shopping-simple"></i-->
+        <!--        ></a>-->
+        <!--      </li>-->
+        <!--      <li>-->
+        <!--        <a-->
+        <!--          href="#"-->
+        <!--          data-bs-toggle="modal"-->
+        <!--          data-bs-target="#exampleModal"-->
+        <!--          ><i class="fa-light fa-eye"></i-->
+        <!--        ></a>-->
+        <!--      </li>-->
+        <!--    </ul>-->
+        <!--  </div>-->
+        <!--  <div class="dishes-thumb">-->
+        <!--    <img src="/img/dishes/dishes1_4.png" alt="thmb" />-->
+        <!--  </div>-->
+        <!--  <a href="#">-->
+        <!--    <h3>Chicken Noodles</h3>-->
+        <!--  </a>-->
+        <!--  <p>The registration fee</p>-->
+        <!--  <h6>$39.00</h6>-->
+        <!--</div>-->
+        <!--<div class="dishes-card style1 wow fadeInUp" data-wow-delay="0.9s">-->
+        <!--  <div class="social-profile">-->
+        <!--    <span class="plus-btn">-->
+        <!--      <a href="#"> <i class="fa-regular fa-heart"></i></a-->
+        <!--    ></span>-->
+        <!--    <ul>-->
+        <!--      <li>-->
+        <!--        <a href="#"-->
+        <!--          ><i class="fa-regular fa-basket-shopping-simple"></i-->
+        <!--        ></a>-->
+        <!--      </li>-->
+        <!--      <li>-->
+        <!--        <a-->
+        <!--          href="#"-->
+        <!--          data-bs-toggle="modal"-->
+        <!--          data-bs-target="#exampleModal"-->
+        <!--          ><i class="fa-light fa-eye"></i-->
+        <!--        ></a>-->
+        <!--      </li>-->
+        <!--    </ul>-->
+        <!--  </div>-->
+        <!--  <div class="dishes-thumb">-->
+        <!--    <img src="/img/dishes/dishes1_5.png" alt="thmb" />-->
+        <!--  </div>-->
+        <!--  <a href="#">-->
+        <!--    <h3>Grilled Chicken</h3>-->
+        <!--  </a>-->
+        <!--  <p>The registration fee</p>-->
+        <!--  <h6>$20.99</h6>-->
+        <!--</div>-->
+      </div>
+      <div class="btn-wrapper wow fadeInUp" data-wow-delay="0.9s">
+        <a class="theme-btn" href="#"
+          >VIEW ALL ITEM <i class="fa-sharp fa-regular fa-arrow-right"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content pb-3 pe-3">
+        <div class="modal-header border-0">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row gy-5">
+              <div class="col-xxl-6">
+                <div class="modal-thumb">
+                  <div class="product-big-img bg-color2">
+                    <div class="dishes-thumb">
+                      <img
+                        class="img-fluid"
+                        src="/img/dishes/dishes3_1.png"
+                        alt="thumb"
+                      />
+                      <div class="circle-shape">
+                        <img
+                          class="cir36"
+                          src="/img/food-items/circleShape2.png"
+                          alt="shape"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xxl-6">
+                <div class="modal-details">
+                  <div class="product-about">
+                    <div class="title-wrapper">
+                      <h2 class="product-title">Chicken Pizza</h2>
+                      <div class="price">$69</div>
+                    </div>
+
+                    <div class="product-rating">
+                      <div
+                        class="star-rating"
+                        role="img"
+                        aria-label="Rated 5.00 out of 5"
+                      >
+                        <span style="width: 100%"
+                          >Rated <strong class="rating">5.00</strong> out of 5
+                          based on <span class="rating">1</span> customer
+                          rating</span
+                        >
+                      </div>
+                      <a href="#" class="woocommerce-review-link"
+                        >(<span class="count">2</span> customer reviews)</a
+                      >
+                    </div>
+                    <p class="text">
+                      Aliquam hendrerit a augue insuscipit. Etiam aliquam massa
+                      quis des mauris commodo venenatis ligula commodo leez sed
+                      blandit convallis dignissim onec vel pellentesque neque.
+                    </p>
+
+                    <div class="actions">
+                      <div class="quantity">
+                        <p>Quantity</p>
+
+                        <div class="qty-wrapper">
+                          <button class="quantity-plus qty-btn">
+                            <i class="fa-solid fa-plus"></i>
+                          </button>
+                          <input
+                            type="number"
+                            class="qty-input"
+                            step="1"
+                            min="1"
+                            max="100"
+                            name="quantity"
+                            value="1"
+                            title="Qty"
+                          />
+                          <button class="quantity-minus qty-btn">
+                            <i class="fa-solid fa-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <a href="#" class="theme-btn"
+                        >Add to Cart<i
+                          class="fa-regular fa-cart-shopping bg-transparent text-white"
+                        ></i
+                      ></a>
+                      <a href="#" class="theme-btn style5 border-0"
+                        >ADD TO wishlist<i
+                          class="fa-sharp fa-solid fa-heart"
+                        ></i
+                      ></a>
+                    </div>
+                    <div class="share">
+                      <h6>share with friends</h6>
+                      <ul class="social-media">
+                        <li>
+                          <a href="#">
+                            <i class="fa-brands fa-facebook-f"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="fa-brands fa-youtube"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="fa-brands fa-twitter"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="fa-brands fa-instagram"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+export interface Dish {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  imagePath: string;
+  rating?: number;
+  reviewCount?: number;
+}
+
+with the code above. 
+
+I want to refactor it to do and look the exact same way
+
+it started off with just html and css
+
+but now I have it in a angular component
+
+I want the same functionality and look
+
+I want to iterate over a data set and display the data in the same way
+
+I want to use the same animations
+
+I want to use the same css
+
+I want to use the same html but refactored to angular
+
+I want to use the same images
+
+I want to use the same icons
+
+I want to use the same fonts
+
+I want to use the same colors
+
+I want to use the same hover effects
+
+I want to use the same button styles
+
+I want to use the same modal
+
+I want to use the same modal animations
+
+I want to use the same modal styles
+
+I want to open the dialog the same way do not change the way the dialog is opened
+
+i only want to display up to 3 items in the list at a time 
+do not change the way the items are displayed only change this to iterate over the data set
+there should be only one button per item that opens the modal
+no other buttons should be displayed
+
+output the entire component dont try to save tokens because if you do ill have to 
+reprompt you and waste even more tokens
+
+I need the output in a format that I can easier copy and paste into my angular project
+
+if you do this well i will reward you with a tip

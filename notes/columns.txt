@@ -1,0 +1,743 @@
+act as if you are a senior c# dotnet developer with decades of experience
+
+you are working on a project that requires you to generate a word document using open xml c#
+
+The document is a journal index that has two columns per page
+
+The source data is a long string for each item under each header.
+
+that string is then split by the ; and : characters to get the subitems
+each sub item can be any length
+
+here is an example of a digest title that we are spliting into the subitems
+Health: diseases; time limits on emergency orders issued in response to an epidemic; provide for unless extension is approved by the legislature and require emergency order to include certain information.
+
+Records: veterans; veteran services boards; allow to hold closed sessions when interviewing veterans' applications for benefits.
+
+Children: child care; definition of foster care; provide for.
+
+in this example Health is a main header, diseases is a subheader, and time limits on emergency orders issued in response to an epidemic is the subitem
+
+the issue is that the column headers need to be repeated in the new column with (cont.) if the items continue to the next column
+
+i;m using open xml c# to generate a document
+I have a dictionary with column headers as keys and all the items they have as values in a list.
+each page has two columns
+
+for exmaple
+
+title line 
+line line
+line title2
+line line
+
+so in this example tile has 5 items and title 2 has 1
+
+the issue i'm running into is when continueing items to a new column
+I dont have a way to know when i'm in a new column
+I need to know if i am because the column header needs to be repeated in the new column with (cont.)
+
+This is how most indexes work for books and this is the type of document i'm generating
+
+what if i donrt know how many items each column could have because each item can have any number of characters and any items could have a subitem
+
+this is what I have so far.
+
+If we could somehow generate the document then go back and add the (cont.) to the column header that would be great
+
+edit this code to do that
+explicity type all variable and do not use var
+
+chose a way to solve this issue and implement it
+
+output the entirety of the code do not try to save characters or tokens, if you dont ill have to reprompt you and waste even more tokens
+do not omit any code because I need the ability to simply copy and paste the code into a project and run it
+
+Here is the document generation code
+
+namespace EvaAPI.Utilities.Documents.Journal.OfficialJournal
+{
+    public class Part1Generator : DocumentGenerator
+    {
+        // all these in inches
+        private const double PAGE_HEIGHT = 9;
+        private const double PAGE_WIDTH = 6;
+        private const double PAGE_MARGIN_LEFT = 0.45;
+        private const double PAGE_MARGIN_RIGHT = 0.45;
+        private const double PAGE_MARGIN_TOP = 0.57;
+        private const double PAGE_MARGIN_BOTTOM = 0.4;
+        private const double HEADER_MARGIN = 0.57;
+        private const double FOOTER_MARGIN = 0.49;
+        private const string MAIN_STYLE = "Part9Style";
+        private const string HEADER_STYLE = "Part9HeaderStyle";
+
+        private List<string> _prefixSortOrder = new List<string> { DocumentPrefixes.SB, DocumentPrefixes.HB, DocumentPrefixes.SJR, DocumentPrefixes.HJR };
+        private int[] _colWidths = [1224, 288, 432, 1224, 288, 432, 1224, 288, 432, 1224, 288];
+        private readonly Dictionary<string, List<Legislation>> _paItems;
+        private readonly int _year;
+        private Dictionary<string, int> _columnItemCount = new Dictionary<string, int>();
+        private int _maxItemsPerColumn = 20; // Adjust this based on actual page layout
+
+        // New tracking dictionary for column continuation
+        private Dictionary<string, bool> _columnContinuationTracker = new Dictionary<string, bool>();
+
+        public Part1Generator(Dictionary<string, List<Legislation>> paItems, int year)
+        {
+            _paItems = paItems;
+            _year = year;
+        }
+
+
+        Dictionary<string, List<Tuple<string, string>>> CreateOpenXmlDictionary(List<Legislation> legislationList)
+        {
+            Dictionary<string, List<Tuple<string, string>>> openXmlDict = new Dictionary<string, List<Tuple<string, string>>>();
+
+            foreach (Legislation leg in legislationList)
+            {
+                if (openXmlDict.ContainsKey(leg.DigestTitle))
+                {
+                    openXmlDict[leg.DigestTitle].Add(new Tuple<string, string>(leg.Prefix, leg.Identifier));
+                }
+                else
+                {
+                    openXmlDict.Add(leg.DigestTitle, new List<Tuple<string, string>>
+            {
+                new Tuple<string, string>(leg.Prefix, leg.Identifier)
+            });
+                }
+            }
+
+            return openXmlDict;
+        }
+
+
+        private bool WillKeySpanMultipleColumns(Dictionary<string, List<Tuple<string, string>>> keyItems)
+        {
+            // Calculate total estimated lines for this key
+            int estimatedLines = CalculateEstimatedLines(keyItems);
+
+            // Determine if items will span multiple columns
+            return estimatedLines > _maxItemsPerColumn;
+        }
+
+        private int CalculateEstimatedLines(Dictionary<string, List<Tuple<string, string>>> keyItems)
+        {
+            int estimatedLines = 0;
+
+            foreach (var entry in keyItems)
+            {
+                // Split the key to get the main category and subcategory
+                string[] parts = entry.Key.Split(':');
+                if (parts.Length < 2) continue;
+
+                // Add line for main category header
+                estimatedLines++;
+
+                // Split subcategory and details
+                string[] subItems = parts[1].Split(';');
+                if (subItems.Length < 3) continue;
+
+                // Estimate lines for subcategory
+                estimatedLines += 1;
+
+                // Estimate lines for body text
+                estimatedLines += EstimateTextLines(subItems[1]);
+
+                // Estimate lines for bill line
+                estimatedLines += EstimateTextLines(subItems[2]);
+
+                // Add lines for each bill associated with this entry
+                estimatedLines += entry.Value.Count;
+            }
+
+            return estimatedLines;
+        }
+
+        private int EstimateTextLines(string text, int maxCharsPerLine = 80)
+        {
+            // If text is empty, return 0
+            if (string.IsNullOrWhiteSpace(text)) return 0;
+
+            // Calculate lines based on text length
+            return (int)Math.Ceiling((double)text.Length / maxCharsPerLine);
+        }
+
+        private void UpdateColumnContinuation(string key, bool force = false)
+        {
+            // Increment item count
+            if (!_columnItemCount.ContainsKey(key))
+            {
+                _columnItemCount[key] = 0;
+            }
+            _columnItemCount[key]++;
+
+            // Check if we've exceeded column capacity
+            bool isContinued = _columnItemCount[key] > _maxItemsPerColumn || force;
+            _columnContinuationTracker[key] = isContinued;
+        }
+
+        protected override void GenerateWordDocument(WordprocessingDocument document)
+        {
+            Body body = document.MainDocumentPart.Document.Body;
+            SectionProperties sectionProps = body.GetOrCreateChild<SectionProperties>();
+            SetupPage(sectionProps);
+
+            sectionProps.SetChildProperty<Columns>(col =>
+            {
+                col.Space = "708";
+            });
+
+            sectionProps.GetOrCreateChild<TitlePage>();
+
+            Style mainStyle = CreateStyle(document.MainDocumentPart.StyleDefinitionsPart.Styles, MAIN_STYLE, StyleValues.Paragraph);
+            mainStyle.BasedOn = new BasedOn { Val = "Normal" };
+            SetStyleSpacing(mainStyle, "0", "0");
+            mainStyle.StyleParagraphProperties.SpacingBetweenLines.Line = "240";
+            SetStyleFont(mainStyle, "Times New Roman");
+            SetStyleFontSize(mainStyle, 8);
+            mainStyle.StyleRunProperties.Color = new Color() { Val = "231F20" };
+            mainStyle.StyleRunProperties.CharacterScale ??= new CharacterScale();
+            mainStyle.StyleRunProperties.CharacterScale.Val = 90;
+
+            Tabs tabList = mainStyle.StyleParagraphProperties.AppendChild(new Tabs());
+            tabList.Append(new TabStop() { Val = TabStopValues.Right, Position = 216 });
+            tabList.Append(new TabStop() { Val = TabStopValues.Left, Position = 1051, Leader = TabStopLeaderCharValues.Dot });
+            tabList.Append(new TabStop() { Val = TabStopValues.Right, Position = 1512 });
+
+            document.MainDocumentPart.DocumentSettingsPart.Settings.GetOrCreateChild<EvenAndOddHeaders>();
+            CreateHeaderStyle(document.MainDocumentPart.StyleDefinitionsPart.Styles);
+            AddDefaultHeader(document.MainDocumentPart, sectionProps);
+            AddEvenHeader(document.MainDocumentPart, sectionProps);
+            AddOddHeader(document.MainDocumentPart, sectionProps);
+
+            body.RemoveAllChildren<Paragraph>();
+
+            Paragraph leaderParagraph = body.AppendChild(new Paragraph());
+            leaderParagraph.ParagraphProperties = new()
+            {
+                SpacingBetweenLines = new()
+                {
+                    Before = "0",
+                    After = "0",
+                    Line = "240",
+                    LineRule = LineSpacingRuleValues.Auto
+                }
+            };
+
+            AddTitleParagraph(body, "PART I", false);
+            AddTitleParagraph(body, "BILL AND JOINT RESOLUTION INDEX");
+            AddSubTitleParagraph(body, "to the");
+            AddTitleParagraph(body, "JOURNAL OF THE SENATE");
+            AddSubTitleParagraph(body, $"Regular Session of {_year}");
+
+            BuildPrefixLegend(body, string.Empty, "Subject Index of Bills and Joint Resolutions of House and Senate.");
+            BuildPrefixLegend(body, string.Empty, "Reference in this index to Bills and Joint Resolutions is given as follows:");
+            BuildPrefixLegend(body, "S", "indicates Senate bills.");
+            BuildPrefixLegend(body, "H", "indicates House bills.");
+            BuildPrefixLegend(body, "SJR", "indicates Senate Joint Resolutions.");
+            BuildPrefixLegend(body, "HJR", "indicates House Joint Resolutions.");
+
+            if (_paItems.Count == 0)
+            {
+                sectionProps.Remove();
+                body.Append(sectionProps);
+                return;
+            }
+
+            body.Append(new Paragraph());
+
+            Paragraph sectionBreakParagraph = new Paragraph(
+                new ParagraphProperties(
+                    new SectionProperties(
+                        new Columns() { ColumnCount = 1 },
+                        new SectionType() { Val = SectionMarkValues.Continuous }
+                    )
+                )
+            );
+            body.Append(sectionBreakParagraph);
+
+            // Reset column continuation tracker at the start of document generation
+            _columnContinuationTracker.Clear();
+
+            List<string> kList = _paItems.Keys.OrderBy(k => k).ToList();
+            char lettHeader = ' ';
+            Paragraph subHeader = null;
+            Paragraph digestBody = null;
+            Paragraph billLine = null;
+
+            _columnContinuationTracker.Clear();
+            _columnItemCount.Clear();
+
+            foreach (string key in kList)
+            {
+                List<Legislation> aList = _paItems[key]
+                    .OrderBy(pa => pa.DigestTitle)
+                    .ThenBy(pa => _prefixSortOrder.IndexOf(pa.Prefix))
+                    .ToList();
+
+                Dictionary<string, List<Tuple<string, string>>> aListDict = CreateOpenXmlDictionary(aList);
+
+                // Determine if this key will span multiple columns
+                bool willSpanColumns = WillKeySpanMultipleColumns(aListDict);
+
+                // Add primary key header, indicating continuation if needed
+                AddPrimaryKeyHeader(body, key, _columnContinuationTracker.ContainsKey(key) && _columnContinuationTracker[key]);
+
+                string subCategory = string.Empty;
+                foreach (string dig in aListDict.Keys)
+                {
+                    if (string.IsNullOrEmpty(dig) || dig.Split(':').Count() != 2)
+                    {
+                        break;
+                    }
+                    string[] paraText = dig.Split(':')[1].Split(';');
+                    if (paraText.Count() < 3)
+                    {
+                        break;
+                    }
+
+                    if (subCategory != paraText[0])
+                    {
+                        subCategory = paraText[0];
+                        AddDigestParagraphListing(body, ">>" + subCategory);
+                    }
+
+                    AddDigestParagraphBody(body, paraText[1]);
+                    AddDigestParagraphBillLine(body, paraText[2]);
+
+                    // Update column continuation tracking
+                    UpdateColumnContinuation(key, willSpanColumns);
+                }
+            }
+        }
+
+        private static Paragraph AddDigestParagraphListing(Body body, string text)
+        {
+            Paragraph para = body.AppendChild(new Paragraph());
+            //Paragraph para = new Paragraph();
+            para.ParagraphProperties = new();
+            para.ParagraphProperties.SpacingBetweenLines = new()
+            {
+                Before = "0",
+                After = "0",
+                Line = "240",
+                LineRule = LineSpacingRuleValues.Auto
+            };
+
+            para.ParagraphProperties.Justification = new()
+            {
+                Val = JustificationValues.Left
+            };
+            para.ParagraphProperties.KeepLines = new KeepLines();
+            Run letRun = para.AppendChild(new Run());
+            letRun.RunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                FontSize = new() { Val = "16" }
+            };
+            letRun.RunProperties.Append(new Bold() { Val = false });
+            letRun.Append(new Text { Text = text });
+            return para;
+        }
+
+        private static Paragraph AddDigestParagraphBody(Body body, string text)
+        {
+            Paragraph para = body.AppendChild(new Paragraph());
+            //Paragraph para = new Paragraph();
+            para.ParagraphProperties = new();
+            para.ParagraphProperties.SpacingBetweenLines = new()
+            {
+                Before = "0",
+                After = "0",
+                Line = "240",
+                LineRule = LineSpacingRuleValues.Auto
+            };
+
+            para.ParagraphProperties.Justification = new()
+            {
+                Val = JustificationValues.Left
+            };
+            para.ParagraphProperties.Indentation = new Indentation()
+            {
+                Left = "187",
+                Hanging = "360"
+            };
+            Run letRun = para.AppendChild(new Run());
+            letRun.RunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                FontSize = new() { Val = "16" }
+            };
+            letRun.RunProperties.Append(new Bold() { Val = false });
+            letRun.Append(new Text { Text = text });
+            return para;
+        }
+
+        private static Paragraph AddDigestParagraphBillLine(Body body, string text)
+        {
+            Paragraph para = body.AppendChild(new Paragraph());
+            para.ParagraphProperties = new();
+            para.ParagraphProperties.SpacingBetweenLines = new()
+            {
+                Before = "0",
+                After = "0",
+                Line = "240",
+                LineRule = LineSpacingRuleValues.Auto
+            };
+
+            para.ParagraphProperties.Justification = new()
+            {
+                Val = JustificationValues.Left
+            };
+            para.ParagraphProperties.Indentation = new Indentation()
+            {
+                Left = "360",
+                Hanging = "187"
+            };
+            Run letRun = para.AppendChild(new Run());
+            letRun.RunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                FontSize = new() { Val = "16" }
+            };
+            letRun.RunProperties.Append(new Bold() { Val = false });
+            letRun.Append(new Text { Text = text });
+            return para;
+        }
+
+        private static void AddPrimaryKeyHeader(Body body, string text, bool isContinued = false)
+        {
+            if (!isContinued)
+            {
+                AddEmptyParagraph(body);
+            }
+            Paragraph para = body.AppendChild(new Paragraph());
+            para.ParagraphProperties = new();
+            para.ParagraphProperties.SpacingBetweenLines = new()
+            {
+                Before = "0",
+                After = "0",
+                Line = "240",
+                LineRule = LineSpacingRuleValues.Auto
+            };
+
+            para.ParagraphProperties.Justification = new()
+            {
+                Val = JustificationValues.Left
+            };
+            Run run = para.AppendChild(new Run());
+            run.RunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                FontSize = new() { Val = "16" }
+            };
+            run.RunProperties.Append(new Bold() { Val = true });
+            run.Append(new Text { Text = text.ToUpper() });
+        }
+
+        private static void AddEmptyParagraph(Body body)
+        {
+            Paragraph empty = body.AppendChild(new Paragraph());
+            empty.ParagraphProperties = new();
+            empty.ParagraphProperties.SpacingBetweenLines = new()
+            {
+                Before = "0",
+                After = "0",
+                Line = "240",
+                LineRule = LineSpacingRuleValues.Auto
+            };
+
+            empty.ParagraphProperties.Justification = new()
+            {
+                Val = JustificationValues.Left
+            };
+            Run emptyRun = empty.AppendChild(new Run());
+            emptyRun.RunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                FontSize = new() { Val = "16" }
+            };
+        }
+
+        private static void AddTitleParagraph(Body body, string text, bool paragraphAfter = true)
+        {
+            Paragraph partParagraph = body.AppendChild(new Paragraph());
+            partParagraph.ParagraphProperties = new();
+            partParagraph.ParagraphProperties.SpacingBetweenLines = new()
+            {
+                Before = "0",
+                After = "0",
+                Line = "240",
+                LineRule = LineSpacingRuleValues.Auto
+            };
+            partParagraph.ParagraphProperties.Justification = new()
+            {
+                Val = JustificationValues.Center
+            };
+
+            Run partRun = partParagraph.AppendChild(new Run());
+            partRun.RunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                FontSize = new() { Val = "24" }
+            };
+
+
+            partRun.Append(new Text { Text = text });
+
+            if (paragraphAfter)
+            {
+                AddSubTitleParagraph(body, string.Empty, false);
+            }
+        }
+
+        private static void AddSubTitleParagraph(Body body, string text, bool paragraphAfter = true)
+        {
+            Paragraph partParagraph = body.AppendChild(new Paragraph());
+            partParagraph.ParagraphProperties = new();
+            partParagraph.ParagraphProperties.SpacingBetweenLines = new()
+            {
+                Before = "0",
+                After = "0",
+                Line = "240",
+                LineRule = LineSpacingRuleValues.Auto
+            };
+
+            partParagraph.ParagraphProperties.Justification = new()
+            {
+                Val = JustificationValues.Center
+            };
+
+            Run partRun = partParagraph.AppendChild(new Run());
+            partRun.RunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                FontSize = new() { Val = "16" }
+            };
+
+            partRun.Append(new Text { Text = text });
+
+            if (paragraphAfter)
+            {
+                AddSubTitleParagraph(body, string.Empty, false);
+            }
+        }
+
+        private static void BuildPrefixLegend(Body body, string prefix, string text)
+        {
+            Paragraph partParagraph = body.AppendChild(new Paragraph());
+            partParagraph.ParagraphProperties = new();
+            partParagraph.ParagraphProperties.SpacingBetweenLines = new()
+            {
+                Before = "0",
+                After = "0",
+                Line = "240",
+                LineRule = LineSpacingRuleValues.Auto
+            };
+
+            partParagraph.ParagraphProperties.Justification = new()
+            {
+                Val = JustificationValues.Left
+            };
+
+            Run partPrefixRun = partParagraph.AppendChild(new Run());
+            partPrefixRun.RunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                FontSize = new() { Val = "16" }
+            };
+
+            partPrefixRun.Append(new Text { Text = prefix });
+
+            partParagraph.AppendChild(new Run(new TabChar()));
+
+            Run partTextRun = partParagraph.AppendChild(new Run());
+            partTextRun.RunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                FontSize = new() { Val = "16" }
+            };
+
+            partTextRun.Append(new Text { Text = text });
+
+        }
+        private static void AddDefaultHeader(MainDocumentPart mainDocPart, SectionProperties props)
+        {
+            Header header = new();
+
+            Paragraph para = CreateHeaderParagraph();
+            header.Append(para);
+
+            Run rightPosRun = para.AppendChild(new Run());
+            rightPosRun.Append(new PositionalTab()
+            {
+                Alignment = AbsolutePositionTabAlignmentValues.Right,
+                Leader = AbsolutePositionTabLeaderCharValues.None,
+                RelativeTo = AbsolutePositionTabPositioningBaseValues.Margin
+            });
+
+            Run pageNum = para.AppendChild(new Run());
+            pageNum.Append(new SimpleField { Instruction = "PAGE" });
+
+            HeaderPart headerPart = mainDocPart.AddNewPart<HeaderPart>();
+            headerPart.Header = header;
+            string partId = mainDocPart.GetIdOfPart(headerPart);
+
+            HeaderReference headerRef = new() { Type = HeaderFooterValues.First, Id = partId };
+            props.Append(headerRef);
+        }
+        private static void AddOddHeader(MainDocumentPart mainDocPart, SectionProperties props)
+        {
+            Header header = new();
+
+            Paragraph para = CreateHeaderParagraph();
+            header.Append(para);
+
+            Run posRun = para.AppendChild(new Run());
+            posRun.Append(new PositionalTab()
+            {
+                Alignment = AbsolutePositionTabAlignmentValues.Center,
+                Leader = AbsolutePositionTabLeaderCharValues.None,
+                RelativeTo = AbsolutePositionTabPositioningBaseValues.Margin
+            });
+
+            Run textRun = para.AppendChild(new Run());
+            textRun.Append(new Text() { Text = $"TABLE OF ACTS AND BILL NUMBERS" });
+
+            Run rightPosRun = para.AppendChild(new Run());
+            rightPosRun.Append(new PositionalTab()
+            {
+                Alignment = AbsolutePositionTabAlignmentValues.Right,
+                Leader = AbsolutePositionTabLeaderCharValues.None,
+                RelativeTo = AbsolutePositionTabPositioningBaseValues.Margin
+            });
+
+            Run pageNum = para.AppendChild(new Run());
+            pageNum.Append(new SimpleField { Instruction = "PAGE" });
+
+            HeaderPart headerPart = mainDocPart.AddNewPart<HeaderPart>();
+            headerPart.Header = header;
+            string partId = mainDocPart.GetIdOfPart(headerPart);
+
+            HeaderReference headerRef = new() { Type = HeaderFooterValues.Default, Id = partId };
+            props.Append(headerRef);
+        }
+        private void AddEvenHeader(MainDocumentPart mainDocPart, SectionProperties props)
+        {
+            Header header = new();
+
+            Paragraph para = CreateHeaderParagraph();
+            header.Append(para);
+
+
+            Run pageNum = new();
+            pageNum.Append(new SimpleField { Instruction = "PAGE" });
+            para.Append(pageNum);
+
+            Run posRun = para.AppendChild(new Run());
+            posRun.Append(new PositionalTab()
+            {
+                Alignment = AbsolutePositionTabAlignmentValues.Center,
+                Leader = AbsolutePositionTabLeaderCharValues.None,
+                RelativeTo = AbsolutePositionTabPositioningBaseValues.Margin
+            });
+
+            Run textRun = para.AppendChild(new Run());
+            textRun.Append(new Text() { Text = $"REGULAR SESSION OF {_year}" });
+
+            HeaderPart headerPart = mainDocPart.AddNewPart<HeaderPart>();
+            headerPart.Header = header;
+            string partId = mainDocPart.GetIdOfPart(headerPart);
+
+            HeaderReference headerRef = new() { Type = HeaderFooterValues.Even, Id = partId };
+            props.Append(headerRef);
+        }
+        private void CreateHeaderStyle(Styles styles)
+        {
+            Style headerStyle = CreateStyle(styles, HEADER_STYLE, StyleValues.Paragraph);
+            headerStyle.StyleParagraphProperties = new()
+            {
+                Tabs = new(),
+                SpacingBetweenLines = new() { Line = "240", LineRule = LineSpacingRuleValues.Auto }
+            };
+            headerStyle.StyleParagraphProperties.Tabs.Append(new TabStop() { Val = TabStopValues.Left, Position = 1890 });
+            headerStyle.StyleParagraphProperties.Tabs.Append(new TabStop() { Val = TabStopValues.Right, Position = 9356 });
+
+            headerStyle.StyleRunProperties = new()
+            {
+                RunFonts = new() { Ascii = "Times New Roman" },
+                Caps = new() { Val = true },
+                CharacterScale = new() { Val = 97 },
+                FontSize = new() { Val = "16" }
+            };
+        }
+
+        private static Paragraph CreateHeaderParagraph()
+        {
+            Paragraph para = new();
+            para.ParagraphProperties = new()
+            {
+                ParagraphStyleId = new() { Val = HEADER_STYLE }
+            };
+
+            return para;
+        }
+
+        private static void SetupPage(SectionProperties props)
+        {
+            PageSize pageSize = props.GetOrCreateChild<PageSize>();
+            pageSize.Height = (uint)(ConvertInchesToPt(PAGE_HEIGHT) * 20u);
+            pageSize.Width = (uint)(ConvertInchesToPt(PAGE_WIDTH) * 20u);
+
+            PageMargin pageMargins = props.GetOrCreateChild<PageMargin>();
+            pageMargins.Top = (int)(ConvertInchesToPt(PAGE_MARGIN_TOP) * 20u);
+            pageMargins.Bottom = (int)(ConvertInchesToPt(PAGE_MARGIN_BOTTOM) * 20u);
+            pageMargins.Left = (uint)(ConvertInchesToPt(PAGE_MARGIN_LEFT) * 20u);
+            pageMargins.Right = (uint)(ConvertInchesToPt(PAGE_MARGIN_RIGHT) * 20u);
+            pageMargins.Header = (uint)(ConvertInchesToPt(HEADER_MARGIN) * 20u);
+            pageMargins.Footer = (uint)(ConvertInchesToPt(FOOTER_MARGIN) * 20u);
+
+            Columns columns = props.GetOrCreateChild<Columns>();
+            columns.ColumnCount = 2;
+
+            SectionType sectionType = props.GetOrCreateChild<SectionType>();
+            sectionType.Val = SectionMarkValues.Continuous;
+        }
+    }
+}
+
+here is where i'm generating the initial dictionary that i use to generate the document
+public byte[] GetPart1(int sessionId, string format)
+{
+    Session session = ValidateSession(sessionId);
+ 
+    string[] allowedPrefixes = { DocumentPrefixes.SB, DocumentPrefixes.HB, DocumentPrefixes.SJR, DocumentPrefixes.HJR };
+ 
+    DateTime startDate = new DateTime(session.StartDate.Year, 1, 1);
+    DateTime endDate = new DateTime(session.StartDate.Year, 12, 31);
+    IEnumerable<Legislation> paLegItems = _legislationService
+        .GetAllLegislation(session.LsbId)
+        .Where(leg => allowedPrefixes.Contains(leg.Prefix))
+        .OrderBy(leg => leg.DigestTitle).ToList();
+ 
+    Dictionary<string, List<Legislation>> legAlphaDict = new();
+ 
+    foreach (Legislation legItem in paLegItems)
+    {
+        if (!string.IsNullOrEmpty(legItem.DigestTitle))
+        {
+            string heading = legItem.DigestTitle.Split(':')[0];
+            if (legAlphaDict.ContainsKey(heading))
+            {
+                legAlphaDict[heading].Add(legItem);
+            }
+            else
+            {
+                legAlphaDict.Add(heading, [legItem]);
+            }
+        }
+    }
+ 
+    Part1Generator generator = new(legAlphaDict, startDate.Year);
+    return generator.GetDocumentBytes(format);
+}

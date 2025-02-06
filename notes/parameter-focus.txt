@@ -1,0 +1,282 @@
+@Component({
+    selector: 'app-journal-stamp',
+    templateUrl: './journal-stamp.component.html',
+    styleUrls: ['./journal-stamp.component.css'],
+    encapsulation: ViewEncapsulation.None,
+})
+export class JournalStampComponent implements OnChanges {
+    @Input() dailyJournal: DailyJournalDto;
+    @Input() dailyJournalStamp: DailyJournalStampDto;
+    @Input() show: boolean = false;
+    @Input() parameters: JournalStampTemplateParameterDto[] = [];
+    @Output() reload = new EventEmitter();
+    @ViewChild('JournalStampDiv') JournalStampDiv: ElementRef;
+
+    public exists = exists;
+    public eventListenerMethods: string[] = ['click', 'keypress'];
+    public editingParameter: boolean = false;
+    public editTop: string = '0px';
+
+    private initializedHtml: boolean = false;
+    private selectedLegItem: string = null;
+    private currentParameterIndex: number = 0;
+    private parameterElements: HTMLElement[] = [];
+
+    constructor(
+        public domSanitizer: DomSanitizer,
+        private elementRef: ElementRef,
+        private dailyJournalService: DailyJournalCodegenService,
+        private parameterService: JournalStampTemplateParameterCodegenService,
+        private notifierService: NotifierService,
+        private sessionStateService: SessionStateService,
+        private billResReportsService: BillResStatusReportsCodegenService
+    ) {}
+
+    public focusNextParameter(): void {
+        this.updateParameterElements();
+
+        if (this.parameterElements.length <= 1) {
+            return;
+        }
+
+        if (this.currentParameterIndex === this.parameterElements.length - 1) {
+            this.currentParameterIndex = 0;
+            return;
+        }
+
+        const nextIndex: number =
+            this.currentParameterIndex === this.parameterElements.length - 1
+                ? 0
+                : this.currentParameterIndex + 1;
+
+        console.log('nextIndex', nextIndex);
+        this.currentParameterIndex = nextIndex;
+        const nextElement: HTMLElement = this.parameterElements[nextIndex];
+
+        if (nextElement) {
+            setTimeout((): void => {
+                nextElement.focus();
+                nextElement.dispatchEvent(
+                    new MouseEvent('click', {
+                        view: window,
+                        bubbles: true,
+                        cancelable: true,
+                    })
+                );
+                nextElement.dispatchEvent(
+                    new CustomEvent('parameterClicked', {
+                        bubbles: true,
+                        detail: {
+                            parameterValue: this.dailyJournalStamp.parameterValues.find(
+                                (pv: JournalStampParameterValueDto): boolean =>
+                                    pv.id ===
+                                    parseInt(nextElement.getAttribute('parameter-value-id'))
+                            ),
+                            stampId: this.dailyJournalStamp.id,
+                            selectedLegItem: this.selectedLegItem,
+                        },
+                    })
+                );
+            }, 100);
+        }
+    }
+
+    ngAfterViewInit(): void {
+        this.JournalStampDiv.nativeElement.innerHTML = this.dailyJournalStamp.text;
+
+        if (this.show && this.parameters != null && this.parameters.length > 0) {
+            this.updateHtml();
+            this.initializedHtml = true;
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        for (const change in changes) {
+            if (change == 'dailyJournalStamp' && this.initializedHtml) {
+                this.JournalStampDiv.nativeElement.innerHTML = this.dailyJournalStamp.text;
+                if (this.show) {
+                    this.updateHtml();
+                    continue;
+                }
+
+                this.initializedHtml = false;
+            }
+
+            if (
+                (change == 'show' || change == 'parameters') &&
+                this.show &&
+                this.parameters.length > 0 &&
+                !this.initializedHtml
+            ) {
+                this.updateHtml();
+                this.initializedHtml = true;
+            }
+        }
+    }
+
+    public updateHtml(): void {
+        let elements: NodeList =
+            this.elementRef.nativeElement.querySelectorAll('.parameter-placeholder');
+
+        if (elements.length == 0 || this.parameters.length == 0) {
+            return;
+        }
+
+        elements.forEach((el: HTMLElement) => {
+            const stampParamValueId: number = parseInt(el.attributes['parameter-value-id'].value);
+            const stampParamId: number = parseInt(el.attributes['parameter-id'].value);
+            const parameterValue: JournalStampParameterValueDto =
+                this.dailyJournalStamp.parameterValues.find((pv) => pv.id == stampParamValueId);
+            if (exists(parameterValue?.displayValue)) {
+                el.classList.add('value-filled');
+            }
+
+            el.tabIndex = 0;
+            const journalParam: JournalStampTemplateParameterDto = this.parameters.find(
+                (parameter: JournalStampTemplateParameterDto): boolean => {
+                    return parameter.id == parameterValue.parameterId;
+                }
+            );
+
+            if (journalParam == null) {
+                return;
+            }
+
+            if (
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.MESSAGES ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.LEGNAME ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.LEGITEM ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.MULTI_LEGITEM ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.AMENDMENT_TEXT ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.SELECTLIST ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.REPORTS ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.RESOLUTIONS ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.DATE ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.FREEFORM ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.TIME ||
+                journalParam.type.toLowerCase() == PARAMETER_TYPES.TITLE
+            ) {
+                if (
+                    journalParam.type.toLowerCase() == PARAMETER_TYPES.REPORTS &&
+                    journalParam.settings?.find((setting) => setting.setting == 'EB Signed')
+                ) {
+                    this.updateReportPresOfBillToCurrent(parameterValue);
+                }
+                if (journalParam.type.toLowerCase() == PARAMETER_TYPES.LEGITEM) {
+                    this.selectedLegItem = parameterValue.selectedValue;
+                }
+
+                el.addEventListener('click', (): void => {
+                    el.dispatchEvent(
+                        new CustomEvent('parameterClicked', {
+                            bubbles: true,
+                            detail: {
+                                parameterValue: parameterValue,
+                                stampId: this.dailyJournalStamp.id,
+                                selectedLegItem: this.selectedLegItem,
+                            },
+                        })
+                    );
+                });
+
+                el.addEventListener('keyup', (keyEvent: KeyboardEvent): void => {
+                    if (keyEvent.key == 'Enter') {
+                        el.dispatchEvent(
+                            new CustomEvent('parameterClicked', {
+                                bubbles: true,
+                                detail: {
+                                    parameterValue: parameterValue,
+                                    stampId: this.dailyJournalStamp.id,
+                                    selectedLegItem: this.selectedLegItem,
+                                },
+                            })
+                        );
+                    }
+                });
+                return;
+            }
+
+            this.eventListenerMethods.forEach((e) => {
+                el.addEventListener(e, this.logInput.bind(this, parameterValue, stampParamId, e), {
+                    once: true,
+                });
+            });
+        });
+    }
+
+    logInput(
+        parameterValue: JournalStampParameterValueDto,
+        stampParamId: number,
+        eventType: string,
+        event: PointerEvent | KeyboardEvent
+    ): void {
+        const parameterElement: HTMLElement = event.currentTarget as HTMLElement;
+        if (event instanceof KeyboardEvent && event.key != ENTER_KEY) {
+            return;
+        }
+
+        this.openParameter(parameterValue, parameterElement, stampParamId, eventType);
+    }
+
+    openParameter(
+        parameterValue: JournalStampParameterValueDto,
+        parameterElement: HTMLElement,
+        stampParamId: number,
+        eventType: string
+    ): void {
+        if (!parameterElement.hasAttribute('parameter-id')) {
+            return;
+        }
+
+        const element: HTMLElement = this.elementRef.nativeElement;
+
+        this.parameterService
+            .apiJournalStampTemplateParameterIdGet(stampParamId)
+            .subscribe((res: JournalStampTemplateParameterDto) => {
+                let resType: string = res.type.toLowerCase();
+                let newDiv: HTMLSpanElement = element.ownerDocument.createElement('span');
+                if (resType == PARAMETER_TYPES.SUBDOC) {
+                    this.openFileSelector(
+                        parameterValue,
+                        parameterElement,
+                        stampParamId,
+                        eventType
+                    );
+                } else if (
+                    resType == PARAMETER_TYPES.ROLLCALL ||
+                    resType == PARAMETER_TYPES.REPORTS
+                ) {
+                    this.getParameterOptions(
+                        parameterElement,
+                        parameterValue,
+                        newDiv,
+                        stampParamId,
+                        eventType
+                    );
+                }
+                parameterElement.appendChild(newDiv);
+            });
+    }
+
+}
+html
+<div #JournalStampDiv class="editor-content-viewer"></div>
+
+
+
+with the above code I need to figure out how to update 
+
+    private currentParameterIndex: number = 0;
+
+to the correct index when the user opens any specific parameter
+
+so if they click the 2nd parameter, the index should be 1
+if they click the 3rd parameter, the index should be 2
+    etc
+
+
+if you need more context please ask questions
+
+if you think you can solve the problem please provide a solution
+
+thank you

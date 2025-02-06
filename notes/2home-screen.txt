@@ -1,0 +1,92 @@
+# Project Overview: Proxima
+
+Proxima is a terminal-based User Interface (TUI) application written in Go, designed to manage and navigate projects efficiently. Utilizing the `bubbletea` and `bubbles` libraries, Proxima offers a simple, keyboard-driven interface to list, add, and open projects. Additionally, Proxima functions as a command-line tool for seamless project management.
+
+## Key Features
+
+1. **TUI for Project Navigation**
+   - Displays a list of all added projects.
+   - Allows navigation through the list using Vim-style keybindings (e.g., `j` to move down, `k` to move up).
+   - Pressing `Enter` opens the selected project in Neovim.
+
+2. **Command-Line Interface**
+   - Projects can be added by navigating to the desired directory and running the `home-screen add` command.
+   - Proxima stores the added projects for display in the TUI.
+
+## Detailed Requirements
+
+### TUI Interface
+- **Library Usage:**
+  - `bubbletea` for TUI logic and event handling.
+  - `bubbles` for creating and managing list components.
+- **Keybindings:**
+  - `j`: Move down the project list.
+  - `k`: Move up the project list.
+  - `Enter`: Open the selected project in Neovim.
+  - `q`: Quit the application.
+- **UI Behavior:**
+  - Projects are displayed in a scrollable list.
+  - Highlighted selection follows user navigation.
+
+### CLI Functionality
+- **Commands:**
+  - `home-screen add`: Adds the current directory as a project.
+    - The application will store the absolute path of the directory.
+  - `home-screen list`: Lists all added projects in the terminal.
+- **Storage:**
+  - Projects will be stored persistently in a local configuration file (e.g., `$HOME/.proxima/config.json`).
+  - The configuration file will use JSON format to store project paths.
+
+### Project Opening
+- When a project is selected from the TUI, Proxima will execute a shell command to open the project directory in Neovim:
+  ```sh
+  nvim <project-path>
+  ```
+
+## Implementation Details
+
+1. **Project Data Management:**
+   - Store project paths in a JSON file.
+   - Use Go’s `os` and `encoding/json` packages for file handling.
+
+2. **CLI Parsing:**
+   - Use the `flag` or `cobra` package to handle CLI commands (`add`, `list`).
+
+3. **TUI Development:**
+   - Use `bubbletea` to handle user input and manage application state.
+   - Use `bubbles` for rendering the project list.
+
+4. **Error Handling:**
+   - Handle invalid commands gracefully in the CLI.
+   - Show user-friendly error messages if there are no projects added or if the configuration file is missing.
+
+## Example Usage
+
+### Adding a Project
+```sh
+cd ~/my-project
+home-screen add
+```
+
+### Listing Projects (CLI)
+```sh
+home-screen list
+```
+
+### Starting the TUI
+```sh
+home-screen
+```
+
+### Navigating the TUI
+- Use `j`/`k` to navigate the list.
+- Press `Enter` to open a project in Neovim.
+- Press `q` to quit.
+
+## Future Enhancements
+- Add support for filtering projects in the TUI.
+- Include additional integrations, such as opening projects in other editors.
+- Enable categorization or tagging of projects for easier navigation.
+
+Proxima simplifies project management by combining a responsive TUI with an intuitive CLI, making it an essential tool for developers who prefer working in the terminal.
+

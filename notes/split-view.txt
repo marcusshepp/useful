@@ -1,0 +1,271 @@
+I have a feature where in angular i have a split screen
+
+it consists of three components 
+
+the parent container component
+the tree component on the left
+the pdf preview on the right
+
+I want to include the ability for the user to be able to click the middle of the components and click and drag left and right to make the split view change sizes
+
+similar to the functionality in windows when you snap two windows into place side by side and then you can click and drag to resize and give one more of the real estate
+
+now this is what I have so far:
+@Component({
+    selector: 'app-index-builder-container',
+    templateUrl: 'index-builder-container.component.html',
+    styleUrls: ['index-builder-container.component.css'],
+})
+export class IndexBuilderContainerComponent extends DestroyableComponent implements AfterViewInit {
+    @HostListener('document:mousedown', ['$event'])
+    public onMouseDown(event: MouseEvent): void {
+        if (this.isResizing) {
+            const containerWidth = window.innerWidth;
+            console.log(containerWidth, event.clientX);
+            const newTreeWidth = (event.clientX / containerWidth) * 100;
+            console.log(newTreeWidth);
+            this.treeWidth = Math.max(10, Math.min(90, newTreeWidth));
+            this.pdfWidth = 100 - this.treeWidth;
+            console.log(this.treeWidth, this.pdfWidth);
+        }
+    }
+    @HostListener('window:mouseup')
+    public onMouseUp(): void {
+        this.isResizing = false;
+    }
+    public document$: Subject<Blob> = this.indexingStateService.documentToDisplay$;
+    public closedDocument$: Subject<boolean> = this.indexingStateService.closeDocument$;
+    public actions: string[] = [
+        ACTIONS.DOWNLOAD_SESSION_DOCUMENT,
+        ACTIONS.DOWNLOAD_SESSION_DAY_DOCUMENT,
+        ACTIONS.DOWNLOAD_JOURNAL_DOCUMENT,
+    ];
+    public journalDocumentActionLabel: string = ACTIONS.CLOSE_JOURNAL_DOCUMENT;
+    public treeWidth: number = 100;
+    public pdfWidth: number = 100;
+
+    private isResizing: boolean = false;
+
+    constructor(
+        private sessionService: SessionStateService,
+        private indexingStateService: IndexingStateService,
+        private journalFileSerive: JournalFileService
+    ) {
+        super();
+        this.listenToJournalDocumentAndSetLabel();
+        this.listenToSessionDayChanges();
+    }
+
+    private get sessionId(): number {
+        return this.sessionService.getCurrentSessionId();
+    }
+
+    private get sessionDayId(): number {
+        return this.sessionService.getCurrentSessionDay().id;
+    }
+
+    public ngAfterViewInit(): void {
+        this.journalDocumentObservable()
+            .pipe(first())
+            .subscribe(() => {});
+    }
+
+    public actOnActionSelect(action: string): void {
+        console.log(action);
+    }
+
+    public onResizeMouseDown($event: MouseEvent): void {
+        $event.preventDefault();
+        this.isResizing = true;
+    }
+
+
+}
+
+<mat-card class="index-builder-container">
+    <div class="upper-container">
+        <mat-form-field appearance="fill" class="white-form-field me-2">
+            <mat-label>Options</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let action of actions" (click)="actOnActionSelect(action)"
+                    >{{action}}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+        <button
+            class="me-2"
+            mat-raised-button
+            (click)="viewJournalDocument()"
+            matTooltip="Not Implemented">
+            {{ journalDocumentActionLabel }}
+        </button>
+    </div>
+    <div class="lower-container">
+        <app-index-builder [style.width.%]="treeWidth"></app-index-builder>
+        <div class="resizer" (mousedown)="onResizeMouseDown($event)"></div>
+        <ng-container *ngIf="!(closedDocument$ | async)">
+            <app-pdf-preview
+                [documentToDisplay]="document$"
+                [heightOverride]="'70vh'"
+                [style.width.%]="pdfWidth"
+                [style.display]="(document$ | async) ? 'block' : 'none'"></app-pdf-preview>
+            <mat-card
+                class="no-document"
+                [style.display]="(document$ | async) ? 'none' : 'block'"
+                [style.width.%]="pdfWidth">
+                Daily Journal Not Yet Created
+            </mat-card>
+        </ng-container>
+    </div>
+</mat-card>
+
+.index-builder-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 85vh;
+    overflow: hidden;
+    margin: 10px;
+    width: 100%;
+}
+
+.upper-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.lower-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.no-document {
+    height: 70vh;
+    width: 100%;
+}
+
+.resizer {
+    width: 8px;
+    height: 100%;
+    cursor: ew-resize;
+    background-color: #ccc;
+    z-index: 1;
+    transition: background-color 0.2s;
+    &:hover,
+    &:active {
+        background-color: #999;
+    }
+}
+
+app-index-builder {
+    overflow: auto;
+    height: 100%;
+}
+
+app-pdf-preview {
+    overflow: auto;
+    height: 100%;
+}
+
+@media screen and (max-height: 850px) {
+    .index-builder-container {
+        height: 88vh;
+        width: 98.5%;
+    }
+
+    .upper-container {
+        margin-bottom: -15px;
+    }
+}
+
+app-index-builder component html
+
+<mat-card class="index-builder-container">
+    <div class="upper-container">
+        <mat-form-field appearance="fill" class="white-form-field me-2">
+            <mat-label>Options</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let action of actions" (click)="actOnActionSelect(action)"
+                    >{{action}}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+        <button
+            class="me-2"
+            mat-raised-button
+            (click)="viewJournalDocument()"
+            matTooltip="Not Implemented">
+            {{ journalDocumentActionLabel }}
+        </button>
+    </div>
+    <div class="lower-container">
+        <app-index-builder [style.width.%]="treeWidth"></app-index-builder>
+        <div class="resizer" (mousedown)="onResizeMouseDown($event)"></div>
+        <ng-container *ngIf="!(closedDocument$ | async)">
+            <app-pdf-preview
+                [documentToDisplay]="document$"
+                [heightOverride]="'70vh'"
+                [style.width.%]="pdfWidth"
+                [style.display]="(document$ | async) ? 'block' : 'none'"></app-pdf-preview>
+            <mat-card
+                class="no-document"
+                [style.display]="(document$ | async) ? 'none' : 'block'"
+                [style.width.%]="pdfWidth">
+                Daily Journal Not Yet Created
+            </mat-card>
+        </ng-container>
+    </div>
+</mat-card>
+
+
+app-index-builder css
+:host {
+    width: 100%;
+}
+
+mat-card {
+    margin: 8px;
+    padding: 8px;
+    height: 70vh;
+    overflow: auto;
+}
+
+.new-primary-term-container {
+    margin-left: 10px;
+}
+
+.tree-container > div {
+    margin: 0;
+    padding: 0;
+}
+
+app-pdf-preview component html
+<mat-card
+    class="preview-container"
+    [style.height]="heightOverride"
+    [style.width]="widthOverride"
+    *ngIf="dataURL">
+    <div class="button-container" *ngIf="showExitButton && exitButtonOnTop">
+        <button mat-button title="Exit Preview" color="primary" (click)="triggerExit()">
+            Exit
+        </button>
+    </div>
+    <iframe class="pdf-preview" [src]="dataURL" type="application/pdf"></iframe>
+    <div class="button-container" *ngIf="showExitButton && !exitButtonOnTop">
+        <button mat-button title="Exit Preview" color="primary" (click)="triggerExit()">
+            Exit
+        </button>
+    </div>
+</mat-card>
+
+tell me where I can make changes to make the split view resizable
+and have the child components actually work with the new width
+
+right now when i click the resizer and drag it, the split view does not change sizes
+it only slighly twitches
