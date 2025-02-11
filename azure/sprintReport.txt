@@ -1,0 +1,17 @@
+Sprint Analysis Report
+====================
+
+Rolling Average (Last 3 Sprints):
+Average User Stories: 5.3
+Average Story Points: 14.0
+
+Bugs Done (Last 5 Sprints):
+Sprint 64: 35
+
+Sprint Metrics:
+
+Sprint 64:
+User Stories Completed: 16
+Bugs Done: 35
+Points Committed: 42.0
+Points Completed: 42.0
