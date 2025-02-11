@@ -1,0 +1,153 @@
+```scss
+@import "../../abstracts/variables";
+
+.offcanvas {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background: $white;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1050;
+  
+  &.show {
+    transform: translateX(0);
+  }
+
+  &-header {
+    padding: 1rem;
+    border-bottom: 1px solid $border-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .btn-close {
+      padding: 0.5rem;
+      margin: -0.5rem -0.5rem -0.5rem auto;
+    }
+  }
+
+  &-title {
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  &-body {
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  &-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba($black, 0.5);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.shopping-cart {
+  &-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+
+  &-details {
+    flex: 1;
+  }
+
+  &-title {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+  }
+
+  &-price {
+    color: $primary;
+    font-weight: bold;
+  }
+
+  &-quantity {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+
+    button {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid $border-color;
+      background: none;
+    }
+
+    span {
+      padding: 0 1rem;
+    }
+  }
+
+  &-remove {
+    color: $danger;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      color: darken($danger, 10%);
+    }
+  }
+}
+
+.cart-total {
+  padding: 1rem;
+  border-top: 1px solid $border-color;
+  
+  h5 {
+    margin: 0 0 0.5rem;
+  }
+
+  .total-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: $primary;
+  }
+}
+
+.checkout-btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background: $primary;
+  color: $white;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: darken($primary, 10%);
+  }
+}
+```

@@ -1,0 +1,90 @@
+```scss
+@import '../../theme/colors';
+@import '../../theme/fonts';
+
+.workprocess {
+  padding: 100px 0;
+  background-color: $light-gray;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 50px;
+    h2 {
+      font-family: $heading-font;
+      font-size: 36px;
+      color: $dark;
+      margin-bottom: 15px;
+    }
+    p {
+      font-family: $body-font;
+      font-size: 16px;
+      color: $gray;
+    }
+  }
+
+  &__steps {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  &__step {
+    width: calc(25% - 30px);
+    text-align: center;
+    padding: 30px;
+    background: $white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-10px);
+    }
+
+    @media (max-width: 992px) {
+      width: calc(50% - 30px);
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 576px) {
+      width: 100%;
+    }
+
+    .step-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: $primary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        font-size: 32px;
+        color: $white;
+      }
+    }
+
+    h3 {
+      font-family: $heading-font;
+      font-size: 20px;
+      color: $dark;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-family: $body-font;
+      font-size: 14px;
+      color: $gray;
+      line-height: 1.6;
+    }
+  }
+}
+```

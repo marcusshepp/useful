@@ -1,0 +1,59 @@
+```html
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Work Process</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Work Process</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Work Process List</h4>
+                    <button type="button" class="btn btn-info" (click)="addWorkProcess()">
+                        <i class="fa fa-plus-circle"></i> Add New Work Process
+                    </button>
+                    <div class="table-responsive m-t-40">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Process Name</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let process of workProcesses">
+                                    <td>{{process.id}}</td>
+                                    <td>{{process.name}}</td>
+                                    <td>{{process.description}}</td>
+                                    <td>{{process.status}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-sm" (click)="editWorkProcess(process)">
+                                            <i class="fa fa-pencil"></i> Edit
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm" (click)="deleteWorkProcess(process)">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```

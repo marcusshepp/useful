@@ -1,0 +1,127 @@
+```scss
+.food-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 3rem;
+  padding-top: 2rem;
+}
+
+.menu-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  width: 20rem;
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  }
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.item-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.item-price {
+  color: #e31837;
+  font-weight: bold;
+}
+
+.item-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.item-description {
+  color: #666;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.add-to-cart {
+  background-color: #e31837;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c41230;
+  }
+}
+
+.category-header {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.category-divider {
+  width: 100%;
+  border-bottom: 2px solid #e0e0e0;
+  margin: 2rem 0;
+}
+
+.not-available {
+  opacity: 0.6;
+  pointer-events: none;
+  
+  .add-to-cart {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+}
+
+.special-tag {
+  background-color: #ffeb3b;
+  color: #333;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.vegetarian-icon {
+  color: #4caf50;
+  margin-right: 0.5rem;
+}
+
+.spicy-icon {
+  color: #f44336;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .food-menu {
+    margin: 1rem;
+  }
+
+  .menu-item {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+}
+```

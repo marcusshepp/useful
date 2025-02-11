@@ -1,0 +1,17 @@
+```scss
+.site-name {
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #666;
+  }
+
+  &.small {
+    font-size: 1.3rem;
+  }
+}
+```

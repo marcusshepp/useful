@@ -1,0 +1,889 @@
+<html lang="en-US" prefix="og: https://ogp.me/ns#"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="geo.region" content="US-MI">
+	<meta name="geo.placename" content="Redford Charter Township">
+	<meta name="geo.position" content="42.3662;-83.2985">
+	<meta name="ICBM" content="42.3662, -83.2985">
+    <style data-tippy-stylesheet="">.tippy-box[data-animation=fade][data-state=hidden]{opacity:0}[data-tippy-root]{max-width:calc(100vw - 10px)}.tippy-box{position:relative;background-color:#333;color:#fff;border-radius:4px;font-size:14px;line-height:1.4;white-space:normal;outline:0;transition-property:transform,visibility,opacity}.tippy-box[data-placement^=top]>.tippy-arrow{bottom:0}.tippy-box[data-placement^=top]>.tippy-arrow:before{bottom:-7px;left:0;border-width:8px 8px 0;border-top-color:initial;transform-origin:center top}.tippy-box[data-placement^=bottom]>.tippy-arrow{top:0}.tippy-box[data-placement^=bottom]>.tippy-arrow:before{top:-7px;left:0;border-width:0 8px 8px;border-bottom-color:initial;transform-origin:center bottom}.tippy-box[data-placement^=left]>.tippy-arrow{right:0}.tippy-box[data-placement^=left]>.tippy-arrow:before{border-width:8px 0 8px 8px;border-left-color:initial;right:-7px;transform-origin:center left}.tippy-box[data-placement^=right]>.tippy-arrow{left:0}.tippy-box[data-placement^=right]>.tippy-arrow:before{left:-7px;border-width:8px 8px 8px 0;border-right-color:initial;transform-origin:center right}.tippy-box[data-inertia][data-state=visible]{transition-timing-function:cubic-bezier(.54,1.5,.38,1.11)}.tippy-arrow{width:16px;height:16px;color:#333}.tippy-arrow:before{content:"";position:absolute;border-color:transparent;border-style:solid}.tippy-content{position:relative;padding:5px 9px;z-index:1}</style><link rel="profile" href="https://gmpg.org/xfn/11">
+	<link href="/wp-content/uploads/favicon.png" rel="shortcut icon" alt="icon">
+	<!-- 	Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+    	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	
+<!-- Search Engine Optimization by Rank Math - https://s.rankmath.com/home -->
+<title>Contact Us | Tims Gourmet Sliders</title>
+<meta name="description" content="Contact us today! Tims Gourmet Sliders offers specialty sliders! Stop by our truck or get your event catered today!">
+<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
+<link rel="canonical" href="https://timsgourmetsliders.com/contact-us/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Contact Us | Tims Gourmet Sliders">
+<meta property="og:description" content="Contact us today! Tims Gourmet Sliders offers specialty sliders! Stop by our truck or get your event catered today!">
+<meta property="og:url" content="https://timsgourmetsliders.com/contact-us/">
+<meta property="og:site_name" content="Tims Gourmet Sliders">
+<meta property="og:updated_time" content="2023-06-15T17:18:42+00:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact Us | Tims Gourmet Sliders">
+<meta name="twitter:description" content="Contact us today! Tims Gourmet Sliders offers specialty sliders! Stop by our truck or get your event catered today!">
+<meta name="twitter:label1" content="Time to read">
+<meta name="twitter:data1" content="Less than a minute">
+<script type="text/javascript" async="" charset="utf-8" src="https://www.gstatic.com/recaptcha/releases/PcIQSvk4Y5ANjYUx0f4froA1/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-P3vOnwOQjXmCJwx1vTvZAroj9OVXiVWsH201GY3AuWFi+LVyRVQwt0M/4hdSxMBf"></script><script type="application/ld+json" class="rank-math-schema">{"@context":"https://schema.org","@graph":[{"@type":"Place","@id":"https://timsgourmetsliders.com/#place","geo":{"@type":"GeoCoordinates","latitude":"42.3662","longitude":"-83.2985"},"hasMap":"https://www.google.com/maps/search/?api=1&amp;query=42.3662,-83.2985","address":{"@type":"PostalAddress","addressLocality":"Redford Charter Twp","addressRegion":"MI","postalCode":"48239","addressCountry":"United States"}},{"@type":["LocalBusiness","Organization"],"@id":"https://timsgourmetsliders.com/#organization","name":"Tims Gourmet Sliders","url":"https://timsgourmetsliders.com/","address":{"@type":"PostalAddress","addressLocality":"Redford Charter Twp","addressRegion":"MI","postalCode":"48239","addressCountry":"United States"},"logo":{"@type":"ImageObject","@id":"https://timsgourmetsliders.com/#logo","url":"https://timsgourmetsliders.com/wp-content/uploads/TIMS-2-jpg.webp","contentUrl":"https://timsgourmetsliders.com/wp-content/uploads/TIMS-2-jpg.webp","caption":"Tims Gourmet Sliders","inLanguage":"en-US","width":"1226","height":"735"},"priceRange":"$","openingHours":["Monday,Tuesday,Wednesday,Thursday,Friday,Saturday 10:00-21:00"],"location":{"@id":"https://timsgourmetsliders.com/#place"},"image":{"@id":"https://timsgourmetsliders.com/#logo"},"telephone":"+1-248-251-5781"},{"@type":"WebSite","@id":"https://timsgourmetsliders.com/#website","url":"https://timsgourmetsliders.com","name":"Tims Gourmet Sliders","publisher":{"@id":"https://timsgourmetsliders.com/#organization"},"inLanguage":"en-US"},{"@type":"ContactPage","@id":"https://timsgourmetsliders.com/contact-us/#webpage","url":"https://timsgourmetsliders.com/contact-us/","name":"Contact Us | Tims Gourmet Sliders","datePublished":"2022-08-18T18:32:49+00:00","dateModified":"2023-06-15T17:18:42+00:00","isPartOf":{"@id":"https://timsgourmetsliders.com/#website"},"inLanguage":"en-US"}]}</script>
+<!-- /Rank Math WordPress SEO plugin -->
+
+<link rel="dns-prefetch" href="//www.google.com">
+<link rel="dns-prefetch" href="//unpkg.com">
+<link rel="alternate" type="application/rss+xml" title="Tims Gourmet Sliders » Feed" href="https://timsgourmetsliders.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Tims Gourmet Sliders » Comments Feed" href="https://timsgourmetsliders.com/comments/feed/">
+<link rel="stylesheet" id="dashicons-css" href="https://timsgourmetsliders.com/wp-includes/css/dashicons.min.css?ver=6.7.1" media="all">
+<link rel="stylesheet" id="admin-bar-css" href="https://timsgourmetsliders.com/wp-includes/css/admin-bar.min.css?ver=6.7.1" media="all">
+<style id="admin-bar-inline-css">
+
+		@media screen { html { margin-top: 32px !important; } }
+		@media screen and ( max-width: 782px ) { html { margin-top: 46px !important; } }
+	
+@media print { #wpadminbar { display:none; } }
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel="stylesheet" id="contact-form-7-css" href="https://timsgourmetsliders.com/wp-content/mu-plugins/contact-form-7/includes/css/styles.css?ver=5.4.1" media="all">
+<link rel="stylesheet" id="biziq-plugins-css-css" href="https://timsgourmetsliders.com/wp-content/plugins/biziq-plugins/css/biziq-plugins.css?ver=6.7.1" media="all">
+<style id="dominant-color-styles-inline-css">
+img[data-dominant-color]:not(.has-transparency) { background-color: var(--dominant-color); background-clip: content-box, padding-box; }
+</style>
+<link rel="stylesheet" id="rank-math-css" href="https://timsgourmetsliders.com/wp-content/plugins/seo-by-rank-math/assets/front/css/rank-math.css?ver=1.0.96" media="all">
+<link rel="stylesheet" id="biziq-style-css" href="https://timsgourmetsliders.com/wp-content/themes/TimsGourmetSliders/style.css?ver=1.0.0" media="all">
+<link rel="stylesheet" id="simcal-qtip-css" href="https://timsgourmetsliders.com/wp-content/plugins/google-calendar-events/assets/css/vendor/jquery.qtip.min.css?ver=3.2.0" media="all">
+<link rel="stylesheet" id="simcal-default-calendar-grid-css" href="https://timsgourmetsliders.com/wp-content/plugins/google-calendar-events/assets/css/default-calendar-grid.min.css?ver=3.2.0" media="all">
+<link rel="stylesheet" id="simcal-default-calendar-list-css" href="https://timsgourmetsliders.com/wp-content/plugins/google-calendar-events/assets/css/default-calendar-list.min.css?ver=3.2.0" media="all">
+<link rel="stylesheet" id="fullcalendar-css" href="https://timsgourmetsliders.com/wp-content/plugins/simple-calendar-fullcalendar/assets/css/vendor/fullcalendar.min.css?ver=3.2.0" media="all">
+<link rel="stylesheet" id="simcal-tooltip-css" href="https://timsgourmetsliders.com/wp-content/plugins/simple-calendar-fullcalendar/assets/css/vendor/tooltip.css?ver=3.2.0" media="all">
+<link rel="stylesheet" id="simcal-fullcal-grid-css" href="https://timsgourmetsliders.com/wp-content/plugins/simple-calendar-fullcalendar/assets/css/fullcalendar-grid.min.css?ver=3.2.0" media="all">
+<script src="https://timsgourmetsliders.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script src="https://timsgourmetsliders.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="https://timsgourmetsliders.com/wp-json/"><link rel="alternate" title="JSON" type="application/json" href="https://timsgourmetsliders.com/wp-json/wp/v2/pages/676"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://timsgourmetsliders.com/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.7.1">
+<link rel="shortlink" href="https://timsgourmetsliders.com/?p=676">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://timsgourmetsliders.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Ftimsgourmetsliders.com%2Fcontact-us%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://timsgourmetsliders.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Ftimsgourmetsliders.com%2Fcontact-us%2F&amp;format=xml">
+<meta name="generator" content="Performance Lab 1.6.0; modules: images/dominant-color, images/webp-uploads, site-health/webp-support">
+<link rel="icon" href="https://timsgourmetsliders.com/wp-content/uploads/favicon.png" sizes="32x32">
+<link rel="icon" href="https://timsgourmetsliders.com/wp-content/uploads/favicon.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://timsgourmetsliders.com/wp-content/uploads/favicon.png">
+<meta name="msapplication-TileImage" content="https://timsgourmetsliders.com/wp-content/uploads/favicon.png">
+		<style id="wp-custom-css">
+			.wrap {
+	background: #222;
+	padding: 1em;
+	-webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+}		</style>
+		
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-SL605VSK6Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SL605VSK6Q');
+</script>
+	
+</head>
+
+
+<body class="page-template-default page page-id-676 logged-in admin-bar no-sidebar customize-support">
+<script>
+		(function() {
+			var request, b = document.body, c = 'className', cs = 'customize-support', rcs = new RegExp('(^|\\s+)(no-)?'+cs+'(\\s+|$)');
+
+				request = true;
+	
+			b[c] = b[c].replace( rcs, ' ' );
+			// The customizer requires postMessage and CORS (if the site is cross domain).
+			b[c] += ( window.postMessage && request ? ' ' : ' no-' ) + cs;
+		}());
+	
+</script>
+		<div id="wpadminbar" class="nojq">
+						<div class="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar">
+				<ul role="menu" id="wp-admin-bar-root-default" class="ab-top-menu"><li role="group" id="wp-admin-bar-wp-logo" class="menupop"><a class="ab-item" role="menuitem" aria-expanded="false" href="https://timsgourmetsliders.com/wp-admin/about.php"><span class="ab-icon" aria-hidden="true"></span><span class="screen-reader-text">About WordPress</span></a><div class="ab-sub-wrapper"><ul role="menu" aria-label="About WordPress" id="wp-admin-bar-wp-logo-default" class="ab-submenu"><li role="group" id="wp-admin-bar-about"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/about.php">About WordPress</a></li><li role="group" id="wp-admin-bar-contribute"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/contribute.php">Get Involved</a></li></ul><ul role="menu" aria-label="About WordPress" id="wp-admin-bar-wp-logo-external" class="ab-sub-secondary ab-submenu"><li role="group" id="wp-admin-bar-wporg"><a class="ab-item" role="menuitem" href="https://wordpress.org/">WordPress.org</a></li><li role="group" id="wp-admin-bar-documentation"><a class="ab-item" role="menuitem" href="https://wordpress.org/documentation/">Documentation</a></li><li role="group" id="wp-admin-bar-learn"><a class="ab-item" role="menuitem" href="https://learn.wordpress.org/">Learn WordPress</a></li><li role="group" id="wp-admin-bar-support-forums"><a class="ab-item" role="menuitem" href="https://wordpress.org/support/forums/">Support</a></li><li role="group" id="wp-admin-bar-feedback"><a class="ab-item" role="menuitem" href="https://wordpress.org/support/forum/requests-and-feedback">Feedback</a></li></ul></div></li><li role="group" id="wp-admin-bar-site-name" class="menupop"><a class="ab-item" role="menuitem" aria-expanded="false" href="https://timsgourmetsliders.com/wp-admin/">Tims Gourmet Sliders</a><div class="ab-sub-wrapper"><ul role="menu" aria-label="Tims Gourmet Sliders" id="wp-admin-bar-site-name-default" class="ab-submenu"><li role="group" id="wp-admin-bar-dashboard"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/">Dashboard</a></li><li role="group" id="wp-admin-bar-plugins"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/plugins.php">Plugins</a></li></ul><ul role="menu" aria-label="Tims Gourmet Sliders" id="wp-admin-bar-appearance" class="ab-submenu"><li role="group" id="wp-admin-bar-themes"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/themes.php">Themes</a></li><li role="group" id="wp-admin-bar-widgets"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/widgets.php">Widgets</a></li><li role="group" id="wp-admin-bar-menus"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/nav-menus.php">Menus</a></li><li role="group" id="wp-admin-bar-background" class="hide-if-customize"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/themes.php?page=custom-background">Background</a></li><li role="group" id="wp-admin-bar-header" class="hide-if-customize"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/themes.php?page=custom-header">Header</a></li></ul></div></li><li role="group" id="wp-admin-bar-customize" class="hide-if-no-customize"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/customize.php?url=https%3A%2F%2Ftimsgourmetsliders.com%2Fcontact-us%2F">Customize</a></li><li role="group" id="wp-admin-bar-updates"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/update-core.php"><span class="ab-icon" aria-hidden="true"></span><span class="ab-label" aria-hidden="true">10</span><span class="screen-reader-text updates-available-text">10 updates available</span></a></li><li role="group" id="wp-admin-bar-comments"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/edit-comments.php"><span class="ab-icon" aria-hidden="true"></span><span class="ab-label awaiting-mod pending-count count-0" aria-hidden="true">0</span><span class="screen-reader-text comments-in-moderation-text">0 Comments in moderation</span></a></li><li role="group" id="wp-admin-bar-new-content" class="menupop"><a class="ab-item" role="menuitem" aria-expanded="false" href="https://timsgourmetsliders.com/wp-admin/post-new.php"><span class="ab-icon" aria-hidden="true"></span><span class="ab-label">New</span></a><div class="ab-sub-wrapper"><ul role="menu" aria-label="New" id="wp-admin-bar-new-content-default" class="ab-submenu"><li role="group" id="wp-admin-bar-new-post"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/post-new.php">Post</a></li><li role="group" id="wp-admin-bar-new-media"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/media-new.php">Media</a></li><li role="group" id="wp-admin-bar-new-page"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/post-new.php?post_type=page">Page</a></li><li role="group" id="wp-admin-bar-new-calendar"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/post-new.php?post_type=calendar">Calendar</a></li><li role="group" id="wp-admin-bar-new-biziq_review"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/post-new.php?post_type=biziq_review">Review</a></li><li role="group" id="wp-admin-bar-new-user"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/user-new.php">User</a></li></ul></div></li><li role="group" id="wp-admin-bar-edit"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/post.php?post=676&amp;action=edit">Edit Page</a></li><li role="group" id="wp-admin-bar-rank-math" class="menupop"><a class="ab-item" role="menuitem" aria-expanded="false" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=rank-math" title="Rank Math Dashboard"><span class="rank-math-icon"><svg viewBox="0 0 462.03 462.03" xmlns="http://www.w3.org/2000/svg" width="20"><g><path d="m462 234.84-76.17 3.43 13.43 21-127 81.18-126-52.93-146.26 60.97 10.14 24.34 136.1-56.71 128.57 54 138.69-88.61 13.43 21z"></path><path d="m54.1 312.78 92.18-38.41 4.49 1.89v-54.58h-96.67zm210.9-223.57v235.05l7.26 3 89.43-57.05v-181zm-105.44 190.79 96.67 40.62v-165.19h-96.67z"></path></g></svg></span><span class="rank-math-text">Rank Math SEO</span></a><div class="ab-sub-wrapper"><ul role="menu" id="wp-admin-bar-rank-math-default" class="ab-submenu"><li role="group" id="wp-admin-bar-rank-math-dashboard"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=rank-math" title="Dashboard">Dashboard</a></li><li role="group" id="wp-admin-bar-rank-math-analytics"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=rank-math-analytics" title="Review analytics and sitemaps">Analytics<span class="rm-menu-new update-plugins" style="background: #ed5e5e;margin-left: 5px;min-width: 10px;height: 10px;margin-bottom: -1px;display: inline-block;border-radius: 5px;"><span class="plugin-count"></span></span></a></li><li role="group" id="wp-admin-bar-rank-math-posttype"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=rank-math-options-titles#setting-panel-post-type-page" title="Edit default SEO settings for this post type">SEO Settings for Pages</a></li><li role="group" id="wp-admin-bar-rank-math-mark-me" class="menupop"><a class="ab-item" role="menuitem" aria-expanded="false" href="#"><span class="wp-admin-bar-arrow" aria-hidden="true"></span>Mark this page</a><div class="ab-sub-wrapper"><ul role="menu" id="wp-admin-bar-rank-math-mark-me-default" class="ab-submenu"><li role="group" id="wp-admin-bar-rank-math-pillar-content" class="mark-page-as"><a class="ab-item" role="menuitem" href="#pillar_content">As Pillar Content</a></li><li role="group" id="wp-admin-bar-rank-math-no-index" class="mark-page-as"><a class="ab-item" role="menuitem" href="#noindex">As NoIndex</a></li><li role="group" id="wp-admin-bar-rank-math-no-follow" class="mark-page-as"><a class="ab-item" role="menuitem" href="#nofollow">As NoFollow</a></li></ul></div></li><li role="group" id="wp-admin-bar-rank-math-third-party" class="menupop"><a class="ab-item" role="menuitem" aria-expanded="false" href="#"><span class="wp-admin-bar-arrow" aria-hidden="true"></span>External Tools</a><div class="ab-sub-wrapper"><ul role="menu" id="wp-admin-bar-rank-math-third-party-default" class="ab-submenu"><li role="group" id="wp-admin-bar-rank-math-google-pagespeed"><a class="ab-item" role="menuitem" href="https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Ftimsgourmetsliders.com%2Fcontact-us%2F" target="_blank" title="Google PageSpeed Insights">Google PageSpeed</a></li><li role="group" id="wp-admin-bar-rank-math-google-mobilefriendly"><a class="ab-item" role="menuitem" href="https://search.google.com/test/mobile-friendly?url=https%3A%2F%2Ftimsgourmetsliders.com%2Fcontact-us%2F" target="_blank" title="Google Mobile-Friendly Test">Google Mobile-Friendly</a></li><li role="group" id="wp-admin-bar-rank-math-google-richresults-mobile"><a class="ab-item" role="menuitem" href="https://search.google.com/test/rich-results?url=https%3A%2F%2Ftimsgourmetsliders.com%2Fcontact-us%2F&amp;user_agent=1" target="_blank" title="Google Rich Results Test - Googlebot Smartphone">Google Rich Results (Mobile)</a></li><li role="group" id="wp-admin-bar-rank-math-google-richresults-desktop"><a class="ab-item" role="menuitem" href="https://search.google.com/test/rich-results?url=https%3A%2F%2Ftimsgourmetsliders.com%2Fcontact-us%2F&amp;user_agent=2" target="_blank" title="Google Rich Results Test - Googlebot Desktop">Google Rich Results (Desktop)</a></li><li role="group" id="wp-admin-bar-rank-math-google-cache"><a class="ab-item" role="menuitem" href="https://webcache.googleusercontent.com/search?q=cache:https%3A%2F%2Ftimsgourmetsliders.com%2Fcontact-us%2F" target="_blank" title="See Google's cached version of your site">Google Cache</a></li><li role="group" id="wp-admin-bar-rank-math-fb-debugger"><a class="ab-item" role="menuitem" href="https://developers.facebook.com/tools/debug/sharing/?q=https%3A%2F%2Ftimsgourmetsliders.com%2Fcontact-us%2F" target="_blank" title="Facebook Sharing Debugger">Facebook Debugger</a></li></ul></div></li></ul></div></li><li role="group" id="wp-admin-bar-llar-root" class="menupop"><a class="ab-item" role="menuitem" aria-expanded="false" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=limit-login-attempts">LLAR</a><div class="ab-sub-wrapper"><ul role="menu" id="wp-admin-bar-llar-root-default" class="ab-submenu"><li role="group" id="wp-admin-bar-llar-root-dashboard"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=limit-login-attempts&amp;tab=dashboard">Dashboard</a></li><li role="group" id="wp-admin-bar-llar-root-settings"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=limit-login-attempts&amp;tab=settings">Settings</a></li><li role="group" id="wp-admin-bar-llar-root-logs-local"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=limit-login-attempts&amp;tab=logs-local">Logs</a></li><li role="group" id="wp-admin-bar-llar-root-debug"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=limit-login-attempts&amp;tab=debug">Debug</a></li><li role="group" id="wp-admin-bar-llar-root-help"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=limit-login-attempts&amp;tab=help">Help</a></li><li role="group" id="wp-admin-bar-llar-root-premium"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/admin.php?page=limit-login-attempts&amp;tab=dashboard#modal_micro_cloud">Free Upgrade</a></li></ul></div></li></ul><ul role="menu" id="wp-admin-bar-top-secondary" class="ab-top-secondary ab-top-menu"><li role="group" id="wp-admin-bar-my-account" class="menupop"><a class="ab-item" role="menuitem" aria-expanded="false" href="https://timsgourmetsliders.com/wp-admin/profile.php">Howdy, <span class="display-name">admin</span></a><div class="ab-sub-wrapper"><ul role="menu" aria-label="Howdy, admin" id="wp-admin-bar-user-actions" class="ab-submenu"><li role="group" id="wp-admin-bar-user-info"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-admin/profile.php"><span class="display-name">admin</span><span class="display-name edit-profile">Edit Profile</span></a></li><li role="group" id="wp-admin-bar-logout"><a class="ab-item" role="menuitem" href="https://timsgourmetsliders.com/wp-login.php?action=logout&amp;_wpnonce=b9b48bb3d6">Log Out</a></li></ul></div></li><li role="group" id="wp-admin-bar-search" class="admin-bar-search"><div class="ab-item ab-empty-item" tabindex="-1" role="menuitem"><form action="https://timsgourmetsliders.com/" method="get" id="adminbarsearch"><input class="adminbar-input" name="s" id="adminbar-search" type="text" value="" maxlength="150"><label for="adminbar-search" class="screen-reader-text">Search</label><input type="submit" class="adminbar-button" value="Search"></form></div></li></ul>			</div>
+		</div>
+
+		
+<div id="page" class="site">
+    <a class="skip-link screen-reader-text" href="#primary">Skip to content</a>
+
+    <header id="masthead" class="site-header">
+        <div class="large-wrapper">
+			<div class="row align-items-center">
+
+									<div id="logo" class="widget-area order-md-0 order-lg-0 col-md-6 col-lg-3 text-md-left" role="complementary">
+						<a href="/"><div><img decoding="async" class="img-fluid" src="/wp-content/uploads/TimCutOutLogo.png" alt="logo"></div></a>
+					</div>
+				
+				<nav id="site-navigation" class="main-navigation d-flex justify-content-md-center order-md-2 order-lg-1 col-md-12  col-lg-6">
+					<!-- <button class="menu-toggle" aria-label="Menu" aria-controls="primary-menu" aria-expanded="false"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button> -->
+					<div class="menu-menu-left-container"><ul id="primary-menu" class="menu"><li id="menu-item-680" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-680"><a href="https://timsgourmetsliders.com/">Home</a></li>
+<li id="menu-item-886" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-886"><a href="https://timsgourmetsliders.com/menu/" title="Food Truck Menu">Menu</a></li>
+<li id="menu-item-972" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-972"><a href="https://timsgourmetsliders.com/event-catering/" title="Event Catering Services in Detroit, MI">Event Catering</a></li>
+<li id="menu-item-1011" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1011"><a href="https://timsgourmetsliders.com/where-to-find-us/" title="Detroit Style Specialty Sliders">Where To Find Us</a></li>
+<li id="menu-item-779" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-676 current_page_item current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-779"><a href="https://timsgourmetsliders.com/contact-us/" aria-current="page">Contact <img style="filter:invert(1);" src="/wp-content/uploads/down-icon.png" alt="Down Icon"></a>
+<ul class="sub-menu">
+	<li id="menu-item-924" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-676 current_page_item menu-item-924"><a href="https://timsgourmetsliders.com/contact-us/" aria-current="page">Contact Us</a></li>
+	<li id="menu-item-683" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-683"><a href="https://timsgourmetsliders.com/feedback/" title="Leave Feedback">Feedback</a></li>
+	<li id="menu-item-780" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-780"><a href="https://timsgourmetsliders.com/reviews/">Reviews</a></li>
+</ul>
+</li>
+</ul></div>				</nav><!-- #site-navigation -->
+
+
+			<nav id="site-navigation-mobile" class=""> 
+			<button class="nav-menu-toggle" aria-controls="primary-menu" aria-expanded="false"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+			<div class="nav-glass"></div>
+			<div class="large-wrapper-nav"> <div class="menu-menu-left-container"><ul id="primary-menu-nav" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-680"><a href="https://timsgourmetsliders.com/">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-886"><a href="https://timsgourmetsliders.com/menu/" title="Food Truck Menu">Menu</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-972"><a href="https://timsgourmetsliders.com/event-catering/" title="Event Catering Services in Detroit, MI">Event Catering</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1011"><a href="https://timsgourmetsliders.com/where-to-find-us/" title="Detroit Style Specialty Sliders">Where To Find Us</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-676 current_page_item current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-779"><a href="https://timsgourmetsliders.com/contact-us/" aria-current="page">Contact <img style="filter:invert(1);" src="/wp-content/uploads/down-icon.png" alt="Down Icon"></a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-676 current_page_item menu-item-924"><a href="https://timsgourmetsliders.com/contact-us/" aria-current="page">Contact Us</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-683"><a href="https://timsgourmetsliders.com/feedback/" title="Leave Feedback">Feedback</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-780"><a href="https://timsgourmetsliders.com/reviews/">Reviews</a></li>
+</ul>
+</li>
+</ul></div> 
+			</div>
+			</nav><!-- #site-navigation -->
+
+					<div class="phone-number-area col-md-6 order-md-1 order-lg-2 col-lg-3 text-md-right d-md-inline-block d-none">
+								
+								<div><div id="header-number" class="d-inline-block"><a class="d-flex align-items-center" href="tel:+12482515781"><i class="sprite phone"></i> (248) 251-5781</a></div></div>						
+								
+
+				</div>
+
+		</div><!--
+		<div class="row">
+			<div id="slider-content-top" class="col-md-6 offset-md-3 slider-content-top">
+				<p>Previously known as Tim’s Good Food Grill now specializing in gourmet sliders!</p>
+			</div>	
+		</div>-->
+		</div><!-- .site-branding & .large-wrapper-->
+
+
+ 
+<!-- phone -->
+				
+			<div class="d-md-none d-block header-phone-mobile"><div><div id="header-number" class="d-inline-block"><a class="d-flex align-items-center" href="tel:+12482515781"><i class="sprite phone"></i> (248) 251-5781</a></div></div>	</div>				
+			
+<!-- end of phone-->
+</header><!-- #masthead -->
+	<main id="primary" class="site-main">
+	<div class="large-wrapper">
+		
+<article id="post-676" class="post-676 page type-page status-publish hentry">
+	
+	
+	
+	<div class="entry-content">
+		<div class="breakout invert py-5">
+<div class="large-wrapper text-center">
+<h1>Contact Us</h1>
+</div>
+</div>
+<div class="medium-wrapper my-5 text-center">
+<p>It’s easy to contact Tims Gourmet Sliders! Simply fill out our online contact form and someone will get back to you as soon as possible or give us a call today, we look forward to assisting you!</p>
+<div role="form" class="wpcf7" id="wpcf7-f104-p676-o1" lang="en-US" dir="ltr">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true">Thank you for your message. It has been sent.</p> <ul></ul></div>
+<form action="/contact-us/#wpcf7-f104-p676-o1" method="post" class="wpcf7-form sent" novalidate="novalidate" data-status="sent">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="104">
+<input type="hidden" name="_wpcf7_version" value="5.4.1">
+<input type="hidden" name="_wpcf7_locale" value="en_US">
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f104-p676-o1">
+<input type="hidden" name="_wpcf7_container_post" value="676">
+<input type="hidden" name="_wpcf7_posted_data_hash" value="">
+</div>
+<p><label for="name">Name</label><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="Name"></span><br>
+<label for="email">Email</label><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="email" aria-required="true" aria-invalid="false" placeholder="Email"></span><span id="wpcf7-67a7a45f1eb16-wrapper" class="wpcf7-form-control-wrap honeypot-635-wrap" style="display:none !important; visibility:hidden !important;"><label for="wpcf7-67a7a45f1eb16-field" class="hp-message">Please leave this field empty.</label><input id="wpcf7-67a7a45f1eb16-field" class="wpcf7-form-control wpcf7-text" type="text" name="honeypot-635" value="" size="40" tabindex="-1" autocomplete="new-password"></span><br>
+<label for="phone">Phone</label><span class="wpcf7-form-control-wrap your-phone"><input type="text" name="your-phone" value="" size="40" class="wpcf7-form-control wpcf7-text" id="phone" aria-invalid="false" placeholder="Phone (optional)"></span><br>
+<label for="phone">Date</label><span class="wpcf7-form-control-wrap date-142"><input type="date" name="date-142" value="" class="wpcf7-form-control wpcf7-date wpcf7-validates-as-date" aria-invalid="false"></span><br>
+<span class="wpcf7-form-control-wrap text-414"><input type="text" name="text-414" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="Event Address &amp; City"></span><br>
+<span class="wpcf7-form-control-wrap text-417"><input type="text" name="text-417" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="Number of Guests"></span><br>
+<label for="message">Message</label><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" id="message" aria-invalid="false" placeholder="Message"></textarea></span><br>
+<input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></p>
+<div class="inv-recaptcha-holder"><div class="grecaptcha-badge" data-style="bottomleft" style="width: 256px; height: 60px; display: block; transition: left 0.3s; position: fixed; bottom: 14px; left: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60" role="presentation" name="a-c358ubt2avg7" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfpJ1MmAAAAACkrLzSsNddcfiT5lOpiasviTJWe&amp;co=aHR0cHM6Ly90aW1zZ291cm1ldHNsaWRlcnMuY29tOjQ0Mw..&amp;hl=en&amp;v=PcIQSvk4Y5ANjYUx0f4froA1&amp;size=invisible&amp;badge=bottomleft&amp;cb=hofxrqnuq3u5"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div><div class="wpcf7-response-output" aria-hidden="true">Thank you for your message. It has been sent.</div></form></div></div>
+	</div><!-- .entry-content -->
+
+			<footer class="entry-footer">
+			<span class="edit-link"><a class="post-edit-link" href="https://timsgourmetsliders.com/wp-admin/post.php?post=676&amp;action=edit">Edit <span class="screen-reader-text">Contact Us</span></a></span>		</footer><!-- .entry-footer -->
+	</article><!-- #post-676 -->
+	</div>
+	<div id="glass"></div><strong class="gallery-btn gallery-next">&gt;</strong><strong class="gallery-btn gallery-prev">&lt;</strong></main><!-- #main -->
+
+	<footer id="colophon" class="site-footer">
+		<div class="large-wrapper"><div class="main-footer-area row justify-content-start">
+
+			<div class="footer-column col-md-4">
+									<div id="footer_widget_left" class="widget-area" role="complementary">
+						<div><h2>Location</h2>
+<p>Tims Gourmet Sliders</p>
+<div class="cta-area">
+<p>	<a title="Google Listing" target="_blank" rel="noopener noreferrer"><i class="sprite pin"></i> Redford, MI 48239 </a></p><a title="Google Listing" href="https://goo.gl/maps/E9nQTFhfLkC8J4jz6" target="_blank" rel="noopener noreferrer">
+</a><p><a title="Google Listing" href="https://goo.gl/maps/E9nQTFhfLkC8J4jz6" target="_blank" rel="noopener noreferrer">	</a><a title="Call Today" href="tel:+12482515781"><i class="sprite phone"></i> (248) 251-5781</a>
+</p>
+</div>
+<div class="socialicons">
+<div class="bottomicon"><a rel="nofollow" alt="Google" href="https://goo.gl/maps/7YhBECNSPkW8xwKg8" target="_blank"><img decoding="async" src="/wp-content/uploads/google.png" alt="Google"></a>
+	</div>
+<div class="bottomicon">
+		<a rel="nofollow" alt="Facebook" href="https://www.facebook.com/Timsgourmetsliders/" target="_blank"><img decoding="async" src="/wp-content/uploads/facebook.png" alt="Facebook"></a>
+	</div>
+<div class="bottomicon">
+		<a rel="nofollow" alt="Yelp" href="https://www.yelp.com/biz/tims-gourmet-sliders-redford" target="_blank"><img decoding="async" src="/wp-content/uploads/yelp.png" alt="Yelp"></a>
+	</div>
+<div class="bottomicon">
+<a href="https://www.instagram.com/timsgourmetsliders/" target="_blank" rel="nofollow"><img decoding="async" src="/wp-content/uploads/instagram-icon-1.png" alt="Instagram"></a>
+</div>
+</div></div>					</div>
+				
+			</div>
+			<div class="footer-column col-md-4">
+									<div id="footer_widget_center" class="widget-area" role="complementary">
+						<div><h2>Quick Links</h2>
+<a class="btn mb-3" href="/menu/" title="Menu">Menu</a> 
+<a class="btn mb-3" href="/event-catering/" title="Event Catering">Event Catering</a> 
+<a class="btn mb-3" href="/where-to-find-us/" title="Where To Find Us">Where To Find Us</a></div>					</div>
+				
+			</div>
+			<div class="footer-column col-md-4">
+									<div id="footer_widget_right" class="widget-area" role="complementary">
+						<div><h2>Business Hours</h2>
+<div class="text-center">
+<!--	<p><img decoding="async" class="img-fluid" style="max-width: 200px;" src="/wp-content/uploads/24-hours.png" alt="Open 24 Hours"/></p>-->
+	
+	<div class="hours-wrap">
+		<table width="100%">
+			<tbody>
+				<tr data-day="1">
+					<td>Monday:</td>
+					<td>10 AM - 9 PM</td>
+				</tr>
+				<tr data-day="2">
+					<td>Tuesday:</td>
+					<td>10 AM - 9 PM</td>
+				</tr>
+				<tr data-day="3">
+					<td>Wednesday:</td>
+					<td>10 AM - 9 PM</td>
+				</tr>
+				<tr data-day="4">
+					<td>Thursday:</td>
+					<td>10 AM - 9 PM</td>
+				</tr>
+				<tr data-day="5">
+					<td>Friday:</td>
+					<td>10 AM - 9 PM</td>
+				</tr>
+				<tr data-day="6" class="today">
+					<td>Saturday:</td>
+					<td>10 AM - 9 PM</td>
+				</tr>
+				<tr data-day="0">
+					<td>Sunday:</td>
+					<td>Closed</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</div></div>					</div>
+				
+			</div>
+			<div style="text-align:center;" itemscope="" itemtype="https://schema.org/Product">
+<meta itemprop="name" content="Tims Gourmet Sliders - Best local pharmacy in Washington Heights, NY">
+<div class="rating-stars1 mt-4" itemprop="aggregateRating" itemscope="" itemtype="https://schema.org/AggregateRating"> 
+<span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>  <span class="fa fa-star"></span> <span class="fa fa-star-half"></span> 
+<noscript>
+<span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>  <span class="fa fa-star"></span> <span class="fa fa-star-half"></span> </noscript><br>
+<p><b>Tims Gourmet Sliders is rated <span itemprop="ratingValue" class="rating-txt">5.0</span> / <span itemprop="bestRating" class="rating-txt">5</span> <meta itemprop="worstRating" content="1"> average from <span itemprop="ratingCount" class="rating-txt">17</span> reviews on <a href="https://www.google.com/maps/place/Tims+Gourmet+Sliders/@42.2968295,-83.7662284,9z/data=!4m6!3m5!1s0xa7c008d1c0f95e31:0x470973e45f47cc2c!8m2!3d42.2968295!4d-83.7662284!16s%2Fg%2F11thr41x68?entry=tts&amp;shorturl=1" target="_blank"><strong><u>Google</u></strong></a></b></p>
+</div> 
+</div>
+		<div id="copyright" class="text-center py-3">© 2025 Tims Gourmet Sliders. <a href="/terms-and-conditions/" title="Terms and Conditions">All Rights Reserved</a>. - <a href="/sitemap.xml" target="_blank">XML Sitemap</a></div>
+	
+		</div></div><!-- .site-info & .large-wrapper -->
+
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<!-- Scroll in Animations -->
+<script>
+	const scrollElements = document.querySelectorAll(".js-scroll");
+
+	const elementInView = (el, dividend = 1) => {
+		const elementTop = el.getBoundingClientRect().top;
+		return (
+			elementTop <=
+			(window.innerHeight || document.documentElement.clientHeight) / dividend
+		);
+	};
+
+	const elementOutofView = (el) => {
+		const elementTop = el.getBoundingClientRect().top;
+
+		return (
+			elementTop > (window.innerHeight || document.documentElement.clientHeight)
+		);
+	};
+
+	const displayScrollElement = (element) => {
+		element.classList.add("scrolled");
+	};
+
+	const hideScrollElement = (element) => {
+		element.classList.remove("scrolled");
+	};
+
+	const handleScrollAnimation = () => {
+		scrollElements.forEach((el) => {
+			if (elementInView(el, 1.25)) {
+				displayScrollElement(el);
+			} else if (elementOutofView(el)) {
+				hideScrollElement(el)
+			}
+		})
+	}
+
+	window.addEventListener("scroll", () => {
+		handleScrollAnimation();
+	});
+</script>
+
+<script>
+document.addEventListener( 'wpcf7mailsent', function( event ) {
+	var domain = document.location.origin;
+	var page = '/thank-you/';
+	
+	location = domain + page;
+}, false );
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var rankMath = {"version":"1.0.96","ajaxurl":"https:\/\/timsgourmetsliders.com\/wp-admin\/admin-ajax.php","adminurl":"https:\/\/timsgourmetsliders.com\/wp-admin\/admin.php","endpoint":"https:\/\/timsgourmetsliders.com\/wp-json\/rankmath\/v1","security":"21ced488a9","restNonce":"3b5365f665","modules":{"0":"link-counter","1":"analytics","2":"seo-analysis","3":"sitemap","4":"rich-snippet","10":"content-ai","11":"instant-indexing","12":"local-seo","13":"role-manager"},"objectID":676,"objectType":"post"};
+
+/* ]]> */
+</script>
+<script src="https://timsgourmetsliders.com/wp-includes/js/hoverintent-js.min.js?ver=2.2.1" id="hoverintent-js-js"></script>
+<script src="https://timsgourmetsliders.com/wp-includes/js/admin-bar.min.js?ver=6.7.1" id="admin-bar-js"></script>
+<script src="https://timsgourmetsliders.com/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0" id="wp-polyfill-js"></script>
+<script id="contact-form-7-js-extra">
+var wpcf7 = {"api":{"root":"https:\/\/timsgourmetsliders.com\/wp-json\/","namespace":"contact-form-7\/v1"}};
+</script>
+<script src="https://timsgourmetsliders.com/wp-content/mu-plugins/contact-form-7/includes/js/index.js?ver=5.4.1" id="contact-form-7-js"></script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/biziq-plugins/biziq-reviews/js/review-widget.js?ver=1.0.0" id="biziq_review_widget_js-js"></script>
+<script id="google-invisible-recaptcha-js-before">
+var renderInvisibleReCaptcha = function() {
+
+    for (var i = 0; i < document.forms.length; ++i) {
+        var form = document.forms[i];
+        var holder = form.querySelector('.inv-recaptcha-holder');
+
+        if (null === holder) continue;
+		holder.innerHTML = '';
+
+         (function(frm){
+			var cf7SubmitElm = frm.querySelector('.wpcf7-submit');
+            var holderId = grecaptcha.render(holder,{
+                'sitekey': '6LfpJ1MmAAAAACkrLzSsNddcfiT5lOpiasviTJWe', 'size': 'invisible', 'badge' : 'bottomleft',
+                'callback' : function (recaptchaToken) {
+					if((null !== cf7SubmitElm) && (typeof jQuery != 'undefined')){jQuery(frm).submit();grecaptcha.reset(holderId);return;}
+					 HTMLFormElement.prototype.submit.call(frm);
+                },
+                'expired-callback' : function(){grecaptcha.reset(holderId);}
+            });
+
+			if(null !== cf7SubmitElm && (typeof jQuery != 'undefined') ){
+				jQuery(cf7SubmitElm).off('click').on('click', function(clickEvt){
+					clickEvt.preventDefault();
+					grecaptcha.execute(holderId);
+				});
+			}
+			else
+			{
+				frm.onsubmit = function (evt){evt.preventDefault();grecaptcha.execute(holderId);};
+			}
+
+
+        })(form);
+    }
+};
+</script>
+<script async="" defer="" src="https://www.google.com/recaptcha/api.js?onload=renderInvisibleReCaptcha&amp;render=explicit" id="google-invisible-recaptcha-js"></script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/seo-by-rank-math/assets/front/js/rank-math.js?ver=1.0.96" id="rank-math-js"></script>
+<script src="https://timsgourmetsliders.com/wp-content/themes/TimsGourmetSliders/js/navigation.js?ver=1.0.0" id="biziq-navigation-js"></script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/google-calendar-events/assets/js/vendor/jquery.qtip.min.js?ver=3.2.0" id="simcal-qtip-js"></script>
+<script id="simcal-default-calendar-js-extra">
+var simcal_default_calendar = {"ajax_url":"\/wp-admin\/admin-ajax.php","nonce":"a1bb325fbe","locale":"en_US","text_dir":"ltr","months":{"full":["January","February","March","April","May","June","July","August","September","October","November","December"],"short":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]},"days":{"full":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"short":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},"meridiem":{"AM":"AM","am":"am","PM":"PM","pm":"pm"}};
+</script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/google-calendar-events/assets/js/default-calendar-bundled.min.js?ver=3.2.0" id="simcal-default-calendar-js"></script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/simple-calendar-fullcalendar/assets/js/vendor/moment.min.js?ver=3.2.0" id="simcal_fullcal_moment-js"></script>
+<script id="simcal_fullcal-js-extra">
+var simcal_fullcal = {"cal_nav_today":"today","cal_nav_months":"month","cal_nav_weeks":"week","cal_nav_days":"day"};
+</script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/simple-calendar-fullcalendar/assets/js/vendor/fullcalendar.min.js?ver=3.2.0" id="simcal_fullcal-js"></script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/simple-calendar-fullcalendar/assets/js/vendor/lang-all.min.js?ver=3.2.0" id="simcal_fullcal_locale-js"></script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/google-calendar-events/assets/js/vendor/jquery.qtip.min.js?ver=3.2.0" id="simcal_qtip-js"></script>
+<script src="https://unpkg.com/@popperjs/core@2?ver=3.2.0" id="simcal_popper-js"></script>
+<script src="https://unpkg.com/tippy.js@6?ver=3.2.0" id="simcal_tippy-js"></script>
+<script id="simcal_fullcal_grid-js-extra">
+var simcal_fullcal = {"settings":{"ajax_url":"\/wp-admin\/admin-ajax.php","lang":"en_US","isRTL":false},"today":"today","months":"month","weeks":"week","days":"day"};
+</script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/simple-calendar-fullcalendar/assets/js/fullcalendar-grid.min.js?ver=3.2.0" id="simcal_fullcal_grid-js"></script>
+<script src="https://timsgourmetsliders.com/wp-content/plugins/google-calendar-events/assets/js/vendor/imagesloaded.pkgd.min.js?ver=3.2.0" id="simplecalendar-imagesloaded-js"></script>
+
+ 
+<script>
+	const slidesContainer = document.getElementById("slides-container");
+	if(slidesContainer != null){
+		const slide = document.querySelector(".slide");
+		const prevButton = document.getElementById("slide-arrow-prev");
+		const nextButton = document.getElementById("slide-arrow-next");
+
+		let currentFrame = 1;
+		const numSlides = document.getElementsByClassName('slide').length;
+		setInterval(function(){
+			currentFrame++;
+			const slideWidth = slide.clientWidth;
+			
+			if(currentFrame > numSlides){
+				currentFrame = 1;
+				slidesContainer.scrollLeft -= (slideWidth * numSlides);
+			}else{
+				slidesContainer.scrollLeft += slideWidth;
+			}
+		}, 6000);
+	}
+
+</script> 
+
+
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script>
+	console.clear();
+
+	images = $('.gallery-icon');
+
+	var glass = document.createElement("div");
+	glass.setAttribute("id","glass");
+	var block = document.getElementById("primary");
+	block.appendChild(glass);
+
+
+	$(block).append("<strong class='gallery-btn gallery-next' >></strong><strong class='gallery-btn gallery-prev' ><</strong>");
+
+	var currentImage = -1;
+
+	images.each(function(i, b){
+	    
+	    let image_link = $( this ).children().attr("href");
+	    let current_id = "img-" + i;
+	    let image = $( this );
+
+		let img = document.createElement("img");
+		img.src = image_link;
+		img.setAttribute("id", current_id);
+		img.setAttribute("class","gallery-img");
+
+		image.attr( "g-id", i );
+
+	   	let block = document.getElementById("glass");
+		block.appendChild(img);
+	 
+	    
+	    image.children().removeAttr("href");
+	    image.children().removeAttr("target");
+
+	    image.click(function(i, b){
+
+	        updateImage(this);
+	        
+	    });
+	    
+		glass.addEventListener("click", function(e){
+			glass.style.display = "none";
+	        $(".gallery-btn").removeClass('active');
+	        currentImage = -1;
+			
+		});
+
+	    
+	});
+
+	$(".gallery-next").click(function(){
+
+	    $('.gallery-icon').each(function(i, b){
+
+	        if($(this).attr( 'g-id' ) == ( currentImage + 1 )  ){
+	            
+	            updateImage( this );
+	            return false;
+	        }
+
+	    });
+	    
+	});
+
+	$(".gallery-prev").click(function(){
+
+	    $('.gallery-icon').each(function(i, b){
+
+	        if($(this).attr( 'g-id' ) == ( currentImage - 1 )  ){
+	            
+	            updateImage( this );
+	            return false;
+	        }
+
+	    });
+	    
+	});
+
+	function updateImage(item){
+	    
+			try {
+				document.querySelector("img.active").classList.remove("active");
+			} catch (error) {
+				
+			}
+
+			item = $( item );
+	        full = $( "#img-" + item.attr("g-id") );
+	        full.addClass( "active" );
+			glass.style.display = "flex";
+	        $(".gallery-btn").addClass('active');
+	        currentImage = parseInt( item.attr("g-id") );
+
+	}
+
+
+	</script>
+
+	<style>
+	.gallery-next,
+	.gallery-prev {
+		position: fixed;
+		top: 50%;
+		font-size: 72px;
+		-webkit-transform: translatey(-50%);
+		    -ms-transform: translatey(-50%);
+		        transform: translatey(-50%);
+		margin: 0 30px;
+		color: #fff;
+		text-shadow: -1px -1px 0 #000,  
+	 1px -1px 0 #000,
+	 -1px 1px 0 #000,
+	 1px 1px 0 #000;
+		-webkit-transition: -webkit-transform 300ms ease-in-out;
+		transition: -webkit-transform 300ms ease-in-out;
+		-o-transition: transform 300ms ease-in-out;
+		transition: transform 300ms ease-in-out;
+		transition: transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out;
+		z-index: 99999999;
+		-webkit-user-select: none;
+		   -moz-user-select: none;
+		    -ms-user-select: none;
+		        user-select: none;
+	}
+
+	.gallery-next:hover,
+	  .gallery-prev:hover {
+		cursor: pointer;
+		-webkit-transform: translatey(-50%) scale(1.2);
+		    -ms-transform: translatey(-50%) scale(1.2);
+		        transform: translatey(-50%) scale(1.2);
+	}
+
+	.gallery-next {
+		right: 0;
+	}
+
+	.gallery-btn{
+		display: none;
+	}
+
+
+	.gallery-btn.active{
+		display:  block;
+	}
+
+	</style>
+
+
+
+
+
+<script>
+header = document.getElementById("masthead");
+
+window.addEventListener('scroll', function() {
+    console.clear();
+
+    let currentPosition = document.documentElement.scrollTop;
+    let headerHeight = header.offsetHeight;
+    
+    if( currentPosition >=  headerHeight ){
+        header.classList.add("fixed");
+    }else{
+        header.classList.remove("fixed");
+    }
+    
+});
+
+
+
+
+
+
+function menuFix(){
+
+    if((window.innerWidth <= 767)){
+
+		subs = document.querySelectorAll('.menu-item-has-children >  a');
+
+		for(i = 0; i < subs.length; i++){
+		    
+		        subs[i].addEventListener('click', function(e){
+					
+		        e.preventDefault();					
+
+		        if(this.parentNode.classList.contains( 'focus-sub' )){
+		        	console.log('removed');
+		            this.parentNode.classList.remove( 'focus-sub' );
+		        }else{
+		        	
+			        innerSubs = document.getElementsByClassName( 'focus-sub' );
+
+			        if( innerSubs.length > 0 ){
+			            for(  k = 0; k < innerSubs.length; k++){
+			            
+			                innerSubs[k].classList.remove( 'focus-sub' );
+			            }
+			        }
+
+		            this.parentNode.classList.add( 'focus-sub' );
+		        }
+
+		    })   
+		}
+
+		subMen = document.getElementsByClassName( "sub-menu" );
+
+    } 
+}
+
+
+
+menuFix();
+
+function reportWindowSize() {
+
+    menuFix();
+}
+
+window.onresize = reportWindowSize;
+
+subMen = document.querySelectorAll( ".sub-menu a" );
+
+console.log(subMen);
+for(i = 0; i < subMen.length; i++){
+
+	
+	subMen[i].addEventListener('click', function(e){
+		e.preventDefault();
+
+		location = this.href;
+		
+	}, false);
+}
+
+
+
+
+menu = document.getElementsByClassName( "large-wrapper-nav" )[0];
+glassNav = document.getElementsByClassName( "nav-glass" )[0];
+
+//burger = document.getElementById( "site-navigation-mobile" );
+burger = document.getElementsByClassName( "nav-menu-toggle" )[0];
+subMenu = document.querySelectorAll( ".large-wrapper-nav .menu-item-has-children" );
+
+
+burger.addEventListener( "click", function(){
+
+    menu.classList.toggle('toggled');
+    glassNav.classList.toggle('toggled');
+    
+} );
+
+
+
+glassNav.addEventListener( "click", function(){
+
+    menu.classList.toggle('toggled');
+    glassNav.classList.toggle('toggled');
+    
+} );
+
+
+
+menu.addEventListener("click", function(){
+    menu.classList.add( 'toggled' );
+});
+
+
+// for (let i = 0; i < subMenu.length; i++) {
+
+//     console.log( subMenu[i] );
+
+    
+    
+// }
+
+
+
+
+</script>
+
+<style>
+
+	@media screen and (max-width:  900px){
+		.focus-sub, .focus-sub ul, .focus-sub li,
+		li.menu-item-has-children.focus ul.sub-menu,
+		li.jumbo-menu.focus ul.sub-menu{
+			display: block !important;
+			height: auto !important;
+			/*max-height: 200px;
+			overflow-y: scroll;*/
+		}
+
+		.focus-sub a{
+			z-index: 9999999999999999999999999999;
+			display: block;
+			position: relative;
+		}
+	}
+
+</style>
+
+
+
+<!--
+
+<script>
+
+	chatbot_id = "3GIs90eQQED26lbgnio74KqeYofp98";
+
+	var loadJS = function(url, implementationCode, location){
+
+	    var scriptTag = document.createElement('script');
+	    scriptTag.src = url;
+	    scriptTag.onload = implementationCode;
+	    scriptTag.onreadystatechange = implementationCode;
+	    location.appendChild(scriptTag);
+	};
+
+	var loadCSS = function(url, location){
+
+		console.log("Loading CSS");
+	    var link  = document.createElement('link');
+	    link.rel  = 'stylesheet';
+	    link.type = 'text/css';
+	    link.href = url;
+	    link.media = 'all';
+	    location.appendChild(link);
+
+	};
+
+	var loadedScript = function(){
+		console.log("Loaded Script");
+	}
+
+	var initChatBot = function(){
+		console.log("Loading Bot");
+		startBizIQChatBot(chatbot_id);
+	}
+
+	setTimeout(function(){
+
+loadJS('//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js', loadedScript, document.body);
+
+loadJS('//ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js', loadedScript, document.body);
+// loadJS('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js', loadedScript, document.body);
+
+		},4000
+	);
+	setTimeout(function(){
+
+loadCSS('https://dashboard.goiq.com/biqchatbot/styles.css', document.head);
+
+loadJS('https://dashboard.goiq.com/biqchatbot/js-1-1.js', initChatBot, document.body);
+
+		},4100
+	);
+
+</script>
+-->
+
+<!-- script to dynamically add today date/hightlight -->
+<script>
+	
+
+window.addEventListener('load', function() {
+
+	//obtaining weekday as an integer
+	const day= new Date().getDay();
+	// 	creating arr of days selected by data-attr
+	let days = document.querySelectorAll('[data-day]');
+
+	days.forEach(mainday=>{
+		// 		looping through each day, if data-day matches int day, add class today 
+		if(mainday.dataset.day == day){
+			mainday.classList.add('today');
+		}
+	})
+ })
+
+</script>
+
+<!-- Sending... Indicator to Form -->
+
+<script>
+jQuery(document).ready(function($) {
+     $("form.wpcf7-form input[type=submit]").click(function() {
+         this.value = 'Sending.....';
+         $(this).addClass("sending");
+    });
+});
+</script>
+
+
+
+
+with the above html, create a python script that will fillout the form and submit it.
+the script should also create a file called submissions.txt and write the current date and time to it each time the form is submitted.
+with the total number of submissions at the bottom of the file that is updated each time the script is ran 
+
+the url to the form is https://timsgourmetsliders.com/contact-us/

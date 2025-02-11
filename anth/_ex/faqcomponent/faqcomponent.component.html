@@ -1,0 +1,30 @@
+`faq.component.html`:
+```html
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+            <div class="col-lg-10 mx-auto">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item" *ngFor="let faq of faqs; let i = index">
+                        <h2 class="accordion-header" [id]="'heading' + i">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i"
+                                [attr.aria-expanded]="i === 0" [attr.aria-controls]="'collapse' + i">
+                                {{faq.question}}
+                            </button>
+                        </h2>
+                        <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="i === 0"
+                            [attr.aria-labelledby]="'heading' + i" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                {{faq.answer}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+```

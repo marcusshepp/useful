@@ -1,0 +1,31 @@
+```html
+<div class="section background-white section-sm">
+    <div class="container">
+        <div class="section-head">
+            <h2>Special Offers</h2>
+            <p>Check out our latest discounts and promotions</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4" *ngFor="let offer of offers">
+                <div class="offer-box">
+                    <div class="offer-image">
+                        <img [src]="offer.image" [alt]="offer.title">
+                        <div class="offer-discount">
+                            <span>{{offer.discount}}% OFF</span>
+                        </div>
+                    </div>
+                    <div class="offer-info">
+                        <h3>{{offer.title}}</h3>
+                        <p>{{offer.description}}</p>
+                        <div class="price">
+                            <span class="original">${{offer.originalPrice}}</span>
+                            <span class="discounted">${{offer.discountedPrice}}</span>
+                        </div>
+                        <button class="btn btn-primary">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```

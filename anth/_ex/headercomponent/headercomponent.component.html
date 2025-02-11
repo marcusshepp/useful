@@ -1,0 +1,27 @@
+```html
+<header class="header">
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" routerLink="/">
+                    <img src="assets/images/logo.png" alt="Logo">
+                </a>
+                <a role="button" class="navbar-burger" (click)="toggleMenu()" [ngClass]="{'is-active': isMenuActive}">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="navbar-menu" [ngClass]="{'is-active': isMenuActive}">
+                <div class="navbar-end">
+                    <a class="navbar-item" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+                    <a class="navbar-item" routerLink="/about" routerLinkActive="is-active">About</a>
+                    <a class="navbar-item" routerLink="/services" routerLinkActive="is-active">Services</a>
+                    <a class="navbar-item" routerLink="/portfolio" routerLinkActive="is-active">Portfolio</a>
+                    <a class="navbar-item" routerLink="/contact" routerLinkActive="is-active">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+```
