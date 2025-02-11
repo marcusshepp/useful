@@ -105,13 +105,7 @@ ids={",".join(work_item_ids)}&api-version=6.0'''
         return sprint_data
 
     # Get sprint start/end dates
-    # Check creation and closed dates
-    created_date = parse_azure_date(item['fields']['System.CreatedDate'])
-    closed_date = parse_azure_date(item['fields'].get('Microsoft.VSTS.Common.ClosedDate'))
-
-    if not created_date:
-        print(f"Warning: Could not parse creation date for item {item['id']}")
-        continue
+    sprint_start, sprint_end = get_sprint_dates(iterations, sprint_name)
     if not sprint_start or not sprint_end:
         print(f"Could not determine sprint dates for {sprint_name}")
         return sprint_data
