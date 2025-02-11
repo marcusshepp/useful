@@ -1,0 +1,132 @@
+Angular Component Impact Analysis Report
+=====================================
+
+Commit Range: 3037d9c -> 566f87d
+
+Modified/Added Components:
+------------------------
+• Eva/src/app/app.component.ts
+• Eva/src/app/components/last-published-timestamp/last-published-timestamp.component.ts
+• Eva/src/app/components/legislation-search/legislation-search.component.ts
+• Eva/src/app/components/parameter-form/forms/amendment-text-form/amendment-text-form.component.ts
+• Eva/src/app/components/parameter-form/forms/committee-custom-roll-call/committee-custom-roll-call.component.ts
+• Eva/src/app/components/parameter-form/forms/committee-members/committee-members.component.ts
+• Eva/src/app/components/parameter-form/forms/date-form/date-form.component.ts
+• Eva/src/app/components/parameter-form/forms/freeform-form/freeform-form.component.ts
+• Eva/src/app/components/parameter-form/forms/legislation-item-form/legislation-item-form.component.ts
+• Eva/src/app/components/parameter-form/forms/legislation-item-options-form/legislation-item-options-form.component.ts
+• Eva/src/app/components/parameter-form/forms/legislator-form/legislator-form.component.ts
+• Eva/src/app/components/parameter-form/forms/reports-form/committee-report-form/committee-report-form.component.ts
+• Eva/src/app/components/parameter-form/forms/reports-form/reports-form.component.ts
+• Eva/src/app/components/parameter-form/forms/reports-form/select-report-form/select-report-form.component.ts
+• Eva/src/app/components/parameter-form/forms/time-form/time-form.component.ts
+• Eva/src/app/components/parameter-form/parameter-form.component.ts
+• Eva/src/app/components/pdf-preview/pdf-preview.component.ts
+• Eva/src/app/components/selection-list/selection-list.component.ts
+• Eva/src/app/components/session-day-dropdown/session-day-dropdown.component.ts
+• Eva/src/app/components/user-profile-lookup/user-profile-lookup.component.ts
+• Eva/src/app/features/agenda/agenda.component.ts
+• Eva/src/app/features/amendment-management/amendment-management.component.ts
+• Eva/src/app/features/bill-res-status/bill-res-status-modal/bill-res-status-modal.component.ts
+• Eva/src/app/features/bill-res-status/bill-res-status-parameter/bill-res-status-parameter.component.ts
+• Eva/src/app/features/bill-res-status/bill-res-status.component.ts
+• Eva/src/app/features/bill-res-status/eb-sign-report/eb-sign-report.component.ts
+• Eva/src/app/features/bill-res-status/journal-validation/journal-validation-container.component.ts
+• Eva/src/app/features/bill-res-status/journal-validation/journal-validation/journal-validation.component.ts
+• Eva/src/app/features/calendar/bills-in-conference/bills-in-conference-modal/bills-in-conference-modal.component.ts
+• Eva/src/app/features/calendar/builder/builder.component.ts
+• Eva/src/app/features/calendar/schmeet-list/schmeet-list.component.ts
+• Eva/src/app/features/calendar/schmeet-list/scmeet-modal/scmeet-modal.component.ts
+• Eva/src/app/features/committee-management/committee-administration/committee-administration.component.ts
+• Eva/src/app/features/committee-management/committee-clerk-administration/committee-clerk-administration.component.ts
+• Eva/src/app/features/committee-management/committee-form/committee-form.component.ts
+• Eva/src/app/features/committee-management/committee-management/committee-management.component.ts
+• Eva/src/app/features/committee-management/committee-meeting-attendence/committee-meeting-attendence/committee-meeting-attendence.component.ts
+• Eva/src/app/features/committee-management/committee-meeting-attendence/committee-meeting-form/committee-meeting-form-clerks/committee-meeting-form-clerks.component.ts
+• Eva/src/app/features/committee-management/committee-meeting-attendence/committee-meeting-form/committee-meeting-form.component.ts
+• Eva/src/app/features/committee-management/committee-meeting-attendence/committee-meeting-form/committee-meeting-notices/committee-meeting-notices.component.ts
+• Eva/src/app/features/committee-management/committee-meeting-attendence/committee-meeting-list/committee-meeting-list.component.ts
+• Eva/src/app/features/committee-management/committee-members/committee-members.component.ts
+• Eva/src/app/features/committee-management/committee-reports/committee-reports-container/committee-reports-container.component.ts
+• Eva/src/app/features/committee-management/committee-reports/committee-reports.component.ts
+• Eva/src/app/features/committee-management/committee-search/committee-search.component.ts
+• Eva/src/app/features/committee-minutes/minutes-builder/committee-minutes.component.ts
+• Eva/src/app/features/committee-minutes/minutes-builder/minutes-stamp/minutes-stamp.component.ts
+• Eva/src/app/features/committee-minutes/minutes-builder/written-testimony/written-testimony-form/written-testimony-form.component.ts
+• Eva/src/app/features/committee-minutes/minutes-builder/written-testimony/written-testimony.component.ts
+• Eva/src/app/features/committee-minutes/minutes-parameter-form/minutes-parameter-form.component.ts
+• Eva/src/app/features/committee-minutes/minutes-template/minutes-template-list/minutes-template-list.component.ts
+• Eva/src/app/features/committee-minutes/minutes-template/minutes-templates-form/minutes-templates-form.component.ts
+• Eva/src/app/features/home/home.component.ts
+• Eva/src/app/features/indexing/index-builder/index-builder-container.component.ts
+• Eva/src/app/features/indexing/index-builder/index-builder/index-builder-node/index-builder-node.component.ts
+• Eva/src/app/features/indexing/index-builder/index-builder/index-builder-node/node-page-numbers/node-page-numbers.component.ts
+• Eva/src/app/features/indexing/index-builder/index-builder/index-builder.component.ts
+• Eva/src/app/features/indexing/index-home/index-home.component.ts
+• Eva/src/app/features/indexing/index-terms/index-term-master-list/index-term-master-list.component.ts
+• Eva/src/app/features/indexing/index-terms/index-term-quick-add/index-term-quick-add.component.ts
+• Eva/src/app/features/indexing/index-terms/index-terms.component.ts
+• Eva/src/app/features/indexing/term-search/term-search.component.ts
+• Eva/src/app/features/intro-and-referral/committee-assignments-and-reports/comittee-assignments-and-reports/committee-assignments-and-reports.component.ts
+• Eva/src/app/features/intro-and-referral/introduce-bill/introduce-bill.component.ts
+• Eva/src/app/features/introducing/introducing.component.ts
+• Eva/src/app/features/introducing/introduction-history-dialogue/introduction-history-dialogue.component.ts
+• Eva/src/app/features/introducing/introduction-history-table/introduction-history-table.component.ts
+• Eva/src/app/features/introducing/select-cosponsors/select-cosponsors-dialog/select-cosponsors-dialog.component.ts
+• Eva/src/app/features/introducing/select-cosponsors/select-cosponsors.component.ts
+• Eva/src/app/features/journal/daily-journal-builder/daily-journal-builder.component.ts
+• Eva/src/app/features/journal/daily-journal-builder/journal-stamp/journal-stamp.component.ts
+• Eva/src/app/features/journal/journal-archives/journal-archives.component.ts
+• Eva/src/app/features/journal/journal-stamp-template-input/journal-stamp-template-input.component.ts
+• Eva/src/app/features/journal/journal-stamp-template-parameters/journal-stamp-template-parameters.component.ts
+• Eva/src/app/features/journal/journal-stamp-templates/journal-stamp-templates.component.ts
+• Eva/src/app/features/journal/printing-and-enrollment/printing-and-enrollment.component.ts
+• Eva/src/app/features/legislation-management/legislation-reports/action-code-report/action-code-report.component.ts
+• Eva/src/app/features/legislation-management/legislation-reports/legislation-by-sponsor/legislation-by-sponsor.component.ts
+• Eva/src/app/features/legislation-management/legislation-reports/legislation-reports.component.ts
+• Eva/src/app/features/legislation-management/legislation-reports/referred-legislation-report/referred-legislation-report.component.ts
+• Eva/src/app/features/legislation-management/legislative-item-lookup/amendment-view/amendment-view.component.ts
+• Eva/src/app/features/legislation-management/legislative-item-lookup/committee-reports-view/committee-reports-view.component.ts
+• Eva/src/app/features/legislation-management/legislative-item-lookup/legislative-item-lookup.component.ts
+• Eva/src/app/features/legislation-management/legislative-item-lookup/version-view/version-view.component.ts
+• Eva/src/app/features/legislation-management/tie-bar-table/tie-bar-table.component.ts
+• Eva/src/app/features/messages/message-center/message-builder/message-builder.component.ts
+• Eva/src/app/features/messages/message-center/message-list/message-list.component.ts
+• Eva/src/app/features/messages/message-center/message-list/messages-from-the-house/messages-from-the-house.component.ts
+• Eva/src/app/features/messages/message-parameters/message-parameters.component.ts
+• Eva/src/app/features/messages/message-templates/message-template-form/message-template-form.component.ts
+• Eva/src/app/features/messages/message-templates/message-templates.component.ts
+• Eva/src/app/features/res-management/res-calendar-builder/res-calendar-builder.component.ts
+• Eva/src/app/features/res-management/res-calendar/res-calendar.component.ts
+• Eva/src/app/features/resolution-sponsor-portal/resolution-sponsor-portal.component.ts
+• Eva/src/app/features/senator-management/senator-management-form-dialog/senator-management-form-dialog.component.ts
+• Eva/src/app/features/senator-management/senator-management-form/senator-management-form.component.ts
+• Eva/src/app/features/senator-management/senator-management.component.ts
+• Eva/src/app/features/session-management/session-management/session-management.component.ts
+• Eva/src/app/features/sfa-analysis/analysis-upload/analysis-document-info/analysis-document-info.component.ts
+• Eva/src/app/features/sfa-analysis/analysis-upload/analysis-upload.component.ts
+• Eva/src/app/features/side-navigation/side-navigation.component.ts
+• Eva/src/app/features/template-parameter-settings/template-parameter-setting-committee-chair/template-parameter-setting-committee-chair.component.ts
+• Eva/src/app/features/template-parameter-settings/template-parameter-setting-committee-member/template-parameter-setting-committee-member.component.ts
+• Eva/src/app/features/template-parameter-settings/template-parameter-setting-leg-item/template-parameter-setting-leg-item.component.ts
+• Eva/src/app/features/template-parameter-settings/template-parameter-setting-legislator-name/template-parameter-setting-legislator-name.component.ts
+• Eva/src/app/features/template-parameter-settings/template-parameter-setting-multiple-leg-item/template-parameter-setting-multiple-leg-item.component.ts
+• Eva/src/app/features/template-parameter-settings/template-parameter-setting-title/template-parameter-setting-title.component.ts
+• Eva/src/app/features/user-administration/user-administration.component.ts
+• Eva/src/app/shared/ckeditor-custom-styles/ckeditor-custom-styles.component.ts
+• Eva/src/app/shared/components/preview-document-dialog/preview-document-dialog.component.ts
+
+Deleted Components:
+------------------
+• Eva/src/app/features/bill-res-status/journal-validation/journal-validation.component.ts
+• Eva/src/app/features/committee-management/committee-meeting-attendence/committee-meeting-administration.component.ts
+• Eva/src/app/features/committee-management/committee-meetings/committee-meetings.component.ts
+• Eva/src/app/features/legislation-management/legislation-management.component.ts
+
+Service Dependencies:
+--------------------
+• committee-meeting-administration uses: sessionService
+• committee-reports-container uses: sessionService
+
+Areas Requiring Regression Testing:
+--------------------------------
