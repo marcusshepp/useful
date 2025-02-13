@@ -1,0 +1,314 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-tee-party',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './tee-party.component.html',
+    styleUrls: ['./tee-party.component.scss'],
+})
+export class TeePartyComponent {
+    ways = [
+        { number: 1, text: 'Assemble a foursome and partake in the golfing excitement!' },
+        { number: 2, text: 'You may choose to golf AND sponsor a hole as well.' },
+        {
+            number: 3,
+            text: "If golfing isn't for you, maybe just sponsoring a hole is your calling.",
+        },
+        {
+            number: 4,
+            text: "If you're a business or perhaps a crafter, and would like to support us by donating a gift card, voucher, or something handcrafted, we can gladly accept these items to be used in our TEE PARTY Raffle!",
+        },
+    ];
+}
+
+
+<div class="tee-party-container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="main-title">UNITED STEPS</h1>
+            <h2 class="sub-title">TEE PARTY 25</h2>
+            <div class="event-details">
+                <div class="date-time">
+                    <i class="fas fa-calendar"></i>
+                    <span>June 21st</span>
+                </div>
+                <div class="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Medalist Golf Club</span>
+                </div>
+                <div class="start-time">
+                    <i class="fas fa-clock"></i>
+                    <span>9am Shotgun Start</span>
+                </div>
+            </div>
+            <p class="address">15701 N-Drive North, Marshall, MI. 49068</p>
+        </div>
+    </div>
+
+    <!-- Mission Statement -->
+    <div class="mission-section">
+        <div class="mission-content">
+            <h3>Our Mission</h3>
+            <p class="mission-text">
+                SUICIDE affects so many of us in some fashion. Unfortunately and tragically, the
+                numbers are increasing to unwanted and unforeseen levels.
+            </p>
+            <p class="mission-text">
+                United STEPS are dedicated to provide our LOCAL Michigan communities with education,
+                prevention, bereavement support, as well as training to those interested in basic
+                suicide intervention skills.
+            </p>
+            <p class="mission-text">
+                With your decision to help support us with this years golf outing, all of these
+                necessary functions can proceed in making us a suicide safer community!
+            </p>
+        </div>
+    </div>
+
+    <!-- Ways to Contribute -->
+    <div class="contribute-section">
+        <h3>Ways to Contribute to the TEE PARTY</h3>
+        <div class="ways-container">
+            <div *ngFor="let way of ways" class="way-card">
+                <div class="way-number">{{way.number}}</div>
+                <p class="way-text">{{way.text}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Important Note -->
+    <div class="note-section">
+        <p class="note-text">
+            Remember, ALL proceeds remain right here in OUR community for the aid and support of
+            those needed help with their mental wellness, or support from the loss of a loved one to
+            suicide.
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <p>United STEPS is a registered tax exempt 501c3 non-profit organization.</p>
+        <p class="tax-id">Federal Tax ID. #87-2948178</p>
+        <p class="thank-you">THANK YOU SO MUCH</p>
+    </footer>
+</div>
+
+
+.tee-party-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+.hero-section {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('/assets/golf-course.jpg') center/cover no-repeat;
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 1rem;
+    margin: 2rem 1rem;
+    text-align: center;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sub-title {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin: 1rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.event-details {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.2rem;
+
+        i {
+            color: #ffd700;
+        }
+    }
+}
+
+.address {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.mission-section {
+    background: white;
+    padding: 3rem 2rem;
+    margin: 2rem 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mission-content {
+    max-width: 800px;
+    margin: 0 auto;
+
+    h3 {
+        color: #2c3e50;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+}
+
+.mission-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #34495e;
+    margin-bottom: 1rem;
+}
+
+.contribute-section {
+    padding: 3rem 2rem;
+    margin: 2rem 1rem;
+
+    h3 {
+        color: #2c3e50;
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+}
+
+.ways-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.way-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+.way-number {
+    background: #3498db;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.way-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #34495e;
+}
+
+.note-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    margin: 2rem 1rem;
+    border-radius: 1rem;
+    text-align: center;
+}
+
+.note-text {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.footer-section {
+    text-align: center;
+    padding: 2rem;
+    color: #2c3e50;
+    margin-top: 2rem;
+
+    p {
+        margin: 0.5rem 0;
+    }
+
+    .tax-id {
+        font-weight: bold;
+        color: #3498db;
+    }
+
+    .thank-you {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+
+    .sub-title {
+        font-size: 1.8rem;
+    }
+
+    .event-details {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .way-card {
+        margin: 1rem 0;
+    }
+}
+
+
+above is the component I have so far 
+
+attached is more content I need you to add to the component
+add it below the existing content
+
+be very modern and overhaul the css such that it looks very good 
+do not comment your code.
+
+----
+
+above is the component I have so far 
+
+I need you to add a form to the component
+attached is the image you will derive the form from
+
+for the type of sponsorship, you should use checkboxes where only one can be selected at a time
+
+
