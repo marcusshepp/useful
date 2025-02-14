@@ -167,7 +167,6 @@ class MigrationManager:
                 return False
             
             os.chdir(self.working_directory)
-            logger.info(f"Working directory: {os.getcwd()}")
             return True
             
         except Exception as e:
