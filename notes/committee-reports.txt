@@ -1,0 +1,195 @@
+using EvaAPI.Attributes;
+using EvaAPI.Constants;
+using EvaAPI.Data;
+using EvaAPI.Data.Interfaces;
+using EvaAPI.Data.M2.Models.Committees;
+using EvaAPI.Data.Models.Committees;
+using EvaAPI.Data.Models.Enums;
+using EvaAPI.Data.Models.IntroAndReferral;
+using EvaAPI.Data.Models.Reports;
+using EvaAPI.Data.Models.Session;
+using EvaAPI.Dtos.Parameters;
+using EvaAPI.Dtos.Reports;
+using EvaAPI.Services.BillResStatus;
+using EvaAPI.Services.CommitteeManagement;
+using EvaAPI.Services.Journal;
+using EvaAPI.Utilities.Documents.Committees;
+using EvaAPI.Utilities.Documents.Converters;
+using Microsoft.EntityFrameworkCore;
+
+namespace EvaAPI.Utilities.Parameters
+{
+    [ParameterClass(TemplateParameterTypeIds.Reports)]
+    public class ParameterReports : ParameterBase
+    {
+        public override bool DisplayHtml => true;
+        public ParameterReports(IParameter parameter, ParameterContext context, IServiceProvider serviceProdier) : base(parameter, context, serviceProdier)
+        {
+        }
+
+        public override string GetDisplayValue(string selectedValue)
+        {
+            IParameterSetting reportSetting = Parameter.GetParameterSettings().FirstOrDefault(s => s.Name.ToLower() == ParameterConstants.Reports.ReportSetting);
+            if (reportSetting == null)
+            {
+                throw new InvalidOperationException($"Report setting not found for parameter '{Parameter.Name}'.");
+            }
+
+            EvaDbContext dbContext = ServiceProvider.GetRequiredService<EvaDbContext>();
+            
+            switch (reportSetting.Setting.ToLower())
+            {
+                case ParameterConstants.Reports.IntroAndReferralSettingValue:
+                    int introReportId = int.Parse(selectedValue);
+                    IntroDocReport report = dbContext.IntroDocReports
+                        .Include(r => r.Report)
+                        .FirstOrDefault(r => r.SessionDay.Id == ParameterContext.SessionDayId && r.Id == introReportId);
+                    SimpleConverter simpleConverter = new()
+                    {
+                        RemoveEmptyParagraphs = false
+                    };
+
+                    return simpleConverter.ConvertToSimpleHtml(report.Report.WordContent);
+                case ParameterConstants.Reports.EbSignedValue:
+                    string[] selectedValues = selectedValue?.Split(";");
+                    if (string.IsNullOrEmpty(selectedValue) || selectedValues?.Length != 2)
+                    {
+                        throw new InvalidOperationException($"\"{selectedValue}\" is not a valid value for the EB Signed parameter.");
+                    }
+                    switch (selectedValues[0])
+                    {
+                        case "ebsignreport":
+                            EbSignReportConverter ebConverter = new();
+
+                            BillResStatusReportsService billResStatusReportService = ServiceProvider.GetRequiredService<BillResStatusReportsService>();
+                            byte[] docBytes = billResStatusReportService.GetReportWordContent(ParameterContext.SessionId ?? -1, ParameterContext.SessionDayId ?? -1);
+
+                            return ebConverter.ConvertToSimpleHtml(docBytes);                            
+                    }
+                    break;
+                case ParameterConstants.Reports.PrintingAndEnrollingValue:
+                    if (string.IsNullOrEmpty(selectedValue))
+                    {
+                        break;
+                    }
+                    string reportId = selectedValue.Split(";")[0];
+                    Report peReport = dbContext.Reports.FirstOrDefault(r => r.Id == int.Parse(reportId));
+                    SimpleConverter peConverter = new();
+                    peConverter.RemoveEmptyParagraphs = false;
+
+                    return peConverter.ConvertToSimpleHtml(peReport.WordContent);
+                    
+                case ParameterConstants.Reports.CommitteeReports:
+
+                    if (string.IsNullOrEmpty(selectedValue))
+                    {
+                        throw new InvalidOperationException("No value submitted by form.");
+                    }
+                    string[] collectedValues = selectedValue.Split(';');
+                    if (collectedValues.Length < 4)
+                    {
+                        throw new InvalidOperationException("Submitted form value does not contain all information needed to get report.");
+                    }
+                    int sessionId = Int32.Parse(collectedValues[0]);
+                    Session session = dbContext.Sessions.FirstOrDefault(s => s.Id == sessionId);
+
+                    CommitteeReportsService committeeReportsService = ServiceProvider.GetRequiredService<CommitteeReportsService>();
+                    CommitteeMeetingService meetingService = ServiceProvider.GetRequiredService<CommitteeMeetingService>();
+                    CommitteeMeetingReportConverter converter = new();                                      
+                    int committeeId = Int32.Parse(collectedValues[1]);
+                    int meetingId = Int32.Parse(collectedValues[2]);
+                    int reportSortOrder = Int32.Parse(collectedValues[3]);
+                    List<int> itemIds = collectedValues[4..].Select(i => int.Parse(i)).ToList();
+                    string displayValue = "";
+
+                    Committee committee = committeeReportsService.GetCommitteeReportCommittee(session.LsbId, committeeId);
+                    CommitteeMeeting meeting = committeeReportsService.GetCommitteeReportMeeting(session.LsbId, meetingId);
+                    IEnumerable<CommitteeReportCommitteeActionToAgendaItem> itemActions = committeeReportsService.GetCommitteeReportItemActions(meetingId);
+                    IEnumerable<CommitteeMemberRollCall> rollCallVotes = committeeReportsService.GetCommitteeReportRollCallVotes(meetingId);
+                    IEnumerable<CommitteeMeetingAttendanceRecord> meetingAttendance = committeeReportsService.GetCommitteeReportMeetingAttendance(meetingId);
+
+                    int totalItems = itemIds.Count;
+                    bool reportInserted = false;
+                    for (int i = 0; i < totalItems; i++)
+                    {
+                        if (!reportInserted && i == reportSortOrder)
+                        {
+                            //attendace report
+                            reportInserted = true;                            
+                            CommitteeReportGenerator generator = new(committee, meeting, itemActions, rollCallVotes, meetingAttendance, null, true, false,true);
+
+                            displayValue += converter.ConvertToSimpleHtml(generator.GetWordDocument());
+                        }
+                        else
+                        {
+                            //normal agenda item report
+                            CommitteeReportGenerator generator = new(committee, meeting, itemActions, rollCallVotes, meetingAttendance, itemIds[i], false,true,true);
+
+                            displayValue += converter.ConvertToSimpleHtml(generator.GetWordDocument());
+                        }
+                        if (i < totalItems - 1)
+                        {
+                            displayValue += "<p>&nbsp;</p><p>&nbsp;</p>";
+                        }
+                    }
+
+
+                    return (displayValue);
+            }
+            return string.Empty;
+            }
+
+        public override IEnumerable<ParameterOptionDto> GetParameterOptions()
+        {
+            EvaDbContext dbContext = ServiceProvider.GetRequiredService<EvaDbContext>();
+            IParameterSetting reportSetting = Parameter.GetParameterSettings().FirstOrDefault(s => s.Name.ToLower() == ParameterConstants.Reports.ReportSetting);
+            if (reportSetting == null)
+            {
+                throw new InvalidOperationException($"Report setting not found for parameter '{Parameter.Name}'.");
+            }
+
+            List<ParameterOptionDto> options = new();
+            switch (reportSetting.Setting.ToLower())
+            {
+                case ParameterConstants.Reports.IntroAndReferralSettingValue:
+                    IEnumerable<IntroDocReport> report = dbContext.IntroDocReports
+                        .Where(r => r.SessionDay.Id == ParameterContext.SessionDayId && r.Report != null && r.Report.IsPublished)
+                        .OrderBy(r => r.Number);
+
+                    options.AddRange(report.Select(r => new ParameterOptionDto { DisplayValue = $"IntroDoc-#{r.Number}", Value = r.Id.ToString() }));
+                    break;
+                case ParameterConstants.Reports.EbSignedValue:
+                    ReportDataDto ebSignReport = ServiceProvider.GetRequiredService<BillResStatusReportsService>().GetPublishedEbSignReportData(ParameterContext.SessionId ?? -1, ParameterContext.SessionDayId ?? -1);
+                    if (ebSignReport != null)
+                        options.Add(new ParameterOptionDto { DisplayValue = "EB Sign Report", Value = $"ebsignreport;{ebSignReport.PublishedDate}" });
+                    break;
+                case ParameterConstants.Reports.PrintingAndEnrollingValue:
+                    DailyJournalService journalService = ServiceProvider.GetRequiredService<DailyJournalService>();
+                    ReportDataDto peReport = journalService.GetPublishedPEReport(ParameterContext.SessionId ?? 0, ParameterContext.SessionDayId ?? 0, ParameterContext.AddendaDate);
+                    if (peReport != null)
+                    {
+                        SessionDay sessionDay = dbContext.SessionDays
+                            .FirstOrDefault(sd => sd.SessionId == ParameterContext.SessionId.Value &&
+                                                  sd.Id == ParameterContext.SessionDayId.Value);
+
+                        DateTime reportDate = peReport.AddendaDate ?? sessionDay.Date;
+                        options.Add(new ParameterOptionDto { DisplayValue = $"P&E Report - {reportDate.ToShortDateString()}", Value = $"{peReport.Id};{peReport.PublishedDate}" });
+                    }
+                    break;
+                case ParameterConstants.Reports.CommitteeReports:
+                   // no options
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown Report setting '{reportSetting.Setting}' for parameter '{Parameter.Name}'.");
+            }
+
+            return options;
+        }
+    }
+}
+
+
+this is the parameter service that grabs committee report information. it needs to 
+take into account the new model for tracking published agenda item actions
+
+
