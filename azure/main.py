@@ -15,9 +15,9 @@ headers = {
     'Authorization': f'Basic {encoded_token}'
 }
 
-current_sprint = 'Sprint 69'
+current_sprint = 'Sprint 70'
 sprint_range_start = 65
-sprint_range_end = 70
+sprint_range_end = 71
 sprints_to_analyze = [f'Sprint {i}' for i in range(sprint_range_start, sprint_range_end)]
 
 def parse_azure_date(date_string):
@@ -53,6 +53,8 @@ def get_sprint_data(sprint_name):
     url = f'https://dev.azure.com/{organization}/{project}/{team}/_apis/work/teamsettings/iterations?api-version=6.0'
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
+        print(f"Error fetching sprint data for {sprint_name}. Status code: {response.status_code}")
+        print(response.text)
         return sprint_data
 
     iterations = response.json()['value']
@@ -237,7 +239,8 @@ def create_commitment_graph(all_sprint_data, output_folder):
             plt.text(position, value, str(int(value)),
                     ha='center', va='bottom')
     
-    plt.legend(loc='upper right')
+    plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1), borderaxespad=0.)
+    plt.subplots_adjust(right=0.85)
     plt.tight_layout()
     plt.savefig(f'{output_folder}/commitment_graph.png', dpi=300, bbox_inches='tight')
     plt.close()
@@ -286,6 +289,53 @@ def create_sprint_stats_graph(sprint_data, output_folder):
                 facecolor='white')
     plt.close()
 
+def create_rolling_average_graph(all_sprint_data, output_folder):
+    plt.figure(figsize=(15, 8))
+    last_five = list(all_sprint_data.items())[-5:]
+    
+    sprints = [s.split()[-1] for s, _ in last_five]
+    points = [d['points_completed'] for _, d in last_five]
+    stories = [d['user_stories_completed'] for _, d in last_five]
+    
+    avg_points = np.mean(points)
+    avg_stories = np.mean(stories)
+    
+    width = 0.35
+    x = np.arange(len(sprints))
+    
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 10), height_ratios=[1, 2])
+    
+    ax1.bar([0], [avg_points], width, color='#F5A623', label='Avg Points')
+    ax1.bar([1], [avg_stories], width, color='#4A90E2', label='Avg Stories')
+    
+    for i, v in enumerate([avg_points, avg_stories]):
+        ax1.text(i, v, f'{int(v)}', ha='center', va='bottom')
+    
+    ax1.set_title('5 Sprint Rolling Average', pad=20)
+    ax1.set_xticks([0, 1])
+    ax1.set_xticklabels(['Points', 'Stories'])
+    ax1.spines['top'].set_visible(False)
+    ax1.spines['right'].set_visible(False)
+    
+    ax2.bar(x - width/2, points, width, color='#F5A623', label='Points')
+    ax2.bar(x + width/2, stories, width, color='#4A90E2', label='Stories')
+    
+    for i in range(len(sprints)):
+        ax2.text(i - width/2, points[i], str(int(points[i])), ha='center', va='bottom')
+        ax2.text(i + width/2, stories[i], str(int(stories[i])), ha='center', va='bottom')
+    
+    ax2.set_title('Individual Sprint Performance', pad=20)
+    ax2.set_xticks(x)
+    ax2.set_xticklabels(sprints)
+    ax2.spines['top'].set_visible(False)
+    ax2.spines['right'].set_visible(False)
+    ax2.legend()
+    
+    plt.tight_layout()
+    plt.savefig(f'{output_folder}/rolling_average_graph.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+
 def main():
     output_folder = create_output_folder()
     
@@ -301,6 +351,7 @@ def main():
     create_velocity_graph(all_sprint_data, output_folder)
     create_bugs_graph(all_sprint_data, output_folder)
     create_commitment_graph(all_sprint_data, output_folder)
+    create_rolling_average_graph(all_sprint_data, output_folder)
     
     current_sprint_data = all_sprint_data[current_sprint]
     create_sprint_stats_graph(current_sprint_data, output_folder)
@@ -311,6 +362,7 @@ def main():
     print(f"- {output_folder}/bugs_graph.png")
     print(f"- {output_folder}/commitment_graph.png")
     print(f"- {output_folder}/sprint_stats.png")
+    print(f"- {output_folder}/rolling_average_graph.png")
 
 if __name__ == "__main__":
     main()
