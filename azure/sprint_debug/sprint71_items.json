@@ -1,0 +1,233 @@
+[
+  {
+    "id": 4192,
+    "title": "Amendment Management | Ability to Print a Substitute Amendment 'Top Sheet'",
+    "type": "User Story",
+    "state": "In Development",
+    "points": 5.0
+  },
+  {
+    "id": 4999,
+    "title": "Bill/Res | Ability to Upload a Veto Letter Link to I5, I10 or I13 Status",
+    "type": "User Story",
+    "state": "New",
+    "points": 3.0
+  },
+  {
+    "id": 5217,
+    "title": "I&R | Introduce Bill | Cannot see the last bill on the Introduce Bill page",
+    "type": "Bug",
+    "state": "QA",
+    "points": 0
+  },
+  {
+    "id": 5288,
+    "title": "BA | Move Daily Journal Documents and Official Journal History Parts to a New File Location",
+    "type": "Enabler",
+    "state": "Active",
+    "points": 0
+  },
+  {
+    "id": 5307,
+    "title": "Sprint 71 Theme #1 | Existing Eva Feature Improvements/Enhancements",
+    "type": "Sprint Theme",
+    "state": "New",
+    "points": 0
+  },
+  {
+    "id": 5328,
+    "title": "BA | Amendment Maker Feature Research and BRD",
+    "type": "Research Spike",
+    "state": "Active",
+    "points": 0
+  },
+  {
+    "id": 5351,
+    "title": "Journal - Journal Builder - The Preview Journal Document is formatted incorrectly in certain areas",
+    "type": "Bug",
+    "state": "In Development",
+    "points": 0
+  },
+  {
+    "id": 5384,
+    "title": "Daily Journal Builder | 'Smart Quotes' in Subdoc Not Being Properly Retained when Pulled Into Subdoc Type Parameter",
+    "type": "Bug",
+    "state": "Code Review",
+    "points": 0
+  },
+  {
+    "id": 5434,
+    "title": "Legislative Look Up | Add Published Senate Committee Reports/Attendances for Legislative Items, and Preview Update in New Tab",
+    "type": "User Story",
+    "state": "In Development",
+    "points": 5.0
+  },
+  {
+    "id": 5435,
+    "title": "Daily Journal Builder | Provide for 'Starting Page' Value and Editing Functions",
+    "type": "User Story",
+    "state": "Code Review",
+    "points": 3.0
+  },
+  {
+    "id": 5448,
+    "title": "Sprint 71 Theme #2 | Continued Development of Senate Official Journal Parts (General Index)",
+    "type": "Sprint Theme",
+    "state": "New",
+    "points": 0
+  },
+  {
+    "id": 5463,
+    "title": "Committee Management | Minutes | Preview Upload",
+    "type": "User Story",
+    "state": "Code Review",
+    "points": 2.0
+  },
+  {
+    "id": 5468,
+    "title": "Journal - Daily Journal Archives | Improve UI Display and Data Flow ",
+    "type": "User Story",
+    "state": "New",
+    "points": 3.0
+  },
+  {
+    "id": 5475,
+    "title": "Legislative Lookup | Reports | Committee Attendance and Reports",
+    "type": "User Story",
+    "state": "Blocked",
+    "points": 3.0
+  },
+  {
+    "id": 5483,
+    "title": "Bill/Res - Bill/Res Status Recording - The Reported Date Time changes back to 12:00AM",
+    "type": "Bug",
+    "state": "Code Review",
+    "points": 0
+  },
+  {
+    "id": 5499,
+    "title": "General Index Builder | Ability to Add Block Terms and page numbers in a modal",
+    "type": "User Story",
+    "state": "In Development",
+    "points": 5.0
+  },
+  {
+    "id": 5503,
+    "title": "Official Journal - Index Terms - Unable to see the term using scrollbar/page arrows unless I leave the page",
+    "type": "Bug",
+    "state": "Re-Opened",
+    "points": 0
+  },
+  {
+    "id": 5506,
+    "title": "SFA Analysis | Maintain Order of Legislative Items Added",
+    "type": "User Story",
+    "state": "Code Review",
+    "points": 3.0
+  },
+  {
+    "id": 5510,
+    "title": "CM - Committee Reports | Retain titles of legislative items that were reported out of committee in the Builder",
+    "type": "User Story",
+    "state": "New",
+    "points": 3.0
+  },
+  {
+    "id": 5530,
+    "title": "Committee Reports - The copy of the Comm Report obtained from the agenda item is the most recent title, not the title as reported by committee",
+    "type": "Bug",
+    "state": "New",
+    "points": 0
+  },
+  {
+    "id": 5544,
+    "title": "User Admin - cannot remove a saved end date",
+    "type": "Bug",
+    "state": "Closed",
+    "points": 0
+  },
+  {
+    "id": 5558,
+    "title": "Legislative Look Up - Committee Attendance and Reports - Filter by Committee entries appear 'White' / Very hard to see",
+    "type": "Bug",
+    "state": "Closed",
+    "points": 0
+  },
+  {
+    "id": 5559,
+    "title": "Legislative Look Up - Filter Date Radio button field and date calendar location",
+    "type": "Bug",
+    "state": "Closed",
+    "points": 0
+  },
+  {
+    "id": 5560,
+    "title": "Legislative Look Up - Committee Attendance and Reports - Radio buttons don't clear out",
+    "type": "Bug",
+    "state": "Re-Opened",
+    "points": 0
+  },
+  {
+    "id": 5562,
+    "title": "Legislative Look Up - Committee Attendance and Reports - The legislative items returned are not consistent with the committee reports page",
+    "type": "Bug",
+    "state": "Deployed to QA",
+    "points": 0
+  },
+  {
+    "id": 5563,
+    "title": "Eva - UAT | Restore Eva PROD Data to UAT After LSB Updates Shared Db",
+    "type": "Enabler",
+    "state": "Closed",
+    "points": 0
+  },
+  {
+    "id": 5564,
+    "title": "Legislative Look Up - Committee Attendance and Reports - Incorrect spelling of Committee on the radio button",
+    "type": "Bug",
+    "state": "Closed",
+    "points": 0
+  },
+  {
+    "id": 5565,
+    "title": "Committee Meetings and Notices - Revised Notice | Update Status in Database When a Revised Notice is Published",
+    "type": "User Story",
+    "state": "Code Review",
+    "points": 2.0
+  },
+  {
+    "id": 5566,
+    "title": "Legislation Management - Tie Bar Table - The Initial listing does show items that are NOT public",
+    "type": "User Story",
+    "state": "Code Review",
+    "points": 2.0
+  },
+  {
+    "id": 5567,
+    "title": "Committee Admin - Written Testimony - added agenda items do not appear on public site after republish",
+    "type": "Bug",
+    "state": "Closed",
+    "points": 0
+  },
+  {
+    "id": 5568,
+    "title": "Legislative Look Up - Reports - Committee Attendance and Reports - The Published Attendance Report isn't showing by Committee or Date",
+    "type": "Bug",
+    "state": "Re-Opened",
+    "points": 0
+  },
+  {
+    "id": 5572,
+    "title": "Hotfix for Bug 5523",
+    "type": "Task",
+    "state": "New",
+    "points": 0
+  },
+  {
+    "id": 5575,
+    "title": "Prod Deploy",
+    "type": "Enabler",
+    "state": "New",
+    "points": 0
+  }
+]

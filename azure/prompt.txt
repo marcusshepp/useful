@@ -109,3 +109,8 @@ The System.State field can be any of the following values:
 - Ready for Demo
 - Closed
 
+There should be 2 carry over stories in sprint 70, currently, the script is showing no carry over stories. These stories were started in sprint 70 and are now active in 71
+
+you might need to identify the next sprint after the current_sprint variable and identify any stories that were started in the current_sprint
+
+current sprint is kind of misleading because its actually 'the sprint we're reporting on' the current sprint is the next sprint after. And all the carry over would be in the next sprint after

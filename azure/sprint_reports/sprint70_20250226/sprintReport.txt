@@ -1,3 +1,14 @@
 Sprint Analysis Report
 ====================
 
+Carry-over tickets: 2
+Carry-over points: 8
+
+Current Sprint: Sprint 70
+  Original Stories Committed: 7
+  Adjusted Stories Committed (with carry-over): 9
+  Stories Completed: 7
+
+  Original Points Committed: 15.0
+  Adjusted Points Committed (with carry-over): 23.0
+  Points Completed: 15.0
