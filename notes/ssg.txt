@@ -1,0 +1,333 @@
+i'm trying to figure out why my angular project isn't building as a ssg
+
+
+┖[~\p\mew\dist\mew\browser
+favicon.ico
+index.csr.html
+main-H4U6C4HR.js
+polyfills-FFHMD2TL.js
+styles-5INURTSO.css
+
+mew\dist\mew\browser\index.csr.html
+
+<!doctype html>
+<html lang="en" data-critters-container>
+    <head>
+        <meta charset="utf-8">
+        <title>Guru Development</title>
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles-5INURTSO.css"></head>
+    <body>
+        <div class="index-container">index.html</div>
+        <app-root></app-root>
+    <script src="polyfills-FFHMD2TL.js" type="module"></script><script src="main-H4U6C4HR.js" type="module"></script></body>
+</html>
+
+packagejson
+{
+  "name": "mew",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "serve:ssr:mew": "node dist/mew/server/server.mjs"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^18.2.0",
+    "@angular/common": "^18.2.0",
+    "@angular/compiler": "^18.2.0",
+    "@angular/core": "^18.2.0",
+    "@angular/forms": "^18.2.0",
+    "@angular/platform-browser": "^18.2.0",
+    "@angular/platform-browser-dynamic": "^18.2.0",
+    "@angular/platform-server": "^18.2.0",
+    "@angular/router": "^18.2.0",
+    "@angular/ssr": "^18.2.7",
+    "express": "^4.18.2",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.14.10"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^18.2.7",
+    "@angular/cli": "^18.2.7",
+    "@angular/compiler-cli": "^18.2.0",
+    "@types/express": "^4.17.17",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^18.18.0",
+    "jasmine-core": "~5.2.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.5.2"
+  }
+}
+
+server.ts
+import { renderApplication } from '@angular/platform-server';
+import bootstrap from './src/main.server';
+
+export default async function render(url: string) {
+    return renderApplication(bootstrap, {
+        url,
+    });
+}
+
+angularjson
+
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "mew": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "server": {
+                    "builder": "@angular-devkit/build-angular:server",
+                    "options": {
+                        "outputPath": "dist/mew/server",
+                        "main": "server.ts",
+                        "tsConfig": "tsconfig.server.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "outputHashing": "none"
+                        }
+                    }
+                },
+                "build": {
+                    "builder": "@angular-devkit/build-angular:application",
+                    "options": {
+                        "outputPath": "dist/mew",
+                        "index": "src/index.html",
+                        "browser": "src/main.ts",
+                        "polyfills": ["zone.js"],
+                        "tsConfig": "tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            {
+                                "glob": "**/*",
+                                "input": "public"
+                            }
+                        ],
+                        "styles": ["src/styles.scss"],
+                        "scripts": [],
+                        "server": "src/main.server.ts",
+                        "ssr": {
+                            "entry": "server.ts"
+                        }
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kB",
+                                    "maximumError": "1MB"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kB",
+                                    "maximumError": "4kB"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "optimization": false,
+                            "extractLicenses": false,
+                            "sourceMap": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "buildTarget": "mew:build:production"
+                        },
+                        "development": {
+                            "buildTarget": "mew:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "polyfills": ["zone.js", "zone.js/testing"],
+                        "tsConfig": "tsconfig.spec.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            {
+                                "glob": "**/*",
+                                "input": "public"
+                            }
+                        ],
+                        "styles": ["src/styles.scss"],
+                        "scripts": []
+                    }
+                },
+                "prerender": {
+                    "builder": "@angular/ssr:prerender",
+                    "options": {
+                        "routes": ["/", "/contact", "/menu"]
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "mew:build:production",
+                            "serverTarget": "mew:server:production"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+tsconfig.server.json
+
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./out-tsc/server",
+        "module": "esnext",
+        "target": "es2019",
+        "types": ["node"]
+    },
+    "files": ["src/main.server.ts", "server.ts"]
+}
+
+
+main.server.ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { config } from './app/app.config.server';
+
+const bootstrap = () => bootstrapApplication(AppComponent, config);
+
+export default bootstrap;
+
+
+main.ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
+
+app.routes.ts
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AppComponent } from './app.component';
+
+export const routes: Routes = [
+    { component: AppComponent, path: '' },
+    { component: HomeComponent, path: 'home' },
+];
+
+app.config.server.ts
+import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { provideServerRendering } from '@angular/platform-server';
+import { appConfig } from './app.config';
+
+const serverConfig: ApplicationConfig = {
+  providers: [
+    provideServerRendering()
+  ]
+};
+
+export const config = mergeApplicationConfig(appConfig, serverConfig);
+
+
+app.config.ts
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideClientHydration } from '@angular/platform-browser';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration()]
+};
+
+
+┏[MShepherd]--[master ≢ ● ]
+┖[~\p\mew]
+   node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --verbose
+⠋ Building...
+
+  polyfills-FFHMD2TL.js  33.7kb
+
+⠙ Building...
+
+  polyfills.server.mjs  262.3kb
+
+⠧ Building...
+
+  main-H4U6C4HR.js  189.0kb
+
+Done in 1947ms
+
+  chunk-CNCRQI7Y.mjs       445.6kb
+  chunk-YS6KNDKH.mjs        64.3kb
+  chunk-RHNTORHR.mjs        11.8kb
+  chunk-2VI5NG7I.mjs         1.2kb
+  server.mjs                 246b
+  render-utils.server.mjs    223b
+  main.server.mjs            149b
+
+Browser bundles
+Initial chunk files     | Names               |  Raw size | Estimated transfer size
+main-H4U6C4HR.js        | main                | 193.57 kB |                52.41 kB
+polyfills-FFHMD2TL.js   | polyfills           |  34.52 kB |                11.28 kB
+styles-5INURTSO.css     | styles              |   0 bytes |                 0 bytes
+
+                        | Initial total       | 228.09 kB |                63.69 kB
+
+
+Server bundles
+Initial chunk files     | Names               |  Raw size
+chunk-CNCRQI7Y.mjs      | -                   | 456.25 kB |
+polyfills.server.mjs    | polyfills.server    | 268.60 kB |
+chunk-YS6KNDKH.mjs      | -                   |  65.86 kB |
+chunk-2VI5NG7I.mjs      | -                   |   1.19 kB |
+server.mjs              | server              | 246 bytes |
+render-utils.server.mjs | render-utils.server | 223 bytes |
+main.server.mjs         | main.server         | 149 bytes |
+
+Lazy chunk files        | Names               |  Raw size
+chunk-RHNTORHR.mjs      | xhr2                |  12.07 kB |
+
+Application bundle generation complete. [2.339 seconds]
+
+Output location: C:\Users\mshepherd\p\mew\dist\mew
+
+
+
+is the app correctly set up for ssg?
+is the apps build in the browser/index file look correct for a ssg app?
+

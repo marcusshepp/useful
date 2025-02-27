@@ -1,0 +1,46 @@
+
+use angular
+
+create a landing page component 
+
+the company is called guru development 
+
+make it very brand fucused
+
+use a dark theme
+
+make it look very modern and visually stunning
+
+Make market the company is focused on small businesses that arent tech savvy or that do not have time to maintain their technical side. Or small businesses that could benefit from automating business processes
+
+use a subtle 3d animation
+
+be creative
+
+
+----
+
+I'm starting a website building company. 
+
+My market is small businesses that need help with business process automation or need a new more mordern website, or dont have a website at all.
+
+The idea is to target businesses that don't have involved technical requirements. More of the clients needs will be simple. Landing page, contact form, online menu, online ordering through stripe. Basic informative content
+
+I have an api hosted that acts as a shared api using nestjs
+
+The idea is to have all the client websites built out in angular and each one uses the shared api for simple tasks like emailing a contact form or checking inventory left for a product
+
+I'm using netlify to deploy the client side angular apps because its free and easy
+and I value the automatic ci/cd deployments that it sets up
+
+My process involves buying a template from something like themeforest and converting that into an angular project so that the css and html is already mostly built out and really clean and different and impressive.
+
+I already have one client site built out with angular
+
+What I'm trying to decide is if using angular workspaces is worth it or if I should have each webapp be a separate repo
+
+I think what I want to do is have each site be set up with angular ssg capabilities
+
+I think the downside of the angular workspaces would be the complexity of the deployments and possibly losing the ability to automatically deploy when pushing to master 
+
+but I have common components and services that I could shared between the clients and having just one prettierrc and one repo sounds attractive and has a good developer experience.

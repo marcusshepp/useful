@@ -1,0 +1,1178 @@
+Project Path: index-builder
+
+Source Tree:
+
+```
+index-builder
+├── index-builder
+│   ├── index-builder-node
+│   │   ├── index-builder-node.component.css
+│   │   ├── index-builder-node.component.html
+│   │   ├── index-builder-node.component.ts
+│   │   └── node-page-numbers
+│   │       ├── node-page-numbers.component.css
+│   │       ├── node-page-numbers.component.html
+│   │       └── node-page-numbers.component.ts
+│   ├── index-builder.component.css
+│   ├── index-builder.component.html
+│   └── index-builder.component.ts
+├── index-builder-container.component.css
+├── index-builder-container.component.html
+└── index-builder-container.component.ts
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder\index-builder-node\index-builder-node.component.css`:
+
+```css
+.node {
+    padding: 10px;
+}
+
+.inner-node {
+    box-shadow: 0px 3px 5px -2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.node-right-btns {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.node[level='1'] > .inner-node {
+    min-width: 93%;
+}
+
+.node[level='1'] > .inner-node .term-name {
+    font-weight: bolder;
+    font-size: 1.1em;
+}
+
+.node[level='2'] > .inner-node {
+    min-width: 85%;
+}
+
+.node[level='3'] > .inner-node {
+    min-width: 79.3%;
+}
+
+.node[level='4'] > .inner-node {
+    min-width: 73.3%;
+}
+
+.node[level='4'] > .inner-node .term-name {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.node[level='2'],
+.node[level='3'],
+.node[level='4'] {
+    border-left: 1px solid #e0e0e0;
+}
+
+.term-name {
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.term-name:hover {
+    background-color: #f0f0f0;
+}
+
+.page-numbers-container {
+    flex-grow: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    margin: 0 10px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.page-numbers-container:hover {
+    background-color: #f0f0f099;
+}
+
+.page-dots {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.page-dots::after {
+    content: '';
+    flex-grow: 1;
+    display: inline-block;
+    height: 1px;
+    border-bottom: 1px dotted black;
+    border-spacing: 30px;
+    background-size: 2px 2px;
+    margin-right: 5px;
+    padding-top: 15px;
+}
+
+i {
+    width: 30px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+i:hover {
+    background-color: #f0f0f0;
+}
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder\index-builder-node\index-builder-node.component.html`:
+
+```html
+<div class="node" [attr.level]="level" [ngStyle]="{ 'margin-left': level * 20 + 'px' }">
+    <div class="inner-node">
+        <div class="node-left-side">
+            <i
+                matTooltip="Add child term"
+                (click)="toggleSearch($event, node)"
+                *ngIf="level < 4"
+                class="ms-2 me-2 fa fa-plus"
+                aria-hidden="true"></i>
+            <button
+                class="term-name"
+                mat-button
+                (click)="renameNode($event, node)"
+                [matTooltip]="getNodeName(node)">
+                {{ node.term | customSlice : 80 }}
+            </button>
+        </div>
+
+        <div
+            *ngIf="level > 1"
+            class="page-numbers-container"
+            (click)="togglePageNumberEdit($event, node)"
+            matTooltip="Click to edit page numbers">
+            <span class="page-dots"></span>
+            <span class="page-numbers">
+                <span
+                    *ngFor="let pageNumber of node.pageNumbers; let last = last"
+                    class="page-number">
+                    <span *ngIf="!last">{{ pageNumber }}, </span>
+                    <span *ngIf="last">{{ pageNumber }}</span>
+                </span>
+            </span>
+        </div>
+
+        <div class="node-right-btns">
+            <i
+                class="fa fa-trash ms-1"
+                (click)="deleteNode()"
+                aria-hidden="true"
+                matTooltip="Remove term"></i>
+        </div>
+    </div>
+
+    <div class="child-nodes" *ngFor="let childNode of node.childNodes">
+        <app-index-builder-node
+            (refresh)="refreshTree()"
+            [node]="childNode"
+            [level]="level + 1"></app-index-builder-node>
+    </div>
+</div>
+
+<app-term-search
+    *ngIf="isSearchShowing"
+    [position]="activeComponentPosition"
+    [isRename]="isRenaming"
+    [parentNode]="node"
+    [level]="level"
+    (refresh)="refreshTree()"
+    (termSelected)="termSelected($event)"
+    (closeEmitter)="closeTermSearch()"></app-term-search>
+
+<app-node-page-numbers
+    *ngIf="isPageNumberEditShowing"
+    [position]="activeComponentPosition"
+    [node]="node"
+    (closeEmitter)="closePageNumberEdit()">
+</app-node-page-numbers>
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder\index-builder-node\index-builder-node.component.ts`:
+
+```ts
+import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { NotifierService } from 'angular-notifier';
+import { Observable, of, switchMap, tap } from 'rxjs';
+import { IndexTreeCodegenService, IndexTreeNodeDto } from 'src/app/api';
+import { GeneralConfirmationModalComponent } from 'src/app/components/general-confirmation-modal/general-confirmation-modal.component';
+import { VectorPosition } from 'src/app/shared/models/vector.model';
+import { SessionStateService } from 'src/app/shared/services/session-state.service';
+import { IndexingStateService } from '../../../indexing.service';
+import { TermSelectionEvent } from '../../../term-search/term-search.component';
+
+@Component({
+    selector: 'app-index-builder-node',
+    templateUrl: './index-builder-node.component.html',
+    styleUrls: ['./index-builder-node.component.css'],
+})
+export class IndexBuilderNodeComponent {
+    @Input() public node: IndexTreeNodeDto;
+    @Input() public level: number = 0;
+
+    public activeComponentPosition: VectorPosition;
+    public isSearchShowing: boolean = false;
+    public isPageNumberEditShowing: boolean = false;
+    public nodeBeingEdited: IndexTreeNodeDto;
+    public isRenaming: boolean = false;
+
+    constructor(
+        private codegenService: IndexTreeCodegenService,
+        private sessionStateService: SessionStateService,
+        private notifierService: NotifierService,
+        private dialog: MatDialog,
+        private indexingStateService: IndexingStateService
+    ) {}
+
+    private get sessionId(): number {
+        return this.sessionStateService.getCurrentSessionId();
+    }
+
+    private get sessionDayId(): number {
+        return this.sessionStateService.getCurrentSessionDay().id;
+    }
+
+    public getNodeName(node: IndexTreeNodeDto): string {
+        const name: string = node.term;
+        return `Click to rename: \r\n${name}`;
+    }
+
+    public termSelected(event: TermSelectionEvent): void {
+        const termId: number = event.term.id;
+
+        if (event.isRename) {
+            this.saveRenameNode(termId);
+        } else {
+            let sessionId: number = this.sessionId;
+            let sessionDayId: number = this.sessionDayId;
+
+            this.codegenService
+                .apiIndexTreeSessionIdSessionDayIdTermTermIdAddNodePost(
+                    sessionId,
+                    sessionDayId,
+                    termId,
+                    this.node.id
+                )
+                .subscribe((): void => {
+                    this.notifierService.notify(
+                        'success',
+                        `Successfully added ${
+                            event.term.term?.trim()?.substring(0, 40) ?? 'term'
+                        } to index`
+                    );
+                    this.refreshTree();
+                    this.isSearchShowing = false;
+                });
+        }
+    }
+
+    public renameNode($event: MouseEvent, node: IndexTreeNodeDto): void {
+        $event.stopPropagation();
+        this.isRenaming = true;
+        this.toggleSearch($event, node);
+    }
+
+    public saveRenameNode(termId: number): void {
+        this.codegenService
+            .apiIndexTreeSessionIdSessionDayIdRenameNodeNodeIdTermTermIdLevelLevelPatch(
+                this.sessionId,
+                this.sessionDayId,
+                this.node.id,
+                termId,
+                this.level
+            )
+            .subscribe((): void => {
+                this.notifierService.notify('success', 'Successfully replaced index term');
+                this.refreshTree();
+                this.isSearchShowing = false;
+            });
+    }
+
+    public toggleSearch($event: MouseEvent, node: IndexTreeNodeDto): void {
+        $event.stopPropagation();
+        this.indexingStateService.closeAllDialogs$.next(true);
+        this.nodeBeingEdited = node;
+        this.isSearchShowing = !this.isSearchShowing;
+
+        if (this.isSearchShowing) {
+            const target = $event.target as HTMLElement;
+            const rect = target.getBoundingClientRect();
+
+            const position = {
+                x: rect.left,
+                y: rect.bottom + 10,
+            } as VectorPosition;
+            this.activeComponentPosition = position;
+        }
+    }
+
+    public deleteNode(): void {
+        const nodeName: string = this.node.term;
+        const dialogRef = this.dialog.open(GeneralConfirmationModalComponent, {
+            data: {
+                modalHeaderText: `Delete ${nodeName} from index`,
+                modalBodyText: `Are you sure you want to delete ${nodeName} from the index?`,
+                action: 'Delete',
+                cssClass: 'black',
+            },
+        });
+        dialogRef
+            .afterClosed()
+            .pipe(
+                switchMap((shouldDelete: boolean): Observable<any> => {
+                    if (shouldDelete) {
+                        return this.codegenService
+                            .apiIndexTreeSessionIdSessionDayIdRemoveNodeNodeIdDelete(
+                                this.sessionId,
+                                this.sessionDayId,
+                                this.node.id
+                            )
+                            .pipe(
+                                tap((): void => {
+                                    this.notifierService.notify(
+                                        'success',
+                                        'Successfully deleted node'
+                                    );
+                                    this.refreshTree();
+                                })
+                            );
+                    }
+                    return of(null);
+                })
+            )
+            .subscribe((): void => {});
+    }
+
+    public refreshTree(): void {
+        this.indexingStateService.refreshTree$.next(true);
+    }
+
+    public closeTermSearch(): void {
+        this.isSearchShowing = false;
+    }
+
+    public closePageNumberEdit(): void {
+        this.isPageNumberEditShowing = false;
+        this.refreshTree();
+    }
+
+    public togglePageNumberEdit($event: MouseEvent, node: IndexTreeNodeDto): void {
+        $event.stopPropagation();
+        this.indexingStateService.closeAllDialogs$.next(true);
+        this.nodeBeingEdited = node;
+        this.isPageNumberEditShowing = !this.isPageNumberEditShowing;
+
+        if (this.isPageNumberEditShowing) {
+            const target = $event.target as HTMLElement;
+            const rect = target.getBoundingClientRect();
+
+            const position = {
+                x: rect.left,
+                y: rect.bottom + 10,
+            } as VectorPosition;
+            this.activeComponentPosition = position;
+        }
+    }
+}
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder\index-builder-node\node-page-numbers\node-page-numbers.component.css`:
+
+```css
+.card-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1000;
+    width: 30vw;
+    max-height: 39vh;
+}
+
+.top-row-container {
+    display: flex;
+}
+
+.top-row-input {
+    width: 80%;
+}
+
+.top-row-button {
+    width: 20%;
+    text-align: right;
+    margin-left: 5px;
+}
+
+.close-bttn {
+    margin-top: 5px;
+    text-align: right;
+}
+
+.page-number {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    line-height: 0;
+}
+
+.remove-btn {
+    padding: 12px;
+    cursor: pointer;
+    font-size: 1.2em;
+    box-shadow: 0px 2px 2px 0px #00000069;
+}
+
+.remove-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.page-number > div {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 50%;
+}
+
+.page-number > button  > * {
+    font-size: 0.8em;
+}
+
+.number-cards-container {
+    max-height: 22vh;
+    overflow-y: auto;
+}
+
+.number-card {
+    margin-bottom: 5px;
+    height: 45px;
+}
+
+i {
+    cursor: pointer;
+}
+
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder\index-builder-node\node-page-numbers\node-page-numbers.component.html`:
+
+```html
+<mat-card
+    class="card-container"
+    [ngStyle]="{ 'top.px': position.y, 'left.px': position.x }"
+    [formGroup]="form"
+    (click)="$event.stopPropagation()">
+    <div>
+        <div>
+            <div class="top-row-container">
+                <div class="top-row-input">
+                    <mat-form-field
+                        (click)="$event.stopPropagation()"
+                        appearance="fill"
+                        class="white-form-field">
+                        <mat-label>Enter a new page number</mat-label>
+                        <input
+                            type="number"
+                            placeholder="Page Number"
+                            [formControl]="pageNumberInputControl"
+                            matInput
+                            #pageNumberInputField
+                            min="0"
+                            step="1"
+                            (keydown.enter)="addPageNumber()" />
+                    </mat-form-field>
+                </div>
+                <div class="top-row-button">
+                    <button mat-button (click)="$event.stopPropagation();addPageNumber()">
+                        Add
+                    </button>
+                </div>
+            </div>
+            <div class="number-cards-container" *ngIf="pageNumbers.length > 0">
+                <mat-card *ngFor="let n of pageNumbers" class="number-card">
+                    <div class="page-number">
+                        <div style="text-align: center">
+                            <span style="display: table-cell; vertical-align: middle">{{ n }}</span>
+                        </div>
+
+                        <i
+                            class="fa fa-trash ms-1"
+                            (click)="removePageNumber(n)"
+                            aria-hidden="true"
+                            matTooltip="Remove Page Number"></i>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div class="close-bttn">
+        <button mat-raised-button (click)="close()">Close</button>
+    </div>
+</mat-card>
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder\index-builder-node\node-page-numbers\node-page-numbers.component.ts`:
+
+```ts
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { NotifierService } from 'angular-notifier';
+import { takeUntil } from 'rxjs';
+import { IndexTreeCodegenService, IndexTreeNodeDto } from 'src/app/api';
+import { IndexingStateService } from 'src/app/features/indexing/indexing.service';
+import { DestroyableComponent } from 'src/app/shared/base-classes/destroyable-component';
+import { VectorPosition } from 'src/app/shared/models/vector.model';
+import { SessionStateService } from 'src/app/shared/services/session-state.service';
+
+@Component({
+    selector: 'app-node-page-numbers',
+    templateUrl: './node-page-numbers.component.html',
+    styleUrls: ['./node-page-numbers.component.css'],
+})
+export class IndexNodePageNumbersComponent extends DestroyableComponent implements AfterViewInit {
+    @Input() public position: VectorPosition = { x: 0, y: 0 };
+    @Input() public node: IndexTreeNodeDto;
+    @Output() public closeEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @ViewChild('pageNumberInputField') public pageNumberInputField: ElementRef;
+    public pageNumberInputControl: FormControl = new FormControl();
+    public form: FormGroup = this.fb.group({
+        pageNumber: this.pageNumberInputControl,
+    });
+    public pageNumbers: number[] = [];
+
+    constructor(
+        private codegenService: IndexTreeCodegenService,
+        private indexingStateService: IndexingStateService,
+        private notifier: NotifierService,
+        private sessionStateService: SessionStateService,
+        private fb: FormBuilder
+    ) {
+        super();
+        this.listenToCloseDialogs();
+    }
+
+    private get sessionId(): number {
+        return this.sessionStateService.getCurrentSessionId();
+    }
+
+    private get sessionDayId(): number {
+        return this.sessionStateService.getCurrentSessionDay().id;
+    }
+
+    public ngAfterViewInit(): void {
+        this.pageNumberInputField.nativeElement.focus();
+        if (this.node?.pageNumbers) {
+            this.pageNumbers = [...this.node.pageNumbers].sort((a, b) => a - b);
+        }
+    }
+
+    public addPageNumber(): void {
+        const pageNumber: string = this.pageNumberInputControl.value;
+        if (!pageNumber || isNaN(+pageNumber)) {
+            this.notifier.notify('error', 'Please enter a valid page number.');
+            return;
+        }
+        if (this.pageNumbers.includes(+pageNumber)) {
+            this.notifier.notify('error', 'Page number already exists.');
+            return;
+        }
+        this.pageNumbers.push(+pageNumber);
+        this.pageNumbers.sort((a, b) => a - b);
+        this.pageNumberInputControl.reset();
+
+        this.savePageNumbers();
+    }
+
+    public removePageNumber(pageNumber: number): void {
+        this.pageNumbers = this.pageNumbers
+            .filter((pn: number): boolean => pn !== pageNumber)
+            .sort((a, b) => a - b);
+        this.pageNumberInputControl.reset();
+
+        this.codegenService
+            .apiIndexTreeSessionIdSessionDayIdNodeNodeIdPageNumberPageNumberRemovePageNumberDelete(
+                this.sessionId,
+                this.sessionDayId,
+                this.node.id,
+                pageNumber
+            )
+            .subscribe((): void => {
+                this.notifier.notify('success', 'Page number deleted successfully.');
+            });
+    }
+
+    public close(): void {
+        this.closeEmitter.emit(true);
+    }
+
+    private listenToCloseDialogs(): void {
+        this.indexingStateService.closeAllDialogs$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((): void => {
+                this.close();
+            });
+    }
+
+    private savePageNumbers(): void {
+        this.codegenService
+            .apiIndexTreeSessionIdSessionDayIdPageNumbersNodeIdPatch(
+                this.sessionId,
+                this.sessionDayId,
+                this.node.id,
+                this.pageNumbers
+            )
+            .subscribe((): void => {
+                this.notifier.notify('success', 'Page numbers saved successfully.');
+            });
+    }
+}
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder\index-builder.component.css`:
+
+```css
+:host {
+    width: 100%;
+}
+
+mat-card {
+    margin: 8px;
+    padding: 8px;
+    height: 70vh;
+    overflow: auto;
+}
+
+.new-primary-term-container {
+    margin-left: 10px;
+}
+
+.tree-container > div {
+    margin: 0;
+    padding: 0;
+}
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder\index-builder.component.html`:
+
+```html
+<mat-card (click)="closeTermSearch()">
+    <div class="new-primary-term-container">
+        <button mat-raised-button color="primary" (click)="openTermSearch($event)">
+            Add Primary Index
+        </button>
+    </div>
+    <div class="tree-container">
+        <div *ngFor="let node of indexTree">
+            <app-index-builder-node [node]="node" [level]="1"></app-index-builder-node>
+        </div>
+    </div>
+</mat-card>
+
+<app-term-search
+    *ngIf="isSearchShowing"
+    [position]="searchComponentPosition"
+    [parentNode]="null"
+    (termSelected)="termSelected($event)"
+    (closeEmitter)="closeTermSearch()"></app-term-search>
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder\index-builder.component.ts`:
+
+```ts
+import { Component, HostListener } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { NotifierService } from 'angular-notifier';
+import { debounceTime, Observable, of, switchMap, takeUntil, tap } from 'rxjs';
+import { IndexTreeCodegenService, IndexTreeNodeDto } from 'src/app/api';
+import { DestroyableComponent } from 'src/app/shared/base-classes/destroyable-component';
+import { exists } from 'src/app/shared/functions/exists';
+import { VectorPosition } from 'src/app/shared/models/vector.model';
+import { SessionStateService } from 'src/app/shared/services/session-state.service';
+import { IndexingStateService } from '../../indexing.service';
+import { TermSelectionEvent } from '../../term-search/term-search.component';
+
+@Component({
+    selector: 'app-index-builder',
+    templateUrl: './index-builder.component.html',
+    styleUrls: ['./index-builder.component.css'],
+})
+export class IndexBuilderComponent extends DestroyableComponent {
+    @HostListener('document:keydown', ['$event'])
+    public handleKeyboardEvent(event: KeyboardEvent): void {
+        if (event.key === 'Escape') {
+            this.isSearchShowing = false;
+            this.indexingStateService.closeAllDialogs$.next(true);
+        }
+    }
+
+    public indexTree: IndexTreeNodeDto[] = [];
+    public filterNodesControl: FormControl = new FormControl('');
+    public actionsControl: FormControl = new FormControl('');
+    public form = this.fb.group({
+        filterNodesControl: this.filterNodesControl,
+        actionsControl: this.actionsControl,
+    });
+    public terms: IndexTreeNodeDto[] = [];
+    public isSearchShowing: boolean = false;
+    public searchComponentPosition: VectorPosition;
+    public searchedNodes: IndexTreeNodeDto[] = [];
+
+    constructor(
+        private fb: FormBuilder,
+        private codegenService: IndexTreeCodegenService,
+        private sessionService: SessionStateService,
+        private notifierService: NotifierService,
+        private indexingStateService: IndexingStateService
+    ) {
+        super();
+        this.getIndexTree();
+        this.listenToSelectedSessionDay();
+        this.listenForSearchSessionNodes();
+        this.listenToRefreshTree();
+    }
+
+    private get sessionId(): number {
+        return this.sessionService.getCurrentSessionId();
+    }
+
+    private get sessionDayId(): number {
+        return this.sessionService.getCurrentSessionDay().id;
+    }
+
+    public openTermSearch($event: MouseEvent): void {
+        $event.stopPropagation();
+        this.indexingStateService.closeAllDialogs$.next(true);
+        this.isSearchShowing = !this.isSearchShowing;
+        if (this.isSearchShowing) {
+            const target = $event.target as HTMLElement;
+            const rect = target.getBoundingClientRect();
+            const position = { x: rect.left, y: rect.bottom + 10 } as VectorPosition;
+            this.searchComponentPosition = position;
+        }
+    }
+
+    public termSelected(term: TermSelectionEvent): void {
+        this.codegenService
+            .apiIndexTreeSessionIdSessionDayIdTermTermIdAddNodePost(
+                this.sessionId,
+                this.sessionDayId,
+                term.term.id,
+                null
+            )
+            .pipe(
+                switchMap(() => {
+                    return this.treeIndexObservable();
+                })
+            )
+            .subscribe(() => {
+                const termName: string = term.term?.term?.substring(0, 20) ?? 'Term';
+                this.notifierService.notify(`success`, `Successfully added ${termName} to index`);
+            });
+    }
+
+    public closeTermSearch(): void {
+        this.isSearchShowing = false;
+        this.indexingStateService.closeAllDialogs$.next(true);
+    }
+
+    public refresh(): void {
+        this.getIndexTree();
+    }
+
+    private listenForSearchSessionNodes(): void {
+        this.filterNodesControl.valueChanges
+            .pipe(
+                takeUntil(this.destroy$),
+                debounceTime(300),
+                switchMap((search: string) => {
+                    if (!search || search.length < 3) {
+                        return of([]);
+                    }
+                    return this.codegenService.apiIndexTreeSessionIdSearchForNodeThroughoutSessionSearchTermGet(
+                        this.sessionId,
+                        search
+                    );
+                })
+            )
+            .subscribe((results: IndexTreeNodeDto[]) => {
+                this.searchedNodes = results;
+            });
+    }
+
+    private treeIndexObservable(): Observable<IndexTreeNodeDto[]> {
+        return this.codegenService
+            .apiIndexTreeSessionIdSessionDayIdGet(this.sessionId, this.sessionDayId)
+            .pipe(
+                tap((tree: IndexTreeNodeDto[]) => {
+                    this.indexTree = tree;
+                    this.indexingStateService.treeNodes$.next(tree);
+                    this.isSearchShowing = false;
+                })
+            );
+    }
+
+    private getIndexTree(): void {
+        this.treeIndexObservable().subscribe(() => {});
+    }
+
+    private listenToSelectedSessionDay(): void {
+        this.sessionService
+            .getSelectedSessionDay()
+            .pipe(
+                takeUntil(this.destroy$),
+                switchMap((): Observable<IndexTreeNodeDto[]> => {
+                    return this.treeIndexObservable();
+                })
+            )
+            .subscribe(() => {});
+    }
+
+    private listenToRefreshTree(): void {
+        this.indexingStateService.refreshTree$
+            .pipe(
+                takeUntil(this.destroy$),
+                switchMap(() => this.treeIndexObservable())
+            )
+            .subscribe(() => {});
+    }
+}
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder-container.component.css`:
+
+```css
+.index-builder-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 85vh;
+    overflow: hidden;
+    margin: 10px;
+    width: 100%;
+}
+
+.upper-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.lower-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.no-document {
+    height: 70vh;
+    width: 100%;
+}
+
+@media screen and (max-height: 850px) {
+    .index-builder-container {
+        height: 88vh;
+        width: 98.5%;
+    }
+
+    .upper-container {
+        margin-bottom: -15px;
+    }
+}
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder-container.component.html`:
+
+```html
+<mat-card class="index-builder-container">
+    <div class="upper-container">
+        <mat-form-field appearance="fill" class="white-form-field me-2">
+            <mat-label>Options</mat-label>
+            <mat-select>
+                <mat-option
+                    *ngFor="let action of actions"
+                    (click)="actOnActionSelect(action)"
+                    >{{action}}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+        <button
+            class="me-2"
+            mat-raised-button
+            (click)="viewJournalDocument()"
+            [disabled]="isViewJournalButtonDisabled"
+        >
+            {{ journalDocumentActionLabel }}
+        </button>
+    </div>
+    <div class="lower-container">
+        <app-index-builder></app-index-builder>
+        <ng-container
+            *ngIf="!(closedDocument$ | async) && (isJournalPublished$ | async)"
+        >
+            <app-pdf-preview
+                [documentToDisplay]="document$"
+                [heightOverride]="'70vh'"
+                [style.display]="(document$ | async) ? 'block' : 'none'"
+            ></app-pdf-preview>
+            <mat-card
+                class="no-document"
+                [style.display]="(document$ | async) ? 'none' : 'block'"
+            >
+                Daily Journal Not Yet Created
+            </mat-card>
+        </ng-container>
+    </div>
+</mat-card>
+
+```
+
+`\\?\C:\Users\mshepherd\p\LegBone\Eva\src\app\features\indexing\index-builder\index-builder-container.component.ts`:
+
+```ts
+import { AfterViewInit, Component } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
+import * as saveAs from 'file-saver';
+import {
+    catchError,
+    combineLatest,
+    first,
+    Observable,
+    of,
+    Subject,
+    switchMap,
+    takeUntil,
+    tap,
+    withLatestFrom,
+} from 'rxjs';
+import { IndexJournalInfoDto, IndexTreeCodegenService, SessionDayDto } from 'src/app/api';
+import { SelectedSessionDay } from 'src/app/interfaces/session-days';
+import { JournalFileService } from 'src/app/services/journal-file.service';
+import { DestroyableComponent } from 'src/app/shared/base-classes/destroyable-component';
+import { exists } from 'src/app/shared/functions/exists';
+import { SessionStateService } from 'src/app/shared/services/session-state.service';
+import { ACTIONS } from '../index.models';
+import { IndexingStateService } from '../indexing.service';
+
+@Component({
+    selector: 'app-index-builder-container',
+    templateUrl: 'index-builder-container.component.html',
+    styleUrls: ['index-builder-container.component.css'],
+})
+export class IndexBuilderContainerComponent extends DestroyableComponent implements AfterViewInit {
+    public document$: Subject<Blob> = this.indexingStateService.documentToDisplay$;
+    public closedDocument$: Subject<boolean> = this.indexingStateService.closeDocument$;
+    public isJournalPublished$: Subject<boolean> = this.indexingStateService.isJournalPublished$;
+    public actions: string[] = [
+        ACTIONS.DOWNLOAD_SESSION_DOCUMENT,
+        ACTIONS.DOWNLOAD_SESSION_DAY_DOCUMENT,
+        ACTIONS.DOWNLOAD_JOURNAL_DOCUMENT,
+    ];
+    public journalDocumentActionLabel: string = ACTIONS.CLOSE_JOURNAL_DOCUMENT;
+
+    private journalId: number;
+
+    constructor(
+        private sessionService: SessionStateService,
+        private indexingStateService: IndexingStateService,
+        private journalFileService: JournalFileService,
+        private codegenService: IndexTreeCodegenService,
+        private notifierService: NotifierService
+    ) {
+        super();
+        this.listenToSessionDayChanges();
+        this.viewJournalDocumentLabelObservable();
+    }
+
+    private get sessionId(): number {
+        return this.sessionService.getCurrentSessionId();
+    }
+
+    private get sessionDayId(): number {
+        return this.sessionService.getCurrentSessionDay().id;
+    }
+
+    private get sessionDay(): SessionDayDto {
+        return this.sessionService.getCurrentSessionDay();
+    }
+
+    public get isViewJournalButtonDisabled(): boolean {
+        return this.journalDocumentActionLabel === ACTIONS.JOURNAL_DOCUMENT_UNPUBLISHED;
+    }
+
+    public ngAfterViewInit(): void {
+        this.journalDocumentObservable()
+            .pipe(first())
+            .subscribe(() => {});
+    }
+
+    public actOnActionSelect(action: string): void {
+        if (action === ACTIONS.DOWNLOAD_JOURNAL_DOCUMENT) {
+            this.downloadPublishedJournal();
+        }
+    }
+
+    public viewJournalDocument(): void {
+        if (this.journalDocumentActionLabel === ACTIONS.CLOSE_JOURNAL_DOCUMENT) {
+            this.indexingStateService.closeDocument$.next(true);
+            this.indexingStateService.documentToDisplay$.next(null);
+        } else {
+            this.indexingStateService.closeDocument$.next(false);
+            this.journalFileService
+                .getJournalDocumentPdfBySessionDay(this.sessionId, this.sessionDayId)
+                .subscribe((blob: Blob): void => {
+                    this.indexingStateService.documentToDisplay$.next(blob);
+                });
+        }
+    }
+
+    public downloadPublishedJournal(): void {
+        this.journalFileService
+            .getPublishedJournalDoc(this.sessionId, this.journalId, 'docx')
+            .subscribe((result: Blob): void => {
+                saveAs(result, `DailyJournal-${this.sessionDay.day}.docx`);
+            });
+    }
+
+    private listenToSessionDayChanges(): void {
+        this.sessionService
+            .getSelectedSessionDay()
+            .pipe(
+                takeUntil(this.destroy$),
+                withLatestFrom(this.indexingStateService.closeDocument$),
+                switchMap(
+                    ([_, documentClosed]: [
+                        SelectedSessionDay,
+                        boolean,
+                    ]): Observable<IndexJournalInfoDto> => {
+                        if (documentClosed) {
+                            return of(null);
+                        }
+                        return this.codegenService.apiIndexTreeSessionIdSessionDaySessionDayIdGetJournalInfoGet(
+                            this.sessionId,
+                            this.sessionDayId
+                        );
+                    }
+                ),
+                switchMap((response: IndexJournalInfoDto): Observable<Blob> => {
+                    this.journalId = response.journalId;
+                    if (response && response.isPublished) {
+                        this.indexingStateService.isJournalPublished$.next(true);
+                        return this.journalDocumentObservable();
+                    }
+                    this.indexingStateService.isJournalPublished$.next(false);
+                    this.notifierService.notify(`default`, `No Journal Document is published.`);
+                    return of(null);
+                })
+            )
+            .subscribe(() => {});
+    }
+
+    private journalDocumentObservable(): Observable<Blob> {
+        return this.journalFileService
+            .getJournalDocumentPdfBySessionDay(this.sessionId, this.sessionDayId)
+            .pipe(
+                catchError(() => {
+                    this.indexingStateService.documentToDisplay$.next(null);
+                    return of(null);
+                }),
+                tap((blob: Blob): void => {
+                    this.indexingStateService.documentToDisplay$.next(blob);
+                })
+            );
+    }
+
+    private viewJournalDocumentLabelObservable(): void {
+        combineLatest([
+            this.indexingStateService.isJournalPublished$,
+            this.indexingStateService.documentToDisplay$,
+        ])
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(([isPublished, documentToDisplay]: [boolean, Blob]): void => {
+                if (!isPublished) {
+                    this.journalDocumentActionLabel = ACTIONS.JOURNAL_DOCUMENT_UNPUBLISHED;
+                } else if (exists(documentToDisplay)) {
+                    this.journalDocumentActionLabel = ACTIONS.CLOSE_JOURNAL_DOCUMENT;
+                } else {
+                    this.journalDocumentActionLabel = ACTIONS.VIEW_JOURNAL_DOCUMENT;
+                }
+            });
+    }
+}
+
+```
+
+
+the above is a feature in my angular app
+
+I need to add the ability for the user to 'Quick Add' a tree
+the idea behind this is to make the dialog very keyboard centric
+
+this will be done in a dialog 
+
+the user will click a button next to a 'Add Primary Index' button
+
+this will open a dialog 
+
+the dialog will have a searchbar 
+
+the search bar is automatically focused
+
+the user will type in the search bar
+the user will use the arrow keys to navigate the search results
+the press enter to select the result
+once something is selected, they can imidiatly start typing the next search to add a secondary
+term
+once they select the secondary term
+they can start adding page numbers for the secondary term
+once they are done adding page numbers, this is signaled by the user pressing ESC or TAB
+they can start typing the next search to add a tertiary term
+once they are done adding page numbers, this is signaled by the user pressing ESC or TAB
+they can start typing the next search to add a quaternary term
+once they are done adding page numbers, this is signaled by the user pressing ESC or TAB
+the user can then press ESC or click the close btn to close the dialog
+
+all these actions should auto update the tree in the builder. the tree already does this.
+so you just have to look at the code to find the existing correct endpoints to call
+
+do not comment your code
+
+    make this new dialog a new compoennt

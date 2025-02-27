@@ -1,0 +1,134 @@
+demo committs
+
+44561324 (HEAD -> environments/demo, origin/environments/demo) Merged PR 2293: [5507] [Bug] Written Testimony Republish
+d9974069 (origin/marcus/5507__bug__written-testimony-republish, marcus/5507__bug__written-testimony-republish) [5507] [Bug] Written Testimony Republish
+67f7e93b Merged PR 2291: 5509 Committee Management | Meetings and Notices | Data under Refereed Legisl...
+f835c203 Merged PR 2289: [5507] [Bug] Written Testimony Republish
+ae228830 5509 Committee Management | Meetings and Notices | Data under Refereed Legislative Items and Custom Agenda is all corrupted >Styling fix for mat chips
+1c20d85c [5507] [Bug] Written Testimony Republish
+566f87d2 (origin/environments/qa, origin/develop, origin/HEAD, environments/qa, develop) Merged PR 2283: fix includes that is breaking agenda/calendar preview
+69eca84e Merged PR 2274: 5434 add a listing of committee reports to legislative lookup page
+44561324 (HEAD -> environments/demo, origin/environments/demo) Merged PR 2293: [5507] [Bug] Written Testimony Republish
+d9974069 (origin/marcus/5507__bug__written-testimony-republish, marcus/5507__bug__written-testimony-republish) [5507] [Bug] Written Testimony Republish
+67f7e93b Merged PR 2291: 5509 Committee Management | Meetings and Notices | Data under Refereed Legisl...
+f835c203 Merged PR 2289: [5507] [Bug] Written Testimony Republish
+ae228830 5509 Committee Management | Meetings and Notices | Data under Refereed Legislative Items and Custom Agenda is all corrupted >Styling fix for mat chips
+1c20d85c [5507] [Bug] Written Testimony Republish
+566f87d2 (origin/environments/qa, origin/develop, origin/HEAD, environments/qa, develop) Merged PR 2283: fix includes that is breaking agenda/calendar preview
+69eca84e Merged PR 2274: 5434 add a listing of committee reports to legislative lookup page
+c41179bf fix includes that is breaking agenda/calendar preview
+68b5bede Merged PR 2280: 5498
+dddc7f3d Merged PR 2281: 5497 Official Journal - there are 1st level terms in the report with no suppo...
+0c067de4 5497 Official Journal - there are 1st level terms in the report with no supporting data under them >Now checking session id at time of download
+bb624983 5498 Official Journal - the document is incomplete as far as bills realted to topics goes >Allowing incorrect digest title format for clerk identification
+509e7a51 Merged PR 2279: US 80
+0d9191fe BUG 5500 >resolving comments
+ab5277c8 US 80 >Fixed order of operations of pervious commit
+43b08613 US 80 >filter by senate Chamber
+484c26c7 Merged PR 2278: 5493 button to send item back to assign bill/res detail missing from introduce
+bill page
+879b3ffa Merged PR 2273: 5480 committee referrals report name
+bd2175b9 Merged PR 2275: Bug 5431
+ad58b2e0 US 80 >Limmiting Leg item selection to a single calendar year
+5c119432 Merged PR 2277: clean up
+5e4a2a60 remove uneeded setting.
+0ff96457 Merged PR 2276: Settings..
+349ba1d6 pdf and doc with defaults.
+56d4fdcd Merged PR 2272: 5485
+ae7341b7 Bug 5431 >Fixed start date causing inactive status on paegload, Maintaining IsActive status on
+users across updates
+ab600e29 5485
+12752661 Merged PR 2228: Part 1 Generator
+17cabbf4 US 80 >?
+5dd33b66 US 80 >Resolving Comments
+2e0e4920 US 80 merge
+adf8d69a US 80 >changed controller verbiage
+f69d0a5f US 80 >Made Seession ID a foreign Key
+3c3cf537 US 80 >Added Delete
+e04d404b (origin/feature/5434_committee_reports_on_leg_lookup, feature/5434_committee_reports_on_leg_lookup) add a listing of committee reports to legislative lookup page
+:
+
+
+uat committs
+
+5c6d7888 (HEAD -> environments/uat, origin/environments/uat, _env/uat) Merged PR 2235: Journal Validation Auto Saving
+347ff384 (origin/marcus/journal-validation-auto-saving, marcus/journal-validation-auto-saving) removed none number character restriction
+e90caba3 remove regex validatino
+2f3741d6 Journal Validation Auto Saving
+bc102daf Merged PR 2232: User Admin Tweaks
+30645475 more clean up...
+57801673 remove un needed variable.
+e8ace2db refactor
+ceb216e2 Merged PR 2227: Journal Validation PDF Preview
+bf65c675 Merged PR 2221: 5306 User Admin Enhancements
+c2377d2a Merged PR 2225: [5406] [Bug] Committee Type Resets On Edit
+a46d20b6 Merged PR 2224: [5331] [Story] New Manual Links
+78dd3603 Merged PR 2222: General Index - Bugs
+b2b44374 lol..
+12237dff (origin/marcus/5406__bug__committee-type-resets-on-edit, marcus/5406__bug__committee-type-resets-on-edit) [5406] [Bug] Committee Type Resets On Edit
+872da11d (origin/marcus/5331__story__new-manual-links, marcus/5331__story__new-manual-links) [5331] [Story] New Manual Links
+3ac552b2 (origin/marcus/journal-validation-pdf-preview, marcus/journal-validation-pdf-preview) Journal Validation PDF Preview
+ae8ee673 Journal Validatino PDF Preview
+de6b0e02 (origin/marcus/general-index-bugs, marcus/general-index-bugs) General Index | Correct Journal PDF from Shared DB
+7c3645ee comments
+694883cb General Index Bugs
+cc0a5c21 Minor General Index Bugs
+2d3c1538 Merged PR 2215: [5301] [Story] Legislative Item Look Up Role
+3761ce85 Only see Journals that are published
+d9b11e0f user admin updates
+8de21a8e (origin/marcus/5301__story__legislative-item-lookup-role, marcus/5301__story__legislative-item-lookup-role) Merge branch 'develop' of https://dev.azure.com/Legislative/LegBone/_git/LegBone into marcus/5301__story__legislative-item-lookup-role
+be8dbb29 [5301] [Story] Legislative Item Look Up Route Gaurds
+ec116f86 Merged PR 2217: 5349  subcommittees agenda item updates
+65865947 Merged PR 2219: [5325] [Story] Remember Committee Types
+5dc04a50 Merged PR 2208: General Index Builder Split Screen
+5d1e62e3 I swear I tested it this time
+952933ec Merge branch 'develop' of https://dev.azure.com/Legislative/LegBone/_git/LegBone into marcus/5301__story__legislative-item-lookup-role
+46cf856b Merged PR 2214: 5350 add word/pdf wording to testimony upload confirmation modal
+4da97276 Merged PR 2213: 5363 fix code for nullable object for custom agenda items
+572583ef Merged PR 2212: 5327 fix the error that's being thrown when trying to upload/republish an ebsign report
+9167318e Merged PR 2211: 5336 update the mechanics of legislation caching to handle it on a per session
+basis
+:
+
+uat commits after rebase
+
+44561324 (HEAD -> environments/uat, origin/environments/demo, environments/demo) Merged PR 2293: [5507]
+[Bug] Written Testimony Republish
+d9974069 (origin/marcus/5507__bug__written-testimony-republish, marcus/5507__bug__written-testimony-republish) [5507] [Bug] Written Testimony Republish
+67f7e93b Merged PR 2291: 5509 Committee Management | Meetings and Notices | Data under Refereed Legisl...
+f835c203 Merged PR 2289: [5507] [Bug] Written Testimony Republish
+ae228830 5509 Committee Management | Meetings and Notices | Data under Refereed Legislative Items and Custom Agenda is all corrupted >Styling fix for mat chips
+1c20d85c [5507] [Bug] Written Testimony Republish
+566f87d2 (origin/environments/qa, origin/develop, origin/HEAD, environments/qa, develop) Merged PR 2283: fix includes that is breaking agenda/calendar preview
+69eca84e Merged PR 2274: 5434 add a listing of committee reports to legislative lookup page
+c41179bf fix includes that is breaking agenda/calendar preview
+68b5bede Merged PR 2280: 5498
+dddc7f3d Merged PR 2281: 5497 Official Journal - there are 1st level terms in the report with no suppo...
+0c067de4 5497 Official Journal - there are 1st level terms in the report with no supporting data under them >Now checking session id at time of download
+bb624983 5498 Official Journal - the document is incomplete as far as bills realted to topics goes >Allowing incorrect digest title format for clerk identification
+509e7a51 Merged PR 2279: US 80
+0d9191fe BUG 5500 >resolving comments
+ab5277c8 US 80 >Fixed order of operations of pervious commit
+43b08613 US 80 >filter by senate Chamber
+484c26c7 Merged PR 2278: 5493 button to send item back to assign bill/res detail missing from introduce
+bill page
+879b3ffa Merged PR 2273: 5480 committee referrals report name
+bd2175b9 Merged PR 2275: Bug 5431
+ad58b2e0 US 80 >Limmiting Leg item selection to a single calendar year
+5c119432 Merged PR 2277: clean up
+5e4a2a60 remove uneeded setting.
+0ff96457 Merged PR 2276: Settings..
+349ba1d6 pdf and doc with defaults.
+56d4fdcd Merged PR 2272: 5485
+ae7341b7 Bug 5431 >Fixed start date causing inactive status on paegload, Maintaining IsActive status on
+users across updates
+ab600e29 5485
+12752661 Merged PR 2228: Part 1 Generator
+17cabbf4 US 80 >?
+5dd33b66 US 80 >Resolving Comments
+2e0e4920 US 80 merge
+adf8d69a US 80 >changed controller verbiage
+f69d0a5f US 80 >Made Seession ID a foreign Key
+3c3cf537 US 80 >Added Delete
+e04d404b (origin/feature/5434_committee_reports_on_leg_lookup, feature/5434_committee_reports_on_leg_lookup) add a listing of committee reports to legislative lookup page
+:
