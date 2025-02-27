@@ -16,9 +16,9 @@ headers = {
 }
 
 current_sprint = 'Sprint 70'
-sprint_range_start = 65
-sprint_range_end = 71
-sprints_to_analyze = [f'Sprint {i}' for i in range(sprint_range_start, sprint_range_end)]
+sprint_range_start = 66
+sprint_range_end = 70
+sprints_to_analyze = [f'Sprint {i}' for i in range(sprint_range_start, sprint_range_end + 1)]
 
 def parse_azure_date(date_string):
     if not date_string:
@@ -40,6 +40,58 @@ def get_sprint_dates(iterations, sprint_name):
             )
     return None, None
 
+def get_all_iterations():
+    url = f'https://dev.azure.com/{organization}/{project}/{team}/_apis/work/teamsettings/iterations?api-version=6.0'
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        print(f"Error fetching iterations. Status code: {response.status_code}")
+        print(response.text)
+        return []
+    return response.json()['value']
+
+def get_work_item_history(work_item_id):
+    url = f'https://dev.azure.com/{organization}/{project}/_apis/wit/workItems/{work_item_id}/updates?api-version=6.0'
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        print(f"Error fetching work item history for ID {work_item_id}. Status code: {response.status_code}")
+        return []
+    return response.json()['value']
+
+def check_previous_sprint_activity(work_item_id, current_sprint_path, iterations):
+    history = get_work_item_history(work_item_id)
+    if not history:
+        return False
+    
+    # Get mapping of sprint names to paths
+    sprint_paths = {iter['name']: iter.get('path', '') for iter in iterations}
+    previous_sprint = f"Sprint {int(current_sprint.split()[1]) - 1}"
+    previous_sprint_path = sprint_paths.get(previous_sprint, '')
+    
+    # Get in-progress states
+    in_progress_states = ['In Development', 'In Progress', 'Ready for QA', 'QA', 'Code Review']
+    
+    for update in history:
+        if 'fields' in update and 'System.State' in update['fields']:
+            state_change = update['fields']['System.State']
+            if 'newValue' in state_change and state_change['newValue'] in in_progress_states:
+                # Check if this state change occurred during the previous sprint
+                if 'fields' in update and 'System.IterationPath' in update['fields']:
+                    iter_path = update['fields']['System.IterationPath']
+                    if 'oldValue' in iter_path and iter_path['oldValue'] == previous_sprint_path:
+                        return True
+                    if 'newValue' in iter_path and iter_path['newValue'] == previous_sprint_path:
+                        return True
+                
+                # If we don't have iteration path in this update, check the revision date
+                revision_date = parse_azure_date(update.get('revisedDate'))
+                if revision_date:
+                    # Get previous sprint dates
+                    prev_start, prev_end = get_sprint_dates(iterations, previous_sprint)
+                    if prev_start and prev_end and prev_start <= revision_date <= prev_end:
+                        return True
+    
+    return False
+
 def get_sprint_data(sprint_name):
     sprint_data = {
         'user_stories_total': 0,
@@ -47,17 +99,14 @@ def get_sprint_data(sprint_name):
         'bugs_completed': 0,
         'points_committed': 0,
         'points_completed': 0,
-        'initial_points_committed': 0
+        'initial_points_committed': 0,
+        'carry_over_points': 0
     }
 
-    url = f'https://dev.azure.com/{organization}/{project}/{team}/_apis/work/teamsettings/iterations?api-version=6.0'
-    response = requests.get(url, headers=headers)
-    if response.status_code != 200:
-        print(f"Error fetching sprint data for {sprint_name}. Status code: {response.status_code}")
-        print(response.text)
+    iterations = get_all_iterations()
+    if not iterations:
         return sprint_data
 
-    iterations = response.json()['value']
     iteration_path = next((iter.get('path', '') for iter in iterations if iter['name'] == sprint_name), None)
     if not iteration_path:
         return sprint_data
@@ -70,7 +119,8 @@ def get_sprint_data(sprint_name):
     query = {
         'query': f"""
             SELECT [System.Id], [System.Title], [System.WorkItemType], 
-                   [Microsoft.VSTS.Scheduling.StoryPoints], [System.State]
+                   [Microsoft.VSTS.Scheduling.StoryPoints], [System.State], 
+                   [System.CreatedDate], [System.ChangedDate]
             FROM workitems 
             WHERE [System.IterationPath] = '{iteration_path}'
         """
@@ -91,6 +141,7 @@ def get_sprint_data(sprint_name):
         return sprint_data
 
     for item in response.json()['value']:
+        item_id = item['id']
         fields = item['fields']
         item_type = fields['System.WorkItemType']
         state = fields['System.State']
@@ -99,12 +150,14 @@ def get_sprint_data(sprint_name):
         
         created_date = parse_azure_date(fields.get('System.CreatedDate'))
         closed_date = parse_azure_date(fields.get('Microsoft.VSTS.Common.ClosedDate'))
+        changed_date = parse_azure_date(fields.get('System.ChangedDate'))
         
         print(f"\nAnalyzing: {title}")
         print(f"State: {state}")
         print(f"Points: {points}")
         print(f"Created: {created_date}")
         print(f"Closed: {closed_date}")
+        print(f"Changed: {changed_date}")
         print(f"Sprint window: {sprint_start} to {sprint_end_eod}")
 
         if item_type == 'User Story':
@@ -114,20 +167,32 @@ def get_sprint_data(sprint_name):
                 sprint_data['initial_points_committed'] += points
             sprint_data['points_committed'] += points
             
-            if state == 'Closed' and closed_date and sprint_start <= closed_date <= sprint_end_eod:
+            # Check if this is a carry-over story from a previous sprint
+            is_from_previous_sprint = check_previous_sprint_activity(item_id, iteration_path, iterations)
+            is_not_done = state not in ['Closed', 'Done']
+            
+            if is_from_previous_sprint:
+                print(f"🔄 Work on this story began in a previous sprint")
+                sprint_data['carry_over_points'] += points
+                print(f"🚧 Identified as carry-over story. Points: {points}")
+            elif is_not_done and changed_date and sprint_start <= changed_date <= sprint_end_eod:
+                sprint_data['carry_over_points'] += points
+                print(f"🚧 Identified as carry-over story within current sprint. Points: {points}")
+            
+            if state in ['Closed', 'Done'] and closed_date and sprint_start <= closed_date <= sprint_end_eod:
                 sprint_data['user_stories_completed'] += 1
                 sprint_data['points_completed'] += points
                 print(f"✅ Adding to completed stories. New total: {sprint_data['user_stories_completed']}")
             else:
                 print("❌ Not counting this item because:")
-                if state != 'Closed':
-                    print("  - Item is not Closed")
+                if state not in ['Closed', 'Done']:
+                    print("  - Item is not Closed/Done")
                 if not closed_date:
                     print("  - No closed date")
                 if closed_date and (closed_date < sprint_start or closed_date > sprint_end_eod):
                     print("  - Closed date outside sprint window")
                 
-        elif item_type == 'Bug' and state == 'Closed' and closed_date and sprint_start <= closed_date <= sprint_end_eod:
+        elif item_type == 'Bug' and state in ['Closed', 'Done'] and closed_date and sprint_start <= closed_date <= sprint_end_eod:
             sprint_data['bugs_completed'] += 1
 
     return sprint_data
@@ -150,25 +215,26 @@ def create_velocity_graph(all_sprint_data, output_folder):
     last_three = list(all_sprint_data.items())[-3:]
     
     stories = [d['user_stories_completed'] for _, d in last_three]
-    points = [d['points_completed'] for _, d in last_three]
+    adjusted_points = [d['points_completed'] for _, d in last_three]
     
     x = np.arange(2)
     width = 0.5
     
     plt.bar(x[0], np.mean(stories), width, color='#4A90E2', label='User Story')
-    plt.bar(x[1], np.mean(points), width, color='#F5A623', label='Story Point')
+    plt.bar(x[1], np.mean(adjusted_points), width, color='#F5A623', label='Story Point')
     
     plt.title('3 Sprint Rolling Avg User Story &\nStory Point Velocity', pad=20)
     plt.xticks([])
     
-    for i, v in enumerate([np.mean(stories), np.mean(points)]):
-        plt.text(i, v, f'{int(v)}', ha='center', va='bottom')
-    
-    plt.gca().spines['top'].set_visible(False)
-    plt.gca().spines['right'].set_visible(False)
-    plt.gca().spines['bottom'].set_visible(False)
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
     
     plt.grid(axis='y', linestyle='--', alpha=0.3)
+    
+    for i, v in enumerate([np.mean(stories), np.mean(adjusted_points)]):
+        plt.text(i, float(v), f'{int(v)}', ha='center', va='bottom')
     
     plt.tight_layout()
     plt.savefig(f'{output_folder}/velocity_graph.png', dpi=300, bbox_inches='tight')
@@ -183,19 +249,20 @@ def create_bugs_graph(all_sprint_data, output_folder):
     
     bars = plt.bar(sprints, bugs, color='#4A90E2', width=0.6)
     
-    title = f'Bugs Done\nSprints {sprint_range_start} - {sprint_range_end - 1}'
+    title = f'Bugs Done\nSprints {sprint_range_start} - {sprint_range_end}'
     plt.title(title, pad=20)
     plt.xlabel('')
     plt.ylabel('')
     
-    plt.gca().spines['top'].set_visible(False)
-    plt.gca().spines['right'].set_visible(False)
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
     
     plt.grid(axis='y', linestyle='--', alpha=0.3)
     
     for bar in bars:
         height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2., height,
+        plt.text(bar.get_x() + bar.get_width()/2., float(height),
                 f'{int(height)}',
                 ha='center', va='bottom')
     
@@ -209,7 +276,7 @@ def create_commitment_graph(all_sprint_data, output_folder):
     
     user_stories = [d['user_stories_completed'] for d in all_sprint_data.values()]
     bugs = [d['bugs_completed'] for d in all_sprint_data.values()]
-    points_committed = [d['initial_points_committed'] for d in all_sprint_data.values()]
+    points_committed = [d['initial_points_committed'] - d['carry_over_points'] for d in all_sprint_data.values()]
     points_completed = [d['points_completed'] for d in all_sprint_data.values()]
     
     x = np.arange(len(sprints))
@@ -224,8 +291,9 @@ def create_commitment_graph(all_sprint_data, output_folder):
     plt.xlabel('')
     plt.ylabel('')
     
-    plt.gca().spines['top'].set_visible(False)
-    plt.gca().spines['right'].set_visible(False)
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
     
     plt.grid(axis='y', linestyle='--', alpha=0.3)
     
@@ -236,7 +304,7 @@ def create_commitment_graph(all_sprint_data, output_folder):
         positions = [i - width*1.5, i - width/2, i + width/2, i + width*1.5]
         
         for value, position in zip(metrics, positions):
-            plt.text(position, value, str(int(value)),
+            plt.text(position, float(value), str(int(value)),
                     ha='center', va='bottom')
     
     plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1), borderaxespad=0.)
@@ -249,7 +317,8 @@ def create_sprint_stats_graph(sprint_data, output_folder):
     plt.figure(figsize=(8, 6))
     plt.clf()
     
-    points_completion_pct = round((sprint_data['points_completed'] / sprint_data['points_committed']) * 100) if sprint_data['points_committed'] > 0 else 0
+    adjusted_points_committed = sprint_data['points_committed'] - sprint_data['carry_over_points']
+    points_completion_pct = round((sprint_data['points_completed'] / adjusted_points_committed) * 100) if adjusted_points_committed > 0 else 0
     
     sprint_number = current_sprint.split()[-1]
     
@@ -257,7 +326,7 @@ def create_sprint_stats_graph(sprint_data, output_folder):
         (f'Sprint {sprint_number} Stats', 'black', 20, 0.95),
         (f'Total User Stories Committed: {sprint_data["user_stories_total"]}', '#FF8C00', 14, 0.90),
         (f'Total Done: {sprint_data["user_stories_completed"]}', '#0078D7', 14, 0.85),
-        (f'Total Story Points Committed: {sprint_data["points_committed"]}', '#FF8C00', 14, 0.80),
+        (f'Total Story Points Committed: {adjusted_points_committed}', '#FF8C00', 14, 0.80),
         (f'Total Done: {sprint_data["points_completed"]}', '#0078D7', 14, 0.75),
         (f'Completion: {points_completion_pct}%', 'black', 16, 0.70)
     ]
@@ -274,7 +343,7 @@ def create_sprint_stats_graph(sprint_data, output_folder):
         spine.set_visible(False)
     
     for text, color, size, y_pos in text_elements:
-        plt.text(0.5, y_pos, text,
+        plt.text(0.5, float(y_pos), text,
                 horizontalalignment='center',
                 verticalalignment='center',
                 transform=ax.transAxes,
@@ -309,7 +378,7 @@ def create_rolling_average_graph(all_sprint_data, output_folder):
     ax1.bar([1], [avg_stories], width, color='#4A90E2', label='Avg Stories')
     
     for i, v in enumerate([avg_points, avg_stories]):
-        ax1.text(i, v, f'{int(v)}', ha='center', va='bottom')
+        ax1.text(i, float(v), f'{int(v)}', ha='center', va='bottom')
     
     ax1.set_title('5 Sprint Rolling Average', pad=20)
     ax1.set_xticks([0, 1])
@@ -321,8 +390,8 @@ def create_rolling_average_graph(all_sprint_data, output_folder):
     ax2.bar(x + width/2, stories, width, color='#4A90E2', label='Stories')
     
     for i in range(len(sprints)):
-        ax2.text(i - width/2, points[i], str(int(points[i])), ha='center', va='bottom')
-        ax2.text(i + width/2, stories[i], str(int(stories[i])), ha='center', va='bottom')
+        ax2.text(i - width/2, float(points[i]), str(int(points[i])), ha='center', va='bottom')
+        ax2.text(i + width/2, float(stories[i]), str(int(stories[i])), ha='center', va='bottom')
     
     ax2.set_title('Individual Sprint Performance', pad=20)
     ax2.set_xticks(x)
