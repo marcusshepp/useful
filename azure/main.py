@@ -4,6 +4,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import argparse
 
 organization = 'Legislative'
 project = 'LegBone'
@@ -145,12 +146,13 @@ def create_output_folder():
     
     return sprint_folder
 
-def create_velocity_graph(all_sprint_data, output_folder):
+def create_velocity_graph(all_sprint_data, output_folder, carry_over_tickets, carry_over_points):
     plt.figure(figsize=(8, 6))
     last_three = list(all_sprint_data.items())[-3:]
     
-    stories = [d['user_stories_completed'] for _, d in last_three]
-    points = [d['points_completed'] for _, d in last_three]
+    # Use the actual completed values without subtraction
+    stories = [d['user_stories_completed'] for s, d in last_three]
+    points = [d['points_completed'] for s, d in last_three]
     
     x = np.arange(2)
     width = 0.5
@@ -203,19 +205,33 @@ def create_bugs_graph(all_sprint_data, output_folder):
     plt.savefig(f'{output_folder}/bugs_graph.png', dpi=300, bbox_inches='tight')
     plt.close()
 
-def create_commitment_graph(all_sprint_data, output_folder):
+def create_commitment_graph(all_sprint_data, output_folder, carry_over_tickets, carry_over_points):
     plt.figure(figsize=(12, 6))
     sprints = [s.split()[-1] for s in all_sprint_data.keys()]
     
-    user_stories = [d['user_stories_completed'] for d in all_sprint_data.values()]
-    bugs = [d['bugs_completed'] for d in all_sprint_data.values()]
-    points_committed = [d['initial_points_committed'] for d in all_sprint_data.values()]
-    points_completed = [d['points_completed'] for d in all_sprint_data.values()]
+    user_stories_committed = []
+    user_stories_completed = []
+    points_committed = []
+    points_completed = []
+    bugs = []
+    
+    for s, d in all_sprint_data.items():
+        if s == current_sprint:
+            user_stories_committed.append(d['user_stories_total'] + carry_over_tickets)
+            user_stories_completed.append(d['user_stories_completed'])
+            points_committed.append(d['initial_points_committed'] + carry_over_points)
+            points_completed.append(d['points_completed'])
+        else:
+            user_stories_committed.append(d['user_stories_total'])
+            user_stories_completed.append(d['user_stories_completed'])
+            points_committed.append(d['initial_points_committed'])
+            points_completed.append(d['points_completed'])
+        bugs.append(d['bugs_completed'])
     
     x = np.arange(len(sprints))
     width = 0.2
     
-    plt.bar(x - width*1.5, user_stories, width, color='#F5A623', label='User Stories Done')
+    plt.bar(x - width*1.5, user_stories_completed, width, color='#F5A623', label='User Stories Done')
     plt.bar(x - width/2, bugs, width, color='#4A90E2', label='Bugs Done')
     plt.bar(x + width/2, points_committed, width, color='#7ED321', label='Points Committed')
     plt.bar(x + width*1.5, points_completed, width, color='#9B51E0', label='Points Completed')
@@ -232,7 +248,7 @@ def create_commitment_graph(all_sprint_data, output_folder):
     plt.xticks(x, sprints)
     
     for i in range(len(sprints)):
-        metrics = [user_stories[i], bugs[i], points_committed[i], points_completed[i]]
+        metrics = [user_stories_completed[i], bugs[i], points_committed[i], points_completed[i]]
         positions = [i - width*1.5, i - width/2, i + width/2, i + width*1.5]
         
         for value, position in zip(metrics, positions):
@@ -245,20 +261,29 @@ def create_commitment_graph(all_sprint_data, output_folder):
     plt.savefig(f'{output_folder}/commitment_graph.png', dpi=300, bbox_inches='tight')
     plt.close()
 
-def create_sprint_stats_graph(sprint_data, output_folder):
+def create_sprint_stats_graph(sprint_data, output_folder, carry_over_tickets, carry_over_points):
     plt.figure(figsize=(8, 6))
     plt.clf()
     
-    points_completion_pct = round((sprint_data['points_completed'] / sprint_data['points_committed']) * 100) if sprint_data['points_committed'] > 0 else 0
+    # The completed metrics should be the actual completed values without subtracting carry-over
+    points_completed = sprint_data['points_completed']
+    stories_completed = sprint_data['user_stories_completed']
+    
+    # The committed metrics should include the carry-over items
+    points_committed = sprint_data['points_committed'] + carry_over_points
+    stories_committed = sprint_data['user_stories_total'] + carry_over_tickets
+    
+    # Calculate completion percentage based on completed / committed
+    points_completion_pct = round((points_completed / points_committed) * 100) if points_committed > 0 else 0
     
     sprint_number = current_sprint.split()[-1]
     
     text_elements = [
         (f'Sprint {sprint_number} Stats', 'black', 20, 0.95),
-        (f'Total User Stories Committed: {sprint_data["user_stories_total"]}', '#FF8C00', 14, 0.90),
-        (f'Total Done: {sprint_data["user_stories_completed"]}', '#0078D7', 14, 0.85),
-        (f'Total Story Points Committed: {sprint_data["points_committed"]}', '#FF8C00', 14, 0.80),
-        (f'Total Done: {sprint_data["points_completed"]}', '#0078D7', 14, 0.75),
+        (f'Total User Stories Committed: {stories_committed}', '#FF8C00', 14, 0.90),
+        (f'Total Done: {stories_completed}', '#0078D7', 14, 0.85),
+        (f'Total Story Points Committed: {points_committed}', '#FF8C00', 14, 0.80),
+        (f'Total Done: {points_completed}', '#0078D7', 14, 0.75),
         (f'Completion: {points_completion_pct}%', 'black', 16, 0.70)
     ]
     
@@ -289,13 +314,14 @@ def create_sprint_stats_graph(sprint_data, output_folder):
                 facecolor='white')
     plt.close()
 
-def create_rolling_average_graph(all_sprint_data, output_folder):
+def create_rolling_average_graph(all_sprint_data, output_folder, carry_over_tickets, carry_over_points):
     plt.figure(figsize=(15, 8))
     last_five = list(all_sprint_data.items())[-5:]
     
     sprints = [s.split()[-1] for s, _ in last_five]
-    points = [d['points_completed'] for _, d in last_five]
-    stories = [d['user_stories_completed'] for _, d in last_five]
+    # Use the actual completed values without subtraction
+    points = [d['points_completed'] for s, d in last_five]
+    stories = [d['user_stories_completed'] for s, d in last_five]
     
     avg_points = np.mean(points)
     avg_stories = np.mean(stories)
@@ -337,6 +363,17 @@ def create_rolling_average_graph(all_sprint_data, output_folder):
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Generate sprint analysis reports with carry-over adjustment')
+    parser.add_argument('--cotickets', type=int, default=0, help='Number of tickets carried over')
+    parser.add_argument('--copoints', type=int, default=0, help='Number of points carried over')
+    args = parser.parse_args()
+    
+    carry_over_tickets = args.cotickets
+    carry_over_points = args.copoints
+    
+    print(f"Carry-over tickets: {carry_over_tickets}")
+    print(f"Carry-over points: {carry_over_points}")
+    
     output_folder = create_output_folder()
     
     all_sprint_data = {}
@@ -347,14 +384,29 @@ def main():
     with open(report_path, 'w') as f:
         f.write("Sprint Analysis Report\n")
         f.write("====================\n\n")
+        f.write(f"Carry-over tickets: {carry_over_tickets}\n")
+        f.write(f"Carry-over points: {carry_over_points}\n\n")
         
-    create_velocity_graph(all_sprint_data, output_folder)
+        current_data = all_sprint_data[current_sprint]
+        adjusted_points_committed = current_data['points_committed'] + carry_over_points
+        adjusted_stories_committed = current_data['user_stories_total'] + carry_over_tickets
+        
+        f.write(f"Current Sprint: {current_sprint}\n")
+        f.write(f"  Original Stories Committed: {current_data['user_stories_total']}\n")
+        f.write(f"  Adjusted Stories Committed (with carry-over): {adjusted_stories_committed}\n")
+        f.write(f"  Stories Completed: {current_data['user_stories_completed']}\n\n")
+        
+        f.write(f"  Original Points Committed: {current_data['points_committed']}\n")
+        f.write(f"  Adjusted Points Committed (with carry-over): {adjusted_points_committed}\n")
+        f.write(f"  Points Completed: {current_data['points_completed']}\n")
+        
+    create_velocity_graph(all_sprint_data, output_folder, carry_over_tickets, carry_over_points)
     create_bugs_graph(all_sprint_data, output_folder)
-    create_commitment_graph(all_sprint_data, output_folder)
-    create_rolling_average_graph(all_sprint_data, output_folder)
+    create_commitment_graph(all_sprint_data, output_folder, carry_over_tickets, carry_over_points)
+    create_rolling_average_graph(all_sprint_data, output_folder, carry_over_tickets, carry_over_points)
     
     current_sprint_data = all_sprint_data[current_sprint]
-    create_sprint_stats_graph(current_sprint_data, output_folder)
+    create_sprint_stats_graph(current_sprint_data, output_folder, carry_over_tickets, carry_over_points)
     
     print(f"\nAnalysis complete. Results written to: {output_folder}")
     print(f"- {output_folder}/sprintReport.txt")

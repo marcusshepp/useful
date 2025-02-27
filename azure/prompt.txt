@@ -1,0 +1,116 @@
+I'm using the provided code for generating end of sprint reporting.
+
+Our sprints are 2 weeks long. I have an issue with the script where it's not accounting for carry over stories.
+
+So if the target sprint is sprint 70 and we're currently in sprint 71.
+and for example we had a story in sprint 70 that was worked on but not completed.
+the processes is to carry that story over to sprint 71 and continue working on it.
+So, if i run the script after sprint 70 is completed, all the stories at the time of running the script
+in sprint 70 will be marked as closed. Because any carry over will be in the next sprint.
+
+This is where the issue lies. There is a sprint summary generated and it tells the stackholders
+how many stories we completed verses how many we planned to complete. if we only look at how many stories 
+are closed in a given sprint, we're not getting the full picture.
+
+I'm also providing some sample data to help you understand the issue. This sample data is an example of the response
+you'll get for any given ticket.
+
+        {
+            "fields": {
+                "Custom.Timestamp": "2024-11-04T21:56:38.107Z",
+                "Microsoft.VSTS.Common.ActivatedBy": {
+                    "_links": {
+                        "avatar": {
+                            "href": "https://dev.azure.com/Legislative/_apis/GraphProfile/MemberAvatars/aad.ZTlmY2I5ZTUtMzNlYS03ZmZmLWIwMjUtYmJiZTUzOTY1OTgy"
+                        }
+                    },
+                    "descriptor": "aad.ZTlmY2I5ZTUtMzNlYS03ZmZmLWIwMjUtYmJiZTUzOTY1OTgy",
+                    "displayName": "Luke Vasilion",
+                    "id": "e9fcb9e5-33ea-6fff-b025-bbbe53965982",
+                    "imageUrl": "https://dev.azure.com/Legislative/_apis/GraphProfile/MemberAvatars/aad.ZTlmY2I5ZTUtMzNlYS03ZmZmLWIwMjUtYmJiZTUzOTY1OTgy",
+                    "uniqueName": "LVasilion@senate.michigan.gov",
+                    "url": "https://spsprodcus2.vssps.visualstudio.com/A8ab5ebc0-ac97-4c84-a058-4e60fee85ad1/_apis/Identities/e9fcb9e5-33ea-6fff-b025-bbbe53965982"
+                },
+                "Microsoft.VSTS.Common.ActivatedDate": "2024-10-28T14:45:49.31Z",
+                "Microsoft.VSTS.Common.ClosedBy": {
+                    "_links": {
+                        "avatar": {
+                            "href": "https://dev.azure.com/Legislative/_apis/GraphProfile/MemberAvatars/aad.ZDhkZDNhZDQtM2ZjNS03N2M5LThkNmItNzVmM2U1ZmE3MDEx"
+                        }
+                    },
+                    "descriptor": "aad.ZDhkZDNhZDQtM2ZjNS03N2M5LThkNmItNzVmM2U1ZmE3MDEx",
+                    "displayName": "Margaret O'Brien",
+                    "id": "d8dd3ad4-3fc5-67c9-8d6b-75f3e5fa7011",
+                    "imageUrl": "https://dev.azure.com/Legislative/_apis/GraphProfile/MemberAvatars/aad.ZDhkZDNhZDQtM2ZjNS03N2M5LThkNmItNzVmM2U1ZmE3MDEx",
+                    "uniqueName": "MOBrien@senate.michigan.gov",
+                    "url": "https://spsprodcus2.vssps.visualstudio.com/A8ab5ebc0-ac97-4c84-a058-4e60fee85ad1/_apis/Identities/d8dd3ad4-3fc5-67c9-8d6b-75f3e5fa7011"
+                },
+                "Microsoft.VSTS.Common.ClosedDate": "2024-11-14T18:01:45.57Z",
+                "Microsoft.VSTS.Common.Priority": 2,
+                "Microsoft.VSTS.Common.StackRank": 1948199700.0,
+                "Microsoft.VSTS.Common.StateChangeDate": "2024-11-14T18:01:45.57Z",
+                "Microsoft.VSTS.Common.ValueArea": "Business",
+                "Microsoft.VSTS.Scheduling.StoryPoints": 5.0,
+                "System.AreaPath": "LegBone",
+                "System.BoardColumn": "Done",
+                "System.BoardColumnDone": false,
+                "System.ChangedBy": {
+                    "_links": {
+                        "avatar": {
+                            "href": "https://dev.azure.com/Legislative/_apis/GraphProfile/MemberAvatars/aad.YTJlZmNhYjAtYmQwYy03OGI3LTg1ZjktMWVhNDI0YjI2YzU0"
+                        }
+                    },
+                    "descriptor": "aad.YTJlZmNhYjAtYmQwYy03OGI3LTg1ZjktMWVhNDI0YjI2YzU0",
+                    "displayName": "Richard Thompson",
+                    "id": "a2efcab0-bd0c-68b7-85f9-1ea424b26c54",
+                    "imageUrl": "https://dev.azure.com/Legislative/_apis/GraphProfile/MemberAvatars/aad.YTJlZmNhYjAtYmQwYy03OGI3LTg1ZjktMWVhNDI0YjI2YzU0",
+                    "uniqueName": "RThompson@senate.michigan.gov",
+                    "url": "https://spsprodcus2.vssps.visualstudio.com/A8ab5ebc0-ac97-4c84-a058-4e60fee85ad1/_apis/Identities/a2efcab0-bd0c-68b7-85f9-1ea424b26c54"
+                },
+                "System.ChangedDate": "2024-12-19T20:30:06.757Z",
+                "System.CommentCount": 13,
+                "System.CreatedBy": {
+                    "_links": {
+                        "avatar": {
+                            "href": "https://dev.azure.com/Legislative/_apis/GraphProfile/MemberAvatars/aad.ZTcyOWYwYmUtYzFkZi03ZWZhLTk5NmItODcxNWRlZmJkNGZh"
+                        }
+                    },
+                    "descriptor": "aad.ZTcyOWYwYmUtYzFkZi03ZWZhLTk5NmItODcxNWRlZmJkNGZh",
+                    "displayName": "Ryan Earl",
+                    "id": "e729f0be-c1df-6efa-996b-8715defbd4fa",
+                    "imageUrl": "https://dev.azure.com/Legislative/_apis/GraphProfile/MemberAvatars/aad.ZTcyOWYwYmUtYzFkZi03ZWZhLTk5NmItODcxNWRlZmJkNGZh",
+                    "uniqueName": "REarl@senate.michigan.gov",
+                    "url": "https://spsprodcus2.vssps.visualstudio.com/A8ab5ebc0-ac97-4c84-a058-4e60fee85ad1/_apis/Identities/e729f0be-c1df-6efa-996b-8715defbd4fa"
+                },
+                "System.CreatedDate": "2022-11-18T03:05:35.433Z",
+                "System.IterationPath": "LegBone\\Sprint 64",
+                "System.Reason": "Moved out of state Ready for Demo",
+                "System.State": "Closed",
+                "System.TeamProject": "LegBone",
+                "System.Title": "User Management (Administrative Support UI) | New User Request UI",
+                "System.WorkItemType": "User Story",
+                "WEF_32DA67EA72EE43D5B780929C87B530AE_Kanban.Column": "Done",
+                "WEF_32DA67EA72EE43D5B780929C87B530AE_Kanban.Column.Done": false
+            },
+            "id": 787,
+            "rev": 74,
+            "url": "https://dev.azure.com/Legislative/2da64132-b567-4694-9f84-047c3a9d4373/_apis/wit/workItems/787"
+        },
+
+
+The System.State field can be any of the following values:
+- New
+- In Development
+- Code Review
+- Ready for QA Deploy
+- Deployed to QA
+- QA
+- Blocked
+- Ready for Demo
+- Closed
+
+There should be 2 carry over stories in sprint 70, currently, the script is showing no carry over stories. These stories were started in sprint 70 and are now active in 71
+
+you might need to identify the next sprint after the current_sprint variable and identify any stories that were started in the current_sprint
+
+current sprint is kind of misleading because its actually 'the sprint we're reporting on' the current sprint is the next sprint after. And all the carry over would be in the next sprint after
