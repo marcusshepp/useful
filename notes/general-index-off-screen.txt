@@ -1,0 +1,347 @@
+this is the method that keeps dialogs from being off screen
+
+import { ParameterPosition } from "../models/parameter-position.model";
+
+export function recalculateParameterPosition(target: HTMLElement): ParameterPosition {
+    const boundingBox: DOMRect = target.getBoundingClientRect();
+    const screenHeight: number = window.innerHeight;
+
+    const mainFormElement: HTMLElement = document.querySelector('.main-form') as HTMLElement;
+    if (!mainFormElement) return null;
+
+    const mainFormDomRect: DOMRect = mainFormElement.getBoundingClientRect();
+    const modalHeight: number = mainFormDomRect.height;
+
+    const formLeft: string = `${boundingBox.left}px`;
+
+    let formTop: string;
+    const targetBottomEdge = boundingBox.top + boundingBox.height;
+    const spaceBelow = screenHeight - targetBottomEdge;
+    const spaceAbove = boundingBox.top;
+
+    const buffer = 10;
+
+    if (spaceBelow < modalHeight) {
+        if (spaceAbove >= modalHeight) {
+            formTop = `${boundingBox.top - modalHeight - buffer}px`;
+        } else {
+            formTop = `${Math.max(0, targetBottomEdge - modalHeight)}px`;
+        }
+    } else {
+        formTop = `${targetBottomEdge + buffer}px`;
+    }
+
+    return { formTop, formLeft };
+}
+
+heres an example of how to use it
+
+private openParameterForm(target: HTMLElement, parameterFormInfo: ParameterFormInfo) {
+    this.editingParameter = true;
+    this.parameterForm.openParameterForm(parameterFormInfo);
+
+    const calcPosition = (): void => {
+        const paramPosition: ParameterPosition = recalculateParameterPosition(target);
+        this.parameterForm.formTop = paramPosition?.formTop;
+        this.parameterForm.formLeft = paramPosition?.formLeft;
+        const aniFrameId: number = requestAnimationFrame(calcPosition);
+        this.animationFrameId.push(aniFrameId);
+    };
+    calcPosition();
+
+    this.changeDetector.detectChanges();
+}
+
+
+and another example
+
+
+private openParameterForm(target: HTMLElement, parameterFormInfo: ParameterFormInfo) {
+    this.editingParameter = true;
+    this.currentTargetParameter = target;
+    this.parameterForm.openParameterForm(parameterFormInfo);
+
+    const calcPosition = (): void => {
+        const paramPosition: ParameterPosition = recalculateParameterPosition(target);
+        this.parameterForm.formTop = paramPosition?.formTop;
+        this.parameterForm.formLeft = paramPosition?.formLeft;
+        const aniFrameId: number = requestAnimationFrame(calcPosition);
+        this.animationFrameId.push(aniFrameId);
+    };
+    calcPosition();
+
+    this.changeDetector.detectChanges();
+}
+
+
+ need to try to apply this code to my general index feature 
+
+in general index there are two dialogs, term search and page number adding
+
+the term search dialog is off screen when the page is scrolled down
+and it can also be off screen when the page is scrolled up
+and also the page number adding dialog is sometimes off the screen to the right of the index ui 
+object
+
+here is the term search component
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { debounceTime, Observable, of, switchMap, takeUntil } from 'rxjs';
+import {
+    IndexTermCodegenService,
+    IndexTermDto,
+    IndexTreeCodegenService,
+    IndexTreeNodeDto,
+} from 'src/app/api';
+import { DestroyableComponent } from 'src/app/shared/base-classes/destroyable-component';
+import { exists } from 'src/app/shared/functions/exists';
+import { VectorPosition } from 'src/app/shared/models/vector.model';
+import { SessionStateService } from 'src/app/shared/services/session-state.service';
+import { IndexingStateService } from '../indexing.service';
+
+export interface TermSelectionEvent {
+    term: IndexTermDto;
+    isRename: boolean;
+}
+
+@Component({
+    selector: 'app-term-search',
+    templateUrl: './term-search.component.html',
+    styleUrls: ['./term-search.component.css'],
+})
+export class TermSearchComponent extends DestroyableComponent implements AfterViewInit {
+    @Input() public position: VectorPosition = { x: 0, y: 0 };
+    @Input() public isRename: boolean = false;
+    @Input() public parentNode: IndexTreeNodeDto;
+    @Input() public level: number;
+    @Output() public refresh: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() public termSelected: EventEmitter<TermSelectionEvent> =
+        new EventEmitter<TermSelectionEvent>();
+    @Output() public closeEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @ViewChild('searchInputField') public searchInputField: ElementRef;
+    public searchTermControl: FormControl = new FormControl('', [Validators.maxLength(1000)]);
+    public form: FormGroup = this.fb.group({
+        searchTerm: this.searchTermControl,
+    });
+    public terms: IndexTermDto[] = [];
+
+    constructor(
+        private codegenService: IndexTreeCodegenService,
+        private indexingStateService: IndexingStateService,
+        private sessionStateService: SessionStateService,
+        private indexTermService: IndexTermCodegenService,
+        private fb: FormBuilder
+    ) {
+        super();
+        this.listenToCloseAllDialogs();
+    }
+
+    private get sessionId(): number {
+        return this.sessionStateService.getCurrentSessionId();
+    }
+
+    private get sessionDayId(): number {
+        return this.sessionStateService.getCurrentSessionDay().id;
+    }
+
+    public get isAddDisabled(): boolean {
+        return !exists(this.searchTermControl.value) || this.searchTermControl.invalid;
+    }
+
+    public ngAfterViewInit(): void {
+        this.listenToSearchTermChanges();
+        this.searchInputField.nativeElement.focus();
+    }
+
+    public onTermSelected(term: IndexTermDto): void {
+        this.termSelected.emit({ term, isRename: this.isRename });
+    }
+
+    public addTerm(): void {
+        const termName: string = this.searchTermControl.value;
+        const request: IndexTermDto = {
+            term: termName,
+        };
+
+        // TODO: is senator
+
+        this.codegenService
+            .apiIndexTreeSessionIdSessionDayIdAddTermThenAddNodePost(
+                this.sessionId,
+                this.sessionDayId,
+                this.parentNode?.id,
+                request
+            )
+            .subscribe((): void => {
+                this.indexingStateService.refreshTree$.next(true);
+                this.close();
+            });
+    }
+
+    public close(): void {
+        this.closeEmitter.emit(true);
+    }
+
+    private listenToSearchTermChanges(): void {
+        this.searchTermControl.valueChanges
+            .pipe(
+                takeUntil(this.destroy$),
+                debounceTime(500),
+                switchMap((searchTerm: string): Observable<IndexTermDto[]> => {
+                    if (!exists(searchTerm) || searchTerm.length === 0) {
+                        return of(null);
+                    }
+                    return this.indexTermService.apiJournalIndexIndexTermSearchTermGet(searchTerm);
+                })
+            )
+            .subscribe((results: IndexTermDto[]) => {
+                this.terms = results;
+            });
+    }
+
+    private listenToCloseAllDialogs(): void {
+        this.indexingStateService.closeAllDialogs$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((): void => {
+                this.close();
+            });
+    }
+}
+
+here is the page number adding component
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { NotifierService } from 'angular-notifier';
+import { takeUntil } from 'rxjs';
+import { IndexTreeCodegenService, IndexTreeNodeDto } from 'src/app/api';
+import { IndexingStateService } from 'src/app/features/indexing/indexing.service';
+import { DestroyableComponent } from 'src/app/shared/base-classes/destroyable-component';
+import { VectorPosition } from 'src/app/shared/models/vector.model';
+import { SessionStateService } from 'src/app/shared/services/session-state.service';
+
+@Component({
+    selector: 'app-node-page-numbers',
+    templateUrl: './node-page-numbers.component.html',
+    styleUrls: ['./node-page-numbers.component.css'],
+})
+export class IndexNodePageNumbersComponent extends DestroyableComponent implements AfterViewInit {
+    @Input() public position: VectorPosition = { x: 0, y: 0 };
+    @Input() public node: IndexTreeNodeDto;
+    @Output() public closeEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @ViewChild('pageNumberInputField') public pageNumberInputField: ElementRef;
+    public pageNumberInputControl: FormControl = new FormControl();
+    public form: FormGroup = this.fb.group({
+        pageNumber: this.pageNumberInputControl,
+    });
+    public pageNumbers: number[] = [];
+
+    constructor(
+        private codegenService: IndexTreeCodegenService,
+        private indexingStateService: IndexingStateService,
+        private notifier: NotifierService,
+        private sessionStateService: SessionStateService,
+        private fb: FormBuilder
+    ) {
+        super();
+        this.listenToCloseDialogs();
+    }
+
+    private get sessionId(): number {
+        return this.sessionStateService.getCurrentSessionId();
+    }
+
+    private get sessionDayId(): number {
+        return this.sessionStateService.getCurrentSessionDay().id;
+    }
+
+    public ngAfterViewInit(): void {
+        this.pageNumberInputField.nativeElement.focus();
+        if (this.node?.pageNumbers) {
+            this.pageNumbers = [...this.node.pageNumbers].sort((a, b) => a - b);
+        }
+    }
+
+    public addPageNumber(): void {
+        const pageNumber: string = this.pageNumberInputControl.value;
+        if (!pageNumber || isNaN(+pageNumber)) {
+            this.notifier.notify('error', 'Please enter a valid page number.');
+            return;
+        }
+        if (this.pageNumbers.includes(+pageNumber)) {
+            this.notifier.notify('error', 'Page number already exists.');
+            return;
+        }
+        this.pageNumbers.push(+pageNumber);
+        this.pageNumbers.sort((a, b) => a - b);
+        this.pageNumberInputControl.reset();
+
+        this.savePageNumbers();
+    }
+
+    public removePageNumber(pageNumber: number): void {
+        this.pageNumbers = this.pageNumbers
+            .filter((pn: number): boolean => pn !== pageNumber)
+            .sort((a, b) => a - b);
+        this.pageNumberInputControl.reset();
+
+        this.codegenService
+            .apiIndexTreeSessionIdSessionDayIdNodeNodeIdPageNumberPageNumberRemovePageNumberDelete(
+                this.sessionId,
+                this.sessionDayId,
+                this.node.id,
+                pageNumber
+            )
+            .subscribe((): void => {
+                this.notifier.notify('success', 'Page number deleted successfully.');
+            });
+    }
+
+    public close(): void {
+        this.closeEmitter.emit(true);
+    }
+
+    private listenToCloseDialogs(): void {
+        this.indexingStateService.closeAllDialogs$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((): void => {
+                this.close();
+            });
+    }
+
+    private savePageNumbers(): void {
+        this.codegenService
+            .apiIndexTreeSessionIdSessionDayIdPageNumbersNodeIdPatch(
+                this.sessionId,
+                this.sessionDayId,
+                this.node.id,
+                this.pageNumbers
+            )
+            .subscribe((): void => {
+                this.notifier.notify('success', 'Page numbers saved successfully.');
+            });
+    }
+}
+
+
+I need you to help me edit these two components so that they utilize the recalculateParameterPosition function to keep the dialogs from being off screen
+
+do not comment your code
+
+do not break anything that is already working
+

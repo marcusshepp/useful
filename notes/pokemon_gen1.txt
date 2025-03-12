@@ -1,0 +1,212 @@
+# Generation 1 Pokémon - Organized by Evolution Families
+
+# Starter Pokémon
+Bulbasaur → Ivysaur → Venusaur
+Charmander → Charmeleon → Charizard
+Squirtle → Wartortle → Blastoise
+
+# Bug Pokémon
+Caterpie → Metapod → Butterfree
+Weedle → Kakuna → Beedrill
+
+# Bird Pokémon
+Pidgey → Pidgeotto → Pidgeot
+
+# Rodent Pokémon
+Rattata → Raticate
+
+# Bird Pokémon
+Spearow → Fearow
+
+# Poison Pokémon
+Ekans → Arbok
+
+# Electric Pokémon
+Pikachu → Raichu
+
+# Ground Pokémon
+Sandshrew → Sandslash
+
+# Nidoran Family
+Nidoran♀ → Nidorina → Nidoqueen
+Nidoran♂ → Nidorino → Nidoking
+
+# Fairy Pokémon
+Clefairy → Clefable
+
+# Fire Pokémon
+Vulpix → Ninetales
+
+# Normal/Fairy Pokémon
+Jigglypuff → Wigglytuff
+
+# Poison/Flying Pokémon
+Zubat → Golbat
+
+# Grass/Poison Pokémon
+Oddish → Gloom → Vileplume
+Bellsprout → Weepinbell → Victreebel
+
+# Bug/Grass Pokémon
+Paras → Parasect
+
+# Bug/Poison Pokémon
+Venonat → Venomoth
+
+# Ground Pokémon
+Diglett → Dugtrio
+
+# Normal Pokémon
+Meowth → Persian
+
+# Water Pokémon
+Psyduck → Golduck
+
+# Fighting Pokémon
+Mankey → Primeape
+
+# Fire Pokémon
+Growlithe → Arcanine
+
+# Water/Fighting Pokémon
+Poliwag → Poliwhirl → Poliwrath
+
+# Psychic Pokémon
+Abra → Kadabra → Alakazam
+
+# Fighting Pokémon
+Machop → Machoke → Machamp
+
+# Water/Poison Pokémon
+Tentacool → Tentacruel
+
+# Rock/Ground Pokémon
+Geodude → Graveler → Golem
+
+# Fire Pokémon
+Ponyta → Rapidash
+
+# Water/Psychic Pokémon
+Slowpoke → Slowbro
+
+# Electric/Steel Pokémon
+Magnemite → Magneton
+
+# Single Evolution Pokémon
+Farfetch'd
+
+# Normal/Flying Pokémon
+Doduo → Dodrio
+
+# Water Pokémon
+Seel → Dewgong
+
+# Poison Pokémon
+Grimer → Muk
+
+# Water Pokémon
+Shellder → Cloyster
+
+# Ghost/Poison Pokémon
+Gastly → Haunter → Gengar
+
+# Rock/Ground Pokémon
+Onix
+
+# Psychic Pokémon
+Drowzee → Hypno
+
+# Water Pokémon
+Krabby → Kingler
+
+# Electric Pokémon
+Voltorb → Electrode
+
+# Grass/Psychic Pokémon
+Exeggcute → Exeggutor
+
+# Ground Pokémon
+Cubone → Marowak
+
+# Fighting Pokémon
+Hitmonlee
+Hitmonchan
+
+# Normal Pokémon
+Lickitung
+
+# Poison Pokémon
+Koffing → Weezing
+
+# Ground/Rock Pokémon
+Rhyhorn → Rhydon
+
+# Normal Pokémon
+Chansey
+Tangela
+Kangaskhan
+
+# Water Pokémon
+Horsea → Seadra
+Goldeen → Seaking
+Staryu → Starmie
+
+# Psychic/Fairy Pokémon
+Mr. Mime
+
+# Bug/Flying Pokémon
+Scyther
+
+# Ice/Psychic Pokémon
+Jynx
+
+# Electric Pokémon
+Electabuzz
+
+# Fire Pokémon
+Magmar
+
+# Bug Pokémon
+Pinsir
+
+# Normal Pokémon
+Tauros
+
+# Water Pokémon
+Magikarp → Gyarados
+
+# Water/Ice Pokémon
+Lapras
+
+# Normal Pokémon
+Ditto
+
+# Normal Pokémon with Multiple Evolutions
+Eevee → Vaporeon
+Eevee → Jolteon
+Eevee → Flareon
+
+# Normal Pokémon
+Porygon
+
+# Rock/Water Pokémon
+Omanyte → Omastar
+Kabuto → Kabutops
+
+# Rock/Flying Pokémon
+Aerodactyl
+
+# Normal Pokémon
+Snorlax
+
+# Legendary Birds
+Articuno
+Zapdos
+Moltres
+
+# Dragon Pokémon
+Dratini → Dragonair → Dragonite
+
+# Legendary Pokémon
+Mewtwo
+Mew 
