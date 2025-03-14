@@ -219,28 +219,30 @@ def create_bugs_graph(all_sprint_data, output_folder):
     plt.savefig(f'{output_folder}/bugs_graph.png', dpi=300, bbox_inches='tight')
     plt.close()
 
-def create_commitment_graph(all_sprint_data, output_folder, carryover_data):
+def create_commitment_graph(all_sprint_data: dict, output_folder: str, carryover_data: dict) -> None:
     plt.figure(figsize=(12, 6))
-    sprints = [s.split()[-1] for s in all_sprint_data.keys()]
+    sprints: list[str] = [s.split()[-1] for s in all_sprint_data.keys()]
     
-    user_stories_committed = []
-    user_stories_completed = []
-    points_committed = []
-    points_completed = []
-    bugs = []
+    user_stories_committed: list[int] = []
+    user_stories_completed: list[int] = []
+    points_committed: list[int] = []
+    points_completed: list[int] = []
+    bugs: list[int] = []
     
     for sprint_name, d in all_sprint_data.items():
-        co_tickets = carryover_data.get(sprint_name, {}).get('tickets', 0)
-        co_points = carryover_data.get(sprint_name, {}).get('points', 0)
+        co_tickets: int = carryover_data.get(sprint_name, {}).get('tickets', 0)
+        co_points: int = carryover_data.get(sprint_name, {}).get('points', 0)
         
         user_stories_committed.append(d['user_stories_total'] + co_tickets)
         user_stories_completed.append(d['user_stories_completed'])
-        points_committed.append(d['initial_points_committed'] + co_points)
+        
+        # Use points_committed instead of initial_points_committed to match sprint_stats calculation
+        points_committed.append(d['points_committed'] + co_points)
         points_completed.append(d['points_completed'])
         bugs.append(d['bugs_completed'])
     
-    x = np.arange(len(sprints))
-    width = 0.2
+    x: np.ndarray = np.arange(len(sprints))
+    width: float = 0.2
     
     plt.bar(x - width*1.5, user_stories_completed, width, color='#F5A623', label='User Stories Done')
     plt.bar(x - width/2, bugs, width, color='#4A90E2', label='Bugs Done')
@@ -259,8 +261,8 @@ def create_commitment_graph(all_sprint_data, output_folder, carryover_data):
     plt.xticks(x, sprints)
     
     for i in range(len(sprints)):
-        metrics = [user_stories_completed[i], bugs[i], points_committed[i], points_completed[i]]
-        positions = [i - width*1.5, i - width/2, i + width/2, i + width*1.5]
+        metrics: list[int] = [user_stories_completed[i], bugs[i], points_committed[i], points_completed[i]]
+        positions: list[float] = [i - width*1.5, i - width/2, i + width/2, i + width*1.5]
         
         for value, position in zip(metrics, positions):
             plt.text(position, value, str(int(value)),

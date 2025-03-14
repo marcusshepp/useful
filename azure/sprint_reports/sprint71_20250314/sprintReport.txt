@@ -44,12 +44,12 @@ Sprint 70:
   Points Completed: 15.0
 
 Sprint 71:
-  Carry-over tickets: 1
-  Carry-over points: 3
+  Carry-over tickets: 2
+  Carry-over points: 6
   Original Stories Committed: 10
-  Adjusted Stories Committed (with carry-over): 11
+  Adjusted Stories Committed (with carry-over): 12
   Stories Completed: 10
   Original Points Committed: 33.0
-  Adjusted Points Committed (with carry-over): 36.0
+  Adjusted Points Committed (with carry-over): 39.0
   Points Completed: 33.0
 
