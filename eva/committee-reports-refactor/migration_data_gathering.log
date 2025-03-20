@@ -1,0 +1,54 @@
+2025-03-19 18:37:05,724 - INFO - Starting pre-deployment data gathering
+2025-03-19 18:37:05,805 - INFO - Database connection established
+2025-03-19 18:37:05,820 - INFO - Database connection established
+2025-03-19 18:37:05,858 - INFO - Gathered 52 committee reports
+2025-03-19 18:37:05,860 - ERROR - Query execution error: ('42S22', "[42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'RollCallVote'. (207) (SQLExecDirectW)")
+Query: 
+        SELECT 
+            Id,
+            SessionId,
+            CommitteeId,
+            MeetingId,
+            MemberId,
+            AgendaItemId,
+            RollCallVote,  -- Ensure this matches the actual column name in the database
+            PublishedDate,
+            AddendaDate,
+            PublishedBy,
+            CreatedBy,
+            Created,
+            Modified,
+            ModifiedBy
+        FROM CommitteeMemberRollCalls
+        
+2025-03-19 18:37:05,868 - INFO - Database connection closed
+2025-03-19 18:37:05,871 - INFO - Database connection closed
+2025-03-19 18:37:05,871 - ERROR - Error during data gathering: ('42S22', "[42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'RollCallVote'. (207) (SQLExecDirectW)")
+2025-03-19 18:37:54,258 - INFO - Starting pre-deployment data gathering
+2025-03-19 18:37:54,301 - INFO - Database connection established
+2025-03-19 18:37:54,313 - INFO - Database connection established
+2025-03-19 18:37:54,348 - INFO - Gathered 52 committee reports
+2025-03-19 18:37:55,346 - INFO - Gathered 1606 member roll calls, 0 published
+2025-03-19 18:37:55,351 - INFO - Gathered 14 committee action to agenda items
+2025-03-19 18:37:55,352 - INFO - Gathered 2 published actions
+2025-03-19 18:37:55,354 - INFO - Gathered 34 published items
+2025-03-19 18:37:55,356 - INFO - Gathered 19 removed agenda items
+2025-03-19 18:37:55,356 - INFO - Gathering agenda items from shared database...
+2025-03-19 18:37:55,367 - INFO - Gathered 209 agenda items from shared database
+2025-03-19 18:37:55,367 - INFO - Gathering attendance records from shared database...
+2025-03-19 18:37:55,369 - INFO - Gathered 40 attendance records from shared database
+2025-03-19 18:37:55,369 - INFO - Gathering joint committee information from shared database...
+2025-03-19 18:37:55,371 - INFO - Gathered 7 joint committees from shared database
+2025-03-19 18:37:55,372 - INFO - === PRE-DEPLOYMENT DATA COUNTS ===
+2025-03-19 18:37:55,372 - INFO - Committee Reports: 52
+2025-03-19 18:37:55,372 - INFO - Agenda Items: 209
+2025-03-19 18:37:55,372 - INFO - Removed Agenda Items: 19
+2025-03-19 18:37:55,372 - INFO - Published Agenda Items: 34
+2025-03-19 18:37:55,372 - INFO - Roll Calls: 1606
+2025-03-19 18:37:55,373 - INFO - Published Roll Calls: 0
+2025-03-19 18:37:55,373 - INFO - Agenda Item Actions: 14
+2025-03-19 18:37:55,373 - INFO - Published Agenda Item Actions: 2
+2025-03-19 18:37:55,375 - INFO - Database connection closed
+2025-03-19 18:37:55,377 - INFO - Database connection closed
+2025-03-19 18:37:55,421 - INFO - Data saved to migration_data.json
+2025-03-19 18:37:55,422 - INFO - Pre-deployment data gathering completed successfully

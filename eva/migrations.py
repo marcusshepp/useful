@@ -35,7 +35,6 @@ Date: January 13, 2025
 """
 
 import argparse
-import logging
 import os
 import subprocess
 from dataclasses import dataclass
@@ -54,27 +53,6 @@ EVA_ASCII = """
 ╚══════╝  ╚═══╝  ╚═╝  ╚═╝
 """
 
-class CustomFormatter(logging.Formatter):    
-    def format(self, record):
-        if hasattr(record, 'success'):
-            return f"\n{'=' * 50}\n✅ {record.getMessage()}\n{'=' * 50}\n"
-        return super().format(record)
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-for handler in logger.handlers[:]:
-    logger.removeHandler(handler)
-
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(CustomFormatter('%(message)s'))
-logger.addHandler(console_handler)
-
-standard_handler = logging.StreamHandler()
-standard_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-standard_handler.addFilter(lambda record: not hasattr(record, 'success'))
-logger.addHandler(standard_handler)
-
 class CommandType(Enum):
     UPDATE = auto()
     REMOVE = auto()
@@ -92,9 +70,9 @@ class MigrationCommand:
 
 class MigrationManager:
     def __init__(self, working_directory: str):
-        self.working_directory = Path(working_directory).expanduser()
-        self.migrations_directory = self.working_directory / "Migrations"
-        self.commands = {
+        self.working_directory: Path = Path(working_directory).expanduser()
+        self.migrations_directory: Path = self.working_directory / "Migrations"
+        self.commands: Dict[CommandType, MigrationCommand] = {
             CommandType.UPDATE: MigrationCommand(
                 description="Update database to previous migration",
                 command_template="dotnet ef database update {previous_migration} --context evadbcontext",
@@ -139,14 +117,14 @@ class MigrationManager:
             return previous_migration
             
         except Exception as e:
-            logger.error(f"Failed to get previous migration: {e}")
+            print(f"Failed to get previous migration: {e}")
             return None
 
     def update_database_interactive(self, migration_name: Optional[str] = None) -> bool:
         previous_migration = self.get_previous_migration()
         
         if migration_name is None and previous_migration:
-            logger.info(f"Previous migration detected: {previous_migration}")
+            print(f"Previous migration detected: {previous_migration}")
             if input("Update to this migration? (y/n): ").strip().lower() == 'y':
                 migration_name = previous_migration
             else:
@@ -163,14 +141,14 @@ class MigrationManager:
     def setup_working_directory(self) -> bool:
         try:
             if not self.working_directory.exists():
-                logger.error(f"Directory not found: {self.working_directory}")
+                print(f"Directory not found: {self.working_directory}")
                 return False
             
             os.chdir(self.working_directory)
             return True
             
         except Exception as e:
-            logger.error(f"Failed to set working directory: {e}")
+            print(f"Failed to set working directory: {e}")
             return False
 
     def execute_command(self, command: str, command_type: CommandType, inputs: Dict[str, str]) -> bool:
@@ -178,7 +156,7 @@ class MigrationManager:
             for key, value in inputs.items():
                 command = command.replace(f"{{{key}}}", value)
             
-            logger.info(f"Executing: {command}")
+            print(f"Executing: {command}")
             result = subprocess.run(
                 command,
                 shell=True,
@@ -188,22 +166,19 @@ class MigrationManager:
             )
             
             if result.stdout:
-                logger.info(result.stdout)
+                print(result.stdout)
             
-            success_record = logging.LogRecord(
-                "success", logging.INFO, "", 0,
-                self.commands[command_type].success_message, (), None
-            )
-            success_record.success = True
-            logger.handle(success_record)
+            print("\n" + "=" * 50)
+            print(f"✅ {self.commands[command_type].success_message}")
+            print("=" * 50 + "\n")
             
             return True
             
         except subprocess.CalledProcessError as e:
-            logger.error(f"Command failed: {e.stderr}")
+            print(f"Command failed: {e.stderr}")
             return False
         except Exception as e:
-            logger.error(f"Unexpected error: {e}")
+            print(f"Unexpected error: {e}")
             return False
 
     def show_git_status(self) -> None:
@@ -215,28 +190,25 @@ class MigrationManager:
                 text=True,
                 capture_output=True
             )
-            logger.info("\nGit Status:")
-            logger.info(result.stdout)
+            print("\nGit Status:")
+            print(result.stdout)
         except subprocess.CalledProcessError as e:
-            logger.error(f"Failed to get git status: {e.stderr}")
+            print(f"Failed to get git status: {e.stderr}")
 
     def log_workflow_success(self) -> None:
-        success_record = logging.LogRecord(
-            "success", logging.INFO, "", 0,
-            "Workflow Completed Successfully! 🎉", (), None
-        )
-        success_record.success = True
-        logger.handle(success_record)
+        print("\n" + "=" * 50)
+        print("✅ Workflow Completed Successfully! 🎉")
+        print("=" * 50 + "\n")
 
     def run_interactive_workflow(self) -> None:
         success = True
         for command_type in CommandType:
             command = self.commands[command_type]
-            logger.info(f"\nStep: {command.description}")
+            print(f"\nStep: {command.description}")
             if input("Do you want to proceed? (y/n): ").strip().lower() == 'y':
                 if command_type == CommandType.UPDATE:
                     if not self.update_database_interactive():
-                        logger.error(f"Failed at step: {command.description}")
+                        print(f"Failed at step: {command.description}")
                         success = False
                         break
                 else:
@@ -245,7 +217,7 @@ class MigrationManager:
                         inputs[command.input_key] = input(command.input_prompt).strip()
                     
                     if not self.execute_command(command.command_template, command_type, inputs):
-                        logger.error(f"Failed at step: {command.description}")
+                        print(f"Failed at step: {command.description}")
                         success = False
                         break
         
@@ -340,22 +312,22 @@ def main() -> None:
 
     if args.update is not None:
         if not manager.update_database(args.update):
-            logger.error("Failed to update database")
+            print("Failed to update database")
             success = False
 
     if args.add:
         if not manager.add_migration(args.add):
-            logger.error("Failed to add migration")
+            print("Failed to add migration")
             success = False
 
     if args.remove is not None:
         if not manager.remove_migrations(args.remove):
-            logger.error("Failed to remove migrations")
+            print("Failed to remove migrations")
             success = False
 
     if args.checkout:
         if not manager.checkout_snapshot():
-            logger.error("Failed to checkout snapshot")
+            print("Failed to checkout snapshot")
             success = False
 
     if success and args.st:

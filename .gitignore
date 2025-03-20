@@ -1,3 +1,45 @@
+eva/backups/
+# Environment variables
 env-vars.ps1
+**/.env
+
+# API keys
 anth/key.txt
+
+# Virtual environments
 anth/venv/
+**/venv/
+**/.venv/
+**/env/
+**/.env/
+**/virtualenv/
+**/.virtualenv/
+
+# Python specific
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+**/*.so
+**/.Python
+**/build/
+**/develop-eggs/
+**/dist/
+**/downloads/
+**/eggs/
+**/.eggs/
+**/lib/
+**/lib64/
+**/parts/
+**/sdist/
+**/var/
+**/wheels/
+**/*.egg-info/
+**/.installed.cfg
+**/*.egg
+
+# IDE specific
+**/.idea/
+**/.vscode/
+**/*.swp
+**/*.swo
+**/.DS_Store
