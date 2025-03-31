@@ -1,0 +1,115 @@
+namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
+{
+    public class CommitteeReportAgendaActionDto
+    {
+        public int Id { get; set; }
+        public int? CommitteeReportAgendaItemActionId { get; set; }
+        public string ActionText { get; set; }
+        public string ActionSubText { get; set; }
+        public bool IsPublished { get; set; }
+    }
+}
+
+namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
+{
+    public class CommitteeReportAgendaItemAvailableActionDto
+    {
+        public int? Id { get; set; }
+        public string Description { get; set; }
+        public bool IsRecommendation { get; set; }
+    }
+}
+
+
+namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
+{
+    public class CommitteeReportAgendaItemDto : CommitteeAgendaItemDto
+    {
+        public DateTime? PublishedDate { get; set; }
+        public int? LegislationId { get; set; }
+        public IEnumerable<CommitteeReportAgendaActionDto> Actions { get; set; }
+        public IEnumerable<CommitteeReportRollCallDto> RollCalls { get; set; }
+    }
+}
+using EvaAPI.Dtos.Legislation;
+
+namespace EvaAPI.Dtos.CommitteeManagement
+{
+    public class CommitteeAgendaItemDto : SimpleLegislationDto
+    {
+        public int SponsorChamberId { get; set; }
+        public int SponsorLegislatorId { get; set; }
+        public string Sponsor { get; set; }
+        public string DigestTitle { get; set; }
+        public string IntroducedTitle { get; set; }
+        public string Description { get; set; }
+        public bool IsCustom { get; set; }
+        public int SortOrder { get; set; }
+        public bool IsPublished { get; set; }
+    }
+}
+namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
+{
+    public class CommitteeReportDto
+    {
+        public int? Id { get; set; }
+        public string CommitteeName { get; set; }
+        public DateTime MeetingDate { get; set; }
+        public string MeetingTime { get; set; }
+        public string MeetingLocation { get; set; }
+        public bool IsPublished { get; set; }
+        public DateTime? PublishedDate { get; set; }
+        public bool IsAttendancePublished { get; set; }
+        public DateTime? AttendancePublishedDate { get; set; }
+        public IEnumerable<AttendanceRecordDto> AttendanceRecords { get; set; }
+        public IEnumerable<CommitteeReportJointCommitteeDto> JointCommittees { get; set; }
+        public IEnumerable<CommitteeReportAgendaItemDto> AgendaItems { get; set; }
+    }
+}
+namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
+{
+    public class CommitteeReportJointCommitteeDto
+    {
+        public string Name { get; set; }
+        public int ChamberId { get; set; }
+    }
+}
+namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
+{
+    public class CommitteeReportLegislationDto
+    {
+        public int CommitteeReportId { get; set; }
+        public int CommitteeId { get; set; }
+        public int MeetingId { get; set; }
+        public int LegislationId { get; set; }
+        public string LegislationDisplay { get; set; }
+        public int AgendaItemId { get; set; }
+        public string CommitteeName { get; set; }
+        public DateTime MeetingDate { get; set; }
+        public bool MeetingAttendancePublished { get; set; }
+        public bool MeetingReportPublished { get; set; }
+    }
+}
+namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
+{
+    public class CommitteeReportRollCallDto
+    {
+        public int Id { get; set; }
+        public int MemberId { get; set; }
+        public string RollCallVote { get; set; }
+        public string MemberName { get; set; }
+    }
+}
+namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
+{
+    public class SimpleCommitteeReportDto
+    {
+        public int Id { get; set; }
+        public int CommitteeId { get; set; }
+        public int MeetingId { get; set; }
+        public bool IsPublished { get; set; }
+        public bool IsAttendancePublished { get; set; }
+        public bool AllAgendaItemsPublished { get; set; }
+    }
+}
+

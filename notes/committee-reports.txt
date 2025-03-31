@@ -1862,4 +1862,311 @@ I want you to generate the first step for this script , run pre deployment data 
 
 then explain to me how it works and any pit falls you see with it 
 
+----
+Okay, let's architect an opinionated approach to refactor your Committee Reports feature, focusing on component responsibility, data flow, and form management.
 
+**Core Philosophy:**
+
+* **Component Responsibility:** Break down the UI into smaller, focused components. Each component should do one thing well.
+* **Clear Data Flow:** Prefer `@Input` for passing data down and `@Output` or service calls for sending changes/events up. Avoid complex inter-component dependencies.
+* **Reactive Forms per Item:** Manage forms for dynamic lists (like actions or roll calls) *within* the component responsible for that specific item.
+* **Embrace Auto-Save:** Design components to handle saving their specific piece of data automatically, eliminating the need for a global "Save" button for the agenda section.
+
+**Proposed Component Structure:**
+
+1.  **`committee-reports-container` (Existing):**
+    * **Role:** Top-level container, potentially manages tabs, fetches initial committee/meeting context if needed.
+    * **Opinion:** Keep it lean. Its main job is layout and hosting the primary "smart" component.
+
+2.  **`committee-reports` (Refactored - Smart Component):**
+    * **Role:** Orchestrator. Fetches the main `CommitteeReportDto` data (including the array of `CommitteeReportAgendaItemDto`).
+    * **Data Flow:**
+        * Fetches `report` data from a service.
+        * Passes `report` (or specific parts like `report.meetingDate`, `report.committeeName`, etc.) via `@Input` to `committee-reports-header`.
+        * Passes the `report.agendaItems` array via `@Input` to the `agenda-items-list` component.
+    * **Opinion:** This component should *not* manage the `FormArray`s for all agenda items anymore. It delegates that responsibility down. It listens for high-level events if necessary (e.g., if a new item is added and the whole list needs a refresh signal).
+
+3.  **`committee-reports-header` (Existing - Presentational Component):**
+    * **Role:** Displays report metadata, attendance summary, publish/download buttons.
+    * **Data Flow:** Receives all necessary data via `@Input` from `committee-reports`. Emits events (`@Output`) for actions like "publish report", "download preview", etc.
+    * **Opinion:** Keep this focused purely on presentation and emitting user actions.
+
+4.  **`agenda-items-list` (New or Heavily Refactored `committee-report-agenda-items`):**
+    * **Role:** Manages the *list* of agenda items. Handles adding new items (custom or from legislation search) and removing items.
+    * **Data Flow:** Receives `agendaItems: CommitteeReportAgendaItemDto[]` via `@Input`.
+    * **Functionality:**
+        * Uses `*ngFor` to loop through the `agendaItems` array.
+        * For each item in the loop, renders an `agenda-item` component, passing the individual `item` down via `@Input`.
+        * Includes the UI for adding new items (like your legislation search and custom input) [cite: uploaded:committee-reports/agenda-items/agenda-items.component.html]. When a new item is added, it likely calls a service to create it on the backend and then updates its list (either via refetching or adding to the local array if the service returns the created item).
+        * Handles the removal request for an item (likely by calling a service and updating the list).
+    * **HTML Pseudo-code:**
+        ```html
+        <div *ngFor="let item of agendaItems; trackBy: trackById">
+          <app-agenda-item
+            [agendaItem]="item"
+            (itemRemoved)="requestItemRemoval(item)">
+            </app-agenda-item>
+        </div>
+        ```
+    * **TS Pseudo-code:**
+        ```typescript
+        // agenda-items-list.component.ts
+        @Input() agendaItems: CommitteeReportAgendaItemDto[];
+        // Inject services for adding/removing items
+
+        trackById(index: number, item: CommitteeReportAgendaItemDto): number | string {
+          return item.id || item.description; // Use a unique identifier
+        }
+
+        addNewLegislationItem(item: SimpleLegislationDto) {
+          // Call service to create the new agenda item on the backend
+          // Update this.agendaItems array (e.g., refetch or push new item)
+        }
+
+        addCustomItem(description: string) {
+          // Call service to create the new custom agenda item
+          // Update this.agendaItems array
+        }
+
+        requestItemRemoval(itemToRemove: CommitteeReportAgendaItemDto) {
+          // Call service to delete the item
+          // Update this.agendaItems array (filter out removed item)
+        }
+        ```
+
+5.  **`agenda-item` (New - Presentational but with Form Logic):**
+    * **Role:** Displays *one* agenda item within an expansion panel. Manages the **Reactive Form** for *this specific item's* roll calls and actions. Handles auto-saving its own changes.
+    * **Data Flow:** Receives `agendaItem: CommitteeReportAgendaItemDto` via `@Input`. Emits `(itemRemoved)` event via `@Output`.
+    * **Functionality:**
+        * Uses `MatExpansionPanel` [cite: uploaded:committee-reports/agenda-items/agenda-items.component.html].
+        * Creates its own `FormGroup` (e.g., `itemForm`) using `FormBuilder`. This form group contains `FormArray`s for `rollCalls` and `actions`.
+        * Populates these `FormArray`s based on the `@Input agendaItem` data in `ngOnInit` or `ngOnChanges`.
+        * **Auto-Save:** Subscribes to `itemForm.valueChanges` with operators like `debounceTime` and `distinctUntilChanged`. When changes are detected, it calls a service method to **update just this specific agenda item** (or its roll calls/actions) on the backend.
+        * Provides methods to add/remove individual roll call entries or action entries *within its own form*.
+    * **HTML Pseudo-code:**
+        ```html
+        <mat-expansion-panel [formGroup]="itemForm">
+          <mat-expansion-panel-header>
+             {{ displayItemTitle }}
+          </mat-expansion-panel-header>
+
+          <h4>Roll Calls</h4>
+          <div formArrayName="rollCalls">
+             <div *ngFor="let rcGroup of rollCallsFormArray.controls; let i = index" [formGroupName]="i">
+                </div>
+             <button (click)="addRollCall()">Add Roll Call</button>
+          </div>
+
+          <h4>Actions</h4>
+          <div formArrayName="actions">
+             <div *ngFor="let actionGroup of actionsFormArray.controls; let i = index" [formGroupName]="i">
+                 </div>
+             <button (click)="addAction()">Add Action</button>
+          </div>
+
+        </mat-expansion-panel>
+        <button (click)="emitRemoveRequest()">Remove Item</button>
+        ```
+    * **TS Pseudo-code:**
+        ```typescript
+        // agenda-item.component.ts
+        @Input() agendaItem: CommitteeReportAgendaItemDto;
+        @Output() itemRemoved = new EventEmitter<void>(); // Just signal removal request
+
+        itemForm: FormGroup;
+        // Inject FormBuilder, YourApiService
+
+        ngOnInit() {
+          this.itemForm = this.fb.group({
+            // Maybe ID/Description if needed, but primarily arrays
+            rollCalls: this.fb.array([]),
+            actions: this.fb.array([])
+          });
+          this.populateFormArrays();
+          this.setupAutoSave();
+        }
+
+        get rollCallsFormArray(): FormArray { return this.itemForm.get('rollCalls') as FormArray; }
+        get actionsFormArray(): FormArray { return this.itemForm.get('actions') as FormArray; }
+
+        populateFormArrays() {
+          this.rollCallsFormArray.clear();
+          this.actionsFormArray.clear();
+          this.agendaItem.rollCalls?.forEach(rc => this.rollCallsFormArray.push(this.createRollCallGroup(rc)));
+          this.agendaItem.actions?.forEach(a => this.actionsFormArray.push(this.createActionGroup(a)));
+        }
+
+        createRollCallGroup(rc?: CommitteeReportRollCallDto): FormGroup {
+          return this.fb.group({ /* roll call fields based on DTO */ });
+        }
+
+        createActionGroup(a?: CommitteeReportActionDto): FormGroup { // Assuming DTO name
+          return this.fb.group({ /* action fields based on DTO */ });
+        }
+
+        addRollCall() { this.rollCallsFormArray.push(this.createRollCallGroup()); }
+        addAction() { this.actionsFormArray.push(this.createActionGroup()); }
+        removeRollCall(index: number) { this.rollCallsFormArray.removeAt(index); }
+        removeAction(index: number) { this.actionsFormArray.removeAt(index); }
+
+
+        setupAutoSave() {
+          this.itemForm.valueChanges.pipe(
+            debounceTime(750), // Adjust as needed
+            distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)), // Basic deep check
+            switchMap(formValue => {
+              // Map formValue back to the structure needed for update API
+              const updatePayload = this.mapFormToUpdatePayload(formValue);
+              // Call API to update *this* agenda item
+              return this.apiService.updateAgendaItem(this.agendaItem.id, updatePayload);
+            }),
+            takeUntil(this.destroy$) // Assuming you have a way to unsubscribe
+          ).subscribe({
+             next: () => console.log('Auto-saved item:', this.agendaItem.id),
+             error: (err) => console.error('Auto-save failed:', err) // Add error handling!
+          });
+        }
+
+        mapFormToUpdatePayload(formValue: any): Partial<CommitteeReportAgendaItemDto> {
+           // Convert form arrays back to DTO arrays/structure
+           return { rollCalls: formValue.rollCalls, actions: formValue.actions };
+        }
+
+        emitRemoveRequest() {
+          this.itemRemoved.emit();
+        }
+        ```
+
+**Benefits of this Approach:**
+
+* **Isolation:** Each `agenda-item` component manages its own state and complexity. Changes to one don't directly affect others.
+* **Simpler Forms:** No more managing giant nested `FormArray`s in a parent component. Forms are localized to the data they represent.
+* **True Auto-Save:** Saving happens granularly within the `agenda-item` component based on its form changes.
+* **Maintainability:** Smaller components with single responsibilities are easier to understand, test, and modify. The old, complex save/update logic in the parent component is eliminated [cite: uploaded:committee-reports.component.ts].
+* **Performance:** `trackBy` in the `*ngFor` helps Angular optimize list rendering.
+
+**API Considerations:**
+
+* Your backend needs endpoints to:
+    * Fetch the full `CommitteeReportDto`.
+    * Create a new `CommitteeReportAgendaItemDto` (custom or based on legislation).
+    * **Update a specific `CommitteeReportAgendaItemDto` (likely via PATCH), including its nested roll calls and actions.** This is critical for auto-save.
+    * Delete a specific `CommitteeReportAgendaItemDto`.
+
+This refactoring moves complexity down the component tree, localizing form management and enabling a robust auto-save mechanism at the individual agenda item level.
+
+Yes, you absolutely can set this up to avoid using Angular's `FormArray` directly within the `agenda-item` component, although it involves trade-offs.
+
+Here’s an opinionated approach focusing on further componentization:
+
+**Approach: Decompose Further into "Entry" Components**
+
+Instead of having the `agenda-item` component manage `FormArray`s for roll calls and actions, you can break down those lists further.
+
+1.  **`agenda-item` Component:**
+    * Still receives the single `agendaItem: CommitteeReportAgendaItemDto` via `@Input`.
+    * Does **not** create `FormArray`s.
+    * It directly iterates over the `agendaItem.rollCalls` and `agendaItem.actions` data arrays using `*ngFor`.
+    * Inside the `*ngFor` loops, it renders dedicated child components for each entry (e.g., `roll-call-entry`, `action-entry`).
+    * **Data Flow:** Passes the individual `rollCall` object or `action` object down to the respective entry component via `@Input`.
+    * **Change Handling:** Listens for update/delete events (`@Output`) from the child entry components OR relies on the child components calling services directly.
+
+2.  **`roll-call-entry` Component (New):**
+    * **Role:** Manages the display and editing of **one single roll call record**.
+    * **Data Flow:** Receives `rollCall: CommitteeReportRollCallDto` via `@Input`. Receives `memberInfo` (like name/honorific) maybe via separate `@Input` or looks it up based on `memberId` if needed.
+    * **Form:** Creates a *very simple* `FormGroup` for just this one roll call (e.g., just the `vote` control) OR could even use `[(ngModel)]` for the vote selection if preferred.
+    * **Auto-Save:** Subscribes to its *own* form's `valueChanges` (or uses `(ngModelChange)`). When the vote changes, it calls the service method to update *this specific roll call record* on the backend, identifying it perhaps by a unique roll call ID or a combination of agenda item ID and member ID.
+    * **Deletion:** Has a button that emits an event (`@Output`) or calls a service to delete *this specific roll call record*.
+
+3.  **`action-entry` Component (New):**
+    * **Role:** Manages the display and editing of **one single action record**.
+    * **Data Flow:** Receives `action: CommitteeReportActionDto` via `@Input`.
+    * **Form:** Creates a simple `FormGroup` for this one action (e.g., `actionText`, `actionSubText` controls) OR uses `[(ngModel)]`.
+    * **Auto-Save:** Similar to `roll-call-entry`, it subscribes to its own form/model changes and calls a service to update *this specific action record* when changes occur (debounced, etc.).
+    * **Deletion:** Has a button to emit/call service to delete *this specific action record*.
+
+**Pseudo-code Illustration:**
+
+```typescript
+// agenda-item.component.ts
+@Input() agendaItem: CommitteeReportAgendaItemDto;
+// No FormArrays here
+// Inject service if children don't call it directly
+
+handleRollCallUpdate(updatedRollCall: CommitteeReportRollCallDto) {
+  // If child emits, update API via service here
+}
+handleActionUpdate(updatedAction: CommitteeReportActionDto) {
+  // If child emits, update API via service here
+}
+handleRollCallDelete(rollCallToDelete: CommitteeReportRollCallDto) {
+ // Call service, maybe update local agendaItem.rollCalls array
+}
+handleActionDelete(actionToDelete: CommitteeReportActionDto) {
+ // Call service, maybe update local agendaItem.actions array
+}
+
+// ---
+
+// roll-call-entry.component.ts
+@Input() rollCall: CommitteeReportRollCallDto;
+// @Output() rollCallUpdated = new EventEmitter<...>(); // Option 1: Emit
+// @Output() rollCallDeleted = new EventEmitter<...>(); // Option 1: Emit
+// OR Inject service // Option 2: Direct call
+
+voteControl = new FormControl(); // Or simple FormGroup, or ngModel
+
+ngOnInit() {
+  this.voteControl.setValue(this.rollCall.vote); // Assuming structure
+  this.voteControl.valueChanges.pipe(
+    debounceTime(500),
+    distinctUntilChanged(),
+    switchMap(newValue =>
+      // Option 2: Call service directly to update this specific roll call
+      this.apiService.updateRollCall(this.rollCall.id, { vote: newValue })
+      // Option 1: Emit the change
+      // this.rollCallUpdated.emit({ ...this.rollCall, vote: newValue });
+    )
+  ).subscribe();
+}
+
+deleteThisRollCall() {
+  // Option 2: this.apiService.deleteRollCall(this.rollCall.id);
+  // Option 1: this.rollCallDeleted.emit(this.rollCall);
+}
+
+// --- Action-entry component similar structure ---
+```
+
+```html
+<mat-expansion-panel>
+  <h4>Roll Calls</h4>
+  <div *ngFor="let rc of agendaItem.rollCalls; trackBy: trackRollCallById">
+    <app-roll-call-entry
+      [rollCall]="rc"
+      (rollCallUpdated)="handleRollCallUpdate($event)" (rollCallDeleted)="handleRollCallDelete(rc)">    </app-roll-call-entry>
+  </div>
+  <button (click)="requestAddRollCall()">Add New Roll Call</button> <h4>Actions</h4>
+  <div *ngFor="let action of agendaItem.actions; trackBy: trackActionById">
+     <app-action-entry
+       [action]="action"
+       (actionUpdated)="handleActionUpdate($event)" (actionDeleted)="handleActionDelete(action)">   </app-action-entry>
+  </div>
+  <button (click)="requestAddAction()">Add New Action</button> </mat-expansion-panel>
+```
+
+**Trade-offs:**
+
+* **Pros:**
+    * Avoids `FormArray` complexity within `agenda-item`.
+    * Creates very small, focused components (`roll-call-entry`, `action-entry`) that are easy to test and understand.
+    * Auto-save logic is localized to the smallest possible unit.
+* **Cons:**
+    * More components to create and manage.
+    * You lose the built-in benefits of `FormArray` for aggregating values or validity across the list (though maybe not needed if saving happens per entry).
+    * Need clear API endpoints to create/update/delete *individual* roll call and action records, identified uniquely (e.g., by their own IDs).
+    * Decisions needed on how adding/deleting list items is handled (service calls in the list component vs. parent).
+
+**Opinion:**
+
+This "decomposed entry component" approach is a valid way to avoid `FormArray` if you have a strong reason to. It aligns well with component-based architecture. However, be aware that `FormArray` is the standard Angular Reactive Forms tool for this job, and avoiding it means you might be manually implementing tracking or validation logic that it provides out-of-the-box. If your primary goal was just to move the `FormArray` *out* of the `committee-reports` component, the previous proposal (putting it in `agenda-item`) might still be simpler overall than creating additional layers of components.
