@@ -1,0 +1,16 @@
+- adding actions isn't sticking neither is roll calls
+- agenda item actions component is doing too much. its gotta be simplified and needs to be using the state service more. 
+is agenda item updated event being used? seems like change occured is the one being used
+agenda item component has some type of processing event algorithm going on 
+debating if it would just be worth it to create a get request for getting the agenda item actions, or maybe just return the actions 
+and the roll call from the update end point. 
+could seperate out the roll call and actions updating endpoints. then have each of them return a list of actions 
+would this simplify things though
+I know at the very least I need to audit and probably remove the process events algo. the code is making the update and also holding state in memory
+which is complicating it quite a bit
+
+
+
+is published is somehow gone from meeting list
+
+when no actions are selected give some indication when the agenda item is collapsed

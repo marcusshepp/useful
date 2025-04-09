@@ -17,13 +17,13 @@ headers = {
     'Authorization': f'Basic {encoded_token}'
 }
 
-current_sprint = 'Sprint 72'
-sprint_range_start = 67
-sprint_range_end = 73
+current_sprint = 'Sprint 73'
+sprint_range_start = 68
+sprint_range_end = 74
 sprints_to_analyze = [f'Sprint {i}' for i in range(sprint_range_start, sprint_range_end)]
 carryover_data_file = 'sprint_carryover_data.json'
 
-def parse_azure_date(date_string):
+def parse_azure_date(date_string: str) -> datetime:
     if not date_string:
         return None
     try:
@@ -34,7 +34,7 @@ def parse_azure_date(date_string):
         except ValueError:
             return None
 
-def get_sprint_dates(iterations, sprint_name):
+def get_sprint_dates(iterations: list, sprint_name: str) -> tuple:
     for iteration in iterations:
         if iteration['name'] == sprint_name:
             return (
@@ -43,7 +43,7 @@ def get_sprint_dates(iterations, sprint_name):
             )
     return None, None
 
-def get_sprint_data(sprint_name):
+def get_sprint_data(sprint_name: str) -> dict:
     sprint_data = {
         'user_stories_total': 0,
         'user_stories_completed': 0,
@@ -110,6 +110,11 @@ def get_sprint_data(sprint_name):
         print(f"Closed: {closed_date}")
         print(f"Sprint window: {sprint_start} to {sprint_end_eod}")
 
+        # Skip items with state 'Removed'
+        if state == 'Removed':
+            print(f"❌ Skipping item with state 'Removed': {title}")
+            continue
+
         if item_type == 'User Story':
             sprint_data['user_stories_total'] += 1
             
@@ -135,7 +140,7 @@ def get_sprint_data(sprint_name):
 
     return sprint_data
 
-def load_carryover_data():
+def load_carryover_data() -> dict:
     if os.path.exists(carryover_data_file):
         with open(carryover_data_file, 'r') as f:
             try:
@@ -144,11 +149,11 @@ def load_carryover_data():
                 return {}
     return {}
 
-def save_carryover_data(carryover_data):
+def save_carryover_data(carryover_data: dict) -> None:
     with open(carryover_data_file, 'w') as f:
         json.dump(carryover_data, f, indent=2)
 
-def create_output_folder():
+def create_output_folder() -> str:
     base_dir = 'sprint_reports'
     if not os.path.exists(base_dir):
         os.makedirs(base_dir)
@@ -161,7 +166,7 @@ def create_output_folder():
     
     return sprint_folder
 
-def create_velocity_graph(all_sprint_data, output_folder, carryover_data):
+def create_velocity_graph(all_sprint_data: dict, output_folder: str, carryover_data: dict) -> None:
     plt.figure(figsize=(8, 6))
     last_three = list(all_sprint_data.items())[-3:]
     
@@ -190,7 +195,7 @@ def create_velocity_graph(all_sprint_data, output_folder, carryover_data):
     plt.savefig(f'{output_folder}/velocity_graph.png', dpi=300, bbox_inches='tight')
     plt.close()
 
-def create_bugs_graph(all_sprint_data, output_folder):
+def create_bugs_graph(all_sprint_data: dict, output_folder: str) -> None:
     plt.figure(figsize=(10, 6))
     last_five = list(all_sprint_data.items())[-5:]
     
@@ -274,7 +279,7 @@ def create_commitment_graph(all_sprint_data: dict, output_folder: str, carryover
     plt.savefig(f'{output_folder}/commitment_graph.png', dpi=300, bbox_inches='tight')
     plt.close()
 
-def create_sprint_stats_graph(sprint_data, output_folder, carryover_data):
+def create_sprint_stats_graph(sprint_data: dict, output_folder: str, carryover_data: dict) -> None:
     sprint_name = current_sprint
     co_tickets = carryover_data.get(sprint_name, {}).get('tickets', 0)
     co_points = carryover_data.get(sprint_name, {}).get('points', 0)
@@ -328,7 +333,7 @@ def create_sprint_stats_graph(sprint_data, output_folder, carryover_data):
                 facecolor='white')
     plt.close()
 
-def create_rolling_average_graph(all_sprint_data, output_folder, carryover_data):
+def create_rolling_average_graph(all_sprint_data: dict, output_folder: str, carryover_data: dict) -> None:
     plt.figure(figsize=(15, 8))
     last_five = list(all_sprint_data.items())[-5:]
     
@@ -375,7 +380,7 @@ def create_rolling_average_graph(all_sprint_data, output_folder, carryover_data)
     plt.close()
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description='Generate sprint analysis reports with carry-over adjustment')
     parser.add_argument('--cotickets', type=int, default=0, help='Number of tickets carried over')
     parser.add_argument('--copoints', type=int, default=0, help='Number of points carried over')
