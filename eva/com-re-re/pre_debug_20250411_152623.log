@@ -1,0 +1,18 @@
+2025-04-11 15:26:23,758 - INFO - Starting pre-deployment data gathering
+2025-04-11 15:26:23,828 - INFO - Database connection established
+2025-04-11 15:26:23,863 - INFO - Database connection established
+2025-04-11 15:26:23,864 - INFO - Gathering committee reports...
+2025-04-11 15:26:23,883 - INFO - Gathered 80 committee reports.
+2025-04-11 15:26:23,883 - INFO - Gathering committee action to agenda items...
+2025-04-11 15:26:23,889 - INFO - === PRE-DEPLOYMENT DATA COUNTS ===
+2025-04-11 15:26:23,889 - INFO - COMMITTEE_REPORTS: 0
+2025-04-11 15:26:23,890 - INFO - AGENDA_ITEMS: 0
+2025-04-11 15:26:23,897 - INFO - PUBLISHED_AGENDA_ITEMS: 0
+2025-04-11 15:26:23,897 - INFO - ROLL_CALLS: 0
+2025-04-11 15:26:23,897 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-11 15:26:23,898 - INFO - AGENDA_ITEM_ACTIONS: 0
+2025-04-11 15:26:23,898 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 0
+2025-04-11 15:26:23,903 - INFO - Database connection closed
+2025-04-11 15:26:23,909 - INFO - Database connection closed
+2025-04-11 15:26:23,916 - INFO - Data saved to migration_data.json
+2025-04-11 15:26:23,916 - INFO - Pre-deployment data gathering completed successfully and saved to migration_data.json

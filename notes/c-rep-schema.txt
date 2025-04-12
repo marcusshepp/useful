@@ -39,15 +39,18 @@ namespace EvaAPI.Data.Models.Committees.CommitteeReports
     public class CommitteeReportAction : TrackableEntity
     {
         public int AgendaItemId { get; set; }
-        public int SortOrder { get; set; }
         public int? CommitteeReportAgendaItemActionId { get; set; }
         public string ActionText { get; set; }
         public string ActionSubText { get; set; }
+        public int SortOrder { get; set; }
+        public bool IsRecommendation { get; set; }
+        public string CustomRecommendationText { get; set; }
+        public string CustomReportOutText { get; set; }
         public bool IsPublished { get; set; }
         [ForeignKey("AgendaItemId")]
         public virtual CommitteeReportAgendaItem AgendaItem { get; set; }
         [ForeignKey("CommitteeReportAgendaItemActionId")]
-        public virtual CommitteeReportAgendaItemAction CommitteeReportAgendaItemAction { get; set; }
+        public virtual CommitteeReportCommitteeAction CommitteeReportAgendaItemAction { get; set; }
     }
 }
 
@@ -78,7 +81,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EvaAPI.Data.Models.Committees.CommitteeReports
 {
-    public class CommitteeReportAgendaItemAction
+    public class CommitteeReportCommitteeAction
     {
         public int Id { get; set; }
         public string Description { get; set; }
@@ -135,9 +138,9 @@ namespace EvaAPI.Data.Models.Committees.CommitteeReports
         public const string JRES_AND_AMEND_COTW = "The joint resolution and the amendment(s) recommended by the committee were referred to the Committee of the Whole.";
     }
 
-    public class CommitteeReportCommitteeActionEntityTypeConfiguration : IEntityTypeConfiguration<CommitteeReportAgendaItemAction>
+    public class CommitteeReportCommitteeActionEntityTypeConfiguration : IEntityTypeConfiguration<CommitteeReportCommitteeAction>
     {
-        public void Configure(EntityTypeBuilder<CommitteeReportAgendaItemAction> builder)
+        public void Configure(EntityTypeBuilder<CommitteeReportCommitteeAction> builder)
         {
             builder.HasData(
                 new
@@ -290,42 +293,13 @@ namespace EvaAPI.Data.Models.Committees.CommitteeReports
         [ForeignKey("AgendaItemId")]
         public virtual CommitteeReportAgendaItem AgendaItem { get; set; }
     }
-}
-namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
-{
-    public class CommitteeReportAgendaItemDto
+
+    public static class RollCallVoteTypes
     {
-        public int? Id { get; set; }
-        public int SortOrder { get; set; }
-        public bool IsPublished { get; set; }
-        public DateTime? PublishedDate { get; set; }
-        public int? LegislationId { get; set; }
-        public string Prefix { get; set; }
-        public string Identifier { get; set; }
-        public string Description { get; set; }
-        public IEnumerable<CommitteeReportAgendaActionDto> Actions { get; set; }
-        public IEnumerable<CommitteeReportRollCallDto> RollCalls { get; set; }
-    }
-}
-namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
-{
-    public class CommitteeReportAgendaActionDto
-    {
-        public int Id { get; set; }
-        public int? CommitteeReportAgendaItemActionId { get; set; }
-        public string ActionText { get; set; }
-        public string ActionSubText { get; set; }
-        public bool IsPublished { get; set; }
-    }
-}
-namespace EvaAPI.Dtos.CommitteeManagement.CommitteeReports
-{
-    public class CommitteeReportRollCallDto
-    {
-        public int Id { get; set; }
-        public int MemberId { get; set; }
-        public string RollCallVote { get; set; }
-        public string MemberName { get; set; }
+        public const string YAY = "Yea";
+        public const string NAY = "Nay";
+        public const string PASS = "Pass";
+        public const string NA = "N/A";
     }
 }
 
