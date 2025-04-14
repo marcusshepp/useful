@@ -1,7 +1,0 @@
-2025-04-11 14:37:47,587 - INFO - Starting pre-deployment data gathering
-2025-04-11 14:37:47,702 - INFO - Database connection established
-2025-04-11 14:37:47,724 - INFO - Database connection established
-2025-04-11 14:37:47,724 - INFO - Gathering committee reports...
-2025-04-11 14:37:47,732 - INFO - Database connection closed
-2025-04-11 14:37:47,734 - INFO - Database connection closed
-2025-04-11 14:37:47,734 - ERROR - Error during data gathering: Object of type datetime is not JSON serializable

@@ -1,0 +1,13 @@
+2025-04-14 16:35:41,330 - INFO - Starting pre-deployment data gathering
+2025-04-14 16:35:41,396 - INFO - Database connection established
+2025-04-14 16:35:41,411 - INFO - Database connection established
+2025-04-14 16:35:41,411 - INFO - Gathering committee reports...
+2025-04-14 16:35:41,417 - INFO - Found 80 meetings with committee reports
+2025-04-14 16:35:41,417 - INFO - Gathering committee meeting agenda items for these meetings...
+2025-04-14 16:35:41,428 - INFO - Found 229 agenda items connected to meetings with committee reports
+2025-04-14 16:35:41,428 - INFO - Gathering additional meeting and committee information...
+2025-04-14 16:35:41,443 - INFO - Gathering CommitteeReportPublishedItems...
+2025-04-14 16:35:41,445 - INFO - Gathered 3 CommitteeReportPublishedItems.
+2025-04-14 16:35:41,925 - INFO - Database connection closed
+2025-04-14 16:35:41,927 - INFO - Database connection closed
+2025-04-14 16:35:41,927 - ERROR - Error during data gathering: list indices must be integers or slices, not dict
