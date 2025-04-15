@@ -1,0 +1,1223 @@
+main python pre deployment script
+#!/usr/bin/env python3
+import os
+import sys
+import json
+import logging
+import datetime
+from typing import Dict, List, Any, Optional, Tuple, Set
+import pyodbc
+from dotenv import load_dotenv
+# from pprint import pprint
+import queries
+
+load_dotenv()
+
+# Dictionary keys
+KEY_COMMITTEE_REPORTS = "committee_reports"
+KEY_COMMITTEE_REPORT_IDS = "committee_report_ids"
+KEY_MEMBER_ROLL_CALLS = "member_roll_calls"
+KEY_COMMITTEE_REPORT_PUBLISHED_ACTIONS = "committee_report_published_actions"
+KEY_PUBLISHED_ITEMS = "published_items"
+KEY_COMMITTEE_MEETING_AGENDA_ITEMS = "committee_meeting_agenda_items"
+KEY_ACTION_TO_AGENDA_ITEMS = "action_to_agenda_items"
+KEY_REMOVED_AGENDA_ITEMS = "removed_agenda_items"
+
+# Count keys
+COUNT_COMMITTEE_REPORTS = "committee_reports"
+COUNT_AGENDA_ITEMS = "agenda_items"
+COUNT_PUBLISHED_AGENDA_ITEMS = "published_agenda_items"
+COUNT_ROLL_CALLS = "roll_calls"
+COUNT_PUBLISHED_ROLL_CALLS = "published_roll_calls"
+COUNT_AGENDA_ITEM_ACTIONS = "agenda_item_actions"
+COUNT_PUBLISHED_AGENDA_ITEM_ACTIONS = "published_agenda_item_actions"
+COUNT_REMOVED_AGENDA_ITEMS = "removed_agenda_items"
+
+"""
+I'm thinking I should set up a select data routine first. This will analyze the data
+and count everything.
+
+what is all the data that I need to select for the pre-deployment?
+
+- Committee reports
+  * need to worry about meeting date / whatever else i'm 'saving' a query on 
+
+- CommitteeReportCommitteeActionToAgendaItems
+  * these should have all the custom actions and custom agenda items
+
+- CommitteeMeetinAgendaItems where 
+CommitteeReportCommitteeActionToAgendaItems.AgendaItemid = CommitteeMeetingAgendaItems.AgendaItemId
+
+- I believe I can just ignore RemovedAgendaItems all together.
+
+- group all CommitteeReportCommitteeActionToAgendaItems by agenda id 
+  * ea group wll have a agenda item id and many action ids
+  * copy over the sub text
+
+- one difference not accounted for in the document:
+    * the custom items previously were tracking both the recommended custom action
+    and the reported out custom action, on the CommitteeReportCommitteeActionToAgendaItems table
+    in the same row.
+    * not the custom actions are tracked the exact same way the legislative item actions
+    are tracked, with the CommitteeReportActions table. This allows the user to have as many custom action
+    as they want
+
+- NOTE: Might be best to create a CommitteeReportAgendaItem for every CommitteeMeetingAgendaItem
+    * for every CommitteeMeetingAgendaItems that have a meeting that has a report.
+    * then iterate over all the already created actions. and roll calls. and create the relevant rows
+    for those
+    * what could go wrong with this approach?
+        * how do we know that there is a CommitteeMeetinAgendaItem 
+        that is on the report and not on the meeting or vice versa?
+        * the committeeReport gets its data from the shared.CommitteeMeetingAgendaItem table
+        * the committeeMeeting get its data from the eva.CommitteeMeetingAgendaData table
+        * which means that we should be good to get all agenda item data from shared.CommitteeMeetingAgendaItem
+        and its safe? to assume that if the data is in the shared.CommitteeMeetingAgendaItem table
+        and that id isn't in the removed table then it should be carried over.
+
+
+- TESTING
+    * add agenda items without publishing.
+    * add agenda items with publishing
+    * have a mix of both
+    ** always test Legislative Look Up
+    ** always test committee report parameter in daily journal
+    ** always test committee roll call parameter in meeting minutes
+
+
+
+** don't forget the roll call parameter strings
+
+
+NOTE: 
+    what i've done so far
+    * get all committee reports
+    * get all committee meeting agenda items that 
+    have meetings that are tied to the reports
+    * get all committee report published agenda items
+    * get all committee report published actions
+
+
+
+EXAMPLE
+   - Agenda Items
+   agenda_items = [
+    {
+        "CommitteeMeetingAgendaItemID": 1254,
+        "SessionID": 43,
+        "CommitteeMeetingID": 789,
+        "LegislationID": 567,
+        "Description": "Budget Amendment Proposal",
+        "SortOrder": 1,
+        "IsActive": True,
+        "DateAdded": datetime.datetime(2024, 3, 15, 9, 30, 0),
+        "LastModified": datetime.datetime(2024, 3, 15, 14, 45, 0),
+        "LastModifiedBy": "jsmith",
+        "IsPublic": True,
+        "IsPublished": False  # This gets added later in the code
+    },
+    {
+        "CommitteeMeetingAgendaItemID": 1255,
+        "SessionID": 43,
+        "CommitteeMeetingID": 789,
+        "LegislationID": 568,
+        "Description": "Transportation Bill Review",
+        "SortOrder": 2,
+        "IsActive": True,
+        "DateAdded": datetime.datetime(2024, 3, 15, 9, 35, 0),
+        "LastModified": datetime.datetime(2024, 3, 16, 10, 20, 0),
+        "LastModifiedBy": "jdoe",
+        "IsPublic": True,
+        "IsPublished": True  # This gets added later in the code
+    }
+]
+
+- Committee reports
+- Committee report agenda items 
+- Committee report actions
+- Committee report roll calls
+
+- Committee report attendance ??? not really
+
+
+"""
+
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, o: Any) -> Any:
+        if isinstance(o, (datetime.datetime, datetime.date)):
+            return o.isoformat()
+        return super().default(o)
+
+class DatabaseConnector:
+    def __init__(self, connection_string: str) -> None:
+        self.connection_string: str = connection_string
+        self.connection: Optional[pyodbc.Connection] = None
+        self.cursor: Optional[pyodbc.Cursor] = None
+
+    def connect(self) -> None:
+        try:
+            self.connection = pyodbc.connect(self.connection_string)
+            self.cursor = self.connection.cursor()
+            logging.info("Database connection established")
+        except Exception as e:
+            logging.error(f"Database connection error: {str(e)}")
+            raise
+
+    def close(self) -> None:
+        if self.cursor:
+            self.cursor.close()
+        if self.connection:
+            self.connection.close()
+        logging.info("Database connection closed")
+
+    def execute_query(self, query: str, params: Optional[Tuple] = None) -> List[Dict[str, Any]]:
+        try:
+            if not self.cursor:
+                raise Exception("No database cursor available")
+                
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
+                
+            columns = [column[0] for column in self.cursor.description]
+            results = []
+            
+            for row in self.cursor.fetchall():
+                results.append(dict(zip(columns, row)))
+                
+            return results
+        except Exception as e:
+            logging.error(f"Query execution error: {str(e)}\nQuery: {query}")
+            raise
+
+class DataGatherer:
+    def __init__(self, eva_connection_string: str, shared_connection_string: str) -> None:
+        self.eva_db: DatabaseConnector = DatabaseConnector(eva_connection_string)
+        self.shared_db: DatabaseConnector = DatabaseConnector(shared_connection_string)
+        self.data: Dict[str, Any] = {
+            KEY_COMMITTEE_REPORTS: [],
+            KEY_COMMITTEE_REPORT_IDS: [],
+            KEY_MEMBER_ROLL_CALLS: [],
+            KEY_COMMITTEE_REPORT_PUBLISHED_ACTIONS: [],
+            KEY_PUBLISHED_ITEMS: [],
+            KEY_COMMITTEE_MEETING_AGENDA_ITEMS: [],
+        }
+        self.counts: Dict[str, int] = {
+            COUNT_COMMITTEE_REPORTS: 0,
+            COUNT_AGENDA_ITEMS: 0,
+            COUNT_PUBLISHED_AGENDA_ITEMS: 0,
+            COUNT_ROLL_CALLS: 0,
+            COUNT_PUBLISHED_ROLL_CALLS: 0,
+            COUNT_AGENDA_ITEM_ACTIONS: 0,
+            COUNT_PUBLISHED_AGENDA_ITEM_ACTIONS: 0,
+            COUNT_REMOVED_AGENDA_ITEMS: 0,
+        }
+
+    def connect_databases(self) -> None:
+        self.eva_db.connect()
+        self.shared_db.connect()
+
+    def close_databases(self) -> None:
+        self.eva_db.close()
+        self.shared_db.close()
+
+    def get_removed_agenda_items(self) -> str:
+        logging.info("Gathering all removed agenda items...")
+        removed_agenda_items: List[Dict[str, Any]] = self.eva_db.execute_query(
+                queries.get_removed_agenda_items_query())
+        
+        logging.info(f"Found {len(removed_agenda_items)} removed agenda items")
+        self.counts[COUNT_REMOVED_AGENDA_ITEMS] = len(removed_agenda_items)
+        self.data[KEY_REMOVED_AGENDA_ITEMS] = removed_agenda_items
+        
+        removed_agenda_item_ids: List[int] = [
+                item["AgendaItemId"] for item in removed_agenda_items]
+        removed_agenda_item_ids_string: str = ",".join(
+                [str(i) for i in removed_agenda_item_ids])
+        return removed_agenda_item_ids_string
+
+    def gather_committee_reports_and_agenda_items(self) -> None:
+        """
+        Get all Committee Reports 
+        Then get all the meetings that have a report
+        And gather all their agenda items that aren't removed
+        """
+        logging.info("Gathering committee reports...")
+        committee_reports: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_committee_reports_query())
+        
+        # Remove binary data and convert datetime to ISO format
+        # Binary data is preserved by the migration
+        for report in committee_reports:
+            if report.get("PublishedReportDocument"):
+                report["PublishedReportDocument"] = "BINARY_DATA"
+            if report.get("PublishedAttendanceReportDocument"):
+                report["PublishedAttendanceReportDocument"] = "BINARY_DATA"
+            for key, value in list(report.items()):
+                if isinstance(value, datetime.datetime):
+                    report[key] = value.isoformat()
+        
+        # Store committee reports data
+        self.counts[COUNT_COMMITTEE_REPORTS] = len(committee_reports)
+        self.data[KEY_COMMITTEE_REPORTS] = committee_reports
+        self.data[KEY_COMMITTEE_REPORT_IDS] = [report["Id"] for report in committee_reports]
+        
+        # Extract meeting IDs from committee reports
+        meeting_ids: List[int] = [
+                report["MeetingId"] 
+                for report in committee_reports 
+                if report["MeetingId"] is not None]
+        meeting_ids_string: str = ",".join(
+                str(id) for id in meeting_ids) if meeting_ids else "0"
+        logging.info(f"Found {len(meeting_ids)} meetings with committee reports")
+        
+        # Get removed agenda items then get all CommitteeMeetingAgendaItems
+        # that are not removed
+        removed_agenda_item_ids_string: str = self.get_removed_agenda_items()
+        logging.info("Gathering committee meeting agenda items for these meetings that aren't removed...")
+        agenda_items: List[Dict[str, Any]] = self.shared_db.execute_query(
+            queries.get_agenda_items_query(
+                meeting_ids_string, removed_agenda_item_ids_string))
+        
+        # Store agenda items
+        self.counts[COUNT_AGENDA_ITEMS] = len(agenda_items)
+        self.data[KEY_COMMITTEE_MEETING_AGENDA_ITEMS] = agenda_items
+        
+        logging.info(f"Found {len(agenda_items)} agenda items connected to meetings with committee reports")
+        
+        # Get additional meeting and committee info
+        if meeting_ids:
+            logging.info("Gathering additional meeting and committee information...")
+            meeting_committee_info: List[Dict[str, Any]] = self.shared_db.execute_query(
+                queries.get_meeting_committee_info_query(meeting_ids_string))
+            
+            # Create a mapping of meeting IDs to committee info
+            meeting_committee_map: Dict[int, Dict[str, Any]] = {
+                info["CommitteeMeetingID"]: info for info in meeting_committee_info
+            }
+            
+            logging.info(f"appending committee info to {len(agenda_items)} agenda items")
+            # Enrich agenda items with committee info
+            for item in agenda_items:
+                meeting_id: int = item["CommitteeMeetingID"]
+                if meeting_id in meeting_committee_map:
+                    info = meeting_committee_map[meeting_id]
+                    item["CommitteeName"] = info["CommitteeName"]
+                    item["MeetingLocation"] = info["MeetingLocation"]
+
+    def gather_action_to_agenda_items(self) -> None:
+        logging.info("Gathering CommitteeReportCommitteeActionToAgendaItems...")
+        results: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_action_to_agenda_items_query())
+        self.counts[COUNT_AGENDA_ITEM_ACTIONS] = len(results)
+        self.data[KEY_ACTION_TO_AGENDA_ITEMS] = results
+        logging.info(f"Gathered {len(results)} action to agenda items.")
+
+    def gather_published_agenda_items(self) -> None:
+        logging.info("Gathering CommitteeReportPublishedItems...")
+        published_items_results_from_query: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_published_items_query())
+        self.counts[COUNT_PUBLISHED_AGENDA_ITEMS] = len(published_items_results_from_query)
+        self.data[KEY_PUBLISHED_ITEMS] = published_items_results_from_query
+        logging.info(f"Gathered {len(published_items_results_from_query)} CommitteeReportPublishedItems.")
+
+        # Create a mapping of agenda item IDs to the actual agenda items
+        agenda_item_map: Dict[int, Dict[str, Any]] = {
+            item["CommitteeMeetingAgendaItemID"]: item 
+            for item in self.data[KEY_COMMITTEE_MEETING_AGENDA_ITEMS]
+        }
+
+        # Initialize all items as not published
+        for item in self.data[KEY_COMMITTEE_MEETING_AGENDA_ITEMS]:
+            item["IsPublished"] = False
+
+        # get the set of published agenda item IDs
+        published_agenda_item_ids: Set[int] = {
+            item["AgendaItemId"] for item in published_items_results_from_query
+        }
+          
+        # mark items as published
+        for agenda_item_id in published_agenda_item_ids:
+            if agenda_item_id in agenda_item_map:
+                agenda_item_map[agenda_item_id]["IsPublished"] = True
+                
+        number_of_published_agenda_items: int = len(published_agenda_item_ids)
+        logging.info(f"Marked {number_of_published_agenda_items} published agenda items.")
+
+
+    def gather_published_actions(self) -> None:
+        logging.info("Gathering CommitteeReportPublishedActions...")
+        committee_report_published_actions: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_published_actions_query()
+        )
+        self.counts[COUNT_PUBLISHED_AGENDA_ITEM_ACTIONS] = len(committee_report_published_actions)
+        self.data[KEY_COMMITTEE_REPORT_PUBLISHED_ACTIONS] = committee_report_published_actions
+        logging.info(f"Gathered {len(committee_report_published_actions)} CommitteeReportPublishedActions.")
+
+    def gather_member_roll_calls(self) -> None:
+        logging.info("Gathering member roll calls...")
+        member_roll_calls: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_roll_call_query()
+        )
+        self.counts[COUNT_ROLL_CALLS] = len(member_roll_calls)
+        self.data[KEY_MEMBER_ROLL_CALLS] = member_roll_calls
+
+    def gather_all_data(self) -> None:
+        self.connect_databases()
+        try:
+            self.gather_committee_reports_and_agenda_items()
+            self.gather_published_agenda_items()
+            self.gather_action_to_agenda_items()
+            self.gather_published_actions()
+            self.gather_member_roll_calls()
+            
+            logging.info("=== PRE-DEPLOYMENT DATA COUNTS ===")
+            for category, count in self.counts.items():
+                logging.info(f"{category.upper()}: {count}")
+        finally:
+            self.close_databases()
+
+    def save_to_json(self, output_path: str) -> None:
+        data_with_counts: Dict[str, Any] = {
+            **self.data,
+            "counts": self.counts
+        }
+        
+        with open(output_path, 'w') as f:
+            json.dump(data_with_counts, f, cls=DateTimeEncoder, indent=2)
+        logging.info(f"Data saved to {output_path}")
+
+def setup_logging() -> None:
+    current_time: str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_format: str = "%(asctime)s - %(levelname)s - %(message)s"
+    logs_dir: str = "./logs"
+    if not os.path.exists(logs_dir):
+        os.makedirs(logs_dir)
+    logging.basicConfig(
+        level=logging.INFO,
+        format=log_format,
+        handlers=[
+            logging.FileHandler(f"{logs_dir}/pre_debug_{current_time}.log"),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+
+def main() -> None:
+    setup_logging()
+    logging.info("Starting pre-deployment data gathering")
+    
+    eva_connection: str | None = os.getenv("EVA_DB_CONNECTION")
+    shared_connection: str | None = os.getenv("SHARED_DB_CONNECTION")
+    current_time: str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_path: str = os.getenv("OUTPUT_PATH", f"predeployment_{current_time}.json")
+    
+    if not eva_connection or not shared_connection:
+        logging.error("Database connection strings not found in environment variables")
+        sys.exit(1)
+    
+    gatherer: DataGatherer = DataGatherer(eva_connection, shared_connection)
+    
+    try:
+        gatherer.gather_all_data()
+        gatherer.save_to_json(output_path)
+        logging.info(f"Pre-deployment data gathering completed successfully and saved to {output_path}")
+    except Exception as e:
+        logging.error(f"Error during data gathering: {str(e)}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
+
+queries.py
+
+# Committee Reports Query
+def get_committee_reports_query() -> str:
+    return """
+SELECT 
+    cr.Id,
+    cr.SessionId,
+    cr.CommitteeId,
+    cr.MeetingId,
+    cr.IsPublished,
+    cr.PublishedDate,
+    cr.AddendaDate,
+    cr.PublishedBy,
+    cr.AttendancePublishedBy,
+    cr.IsAttendancePublished,
+    cr.PublishedReportDocument,
+    cr.PublishedAttendanceReportDocument,
+    cr.AttendancePublishedDate,
+    cr.CreatedBy,
+    cr.Created,
+    cr.Modified,
+    cr.ModifiedBy
+FROM CommitteeReports cr
+    """
+
+# Removed Agenda Items Query
+def get_removed_agenda_items_query() -> str:
+    return """
+SELECT [MeetingId]
+      ,[AgendaItemId]
+FROM [dbo].[CommitteeReportRemovedAgendaItems]
+    """
+
+# Agenda Items Query
+def get_agenda_items_query(meeting_ids_string: str, removed_agenda_item_ids_string: str) -> str:
+    query = f"""
+SELECT [CommitteeMeetingAgendaItemID]
+      ,[SessionID]
+      ,[CommitteeMeetingID]
+      ,[LegislationID]
+      ,[Description]
+      ,[SortOrder]
+      ,[IsActive]
+      ,[DateAdded]
+      ,[LastModified]
+      ,[LastModifiedBy]
+      ,[IsPublic]
+FROM [dbo].[CommitteeMeetingAgendaItem]
+WHERE 
+    [IsActive] = 1 
+    AND [CommitteeMeetingID] IN ({meeting_ids_string}) 
+    """
+    if removed_agenda_item_ids_string and len(removed_agenda_item_ids_string) > 0:
+        query += f"AND [CommitteeMeetingAgendaItemID] NOT IN ({removed_agenda_item_ids_string})"
+    return query
+
+# Meeting Committee Info Query
+def get_meeting_committee_info_query(meeting_ids_string: str) -> str:
+    return f"""
+SELECT m.CommitteeMeetingID, m.MeetingLocation, c.CommitteeID, c.CommitteeName 
+FROM Committee c
+INNER JOIN CommitteeMeetingCommittee cmc ON cmc.CommitteeID = c.CommitteeID
+INNER JOIN CommitteeMeeting m ON m.CommitteeMeetingID = cmc.CommitteeMeetingID
+WHERE m.CommitteeMeetingID IN ({meeting_ids_string})
+    """
+
+# Action to Agenda Items Query
+def get_action_to_agenda_items_query() -> str:
+    return """
+SELECT [Id]
+    ,[CommitteeReportCommitteeActionId]
+    ,[AgendaItemId]
+    ,[CustomRecommendedAction]
+    ,[CustomReportOutAction]
+    ,[MeetingId]
+    ,[SortOrder]
+    ,[Sub]
+FROM [dbo].[CommitteeReportCommitteeActionToAgendaItems]
+    """
+
+# Published Items Query
+def get_published_items_query() -> str:
+    return """
+SELECT [Id]
+    ,[MeetingId]
+    ,[AgendaItemId]
+    ,[CreatedBy]
+    ,[Created]
+    ,[Modified]
+    ,[ModifiedBy]
+FROM [dbo].[CommitteeReportPublishedItems]
+    """
+
+# Published Actions Query
+def get_published_actions_query() -> str:
+    return """
+SELECT [Id]
+      ,[CommitteeReportCommitteeActionId]
+      ,[AgendaItemId]
+      ,[CustomRecommendedAction]
+      ,[CustomReportOutAction]
+      ,[MeetingId]
+      ,[SortOrder]
+      ,[Sub]
+FROM [dbo].[CommitteeReportPublishedActions]
+    """
+
+def get_roll_call_query() -> str:
+    return """
+SELECT [Id]
+      ,[AddendaDate]
+      ,[AgendaItemId]
+      ,[CommitteeId]
+      ,[Created]
+      ,[CreatedBy]
+      ,[MeetingId]
+      ,[MemberId]
+      ,[Modified]
+      ,[ModifiedBy]
+      ,[PublishedBy]
+      ,[PublishedDate]
+      ,[RoleCallVote]
+      ,[SessionId]
+  FROM [dbo].[CommitteeMemberRollCalls]
+"""
+
+migration for the refector
+
+using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace EvaAPI.Migrations
+{
+    /// <inheritdoc />
+    public partial class CommitteeReportsRefactor : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "CommitteeMemberRollCalls");
+
+            migrationBuilder.DropTable(
+                name: "CommitteeReportCommitteeActionToAgendaItems");
+
+            migrationBuilder.DropTable(
+                name: "CommitteeReportPublishedActions");
+
+            migrationBuilder.DropTable(
+                name: "CommitteeReportPublishedItems");
+
+            migrationBuilder.DropTable(
+                name: "CommitteeReportRemovedAgendaItems");
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "MeetingDate",
+                table: "CommitteeReports",
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            migrationBuilder.AddColumn<string>(
+                name: "MeetingLocation",
+                table: "CommitteeReports",
+                type: "nvarchar(max)",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "MeetingTime",
+                table: "CommitteeReports",
+                type: "nvarchar(max)",
+                nullable: true);
+
+            migrationBuilder.CreateTable(
+                name: "CommitteeReportAgendaItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ReportId = table.Column<int>(type: "int", nullable: false),
+                    CommitteeMeetingAgendaItemId = table.Column<int>(type: "int", nullable: true),
+                    LegislationId = table.Column<int>(type: "int", nullable: true),
+                    Prefix = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Identifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
+                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommitteeReportAgendaItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CommitteeReportAgendaItems_CommitteeReports_ReportId",
+                        column: x => x.ReportId,
+                        principalTable: "CommitteeReports",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CommitteeReportActions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AgendaItemId = table.Column<int>(type: "int", nullable: false),
+                    CommitteeReportAgendaItemActionId = table.Column<int>(type: "int", nullable: true),
+                    ActionText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ActionSubText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
+                    IsRecommendation = table.Column<bool>(type: "bit", nullable: false),
+                    CustomRecommendationText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomReportOutText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommitteeReportActions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CommitteeReportActions_CommitteeReportAgendaItems_AgendaItemId",
+                        column: x => x.AgendaItemId,
+                        principalTable: "CommitteeReportAgendaItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommitteeReportActions_CommitteeReportCommitteeActions_CommitteeReportAgendaItemActionId",
+                        column: x => x.CommitteeReportAgendaItemActionId,
+                        principalTable: "CommitteeReportCommitteeActions",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CommitteeReportRollCalls",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    CommitteeId = table.Column<int>(type: "int", nullable: false),
+                    MeetingId = table.Column<int>(type: "int", nullable: false),
+                    MemberId = table.Column<int>(type: "int", nullable: false),
+                    AgendaItemId = table.Column<int>(type: "int", nullable: false),
+                    RollCallVote = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PublishedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AddendaDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PublishedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommitteeReportRollCalls", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CommitteeReportRollCalls_CommitteeReportAgendaItems_AgendaItemId",
+                        column: x => x.AgendaItemId,
+                        principalTable: "CommitteeReportAgendaItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommitteeReportActions_AgendaItemId",
+                table: "CommitteeReportActions",
+                column: "AgendaItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommitteeReportActions_CommitteeReportAgendaItemActionId",
+                table: "CommitteeReportActions",
+                column: "CommitteeReportAgendaItemActionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommitteeReportAgendaItems_ReportId",
+                table: "CommitteeReportAgendaItems",
+                column: "ReportId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommitteeReportRollCalls_AgendaItemId",
+                table: "CommitteeReportRollCalls",
+                column: "AgendaItemId");
+        }
+    }
+}
+
+models for new schema
+These are the relevent models in the eva database
+
+
+using EvaAPI.Data.Common;
+
+namespace EvaAPI.Data.Models.Committees.CommitteeReports
+{
+    public class CommitteeReport : TrackableEntity
+    {
+        public int SessionId { get; set; }
+        public int CommitteeId { get; set; }
+        public int MeetingId { get; set; } 
+
+        public DateTime MeetingDate { get; set; }
+        public string MeetingTime { get; set; }
+        public string MeetingLocation { get; set; }
+
+        public bool IsPublished { get; set; }
+        public DateTime? PublishedDate { get; set; }
+        public string PublishedBy { get; set; }
+        public bool IsAttendancePublished { get; set; }
+        public DateTime? AttendancePublishedDate { get; set; }
+        public DateTime? AddendaDate { get; set; }
+        public string AttendancePublishedBy { get; set; }
+        public byte[] PublishedReportDocument { get; set; }
+        public byte[] PublishedAttendanceReportDocument { get; set; }
+
+        public virtual ICollection<CommitteeReportAgendaItem> AgendaItems { get; set; }
+
+        // Attendance and Joint Committees come directly from the shared DB
+    }
+}
+
+using EvaAPI.Data.Common;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EvaAPI.Data.Models.Committees.CommitteeReports
+{
+    public class CommitteeReportAction : TrackableEntity
+    {
+        public int AgendaItemId { get; set; }
+        public int? CommitteeReportAgendaItemActionId { get; set; }
+        public string ActionText { get; set; }
+        public string ActionSubText { get; set; }
+        public int SortOrder { get; set; }
+        public bool IsRecommendation { get; set; }
+        public string CustomRecommendationText { get; set; }
+        public string CustomReportOutText { get; set; }
+        public bool IsPublished { get; set; }
+        [ForeignKey("AgendaItemId")]
+        public virtual CommitteeReportAgendaItem AgendaItem { get; set; }
+        [ForeignKey("CommitteeReportAgendaItemActionId")]
+        public virtual CommitteeReportCommitteeAction CommitteeReportAgendaItemAction { get; set; }
+    }
+}
+
+using EvaAPI.Data.Common;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EvaAPI.Data.Models.Committees.CommitteeReports
+{
+    public class CommitteeReportAgendaItem : TrackableEntity
+    {
+        public int ReportId { get; set; }
+        public int? CommitteeMeetingAgendaItemId { get; set; }
+        public int? LegislationId { get; set; }
+        public string Prefix { get; set; }
+        public string Identifier { get; set; }
+        public string Description { get; set; }
+        public int SortOrder { get; set; }
+        public bool IsPublished { get; set; }
+        [ForeignKey("ReportId")]
+        public virtual CommitteeReport Report { get; set; }
+        public virtual ICollection<CommitteeReportAction> Actions { get; set; }
+        public virtual ICollection<CommitteeReportRollCall> RollCalls { get; set; }
+    }
+}
+
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+
+namespace EvaAPI.Data.Models.Committees.CommitteeReports
+{
+    public class CommitteeReportCommitteeAction
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public bool IsRecommendation { get; set; }
+    }
+
+    public enum COMMITTEE_ACTION_IDS
+    {
+        BILLPASS = 1,
+        SUB = 2,
+        IMMEDIATE_EFFECT = 3,
+        WHOLE = 4,
+        REFERRED = 5,
+        JR_ADOPTED = 6,
+        RES_ADOPTED = 7,
+        CR_ADOPTED = 8,
+        SUB_JR_ADOPTED = 9,
+        SUB_RES_ADOPTED = 10,
+        AMEND_JR_ADOPTED = 11,
+        AMEND_RES_ADOPTED = 12,
+        AMEND_CONRES_ADOPTED = 13,
+        RES_PLACED_RES = 14,
+        CONRES_PLACED_RES = 15,
+        RES_AND_SUB_PLACED_RES = 16,
+        CONRES_AND_SUB_PLACED_RES = 17,
+        JRES_COTW = 18,
+        JRES_AND_SUB_COTW = 19,
+        BILL_COTW = 20,
+        JRES_AND_AMEND_COTW = 21
+    }
+
+    public static class COMMITTEE_ACTION_DESCRIPTIONS
+    {
+        public const string BILLPASS = "With recommendation that the bill pass.";
+        public const string SUB = "With the recommendation that the substitute (<<freeform>>) be adopted and that the bill then pass.";
+        public const string IMMEDIATE_EFFECT = "The committee further recommends that the bill be given immediate effect.";
+        public const string WHOLE = "The bill was referred to the Committee of the Whole.";
+        public const string REFERRED = "The bill and the substitute recommended by the committee were referred to the Committee of the Whole.";
+        public const string JR_ADOPTED = "With the recommendation that the joint resolution be adopted.";
+        public const string RES_ADOPTED = "With the recommendation that the resolution be adopted.";
+        public const string CR_ADOPTED = "With the recommendation that the concurrent resolution be adopted.";
+        public const string SUB_JR_ADOPTED = "With the recommendation that the substitute (<<freeform>>) be adopted and that the joint resolution be adopted.";
+        public const string SUB_RES_ADOPTED = "With the recommendation that the substitute (<<freeform>>) be adopted and that the resolution be adopted.";
+        public const string AMEND_JR_ADOPTED = "With the recommendation that the following amendment(s) be adopted and that the joint resolution be adopted.";
+        public const string AMEND_RES_ADOPTED = "With the recommendation that the following amendment(s) be adopted and that the resolution be adopted";
+        public const string AMEND_CONRES_ADOPTED = "With the recommendation that the following amendment(s) be adopted and that the concurrent resolution be adopted";
+        public const string RES_PLACED_RES = "The resolution was placed on the order of Resolutions.";
+        public const string CONRES_PLACED_RES = "The concurrent resolution was placed on the order of Resolutions.";
+        public const string RES_AND_SUB_PLACED_RES = "The resolution and substitute recommended by the Committee were placed on the order of Resolutions.";
+        public const string CONRES_AND_SUB_PLACED_RES = "The concurrent resolution and substitute recommended by the Committee were placed on the order of Resolutions.";
+        public const string JRES_COTW = "The joint resolution was referred to the Committee of the Whole.";
+        public const string JRES_AND_SUB_COTW = "The joint resolution and substitute recommended by the Committee were referred to the Committee of the Whole.";
+        public const string BILL_COTW = "The bill and the amendment(s) recommended by the committee were referred to the Committee of the Whole.";
+        public const string JRES_AND_AMEND_COTW = "The joint resolution and the amendment(s) recommended by the committee were referred to the Committee of the Whole.";
+    }
+
+    public class CommitteeReportCommitteeActionEntityTypeConfiguration : IEntityTypeConfiguration<CommitteeReportCommitteeAction>
+    {
+        public void Configure(EntityTypeBuilder<CommitteeReportCommitteeAction> builder)
+        {
+            builder.HasData(
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.BILLPASS,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.BILLPASS,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.SUB,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.SUB,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.IMMEDIATE_EFFECT,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.IMMEDIATE_EFFECT,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.WHOLE,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.WHOLE,
+                    IsRecommendation = false
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.REFERRED,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.REFERRED,
+                    IsRecommendation = false
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.JR_ADOPTED,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.JR_ADOPTED,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.RES_ADOPTED,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.RES_ADOPTED,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.CR_ADOPTED,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.CR_ADOPTED,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.SUB_JR_ADOPTED,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.SUB_JR_ADOPTED,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.SUB_RES_ADOPTED,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.SUB_RES_ADOPTED,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.AMEND_JR_ADOPTED,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.AMEND_JR_ADOPTED,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.AMEND_RES_ADOPTED,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.AMEND_RES_ADOPTED,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.AMEND_CONRES_ADOPTED,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.AMEND_CONRES_ADOPTED,
+                    IsRecommendation = true
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.RES_PLACED_RES,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.RES_PLACED_RES,
+                    IsRecommendation = false
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.CONRES_PLACED_RES,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.CONRES_PLACED_RES,
+                    IsRecommendation = false
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.RES_AND_SUB_PLACED_RES,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.RES_AND_SUB_PLACED_RES,
+                    IsRecommendation = false
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.CONRES_AND_SUB_PLACED_RES,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.CONRES_AND_SUB_PLACED_RES,
+                    IsRecommendation = false
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.JRES_COTW,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.JRES_COTW,
+                    IsRecommendation = false
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.JRES_AND_SUB_COTW,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.JRES_AND_SUB_COTW,
+                    IsRecommendation = false
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.BILL_COTW,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.BILL_COTW,
+                    IsRecommendation = false
+                },
+                new
+                {
+                    Id = (int)COMMITTEE_ACTION_IDS.JRES_AND_AMEND_COTW,
+                    Description = COMMITTEE_ACTION_DESCRIPTIONS.JRES_AND_AMEND_COTW,
+                    IsRecommendation = false
+                }
+            );
+        }
+    }
+}
+
+using EvaAPI.Data.Common;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EvaAPI.Data.Models.Committees.CommitteeReports
+{
+    public class CommitteeReportRollCall : TrackableEntity
+    {
+        public int SessionId { get; set; }
+        public int CommitteeId { get; set; }
+        public int MeetingId { get; set; }
+        public int MemberId { get; set; }
+        public int AgendaItemId { get; set; }
+        public string RollCallVote { get; set; }
+        public DateTime? PublishedDate { get; set; }
+        public DateTime? AddendaDate { get; set; }
+        public string PublishedBy { get; set; }
+        [ForeignKey("AgendaItemId")]
+        public virtual CommitteeReportAgendaItem AgendaItem { get; set; }
+    }
+
+    public static class RollCallVoteTypes
+    {
+        public const string YAY = "Yea";
+        public const string NAY = "Nay";
+        public const string PASS = "Pass";
+        public const string NA = "N/A";
+    }
+}
+
+
+
+-----
+
+attached is the relevent context for a migration i'm doing for a dotnet entity framework api.
+
+What I need to do next is create the post migration script.
+
+What I want you to do is closely analyize all this context. Look at exactly what changed in the migration file. Look at all the tables that are dropped. The goal is to preserve that data. Look at how my pre migration python script gathers all this data and saves it to a json file. 
+
+we will be taking that json file and creating the relevent rows for that data. Please note that the committee reports table is not dropped. so, we can use that table for organizing the data that is in the json file.
+
+committeeReport
+
+   -> agenda items
+
+        -> roll calls
+
+        -> actions
+
+as you can see from the new models. This is the way that the data is now stored.
+
+talk to me do not generate any code I need you to help me brainstorm the creation of the post migration script. This script will take the data that was stored in the json file and create the appropriate rows for that data.
+
+do not generate any code
+
+---- 
+QUESTIONS FROM LLM 
+
+Data Integrity Questions
+
+How will you handle the MeetingDate, MeetingLocation, and MeetingTime fields that were added to CommitteeReport?
+These are copied from the corresponding sharedDB.CommitteeMeeting
+
+Will you retrieve this information from the meeting data in your JSON file, and what happens if this data is incomplete?
+What happens if an agenda item in the old schema was associated with multiple reports? 
+that wouldn't happen because the meetings to reports are one to one 
+
+In the new schema, each CommitteeReportAgendaItem belongs to a single report. 
+Is there a risk of data duplication or loss?
+no?
+
+Have you mapped out all the edge cases for IsPublished flags? 
+For example, what if an item appears in KEY_PUBLISHED_ITEMS but its related actions aren't 
+in KEY_COMMITTEE_REPORT_PUBLISHED_ACTIONS?
+
+Relationship Preservation
+
+In the old schema, did any agenda items have multiple actions? 
+Yes, the old schema CommitteeReportCommitteeActionToAgendaItems table had multiple actions for each agenda item.
+
+How will you ensure the correct sequencing (SortOrder) of these actions in the new schema?
+The new schema has a SortOrder field in CommitteeReportActions. This data comes from 
+CommitteeReportCommitteeActionToAgendaItems
+
+The old schema had CommitteeReportRemovedAgendaItems which you're gathering in your pre-migration script. 
+What's the equivalent in the new schema? How do you plan to handle removed items?
+Removed items are simply removed in the new schema.
+
+
+How will you handle the relationship between CommitteeReportAction and CommitteeReportCommitteeAction tables? 
+The foreign key CommitteeReportAgendaItemActionId points to the CommitteeReportCommitteeAction table, 
+which doesn't appear to be changing.
+This isn't a concern
+
+Data Transformation Challenges
+
+The CommitteeReportPublishedActions and CommitteeReportCommitteeActionToAgendaItems tables had 
+similar but distinct structures. How will you merge these into the single CommitteeReportActions table?
+These are grouped by their old agenad item id. So when we create new actions based on shareddb.CommitteeMeetingAgendaItems
+we will group by the old agenda item id and create a new action for each group. we get the is published from the old
+published actions and the sort order etc. from the old action to agenda items table
+
+The new schema has fields like Prefix and Identifier in CommitteeReportAgendaItem that
+don't appear to exist in the old schema. How will you populate these fields?
+this is a good point. I need to do this. DONE
+
+Roll call data is moving from CommitteeMemberRollCalls to CommitteeReportRollCalls. 
+Is there any transformation needed for the RollCallVote field to match the constants defined in RollCallVoteTypes?
+No
+
+
+
+Technical Implementation Concerns
+
+How will you handle errors during the migration? 
+If one part fails (e.g., creating actions), 
+will you roll back the entire transaction or try to continue?
+if something fails i'll restore the db backup, review the logs, make the nessesary changes, and re-run the migration.
+
+Do you need to handle active sessions differently? 
+For example, if a committee report is in progress when the migration happens?
+no
+
+How will you validate that the migration was successful? Are there specific counts or relationships you should check?
+I will count the rows before and after via sql and verify them against the logs. Also i'm trying to implement
+these scripts in a defensive programming way so that if something is wrong it will throw an error and not run.
+
+Will the migration script need to update any associated lookup tables or views that might reference the old schema?
+no
+
+Process Questions
+
+Since CommitteeReports is staying but getting new columns, 
+will you update it as part of the migration or after creating the child records?
+I'm not sure I understand this question. The CommitteeReports table gets updated with the new columns during the 
+dotnet migration. Then it will get its data updated in the post migration script.
+
+Have you considered the performance implications of this migration?
+Depending on the data volume, you might need to batch the operations.
+No I think it will be fine. I'll quickly count the records in prod
+73 reports in prod. 100 CommitteeReportCommitteeActionToAgendaItems
+We'll be fine
+
+
+If the migration fails halfway through, what's your rollback strategy? 
+Can you easily identify which records were created by the migration versus existing ones?
+Yeah I can tell if I need to but I won't have to I will closely review the logs, roll back the db. 
+make any needed changes to the script, then run the whole process again. 
+The thing is. I'm testing the process, locally, then in an isolated env, then in qa, then demo, then uat, then prod.
+So i have plenty of time to catch any issues.
+
+
+---- 
+Additional Data Transformation Questions
+
+For the CommitteeReportAgendaItem's IsPublished flag - 
+how will you handle cases where an agenda item exists in the meeting but doesn't have an explicit published record?
+Will you default to false?
+This is particularly important since you're now storing this as a direct flag rather than in a separate table.
+When a CommitteeReportAgendaItem is created, it will be set to false. If there is a 
+record for the corresponding CommitteeMeetingAgendaItem.id in the published items table, 
+then it will be set to true. 
+
+What's your strategy for handling CustomRecommendedAction and CustomReportOutAction
+fields from the old schema? 
+These appear to map to CustomRecommendationText and CustomReportOutText in the new schema, 
+but are there any formatting or validation changes needed?
+These will be copied over directly. I don't see any issues with them.
+
+The ActionText and ActionSubText fields in the new CommitteeReportAction table
+- where will this data come from? Will you map this from the CommitteeReportAgendaItemActionId
+reference, or from the old custom text fields?
+this is a good point i need to flesh this out in the pre script.
+ActionText should come from the actions corresponding action in the CommitteeReportCommitteeActions table.
+SubText comes from the old schema CommitteeReportCommitteeActionToAgendaItems.Sub 
+the pre script now saves all the available actions from CommitteeReportCommitteeActions table
+we'll use that to save the ActionText in the new schema.
+We'll use the Sub field from CommitteeReportCommitteeActionToAgendaItems to save the ActionSubText in the new schema.
+
+Migration Process Questions
+
+Since your schema is moving from a relatively flat structure to a more hierarchical one, 
+what's your plan for handling ID generation? 
+Will you create all the CommitteeReportAgendaItems first, 
+save their IDs in a mapping, and then create the related Actions and RollCalls?
+Yes, that's a good plan
+
+How will you handle data synchronization between "published" and "unpublished" 
+versions in the new schema? In the old schema, 
+they were separate tables - now they're unified with flags.
+This is just as straight forward as it sounds. just set is published to true or false as needed.
+
+Have you considered how to handle the "Sub" field from CommitteeReportCommitteeActionToAgendaItems
+in the new schema? It looks like this might map to ActionSubText in the new schema?
+This is correct
+
+System Integration Concerns
+
+Are there any stored procedures, views, or external systems 
+that might be querying the old tables directly? Do they need to be updated as part of this migration?
+no
+
+Are there any triggers or constraints on the new tables that might interfere with your data insertion process?
+Since the CommitteeReportAgendaItem now has LegislationId as a nullable field, 
+do you need to ensure this is correctly populated from the old data?
+Yes, so the pre script grabs the leguislation id and the corresponding Legislation Item this populates the agenda
+items prefix and identifier fields. if legislation id is not null
+
+
+Testing and Validation
+
+Beyond just counting records, do you have a plan to validate the semantic correctness of 
+the migrated data? For example, checking that the right actions are associated with the right agenda items?
+
+Since you mentioned you're testing locally first - do you have a representative 
+dataset that covers all the edge cases? The production environment might have edge cases 
+that don't exist in your test environments.
+Have you written unit tests
+for your post-migration script to verify specific expectations about how the data should be transformed?

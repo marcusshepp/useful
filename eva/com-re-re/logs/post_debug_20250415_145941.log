@@ -1,0 +1,410 @@
+2025-04-15 14:59:41,503 - INFO - Starting post-deployment data restoration
+2025-04-15 14:59:41,543 - INFO - Database connection established
+2025-04-15 14:59:41,557 - INFO - Database connection established
+2025-04-15 14:59:41,558 - INFO - Transaction started
+2025-04-15 14:59:41,561 - INFO - Data loaded from migration_data.json
+2025-04-15 14:59:41,561 - INFO - Found 80 items for committee_reports
+2025-04-15 14:59:41,562 - INFO - Found 80 items for committee_report_ids
+2025-04-15 14:59:41,562 - INFO - Found 12 items for member_roll_calls
+2025-04-15 14:59:41,562 - INFO - Found 5 items for committee_report_published_actions
+2025-04-15 14:59:41,565 - INFO - Found 3 items for published_items
+2025-04-15 14:59:41,565 - INFO - Found 205 items for committee_meeting_agenda_items
+2025-04-15 14:59:41,565 - INFO - Found 5 items for action_to_agenda_items
+2025-04-15 14:59:41,565 - INFO - === PRE-DEPLOYMENT DATA COUNTS (FROM JSON) ===
+2025-04-15 14:59:41,566 - INFO - COMMITTEE_REPORTS: 80
+2025-04-15 14:59:41,566 - INFO - AGENDA_ITEMS: 205
+2025-04-15 14:59:41,566 - INFO - PUBLISHED_AGENDA_ITEMS: 3
+2025-04-15 14:59:41,566 - INFO - ROLL_CALLS: 12
+2025-04-15 14:59:41,567 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-15 14:59:41,567 - INFO - AGENDA_ITEM_ACTIONS: 5
+2025-04-15 14:59:41,567 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 5
+2025-04-15 14:59:41,568 - INFO - REMOVED_AGENDA_ITEMS: 2
+2025-04-15 14:59:41,568 - INFO - LEGISLATION_ITEMS: 134
+2025-04-15 14:59:41,568 - INFO - COMMITTEE_ACTIONS: 21
+2025-04-15 14:59:41,569 - INFO - Loading CommitteeReportCommitteeActions reference data...
+2025-04-15 14:59:41,572 - INFO - Loaded 21 committee actions for reference
+2025-04-15 14:59:41,572 - INFO - Updating CommitteeReports table with meeting details...
+2025-04-15 14:59:41,579 - INFO - Updated CommitteeReport ID 14 with meeting details
+2025-04-15 14:59:41,584 - INFO - Updated CommitteeReport ID 15 with meeting details
+2025-04-15 14:59:41,588 - INFO - Updated CommitteeReport ID 1005 with meeting details
+2025-04-15 14:59:41,592 - INFO - Updated CommitteeReport ID 1006 with meeting details
+2025-04-15 14:59:41,596 - INFO - Updated CommitteeReport ID 1007 with meeting details
+2025-04-15 14:59:41,601 - INFO - Updated CommitteeReport ID 2005 with meeting details
+2025-04-15 14:59:41,606 - INFO - Updated CommitteeReport ID 3005 with meeting details
+2025-04-15 14:59:41,612 - INFO - Updated CommitteeReport ID 3006 with meeting details
+2025-04-15 14:59:41,616 - INFO - Updated CommitteeReport ID 3007 with meeting details
+2025-04-15 14:59:41,621 - INFO - Updated CommitteeReport ID 3008 with meeting details
+2025-04-15 14:59:41,624 - INFO - Updated CommitteeReport ID 3009 with meeting details
+2025-04-15 14:59:41,629 - INFO - Updated CommitteeReport ID 3010 with meeting details
+2025-04-15 14:59:41,635 - INFO - Updated CommitteeReport ID 3011 with meeting details
+2025-04-15 14:59:41,639 - INFO - Updated CommitteeReport ID 3012 with meeting details
+2025-04-15 14:59:41,644 - INFO - Updated CommitteeReport ID 3013 with meeting details
+2025-04-15 14:59:41,648 - INFO - Updated CommitteeReport ID 3014 with meeting details
+2025-04-15 14:59:41,654 - INFO - Updated CommitteeReport ID 3015 with meeting details
+2025-04-15 14:59:41,658 - INFO - Updated CommitteeReport ID 3016 with meeting details
+2025-04-15 14:59:41,665 - INFO - Updated CommitteeReport ID 3017 with meeting details
+2025-04-15 14:59:41,669 - INFO - Updated CommitteeReport ID 3018 with meeting details
+2025-04-15 14:59:41,673 - INFO - Updated CommitteeReport ID 3019 with meeting details
+2025-04-15 14:59:41,677 - INFO - Updated CommitteeReport ID 3020 with meeting details
+2025-04-15 14:59:41,682 - INFO - Updated CommitteeReport ID 3021 with meeting details
+2025-04-15 14:59:41,687 - INFO - Updated CommitteeReport ID 3022 with meeting details
+2025-04-15 14:59:41,692 - INFO - Updated CommitteeReport ID 3023 with meeting details
+2025-04-15 14:59:41,694 - WARNING - No meeting details found for Meeting ID 3665, skipping update
+2025-04-15 14:59:41,695 - WARNING - No meeting details found for Meeting ID 4665, skipping update
+2025-04-15 14:59:41,701 - INFO - Updated CommitteeReport ID 4006 with meeting details
+2025-04-15 14:59:41,706 - INFO - Updated CommitteeReport ID 4007 with meeting details
+2025-04-15 14:59:41,711 - INFO - Updated CommitteeReport ID 4008 with meeting details
+2025-04-15 14:59:41,716 - INFO - Updated CommitteeReport ID 4009 with meeting details
+2025-04-15 14:59:41,722 - INFO - Updated CommitteeReport ID 4010 with meeting details
+2025-04-15 14:59:41,723 - WARNING - No meeting details found for Meeting ID 4667, skipping update
+2025-04-15 14:59:41,728 - INFO - Updated CommitteeReport ID 4012 with meeting details
+2025-04-15 14:59:41,734 - INFO - Updated CommitteeReport ID 4013 with meeting details
+2025-04-15 14:59:41,738 - INFO - Updated CommitteeReport ID 4014 with meeting details
+2025-04-15 14:59:41,744 - INFO - Updated CommitteeReport ID 4015 with meeting details
+2025-04-15 14:59:41,745 - WARNING - No meeting details found for Meeting ID 4670, skipping update
+2025-04-15 14:59:41,747 - WARNING - No meeting details found for Meeting ID 4668, skipping update
+2025-04-15 14:59:41,748 - WARNING - No meeting details found for Meeting ID 4669, skipping update
+2025-04-15 14:59:41,753 - INFO - Updated CommitteeReport ID 4019 with meeting details
+2025-04-15 14:59:41,757 - INFO - Updated CommitteeReport ID 4020 with meeting details
+2025-04-15 14:59:41,762 - INFO - Updated CommitteeReport ID 5016 with meeting details
+2025-04-15 14:59:41,767 - INFO - Updated CommitteeReport ID 6016 with meeting details
+2025-04-15 14:59:41,772 - INFO - Updated CommitteeReport ID 6017 with meeting details
+2025-04-15 14:59:41,776 - INFO - Updated CommitteeReport ID 6018 with meeting details
+2025-04-15 14:59:41,779 - INFO - Updated CommitteeReport ID 7016 with meeting details
+2025-04-15 14:59:41,784 - INFO - Updated CommitteeReport ID 7017 with meeting details
+2025-04-15 14:59:41,788 - INFO - Updated CommitteeReport ID 7018 with meeting details
+2025-04-15 14:59:41,792 - INFO - Updated CommitteeReport ID 7019 with meeting details
+2025-04-15 14:59:41,797 - INFO - Updated CommitteeReport ID 8016 with meeting details
+2025-04-15 14:59:41,802 - INFO - Updated CommitteeReport ID 9016 with meeting details
+2025-04-15 14:59:41,805 - INFO - Updated CommitteeReport ID 10016 with meeting details
+2025-04-15 14:59:41,809 - INFO - Updated CommitteeReport ID 10017 with meeting details
+2025-04-15 14:59:41,813 - INFO - Updated CommitteeReport ID 10018 with meeting details
+2025-04-15 14:59:41,818 - INFO - Updated CommitteeReport ID 10019 with meeting details
+2025-04-15 14:59:41,824 - INFO - Updated CommitteeReport ID 10020 with meeting details
+2025-04-15 14:59:41,828 - INFO - Updated CommitteeReport ID 10021 with meeting details
+2025-04-15 14:59:41,833 - INFO - Updated CommitteeReport ID 10022 with meeting details
+2025-04-15 14:59:41,837 - INFO - Updated CommitteeReport ID 10023 with meeting details
+2025-04-15 14:59:41,841 - INFO - Updated CommitteeReport ID 10024 with meeting details
+2025-04-15 14:59:41,845 - INFO - Updated CommitteeReport ID 10025 with meeting details
+2025-04-15 14:59:41,851 - INFO - Updated CommitteeReport ID 10026 with meeting details
+2025-04-15 14:59:41,855 - INFO - Updated CommitteeReport ID 11025 with meeting details
+2025-04-15 14:59:41,858 - INFO - Updated CommitteeReport ID 11026 with meeting details
+2025-04-15 14:59:41,867 - INFO - Updated CommitteeReport ID 12025 with meeting details
+2025-04-15 14:59:41,873 - INFO - Updated CommitteeReport ID 12026 with meeting details
+2025-04-15 14:59:41,878 - INFO - Updated CommitteeReport ID 13025 with meeting details
+2025-04-15 14:59:41,883 - INFO - Updated CommitteeReport ID 13026 with meeting details
+2025-04-15 14:59:41,888 - INFO - Updated CommitteeReport ID 13027 with meeting details
+2025-04-15 14:59:41,894 - INFO - Updated CommitteeReport ID 13028 with meeting details
+2025-04-15 14:59:41,900 - INFO - Updated CommitteeReport ID 13029 with meeting details
+2025-04-15 14:59:41,907 - INFO - Updated CommitteeReport ID 14025 with meeting details
+2025-04-15 14:59:41,913 - INFO - Updated CommitteeReport ID 14026 with meeting details
+2025-04-15 14:59:41,917 - INFO - Updated CommitteeReport ID 14027 with meeting details
+2025-04-15 14:59:41,923 - INFO - Updated CommitteeReport ID 14028 with meeting details
+2025-04-15 14:59:41,928 - INFO - Updated CommitteeReport ID 14029 with meeting details
+2025-04-15 14:59:41,935 - INFO - Updated CommitteeReport ID 14030 with meeting details
+2025-04-15 14:59:41,939 - INFO - Updated CommitteeReport ID 14031 with meeting details
+2025-04-15 14:59:41,945 - INFO - Updated CommitteeReport ID 14032 with meeting details
+2025-04-15 14:59:41,945 - INFO - Updated 74 committee reports with meeting details
+2025-04-15 14:59:41,946 - INFO - Inserting data into CommitteeReportAgendaItems...
+2025-04-15 14:59:41,946 - INFO - Creating set of published agenda item IDs...
+2025-04-15 14:59:41,946 - INFO - Found 3 published agenda item IDs
+2025-04-15 14:59:41,952 - WARNING - Failed to get new ID for agenda item 4398
+2025-04-15 14:59:41,955 - WARNING - Failed to get new ID for agenda item 4399
+2025-04-15 14:59:41,957 - WARNING - Failed to get new ID for agenda item 4400
+2025-04-15 14:59:41,961 - WARNING - Failed to get new ID for agenda item 4401
+2025-04-15 14:59:41,964 - WARNING - Failed to get new ID for agenda item 4402
+2025-04-15 14:59:41,968 - WARNING - Failed to get new ID for agenda item 14774
+2025-04-15 14:59:41,973 - WARNING - Failed to get new ID for agenda item 5824
+2025-04-15 14:59:41,976 - WARNING - Failed to get new ID for agenda item 5825
+2025-04-15 14:59:41,979 - WARNING - Failed to get new ID for agenda item 5826
+2025-04-15 14:59:41,982 - WARNING - Failed to get new ID for agenda item 9152
+2025-04-15 14:59:41,982 - WARNING - No agenda items found for Meeting ID 934, skipping report 1007
+2025-04-15 14:59:41,985 - WARNING - Failed to get new ID for agenda item 5830
+2025-04-15 14:59:41,989 - WARNING - Failed to get new ID for agenda item 5831
+2025-04-15 14:59:41,992 - WARNING - Failed to get new ID for agenda item 3403
+2025-04-15 14:59:41,993 - WARNING - Failed to get new ID for agenda item 3404
+2025-04-15 14:59:41,995 - WARNING - Failed to get new ID for agenda item 3405
+2025-04-15 14:59:41,998 - WARNING - Failed to get new ID for agenda item 3406
+2025-04-15 14:59:42,001 - WARNING - Failed to get new ID for agenda item 3487
+2025-04-15 14:59:42,003 - WARNING - Failed to get new ID for agenda item 3488
+2025-04-15 14:59:42,006 - WARNING - Failed to get new ID for agenda item 5796
+2025-04-15 14:59:42,008 - WARNING - Failed to get new ID for agenda item 5797
+2025-04-15 14:59:42,010 - WARNING - Failed to get new ID for agenda item 5798
+2025-04-15 14:59:42,012 - WARNING - Failed to get new ID for agenda item 5799
+2025-04-15 14:59:42,015 - WARNING - Failed to get new ID for agenda item 5800
+2025-04-15 14:59:42,017 - WARNING - Failed to get new ID for agenda item 5801
+2025-04-15 14:59:42,019 - WARNING - Failed to get new ID for agenda item 3374
+2025-04-15 14:59:42,021 - WARNING - Failed to get new ID for agenda item 3375
+2025-04-15 14:59:42,023 - WARNING - Failed to get new ID for agenda item 3376
+2025-04-15 14:59:42,025 - WARNING - Failed to get new ID for agenda item 3377
+2025-04-15 14:59:42,027 - WARNING - Failed to get new ID for agenda item 3378
+2025-04-15 14:59:42,029 - WARNING - Failed to get new ID for agenda item 3379
+2025-04-15 14:59:42,033 - WARNING - Failed to get new ID for agenda item 3380
+2025-04-15 14:59:42,033 - WARNING - No agenda items found for Meeting ID 1268, skipping report 3009
+2025-04-15 14:59:42,035 - WARNING - Failed to get new ID for agenda item 4392
+2025-04-15 14:59:42,038 - WARNING - Failed to get new ID for agenda item 4393
+2025-04-15 14:59:42,041 - WARNING - Failed to get new ID for agenda item 4394
+2025-04-15 14:59:42,042 - WARNING - Failed to get new ID for agenda item 4395
+2025-04-15 14:59:42,045 - WARNING - Failed to get new ID for agenda item 4396
+2025-04-15 14:59:42,047 - WARNING - Failed to get new ID for agenda item 4397
+2025-04-15 14:59:42,048 - WARNING - Failed to get new ID for agenda item 15774
+2025-04-15 14:59:42,048 - WARNING - No agenda items found for Meeting ID 1280, skipping report 3011
+2025-04-15 14:59:42,050 - WARNING - Failed to get new ID for agenda item 4373
+2025-04-15 14:59:42,053 - WARNING - Failed to get new ID for agenda item 4374
+2025-04-15 14:59:42,055 - WARNING - Failed to get new ID for agenda item 4375
+2025-04-15 14:59:42,056 - WARNING - Failed to get new ID for agenda item 4376
+2025-04-15 14:59:42,059 - WARNING - Failed to get new ID for agenda item 4421
+2025-04-15 14:59:42,062 - WARNING - Failed to get new ID for agenda item 4422
+2025-04-15 14:59:42,065 - WARNING - Failed to get new ID for agenda item 4423
+2025-04-15 14:59:42,068 - WARNING - Failed to get new ID for agenda item 4424
+2025-04-15 14:59:42,070 - WARNING - Failed to get new ID for agenda item 4425
+2025-04-15 14:59:42,072 - WARNING - Failed to get new ID for agenda item 4426
+2025-04-15 14:59:42,074 - WARNING - Failed to get new ID for agenda item 4349
+2025-04-15 14:59:42,077 - WARNING - Failed to get new ID for agenda item 4350
+2025-04-15 14:59:42,078 - WARNING - Failed to get new ID for agenda item 4351
+2025-04-15 14:59:42,080 - WARNING - Failed to get new ID for agenda item 4352
+2025-04-15 14:59:42,081 - WARNING - Failed to get new ID for agenda item 4358
+2025-04-15 14:59:42,083 - WARNING - Failed to get new ID for agenda item 4359
+2025-04-15 14:59:42,086 - WARNING - Failed to get new ID for agenda item 4360
+2025-04-15 14:59:42,088 - WARNING - Failed to get new ID for agenda item 4361
+2025-04-15 14:59:42,091 - WARNING - Failed to get new ID for agenda item 4362
+2025-04-15 14:59:42,093 - WARNING - Failed to get new ID for agenda item 4405
+2025-04-15 14:59:42,096 - WARNING - Failed to get new ID for agenda item 4406
+2025-04-15 14:59:42,098 - WARNING - Failed to get new ID for agenda item 4407
+2025-04-15 14:59:42,099 - WARNING - Failed to get new ID for agenda item 4408
+2025-04-15 14:59:42,100 - WARNING - Failed to get new ID for agenda item 4409
+2025-04-15 14:59:42,101 - WARNING - Failed to get new ID for agenda item 4410
+2025-04-15 14:59:42,102 - WARNING - Failed to get new ID for agenda item 4411
+2025-04-15 14:59:42,104 - WARNING - Failed to get new ID for agenda item 4412
+2025-04-15 14:59:42,107 - WARNING - Failed to get new ID for agenda item 4413
+2025-04-15 14:59:42,109 - WARNING - Failed to get new ID for agenda item 4414
+2025-04-15 14:59:42,111 - WARNING - Failed to get new ID for agenda item 4415
+2025-04-15 14:59:42,114 - WARNING - Failed to get new ID for agenda item 4416
+2025-04-15 14:59:42,117 - WARNING - Failed to get new ID for agenda item 4384
+2025-04-15 14:59:42,120 - WARNING - Failed to get new ID for agenda item 4385
+2025-04-15 14:59:42,122 - WARNING - Failed to get new ID for agenda item 4386
+2025-04-15 14:59:42,124 - WARNING - Failed to get new ID for agenda item 4387
+2025-04-15 14:59:42,127 - WARNING - Failed to get new ID for agenda item 4388
+2025-04-15 14:59:42,130 - WARNING - Failed to get new ID for agenda item 4389
+2025-04-15 14:59:42,131 - WARNING - Failed to get new ID for agenda item 4458
+2025-04-15 14:59:42,133 - WARNING - Failed to get new ID for agenda item 4459
+2025-04-15 14:59:42,136 - WARNING - Failed to get new ID for agenda item 4345
+2025-04-15 14:59:42,139 - WARNING - Failed to get new ID for agenda item 4346
+2025-04-15 14:59:42,141 - WARNING - Failed to get new ID for agenda item 4347
+2025-04-15 14:59:42,145 - WARNING - Failed to get new ID for agenda item 3654
+2025-04-15 14:59:42,146 - WARNING - Failed to get new ID for agenda item 3655
+2025-04-15 14:59:42,149 - WARNING - Failed to get new ID for agenda item 4365
+2025-04-15 14:59:42,152 - WARNING - Failed to get new ID for agenda item 4366
+2025-04-15 14:59:42,154 - WARNING - Failed to get new ID for agenda item 4367
+2025-04-15 14:59:42,156 - WARNING - Failed to get new ID for agenda item 4368
+2025-04-15 14:59:42,157 - WARNING - Failed to get new ID for agenda item 4369
+2025-04-15 14:59:42,158 - WARNING - Failed to get new ID for agenda item 4370
+2025-04-15 14:59:42,159 - WARNING - Failed to get new ID for agenda item 4371
+2025-04-15 14:59:42,160 - WARNING - Failed to get new ID for agenda item 4372
+2025-04-15 14:59:42,161 - WARNING - Failed to get new ID for agenda item 4438
+2025-04-15 14:59:42,163 - WARNING - Failed to get new ID for agenda item 4439
+2025-04-15 14:59:42,164 - WARNING - Failed to get new ID for agenda item 4440
+2025-04-15 14:59:42,167 - WARNING - Failed to get new ID for agenda item 4441
+2025-04-15 14:59:42,170 - WARNING - Failed to get new ID for agenda item 4442
+2025-04-15 14:59:42,173 - WARNING - Failed to get new ID for agenda item 4443
+2025-04-15 14:59:42,175 - WARNING - Failed to get new ID for agenda item 4444
+2025-04-15 14:59:42,175 - WARNING - No agenda items found for Meeting ID 3665, skipping report 3024
+2025-04-15 14:59:42,175 - WARNING - No agenda items found for Meeting ID 4665, skipping report 4005
+2025-04-15 14:59:42,177 - WARNING - Failed to get new ID for agenda item 3407
+2025-04-15 14:59:42,180 - WARNING - Failed to get new ID for agenda item 3408
+2025-04-15 14:59:42,182 - WARNING - Failed to get new ID for agenda item 3409
+2025-04-15 14:59:42,185 - WARNING - Failed to get new ID for agenda item 3410
+2025-04-15 14:59:42,187 - WARNING - Failed to get new ID for agenda item 3411
+2025-04-15 14:59:42,190 - WARNING - Failed to get new ID for agenda item 3412
+2025-04-15 14:59:42,194 - WARNING - Failed to get new ID for agenda item 3430
+2025-04-15 14:59:42,197 - WARNING - Failed to get new ID for agenda item 3431
+2025-04-15 14:59:42,200 - WARNING - Failed to get new ID for agenda item 3432
+2025-04-15 14:59:42,202 - WARNING - Failed to get new ID for agenda item 3433
+2025-04-15 14:59:42,204 - WARNING - Failed to get new ID for agenda item 3434
+2025-04-15 14:59:42,206 - WARNING - Failed to get new ID for agenda item 3435
+2025-04-15 14:59:42,208 - WARNING - Failed to get new ID for agenda item 3436
+2025-04-15 14:59:42,211 - WARNING - Failed to get new ID for agenda item 3437
+2025-04-15 14:59:42,213 - WARNING - Failed to get new ID for agenda item 3438
+2025-04-15 14:59:42,216 - WARNING - Failed to get new ID for agenda item 3439
+2025-04-15 14:59:42,219 - WARNING - Failed to get new ID for agenda item 3440
+2025-04-15 14:59:42,221 - WARNING - Failed to get new ID for agenda item 3441
+2025-04-15 14:59:42,223 - WARNING - Failed to get new ID for agenda item 3442
+2025-04-15 14:59:42,225 - WARNING - Failed to get new ID for agenda item 3443
+2025-04-15 14:59:42,227 - WARNING - Failed to get new ID for agenda item 3444
+2025-04-15 14:59:42,230 - WARNING - Failed to get new ID for agenda item 3445
+2025-04-15 14:59:42,233 - WARNING - Failed to get new ID for agenda item 3446
+2025-04-15 14:59:42,234 - WARNING - Failed to get new ID for agenda item 3447
+2025-04-15 14:59:42,235 - WARNING - Failed to get new ID for agenda item 3461
+2025-04-15 14:59:42,237 - WARNING - Failed to get new ID for agenda item 3471
+2025-04-15 14:59:42,239 - WARNING - Failed to get new ID for agenda item 3472
+2025-04-15 14:59:42,241 - WARNING - Failed to get new ID for agenda item 3473
+2025-04-15 14:59:42,243 - WARNING - Failed to get new ID for agenda item 3474
+2025-04-15 14:59:42,246 - WARNING - Failed to get new ID for agenda item 3475
+2025-04-15 14:59:42,249 - WARNING - Failed to get new ID for agenda item 3476
+2025-04-15 14:59:42,252 - WARNING - Failed to get new ID for agenda item 3477
+2025-04-15 14:59:42,254 - WARNING - Failed to get new ID for agenda item 3467
+2025-04-15 14:59:42,256 - WARNING - Failed to get new ID for agenda item 3468
+2025-04-15 14:59:42,258 - WARNING - Failed to get new ID for agenda item 3469
+2025-04-15 14:59:42,261 - WARNING - Failed to get new ID for agenda item 3470
+2025-04-15 14:59:42,262 - WARNING - No agenda items found for Meeting ID 4667, skipping report 4011
+2025-04-15 14:59:42,263 - WARNING - Failed to get new ID for agenda item 3382
+2025-04-15 14:59:42,264 - WARNING - Failed to get new ID for agenda item 3383
+2025-04-15 14:59:42,265 - WARNING - Failed to get new ID for agenda item 3384
+2025-04-15 14:59:42,266 - WARNING - Failed to get new ID for agenda item 3385
+2025-04-15 14:59:42,268 - WARNING - Failed to get new ID for agenda item 3386
+2025-04-15 14:59:42,271 - WARNING - Failed to get new ID for agenda item 3387
+2025-04-15 14:59:42,272 - WARNING - Failed to get new ID for agenda item 3451
+2025-04-15 14:59:42,275 - WARNING - Failed to get new ID for agenda item 3452
+2025-04-15 14:59:42,279 - WARNING - Failed to get new ID for agenda item 3418
+2025-04-15 14:59:42,280 - WARNING - Failed to get new ID for agenda item 3413
+2025-04-15 14:59:42,282 - WARNING - Failed to get new ID for agenda item 3414
+2025-04-15 14:59:42,284 - WARNING - Failed to get new ID for agenda item 3415
+2025-04-15 14:59:42,285 - WARNING - Failed to get new ID for agenda item 3416
+2025-04-15 14:59:42,285 - WARNING - No agenda items found for Meeting ID 4670, skipping report 4016
+2025-04-15 14:59:42,286 - WARNING - No agenda items found for Meeting ID 4668, skipping report 4017
+2025-04-15 14:59:42,286 - WARNING - No agenda items found for Meeting ID 4669, skipping report 4018
+2025-04-15 14:59:42,286 - WARNING - No agenda items found for Meeting ID 937, skipping report 4019
+2025-04-15 14:59:42,288 - WARNING - Failed to get new ID for agenda item 3460
+2025-04-15 14:59:42,290 - WARNING - Failed to get new ID for agenda item 3293
+2025-04-15 14:59:42,292 - WARNING - Failed to get new ID for agenda item 3294
+2025-04-15 14:59:42,295 - WARNING - Failed to get new ID for agenda item 3295
+2025-04-15 14:59:42,298 - WARNING - Failed to get new ID for agenda item 10774
+2025-04-15 14:59:42,300 - WARNING - Failed to get new ID for agenda item 10775
+2025-04-15 14:59:42,302 - WARNING - Failed to get new ID for agenda item 10782
+2025-04-15 14:59:42,303 - WARNING - Failed to get new ID for agenda item 9438
+2025-04-15 14:59:42,305 - WARNING - Failed to get new ID for agenda item 9439
+2025-04-15 14:59:42,306 - WARNING - Failed to get new ID for agenda item 10780
+2025-04-15 14:59:42,308 - WARNING - Failed to get new ID for agenda item 11774
+2025-04-15 14:59:42,310 - WARNING - Failed to get new ID for agenda item 11775
+2025-04-15 14:59:42,312 - WARNING - Failed to get new ID for agenda item 11776
+2025-04-15 14:59:42,313 - WARNING - Failed to get new ID for agenda item 11777
+2025-04-15 14:59:42,314 - WARNING - Failed to get new ID for agenda item 11778
+2025-04-15 14:59:42,315 - WARNING - Failed to get new ID for agenda item 3399
+2025-04-15 14:59:42,318 - WARNING - Failed to get new ID for agenda item 3400
+2025-04-15 14:59:42,320 - WARNING - Failed to get new ID for agenda item 3401
+2025-04-15 14:59:42,323 - WARNING - Failed to get new ID for agenda item 3402
+2025-04-15 14:59:42,324 - WARNING - Failed to get new ID for agenda item 10783
+2025-04-15 14:59:42,325 - WARNING - Failed to get new ID for agenda item 10784
+2025-04-15 14:59:42,326 - WARNING - Failed to get new ID for agenda item 10785
+2025-04-15 14:59:42,327 - WARNING - Failed to get new ID for agenda item 11779
+2025-04-15 14:59:42,328 - WARNING - Failed to get new ID for agenda item 11780
+2025-04-15 14:59:42,330 - WARNING - Failed to get new ID for agenda item 12776
+2025-04-15 14:59:42,331 - WARNING - Failed to get new ID for agenda item 12781
+2025-04-15 14:59:42,333 - WARNING - Failed to get new ID for agenda item 12782
+2025-04-15 14:59:42,335 - WARNING - Failed to get new ID for agenda item 12783
+2025-04-15 14:59:42,336 - WARNING - Failed to get new ID for agenda item 12784
+2025-04-15 14:59:42,337 - WARNING - Failed to get new ID for agenda item 12786
+2025-04-15 14:59:42,338 - WARNING - Failed to get new ID for agenda item 12787
+2025-04-15 14:59:42,339 - WARNING - Failed to get new ID for agenda item 12788
+2025-04-15 14:59:42,340 - WARNING - Failed to get new ID for agenda item 12789
+2025-04-15 14:59:42,343 - WARNING - Failed to get new ID for agenda item 3355
+2025-04-15 14:59:42,346 - WARNING - Failed to get new ID for agenda item 3356
+2025-04-15 14:59:42,348 - WARNING - Failed to get new ID for agenda item 3357
+2025-04-15 14:59:42,350 - WARNING - Failed to get new ID for agenda item 3358
+2025-04-15 14:59:42,352 - WARNING - Failed to get new ID for agenda item 4194
+2025-04-15 14:59:42,354 - WARNING - Failed to get new ID for agenda item 4195
+2025-04-15 14:59:42,356 - WARNING - Failed to get new ID for agenda item 4196
+2025-04-15 14:59:42,360 - WARNING - Failed to get new ID for agenda item 4197
+2025-04-15 14:59:42,363 - WARNING - Failed to get new ID for agenda item 4198
+2025-04-15 14:59:42,364 - WARNING - Failed to get new ID for agenda item 4199
+2025-04-15 14:59:42,368 - WARNING - Failed to get new ID for agenda item 4200
+2025-04-15 14:59:42,370 - WARNING - Failed to get new ID for agenda item 4201
+2025-04-15 14:59:42,373 - WARNING - Failed to get new ID for agenda item 4202
+2025-04-15 14:59:42,375 - WARNING - Failed to get new ID for agenda item 14774
+2025-04-15 14:59:42,376 - WARNING - Failed to get new ID for agenda item 4398
+2025-04-15 14:59:42,377 - WARNING - Failed to get new ID for agenda item 4399
+2025-04-15 14:59:42,378 - WARNING - Failed to get new ID for agenda item 4400
+2025-04-15 14:59:42,379 - WARNING - Failed to get new ID for agenda item 4401
+2025-04-15 14:59:42,380 - WARNING - Failed to get new ID for agenda item 4402
+2025-04-15 14:59:42,381 - WARNING - Failed to get new ID for agenda item 4373
+2025-04-15 14:59:42,382 - WARNING - Failed to get new ID for agenda item 4374
+2025-04-15 14:59:42,383 - WARNING - Failed to get new ID for agenda item 4375
+2025-04-15 14:59:42,384 - WARNING - Failed to get new ID for agenda item 4376
+2025-04-15 14:59:42,386 - WARNING - Failed to get new ID for agenda item 4392
+2025-04-15 14:59:42,387 - WARNING - Failed to get new ID for agenda item 4393
+2025-04-15 14:59:42,388 - WARNING - Failed to get new ID for agenda item 4394
+2025-04-15 14:59:42,389 - WARNING - Failed to get new ID for agenda item 4395
+2025-04-15 14:59:42,391 - WARNING - Failed to get new ID for agenda item 4396
+2025-04-15 14:59:42,392 - WARNING - Failed to get new ID for agenda item 4397
+2025-04-15 14:59:42,394 - WARNING - Failed to get new ID for agenda item 15774
+2025-04-15 14:59:42,397 - WARNING - Failed to get new ID for agenda item 4446
+2025-04-15 14:59:42,399 - WARNING - Failed to get new ID for agenda item 4447
+2025-04-15 14:59:42,401 - WARNING - Failed to get new ID for agenda item 14774
+2025-04-15 14:59:42,404 - WARNING - Failed to get new ID for agenda item 4301
+2025-04-15 14:59:42,406 - WARNING - Failed to get new ID for agenda item 4296
+2025-04-15 14:59:42,408 - WARNING - Failed to get new ID for agenda item 4304
+2025-04-15 14:59:42,409 - WARNING - Failed to get new ID for agenda item 4349
+2025-04-15 14:59:42,411 - WARNING - Failed to get new ID for agenda item 4350
+2025-04-15 14:59:42,412 - WARNING - Failed to get new ID for agenda item 4351
+2025-04-15 14:59:42,413 - WARNING - Failed to get new ID for agenda item 4352
+2025-04-15 14:59:42,413 - WARNING - No agenda items found for Meeting ID 1280, skipping report 10026
+2025-04-15 14:59:42,416 - WARNING - Failed to get new ID for agenda item 4299
+2025-04-15 14:59:42,419 - WARNING - Failed to get new ID for agenda item 4300
+2025-04-15 14:59:42,419 - WARNING - No agenda items found for Meeting ID 1268, skipping report 11026
+2025-04-15 14:59:42,420 - WARNING - Failed to get new ID for agenda item 16774
+2025-04-15 14:59:42,420 - WARNING - No agenda items found for Meeting ID 7976, skipping report 12026
+2025-04-15 14:59:42,420 - WARNING - No agenda items found for Meeting ID 7976, skipping report 13025
+2025-04-15 14:59:42,422 - WARNING - Failed to get new ID for agenda item 16774
+2025-04-15 14:59:42,422 - WARNING - No agenda items found for Meeting ID 8975, skipping report 13027
+2025-04-15 14:59:42,422 - WARNING - No agenda items found for Meeting ID 8976, skipping report 13028
+2025-04-15 14:59:42,422 - WARNING - No agenda items found for Meeting ID 8977, skipping report 13029
+2025-04-15 14:59:42,422 - WARNING - No agenda items found for Meeting ID 8975, skipping report 14025
+2025-04-15 14:59:42,422 - WARNING - No agenda items found for Meeting ID 8976, skipping report 14026
+2025-04-15 14:59:42,422 - WARNING - No agenda items found for Meeting ID 8977, skipping report 14027
+2025-04-15 14:59:42,423 - WARNING - Failed to get new ID for agenda item 18774
+2025-04-15 14:59:42,424 - WARNING - Failed to get new ID for agenda item 18775
+2025-04-15 14:59:42,427 - WARNING - Failed to get new ID for agenda item 18776
+2025-04-15 14:59:42,427 - WARNING - No agenda items found for Meeting ID 9975, skipping report 14029
+2025-04-15 14:59:42,430 - WARNING - Failed to get new ID for agenda item 17778
+2025-04-15 14:59:42,430 - WARNING - No agenda items found for Meeting ID 9979, skipping report 14031
+2025-04-15 14:59:42,432 - WARNING - Failed to get new ID for agenda item 17782
+2025-04-15 14:59:42,432 - INFO - Inserted 0 agenda items (0 published)
+2025-04-15 14:59:42,432 - INFO - Inserting data into CommitteeReportActions...
+2025-04-15 14:59:42,432 - WARNING - No mapping found for agenda item ID 18774, skipping its actions
+2025-04-15 14:59:42,432 - WARNING - No mapping found for agenda item ID 18776, skipping its actions
+2025-04-15 14:59:42,433 - INFO - Inserted 0 actions (0 published)
+2025-04-15 14:59:42,433 - INFO - Inserting data into CommitteeReportRollCalls...
+2025-04-15 14:59:42,433 - WARNING - No mapping found for agenda item ID 18774, skipping its roll call
+2025-04-15 14:59:42,433 - WARNING - No mapping found for agenda item ID 18774, skipping its roll call
+2025-04-15 14:59:42,433 - WARNING - No mapping found for agenda item ID 18774, skipping its roll call
+2025-04-15 14:59:42,433 - WARNING - No mapping found for agenda item ID 18775, skipping its roll call
+2025-04-15 14:59:42,433 - WARNING - No mapping found for agenda item ID 18775, skipping its roll call
+2025-04-15 14:59:42,434 - WARNING - No mapping found for agenda item ID 18775, skipping its roll call
+2025-04-15 14:59:42,434 - WARNING - No mapping found for agenda item ID 18776, skipping its roll call
+2025-04-15 14:59:42,434 - WARNING - No mapping found for agenda item ID 18776, skipping its roll call
+2025-04-15 14:59:42,434 - WARNING - No mapping found for agenda item ID 18776, skipping its roll call
+2025-04-15 14:59:42,434 - WARNING - No mapping found for agenda item ID 17778, skipping its roll call
+2025-04-15 14:59:42,434 - WARNING - No mapping found for agenda item ID 17778, skipping its roll call
+2025-04-15 14:59:42,435 - WARNING - No mapping found for agenda item ID 17778, skipping its roll call
+2025-04-15 14:59:42,435 - INFO - Inserted 0 roll calls (0 published)
+2025-04-15 14:59:42,439 - INFO - Transaction committed
+2025-04-15 14:59:42,440 - INFO - === POST-DEPLOYMENT DATA COUNTS ===
+2025-04-15 14:59:42,440 - INFO - COMMITTEE_REPORTS: 74
+2025-04-15 14:59:42,440 - INFO - AGENDA_ITEMS: 0
+2025-04-15 14:59:42,440 - INFO - PUBLISHED_AGENDA_ITEMS: 0
+2025-04-15 14:59:42,440 - INFO - ROLL_CALLS: 0
+2025-04-15 14:59:42,440 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-15 14:59:42,440 - INFO - AGENDA_ITEM_ACTIONS: 0
+2025-04-15 14:59:42,441 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 0
+2025-04-15 14:59:42,441 - INFO - REMOVED_AGENDA_ITEMS: 0
+2025-04-15 14:59:42,441 - INFO - === DATA MIGRATION COMPARISON (POST vs PRE) ===
+2025-04-15 14:59:42,441 - INFO - COMMITTEE_REPORTS: PRE=80, POST=74, DIFF=-6 - MISMATCH
+2025-04-15 14:59:42,441 - WARNING - Count mismatch for committee_reports: expected 80, got 74
+2025-04-15 14:59:42,441 - INFO - AGENDA_ITEMS: PRE=205, POST=0, DIFF=-205 - MISMATCH
+2025-04-15 14:59:42,441 - WARNING - Count mismatch for agenda_items: expected 205, got 0
+2025-04-15 14:59:42,441 - INFO - PUBLISHED_AGENDA_ITEMS: PRE=3, POST=0, DIFF=-3 - MISMATCH
+2025-04-15 14:59:42,441 - WARNING - Count mismatch for published_agenda_items: expected 3, got 0
+2025-04-15 14:59:42,442 - INFO - ROLL_CALLS: PRE=12, POST=0, DIFF=-12 - MISMATCH
+2025-04-15 14:59:42,442 - WARNING - Count mismatch for roll_calls: expected 12, got 0
+2025-04-15 14:59:42,442 - INFO - PUBLISHED_ROLL_CALLS: PRE=0, POST=0, DIFF=0 - MATCHED
+2025-04-15 14:59:42,442 - INFO - AGENDA_ITEM_ACTIONS: PRE=5, POST=0, DIFF=-5 - MISMATCH
+2025-04-15 14:59:42,442 - WARNING - Count mismatch for agenda_item_actions: expected 5, got 0
+2025-04-15 14:59:42,442 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: PRE=5, POST=0, DIFF=-5 - MISMATCH
+2025-04-15 14:59:42,442 - WARNING - Count mismatch for published_agenda_item_actions: expected 5, got 0
+2025-04-15 14:59:42,443 - INFO - REMOVED_AGENDA_ITEMS: PRE=2, POST=0, DIFF=-2 - MISMATCH
+2025-04-15 14:59:42,443 - WARNING - Count mismatch for removed_agenda_items: expected 2, got 0
+2025-04-15 14:59:42,443 - INFO - TOTAL RECORDS: PRE=312, POST=74, DIFF=-238
+2025-04-15 14:59:42,443 - INFO - All data restored successfully
+2025-04-15 14:59:42,444 - INFO - Database connection closed
+2025-04-15 14:59:42,446 - INFO - Database connection closed
+2025-04-15 14:59:42,446 - INFO - Post-deployment data restoration completed successfully

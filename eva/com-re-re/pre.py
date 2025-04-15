@@ -8,6 +8,7 @@ from typing import Dict, List, Any, Optional, Tuple, Set
 import pyodbc
 from dotenv import load_dotenv
 # from pprint import pprint
+import queries
 
 load_dotenv()
 
@@ -19,6 +20,9 @@ KEY_COMMITTEE_REPORT_PUBLISHED_ACTIONS = "committee_report_published_actions"
 KEY_PUBLISHED_ITEMS = "published_items"
 KEY_COMMITTEE_MEETING_AGENDA_ITEMS = "committee_meeting_agenda_items"
 KEY_ACTION_TO_AGENDA_ITEMS = "action_to_agenda_items"
+KEY_REMOVED_AGENDA_ITEMS = "removed_agenda_items"
+KEY_LEGISLATION_ITEMS = "legislation_items"
+KEY_COMMITTEE_ACTIONS = "committee_actions"
 
 # Count keys
 COUNT_COMMITTEE_REPORTS = "committee_reports"
@@ -28,65 +32,9 @@ COUNT_ROLL_CALLS = "roll_calls"
 COUNT_PUBLISHED_ROLL_CALLS = "published_roll_calls"
 COUNT_AGENDA_ITEM_ACTIONS = "agenda_item_actions"
 COUNT_PUBLISHED_AGENDA_ITEM_ACTIONS = "published_agenda_item_actions"
-
-"""
-I'm thinking I should set up a select data routine first. This will analyze the data
-and count everything.
-
-what is all the data that I need to select for the pre-deployment?
-
-- Committee reports
-  * need to worry about meeting date / whatever else i'm 'saving' a query on 
-
-- CommitteeReportCommitteeActionToAgendaItems
-  * these should have all the custom actions and custom agenda items
-
-- CommitteeMeetinAgendaItems where 
-CommitteeReportCommitteeActionToAgendaItems.AgendaItemid = CommitteeMeetingAgendaItems.AgendaItemId
-
-- I believe I can just ignore RemovedAgendaItems all together.
-
-- group all CommitteeReportCommitteeActionToAgendaItems by agenda id 
-  * ea group will have a agenda item id and many action ids
-  * copy over the sub text
-
-- one difference not accounted for in the document:
-    * the custom items previously were tracking both the recommended custom action
-    and the reported out custom action, on the CommitteeReportCommitteeActionToAgendaItems table
-    in the same row.
-    * not the custom actions are tracked the exact same way the legislative item actions
-    are tracked, with the CommitteeReportActions table. This allows the user to have as many custom action
-    as they want
-
-- NOTE: Might be best to create a CommitteeReportAgendaItem for every CommitteeMeetingAgendaItem
-    * for every CommitteeMeetingAgendaItems that have a meeting that has a report.
-    * then iterate over all the already created actions. and roll calls. and create the relevant rows
-    for those
-
-
-** don't forget the roll call parameter strings
-
-
-NOTE: 
-    what i've done so far
-    * get all committee reports
-    * get all committee meeting agenda items that 
-    have meetings that are tied to the reports
-    * get all committee report published agenda items
-    * get all committee report published actions
-
-
-
-
-- Committee reports
-- Committee report agenda items 
-- Committee report actions
-- Committee report roll calls
-
-- Committee report attendance ??? not really
-
-
-"""
+COUNT_REMOVED_AGENDA_ITEMS = "removed_agenda_items"
+COUNT_LEGISLATION_ITEMS = "legislation_items"
+COUNT_COMMITTEE_ACTIONS = "committee_actions"
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, o: Any) -> Any:
@@ -148,6 +96,7 @@ class DataGatherer:
             KEY_COMMITTEE_REPORT_PUBLISHED_ACTIONS: [],
             KEY_PUBLISHED_ITEMS: [],
             KEY_COMMITTEE_MEETING_AGENDA_ITEMS: [],
+            KEY_LEGISLATION_ITEMS: [],
         }
         self.counts: Dict[str, int] = {
             COUNT_COMMITTEE_REPORTS: 0,
@@ -156,7 +105,9 @@ class DataGatherer:
             COUNT_ROLL_CALLS: 0,
             COUNT_PUBLISHED_ROLL_CALLS: 0,
             COUNT_AGENDA_ITEM_ACTIONS: 0,
-            COUNT_PUBLISHED_AGENDA_ITEM_ACTIONS: 0
+            COUNT_PUBLISHED_AGENDA_ITEM_ACTIONS: 0,
+            COUNT_REMOVED_AGENDA_ITEMS: 0,
+            COUNT_LEGISLATION_ITEMS: 0,
         }
 
     def connect_databases(self) -> None:
@@ -167,32 +118,33 @@ class DataGatherer:
         self.eva_db.close()
         self.shared_db.close()
 
-    def gather_committee_reports_and_agenda_items(self) -> None:
-        logging.info("Gathering committee reports...")
-        committee_reports_query: str = """
-SELECT 
-    cr.Id,
-    cr.SessionId,
-    cr.CommitteeId,
-    cr.MeetingId,
-    cr.IsPublished,
-    cr.PublishedDate,
-    cr.AddendaDate,
-    cr.PublishedBy,
-    cr.AttendancePublishedBy,
-    cr.IsAttendancePublished,
-    cr.PublishedReportDocument,
-    cr.PublishedAttendanceReportDocument,
-    cr.AttendancePublishedDate,
-    cr.CreatedBy,
-    cr.Created,
-    cr.Modified,
-    cr.ModifiedBy
-FROM CommitteeReports cr
-        """
-        committee_reports: List[Dict[str, Any]] = self.eva_db.execute_query(committee_reports_query)
+    def get_removed_agenda_items(self) -> str:
+        logging.info("Gathering all removed agenda items...")
+        removed_agenda_items: List[Dict[str, Any]] = self.eva_db.execute_query(
+                queries.get_removed_agenda_items_query())
         
-        # Process committee reports
+        logging.info(f"Found {len(removed_agenda_items)} removed agenda items")
+        self.counts[COUNT_REMOVED_AGENDA_ITEMS] = len(removed_agenda_items)
+        self.data[KEY_REMOVED_AGENDA_ITEMS] = removed_agenda_items
+        
+        removed_agenda_item_ids: List[int] = [
+                item["AgendaItemId"] for item in removed_agenda_items]
+        removed_agenda_item_ids_string: str = ",".join(
+                [str(i) for i in removed_agenda_item_ids])
+        return removed_agenda_item_ids_string
+
+    def gather_committee_reports_and_agenda_items(self) -> None:
+        """
+        Get all Committee Reports 
+        Then get all the meetings that have a report
+        And gather all their agenda items that aren't removed
+        """
+        logging.info("Gathering committee reports...")
+        committee_reports: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_committee_reports_query())
+        
+        # Remove binary data and convert datetime to ISO format
+        # Binary data is preserved by the migration
         for report in committee_reports:
             if report.get("PublishedReportDocument"):
                 report["PublishedReportDocument"] = "BINARY_DATA"
@@ -202,6 +154,11 @@ FROM CommitteeReports cr
                 if isinstance(value, datetime.datetime):
                     report[key] = value.isoformat()
         
+        # Store committee reports data
+        self.counts[COUNT_COMMITTEE_REPORTS] = len(committee_reports)
+        self.data[KEY_COMMITTEE_REPORTS] = committee_reports
+        self.data[KEY_COMMITTEE_REPORT_IDS] = [report["Id"] for report in committee_reports]
+        
         # Extract meeting IDs from committee reports
         meeting_ids: List[int] = [
                 report["MeetingId"] 
@@ -209,33 +166,43 @@ FROM CommitteeReports cr
                 if report["MeetingId"] is not None]
         meeting_ids_string: str = ",".join(
                 str(id) for id in meeting_ids) if meeting_ids else "0"
-        
-        # Store committee reports data
-        self.counts[COUNT_COMMITTEE_REPORTS] = len(committee_reports)
-        self.data[KEY_COMMITTEE_REPORTS] = committee_reports
-        self.data[KEY_COMMITTEE_REPORT_IDS] = [report["Id"] for report in committee_reports]
-        
         logging.info(f"Found {len(meeting_ids)} meetings with committee reports")
         
-        # Get all agenda items for these meetings
-        logging.info("Gathering committee meeting agenda items for these meetings...")
-        agenda_items_query: str = f"""
-SELECT [CommitteeMeetingAgendaItemID]
-      ,[SessionID]
-      ,[CommitteeMeetingID]
-      ,[LegislationID]
-      ,[Description]
-      ,[SortOrder]
-      ,[IsActive]
-      ,[DateAdded]
-      ,[LastModified]
-      ,[LastModifiedBy]
-      ,[IsPublic]
-FROM [dbo].[CommitteeMeetingAgendaItem]
-WHERE [CommitteeMeetingID] IN ({meeting_ids_string})
-        """
-        
-        agenda_items: List[Dict[str, Any]] = self.shared_db.execute_query(agenda_items_query)
+        # Get removed agenda items then get all C|ommitteeMeetingAgendaItems
+        # that are not removed
+        removed_agenda_item_ids_string: str = self.get_removed_agenda_items()
+        logging.info("Gathering committee meeting agenda items for these meetings that aren't removed...")
+        agenda_items: List[Dict[str, Any]] = self.shared_db.execute_query(
+            queries.get_agenda_items_query(
+                meeting_ids_string, removed_agenda_item_ids_string))
+
+        # get legislation for all legislation ids in agenda items if not None
+        legislation_ids: Set[int] = {
+            item["LegislationID"] for item in agenda_items if item["LegislationID"] is not None
+        }
+        legislation_results: List[Dict[str, Any]] = self.shared_db.execute_query(
+            queries.get_legislation_items_query(legislation_ids))
+        logging.info(f"Found {len(legislation_results)} legislation items for agenda items")
+        self.counts[COUNT_LEGISLATION_ITEMS] = len(legislation_results)
+        self.data[KEY_LEGISLATION_ITEMS] = legislation_results
+        # for each agenda item, if the legislation id is in the legislation results
+        # add prefix and identifier to the agenda item
+        legs_not_found: List[str] = []
+        for item in agenda_items:
+            legislation_id: int = item["LegislationID"]
+            legislation_matching: Dict[str, Any] | None = next((
+                leg for leg in legislation_results 
+                if leg["LegislationID"] == legislation_id and legislation_id is not None), None)
+            if not legislation_matching and legislation_id is not None:
+                legs_not_found.append(
+                        f"legislationid: {legislation_id},\
+                                CommitteeMeetingAgendaItems.Id: {item['CommitteeMeetingAgendaItemID']}")
+            elif legislation_matching:
+                item["LegislationPrefix"] = legislation_matching["Prefix"]
+                item["LegislationIdentifier"] = legislation_matching["Identifier"]
+        if legs_not_found and len(legs_not_found) > 0:
+            logging.warning(f"** Legislation items not found for agenda items: {legs_not_found}")
+
         
         # Store agenda items
         self.counts[COUNT_AGENDA_ITEMS] = len(agenda_items)
@@ -246,15 +213,8 @@ WHERE [CommitteeMeetingID] IN ({meeting_ids_string})
         # Get additional meeting and committee info
         if meeting_ids:
             logging.info("Gathering additional meeting and committee information...")
-            meeting_committee_info_query: str = f"""
-SELECT m.CommitteeMeetingID, m.MeetingLocation, c.CommitteeID, c.CommitteeName 
-FROM Committee c
-INNER JOIN CommitteeMeetingCommittee cmc ON cmc.CommitteeID = c.CommitteeID
-INNER JOIN CommitteeMeeting m ON m.CommitteeMeetingID = cmc.CommitteeMeetingID
-WHERE m.CommitteeMeetingID IN ({meeting_ids_string})
-            """
-            
-            meeting_committee_info: List[Dict[str, Any]] = self.shared_db.execute_query(meeting_committee_info_query)
+            meeting_committee_info: List[Dict[str, Any]] = self.shared_db.execute_query(
+                queries.get_meeting_committee_info_query(meeting_ids_string))
             
             # Create a mapping of meeting IDs to committee info
             meeting_committee_map: Dict[int, Dict[str, Any]] = {
@@ -272,39 +232,19 @@ WHERE m.CommitteeMeetingID IN ({meeting_ids_string})
 
     def gather_action_to_agenda_items(self) -> None:
         logging.info("Gathering CommitteeReportCommitteeActionToAgendaItems...")
-        query: str = """
-SELECT [Id]
-    ,[CommitteeReportCommitteeActionId]
-    ,[AgendaItemId]
-    ,[CustomRecommendedAction]
-    ,[CustomReportOutAction]
-    ,[MeetingId]
-    ,[SortOrder]
-    ,[Sub]
-FROM [dbo].[CommitteeReportCommitteeActionToAgendaItems]
-        """
-        results: List[Dict[str, Any]] = self.eva_db.execute_query(query)
+        results: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_action_to_agenda_items_query())
         self.counts[COUNT_AGENDA_ITEM_ACTIONS] = len(results)
         self.data[KEY_ACTION_TO_AGENDA_ITEMS] = results
         logging.info(f"Gathered {len(results)} action to agenda items.")
 
     def gather_published_agenda_items(self) -> None:
         logging.info("Gathering CommitteeReportPublishedItems...")
-        query: str = """
-SELECT [Id]
-    ,[MeetingId]
-    ,[AgendaItemId]
-    ,[CreatedBy]
-    ,[Created]
-    ,[Modified]
-    ,[ModifiedBy]
-FROM [dbo].[CommitteeReportPublishedItems]
-        """
-        published_items_results_from_query: List[Dict[str, Any]] = self.eva_db.execute_query(query)
+        published_items_results_from_query: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_published_items_query())
         self.counts[COUNT_PUBLISHED_AGENDA_ITEMS] = len(published_items_results_from_query)
         self.data[KEY_PUBLISHED_ITEMS] = published_items_results_from_query
         logging.info(f"Gathered {len(published_items_results_from_query)} CommitteeReportPublishedItems.")
-
 
         # Create a mapping of agenda item IDs to the actual agenda items
         agenda_item_map: Dict[int, Dict[str, Any]] = {
@@ -332,42 +272,39 @@ FROM [dbo].[CommitteeReportPublishedItems]
 
     def gather_published_actions(self) -> None:
         logging.info("Gathering CommitteeReportPublishedActions...")
-        committee_report_published_actions_query: str = f"""
-SELECT [Id]
-      ,[CommitteeReportCommitteeActionId]
-      ,[AgendaItemId]
-      ,[CustomRecommendedAction]
-      ,[CustomReportOutAction]
-      ,[MeetingId]
-      ,[SortOrder]
-      ,[Sub]
-FROM [dbo].[CommitteeReportPublishedActions]
-        """
         committee_report_published_actions: List[Dict[str, Any]] = self.eva_db.execute_query(
-                committee_report_published_actions_query
+            queries.get_published_actions_query()
         )
         self.counts[COUNT_PUBLISHED_AGENDA_ITEM_ACTIONS] = len(committee_report_published_actions)
         self.data[KEY_COMMITTEE_REPORT_PUBLISHED_ACTIONS] = committee_report_published_actions
         logging.info(f"Gathered {len(committee_report_published_actions)} CommitteeReportPublishedActions.")
 
-    # def gather_member_roll_calls(self) -> None:
-    #     logging.info("Gathering member roll calls...")
-    #     # TODO: Add query and data processing for member roll calls
-
-
+    def gather_member_roll_calls(self) -> None:
+        logging.info("Gathering member roll calls...")
+        member_roll_calls: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_roll_call_query()
+        )
+        self.counts[COUNT_ROLL_CALLS] = len(member_roll_calls)
+        self.data[KEY_MEMBER_ROLL_CALLS] = member_roll_calls
+    
+    def gather_committee_actions(self) -> None:
+        logging.info("Gathering committee actions...")
+        committee_actions: List[Dict[str, Any]] = self.eva_db.execute_query(
+            queries.get_committee_actions_query()
+        )
+        self.counts[COUNT_COMMITTEE_ACTIONS] = len(committee_actions)
+        self.data[KEY_COMMITTEE_ACTIONS] = committee_actions
+        logging.info(f"Gathered {len(committee_actions)} committee actions.")
 
     def gather_all_data(self) -> None:
         self.connect_databases()
         try:
-            # self.gather_committee_reports()
+            self.gather_committee_actions()
             self.gather_committee_reports_and_agenda_items()
             self.gather_published_agenda_items()
             self.gather_action_to_agenda_items()
             self.gather_published_actions()
-            # self.gather_member_roll_calls()
-            # TODO: should I consider these removed agenda items? #
-            # self.gather_removed_agenda_items() 
-            # self.gather_agenda_items()
+            self.gather_member_roll_calls()
             
             logging.info("=== PRE-DEPLOYMENT DATA COUNTS ===")
             for category, count in self.counts.items():
@@ -388,11 +325,14 @@ FROM [dbo].[CommitteeReportPublishedActions]
 def setup_logging() -> None:
     current_time: str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     log_format: str = "%(asctime)s - %(levelname)s - %(message)s"
+    logs_dir: str = "./logs"
+    if not os.path.exists(logs_dir):
+        os.makedirs(logs_dir)
     logging.basicConfig(
         level=logging.INFO,
         format=log_format,
         handlers=[
-            logging.FileHandler(f"pre_debug_{current_time}.log"),
+            logging.FileHandler(f"{logs_dir}/pre_debug_{current_time}.log"),
             logging.StreamHandler(sys.stdout)
         ]
     )
