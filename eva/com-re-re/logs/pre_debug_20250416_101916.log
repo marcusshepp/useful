@@ -1,0 +1,37 @@
+2025-04-16 10:19:16,405 - INFO - Starting pre-deployment data gathering
+2025-04-16 10:19:16,545 - INFO - Database connection established
+2025-04-16 10:19:16,584 - INFO - Database connection established
+2025-04-16 10:19:16,584 - INFO - Gathering committee actions...
+2025-04-16 10:19:16,589 - INFO - Gathered 21 committee actions.
+2025-04-16 10:19:16,590 - INFO - Gathering committee reports...
+2025-04-16 10:19:16,595 - INFO - Found 1 meetings with committee reports
+2025-04-16 10:19:16,595 - INFO - Gathering all removed agenda items...
+2025-04-16 10:19:16,599 - INFO - Found 0 removed agenda items
+2025-04-16 10:19:16,602 - INFO - Gathering committee meeting agenda items for these meetings that aren't removed...
+2025-04-16 10:19:16,608 - INFO - Found 1 legislation items for agenda items
+2025-04-16 10:19:16,609 - INFO - Found 2 agenda items connected to meetings with committee reports
+2025-04-16 10:19:16,609 - INFO - Gathering additional meeting and committee information...
+2025-04-16 10:19:16,613 - INFO - appending committee info to 2 agenda items
+2025-04-16 10:19:16,613 - INFO - Gathering CommitteeReportPublishedItems...
+2025-04-16 10:19:16,617 - INFO - Gathered 0 CommitteeReportPublishedItems.
+2025-04-16 10:19:16,618 - INFO - Marked 0 published agenda items.
+2025-04-16 10:19:16,618 - INFO - Gathering CommitteeReportCommitteeActionToAgendaItems...
+2025-04-16 10:19:16,622 - INFO - Gathered 2 action to agenda items.
+2025-04-16 10:19:16,623 - INFO - Gathering CommitteeReportPublishedActions...
+2025-04-16 10:19:16,627 - INFO - Gathered 0 CommitteeReportPublishedActions.
+2025-04-16 10:19:16,627 - INFO - Gathering member roll calls...
+2025-04-16 10:19:16,632 - INFO - === PRE-DEPLOYMENT DATA COUNTS ===
+2025-04-16 10:19:16,633 - INFO - COMMITTEE_REPORTS: 1
+2025-04-16 10:19:16,633 - INFO - AGENDA_ITEMS: 2
+2025-04-16 10:19:16,633 - INFO - PUBLISHED_AGENDA_ITEMS: 0
+2025-04-16 10:19:16,634 - INFO - ROLL_CALLS: 6
+2025-04-16 10:19:16,634 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-16 10:19:16,635 - INFO - AGENDA_ITEM_ACTIONS: 2
+2025-04-16 10:19:16,635 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 0
+2025-04-16 10:19:16,635 - INFO - REMOVED_AGENDA_ITEMS: 0
+2025-04-16 10:19:16,636 - INFO - LEGISLATION_ITEMS: 1
+2025-04-16 10:19:16,636 - INFO - COMMITTEE_ACTIONS: 21
+2025-04-16 10:19:16,641 - INFO - Database connection closed
+2025-04-16 10:19:16,646 - INFO - Database connection closed
+2025-04-16 10:19:16,650 - INFO - Data saved to migration_data.json
+2025-04-16 10:19:16,650 - INFO - Pre-deployment data gathering completed successfully and saved to migration_data.json

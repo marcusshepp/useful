@@ -150,9 +150,7 @@ SET
     [MeetingDate] = ?,
     [MeetingTime] = ?,
     [MeetingLocation] = ?
-WHERE [Id] = ?;
-
-SELECT SCOPE_IDENTITY() AS Id;
+WHERE [Id] = ?
 """
 
 def get_legislation_details_query(legislation_ids_str: str) -> str:
@@ -186,8 +184,6 @@ WHERE cm.[CommitteeMeetingID] = ?
 
 def insert_agenda_item_query() -> str:
     return """
-DECLARE @InsertedId INT;
-
 INSERT INTO [dbo].[CommitteeReportAgendaItems]
 (
     [ReportId],
@@ -217,16 +213,18 @@ VALUES
     ?, -- Created
     ?, -- Modified
     ?  -- ModifiedBy
-);
+)
+"""
 
-SET @InsertedId = SCOPE_IDENTITY();
-SELECT @InsertedId AS Id;
+def find_committee_report_agenda_item_query() -> str:
+    return """
+SELECT Id, ReportId, CommitteeMeetingAgendaItemId
+FROM [dbo].[CommitteeReportAgendaItems]
+WHERE [CommitteeMeetingAgendaItemId] = ?
 """
 
 def insert_action_query() -> str:
     return """
-DECLARE @InsertedId INT;
-
 INSERT INTO [dbo].[CommitteeReportActions]
 (
     [AgendaItemId],
@@ -258,16 +256,10 @@ VALUES
     ?, -- Created
     ?, -- Modified
     ?  -- ModifiedBy
-);
-
-SET @InsertedId = SCOPE_IDENTITY();
-SELECT @InsertedId AS Id;
-"""
+)"""
 
 def insert_roll_call_query() -> str:
     return """
-DECLARE @InsertedId INT;
-
 INSERT INTO [dbo].[CommitteeReportRollCalls]
 (
     [SessionId],
@@ -299,14 +291,4 @@ VALUES
     ?, -- Created
     ?, -- Modified
     ?  -- ModifiedBy
-);
-
-SET @InsertedId = SCOPE_IDENTITY();
-SELECT @InsertedId AS Id;
-"""
-
-def count_migrated_records_query(table_name: str) -> str:
-    return f"""
-SELECT COUNT(*) AS Count
-FROM [dbo].[{table_name}]
-"""
+)"""

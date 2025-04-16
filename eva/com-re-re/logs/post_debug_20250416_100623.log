@@ -1,0 +1,68 @@
+2025-04-16 10:06:23,384 - INFO - Starting post-deployment data restoration
+2025-04-16 10:06:23,455 - INFO - Database connection established
+2025-04-16 10:06:23,469 - INFO - Database connection established
+2025-04-16 10:06:23,469 - INFO - Transaction started
+2025-04-16 10:06:23,470 - INFO - Data loaded from migration_data.json
+2025-04-16 10:06:23,470 - INFO - Found 1 items for committee_reports
+2025-04-16 10:06:23,471 - INFO - Found 1 items for committee_report_ids
+2025-04-16 10:06:23,471 - INFO - Found 3 items for member_roll_calls
+2025-04-16 10:06:23,471 - INFO - Found 0 items for committee_report_published_actions
+2025-04-16 10:06:23,472 - INFO - Found 0 items for published_items
+2025-04-16 10:06:23,473 - INFO - Found 1 items for committee_meeting_agenda_items
+2025-04-16 10:06:23,473 - INFO - Found 3 items for action_to_agenda_items
+2025-04-16 10:06:23,473 - INFO - === PRE-DEPLOYMENT DATA COUNTS (FROM JSON) ===
+2025-04-16 10:06:23,474 - INFO - COMMITTEE_REPORTS: 1
+2025-04-16 10:06:23,474 - INFO - AGENDA_ITEMS: 1
+2025-04-16 10:06:23,474 - INFO - PUBLISHED_AGENDA_ITEMS: 0
+2025-04-16 10:06:23,474 - INFO - ROLL_CALLS: 3
+2025-04-16 10:06:23,474 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-16 10:06:23,474 - INFO - AGENDA_ITEM_ACTIONS: 3
+2025-04-16 10:06:23,475 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 0
+2025-04-16 10:06:23,475 - INFO - REMOVED_AGENDA_ITEMS: 0
+2025-04-16 10:06:23,475 - INFO - LEGISLATION_ITEMS: 1
+2025-04-16 10:06:23,475 - INFO - COMMITTEE_ACTIONS: 21
+2025-04-16 10:06:23,475 - INFO - Loading CommitteeReportCommitteeActions reference data...
+2025-04-16 10:06:23,479 - INFO - Loaded 21 committee actions for reference
+2025-04-16 10:06:23,479 - INFO - Updating CommitteeReports table with meeting details...
+2025-04-16 10:06:23,488 - INFO - Updated CommitteeReport ID 15032 with meeting details
+2025-04-16 10:06:23,488 - INFO - Updated 1 committee reports with meeting details
+2025-04-16 10:06:23,488 - INFO - Inserting data into CommitteeReportAgendaItems...
+2025-04-16 10:06:23,489 - INFO - Creating set of published agenda item IDs...
+2025-04-16 10:06:23,489 - INFO - Found 0 published agenda item IDs
+2025-04-16 10:06:23,500 - INFO - Inserted agenda item: reportId: 15032 agendaItemId: 18774 legId: 495
+2025-04-16 10:06:23,500 - INFO - Inserted 1 agenda items (0 published)
+2025-04-16 10:06:23,500 - INFO - Inserting data into CommitteeReportActions...
+2025-04-16 10:06:23,514 - INFO - Inserted CommitteeReportAction for agenda item 1, published=False, is_recommendation=0
+2025-04-16 10:06:23,523 - INFO - Inserted CommitteeReportAction for agenda item 1, published=False, is_recommendation=0
+2025-04-16 10:06:23,532 - INFO - Inserted CommitteeReportAction for agenda item 1, published=False, is_recommendation=0
+2025-04-16 10:06:23,532 - INFO - Inserted 3 actions (0 published)
+2025-04-16 10:06:23,532 - INFO - Inserting data into CommitteeReportRollCalls...
+2025-04-16 10:06:23,538 - INFO - Inserted CommitteeReportRollCall for agenda item 1, published=False
+2025-04-16 10:06:23,546 - INFO - Inserted CommitteeReportRollCall for agenda item 1, published=False
+2025-04-16 10:06:23,556 - INFO - Inserted CommitteeReportRollCall for agenda item 1, published=False
+2025-04-16 10:06:23,556 - INFO - Inserted 3 roll calls (0 published)
+2025-04-16 10:06:23,558 - INFO - Transaction committed
+2025-04-16 10:06:23,558 - INFO - === POST-DEPLOYMENT DATA COUNTS ===
+2025-04-16 10:06:23,558 - INFO - COMMITTEE_REPORTS: 1
+2025-04-16 10:06:23,559 - INFO - AGENDA_ITEMS: 1
+2025-04-16 10:06:23,559 - INFO - PUBLISHED_AGENDA_ITEMS: 0
+2025-04-16 10:06:23,559 - INFO - ROLL_CALLS: 3
+2025-04-16 10:06:23,559 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-16 10:06:23,559 - INFO - AGENDA_ITEM_ACTIONS: 3
+2025-04-16 10:06:23,559 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 0
+2025-04-16 10:06:23,559 - INFO - REMOVED_AGENDA_ITEMS: 0
+2025-04-16 10:06:23,560 - INFO - MEETINGS_WITHOUT_AGENDA_ITEMS: 0
+2025-04-16 10:06:23,560 - INFO - === DATA MIGRATION COMPARISON (POST vs PRE) ===
+2025-04-16 10:06:23,560 - INFO - COMMITTEE_REPORTS: PRE=1, POST=1, DIFF=0 - MATCHED
+2025-04-16 10:06:23,560 - INFO - AGENDA_ITEMS: PRE=1, POST=1, DIFF=0 - MATCHED
+2025-04-16 10:06:23,560 - INFO - PUBLISHED_AGENDA_ITEMS: PRE=0, POST=0, DIFF=0 - MATCHED
+2025-04-16 10:06:23,561 - INFO - ROLL_CALLS: PRE=3, POST=3, DIFF=0 - MATCHED
+2025-04-16 10:06:23,561 - INFO - PUBLISHED_ROLL_CALLS: PRE=0, POST=0, DIFF=0 - MATCHED
+2025-04-16 10:06:23,561 - INFO - AGENDA_ITEM_ACTIONS: PRE=3, POST=3, DIFF=0 - MATCHED
+2025-04-16 10:06:23,562 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: PRE=0, POST=0, DIFF=0 - MATCHED
+2025-04-16 10:06:23,562 - INFO - REMOVED_AGENDA_ITEMS: PRE=0, POST=0, DIFF=0 - MATCHED
+2025-04-16 10:06:23,562 - INFO - TOTAL RECORDS: PRE=8, POST=8, DIFF=0
+2025-04-16 10:06:23,562 - INFO - All data restored successfully
+2025-04-16 10:06:23,564 - INFO - Database connection closed
+2025-04-16 10:06:23,567 - INFO - Database connection closed
+2025-04-16 10:06:23,567 - INFO - Post-deployment data restoration completed successfully

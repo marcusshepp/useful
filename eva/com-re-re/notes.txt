@@ -47,6 +47,21 @@ CommitteeReportCommitteeActionToAgendaItems.AgendaItemid = CommitteeMeetingAgend
     ** always test Legislative Look Up
     ** always test committee report parameter in daily journal
     ** always test committee roll call parameter in meeting minutes
+    * HOW TO THIS THIS THING LOCALLY
+    ** go to state with no new migration 
+    ** make changes to com re
+    ** document changes
+    ** run pre script
+    ** change to migrated state
+    ** run the app click around 
+    ** run post script 
+    ** compare and review logs
+    * Then to go back, 
+    ** make sure to revert the migration
+    ** then commit
+    ** checkout develop
+    ** do stuff in eva
+
 
 
 

@@ -1,0 +1,17 @@
+2025-04-16 09:31:04,797 - INFO - Starting pre-deployment data gathering
+2025-04-16 09:31:04,978 - INFO - Database connection established
+2025-04-16 09:31:05,049 - INFO - Database connection established
+2025-04-16 09:31:05,050 - INFO - Gathering committee actions...
+2025-04-16 09:31:05,058 - INFO - Gathered 21 committee actions.
+2025-04-16 09:31:05,059 - INFO - Gathering committee reports...
+2025-04-16 09:31:05,068 - INFO - Found 1 meetings with committee reports
+2025-04-16 09:31:05,069 - INFO - Gathering all removed agenda items...
+2025-04-16 09:31:05,076 - ERROR - Query execution error: ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'dbo.CommitteeReportRemovedAgendaItems'. (208) (SQLExecDirectW)")
+Query: 
+SELECT [MeetingId]
+      ,[AgendaItemId]
+FROM [dbo].[CommitteeReportRemovedAgendaItems]
+    
+2025-04-16 09:31:05,084 - INFO - Database connection closed
+2025-04-16 09:31:05,091 - INFO - Database connection closed
+2025-04-16 09:31:05,092 - ERROR - Error during data gathering: ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'dbo.CommitteeReportRemovedAgendaItems'. (208) (SQLExecDirectW)")
