@@ -2,6 +2,9 @@ eva/backups/
 # Environment variables
 env-vars.ps1
 **/.env
+**/.*.env
+
+**/*_data/
 
 # API keys
 anth/key.txt

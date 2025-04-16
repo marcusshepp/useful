@@ -343,7 +343,6 @@ class DataRestorer:
         actions_to_agenda_items: list[dict] = self.data.get("action_to_agenda_items", [])
         published_actions: list[dict] = self.data.get("committee_report_published_actions", [])
         
-        # Create a set of published action/agenda item combinations
         published_actions_set: set[tuple] = {
             (action.get("CommitteeReportCommitteeActionId"), action.get("AgendaItemId"))
             for action in published_actions
@@ -358,101 +357,120 @@ class DataRestorer:
             action_id: int | None = action.get("CommitteeReportCommitteeActionId")
             is_published: bool = (action_id, old_agenda_item_id) in published_actions_set
             
-            # Find the corresponding CommitteeReportAgendaItem
-            agenda_items: list[dict] = self.eva_db.execute_query(
-                queries.find_committee_report_agenda_item_query(),
-                (old_agenda_item_id,)
-            )
-            
+            agenda_items: list[dict] = self.get_agenda_items(old_agenda_item_id)
             if not agenda_items:
-                logging.warning(f"No matching agenda item found for original ID {old_agenda_item_id}, skipping action")
                 continue
             
-            # Check if both custom actions are populated
-            has_custom_recommended: bool = action.get("CustomRecommendedAction") is not None and action.get("CustomRecommendedAction") != ""
-            has_custom_report_out: bool = action.get("CustomReportOutAction") is not None and action.get("CustomReportOutAction") != ""
+            action_rows: list[tuple] = self.prepare_action_rows(action, action_id)
             
-            # If both custom actions exist, we need to create two separate rows
-            action_rows_to_create: list[tuple] = []
-            
-            if has_custom_recommended and has_custom_report_out:
-                logging.info(f"Splitting action for agenda item {old_agenda_item_id} into two separate action rows")
-                
-                # Create recommended action row
-                action_rows_to_create.append((
-                    action_id,  # Use the original action_id for recommended action
-                    1,  # is_recommendation = True
-                    action.get("CustomRecommendedAction"),
-                    None  # No report out action for this row
-                ))
-                
-                # Create report out action row
-                action_rows_to_create.append((
-                    action_id,  # Use the original action_id for report out action too
-                    0,  # is_recommendation = False
-                    None,  # No recommended action for this row
-                    action.get("CustomReportOutAction")
-                ))
-            else:
-                # Only one or neither custom action exists, create a single row
-                action_rows_to_create.append((
-                    action_id,
-                    1 if has_custom_recommended else 0,  # is_recommendation based on which custom action exists
-                    action.get("CustomRecommendedAction"),
-                    action.get("CustomReportOutAction")
-                ))
-            
-            # Get action text from committee actions reference table
-            action_text: str | None = None
-            if action_id and action_id in self.committee_actions:
-                action_text = self.committee_actions[action_id].get("Description")
-            
-            
-            # Insert the action row(s)
             for agenda_item in agenda_items:
                 new_agenda_item_id: int = agenda_item["Id"]
-                
-                for row_data in action_rows_to_create:
-                    print(f"row_data: {row_data}")
-                    row_action_id, is_recommendation, custom_recommended, custom_report_out = row_data
-                    if not action_text and custom_recommended is not None and len(custom_recommended) > 0 and is_recommendation == 1:
-                        action_text = custom_recommended
-
-                    if not action_text and custom_report_out is not None and len(custom_report_out) > 0:
-                        action_text = custom_report_out
-
-                    print(f"action: {action['Id']}")
-                    print(f"action text: {action_text}")
-                    
-                    # Insert the action
-                    self.eva_db.execute_non_query(
-                        queries.insert_action_query(),
-                        (
-                            new_agenda_item_id,
-                            row_action_id,
-                            action_text,
-                            action.get("Sub"),
-                            action.get("SortOrder", 0),
-                            is_recommendation,
-                            custom_recommended,
-                            custom_report_out,
-                            1 if is_published else 0,
-                            "",
-                            datetime.datetime.now(),
-                            datetime.datetime.now(),
-                            ""
-                        )
-                    )
-                    
+                for action_row in action_rows:
+                    self.insert_action_row(new_agenda_item_id, action, action_row, is_published)
                     inserted_count += 1
                     if is_published:
                         published_count += 1
-                    
-                    logging.info(f"Inserted CommitteeReportAction for agenda item {new_agenda_item_id}, published={is_published}, is_recommendation={is_recommendation}")
         
         self.post_counts["agenda_item_actions"] = inserted_count
         self.post_counts["published_agenda_item_actions"] = published_count
         logging.info(f"Inserted {inserted_count} actions ({published_count} published)")
+
+    def get_agenda_items(self, old_agenda_item_id: int) -> list[dict]:
+        agenda_items: list[dict] = self.eva_db.execute_query(
+            queries.find_committee_report_agenda_item_query(),
+            (old_agenda_item_id,)
+        )
+        
+        if not agenda_items:
+            logging.warning(f"No matching agenda item found for original ID {old_agenda_item_id}, skipping action")
+        
+        return agenda_items
+
+    def prepare_action_rows(self, action: dict, action_id: int | None) -> list[tuple]:
+        custom_recommended: str | None = action.get("CustomRecommendedAction")
+        custom_report_out: str | None = action.get("CustomReportOutAction")
+        
+        has_custom_recommended: bool = custom_recommended is not None and custom_recommended != ""
+        has_custom_report_out: bool = custom_report_out is not None and custom_report_out != ""
+        
+        action_rows: list[tuple] = []
+        
+        if has_custom_recommended and has_custom_report_out:
+            action_rows.append((
+                action_id,
+                True,
+                custom_recommended,
+                None
+            ))
+            
+            action_rows.append((
+                action_id,
+                False,
+                None,
+                custom_report_out
+            ))
+        else:
+            action_rows.append((
+                action_id,
+                has_custom_recommended,
+                custom_recommended,
+                custom_report_out
+            ))
+        
+        return action_rows
+
+    def insert_action_row(self, new_agenda_item_id: int, action: dict, action_row: tuple, is_published: bool) -> None:
+        row_action_id: int | None
+        is_recommendation: bool
+        custom_recommended: str | None
+        custom_report_out: str | None
+        
+        row_action_id, is_recommendation, custom_recommended, custom_report_out = action_row
+        
+        action_text: str | None = self.determine_action_text(
+                row_action_id, is_recommendation, custom_recommended, custom_report_out)
+        
+        is_recommendation_int: int = 1 if is_recommendation else 0
+        is_published_int: int = 1 if is_published else 0
+        
+        self.eva_db.execute_non_query(
+            queries.insert_action_query(),
+            (
+                new_agenda_item_id,
+                row_action_id,
+                action_text,
+                action.get("Sub"),
+                action.get("SortOrder", 0),
+                is_recommendation_int,
+                custom_recommended,
+                custom_report_out,
+                is_published_int,
+                "",
+                datetime.datetime.now(),
+                datetime.datetime.now(),
+                ""
+            )
+        )
+        
+        logging.info(f"Inserted CommitteeReportAction for agenda item {new_agenda_item_id}, published={is_published}, is_recommendation={is_recommendation}")
+
+    def determine_action_text(
+            self,
+            action_id: int | None, 
+            is_recommendation: bool, 
+            custom_recommended: str | None, 
+            custom_report_out: str | None) -> str | None:
+
+        if action_id and action_id in self.committee_actions:
+            return self.committee_actions[action_id].get("Description")
+        
+        if is_recommendation and custom_recommended:
+            return custom_recommended
+        
+        if custom_report_out:
+            return custom_report_out
+        
+        return None
 
     def insert_roll_calls(self) -> None:
         logging.info("Inserting data into CommitteeReportRollCalls...")
