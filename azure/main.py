@@ -17,9 +17,9 @@ headers = {
     'Authorization': f'Basic {encoded_token}'
 }
 
-current_sprint = 'Sprint 73'
-sprint_range_start = 68
-sprint_range_end = 74
+current_sprint = 'Sprint 74'
+sprint_range_start = 69
+sprint_range_end = 75
 sprints_to_analyze = [f'Sprint {i}' for i in range(sprint_range_start, sprint_range_end)]
 carryover_data_file = 'sprint_carryover_data.json'
 

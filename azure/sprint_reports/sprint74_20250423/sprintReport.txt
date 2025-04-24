@@ -1,0 +1,59 @@
+Sprint Analysis Report
+====================
+
+Sprint 69:
+  Original Stories Committed: 10
+  Adjusted Stories Committed (with carry-over): 10
+  Stories Completed: 10
+  Original Points Committed: 32.0
+  Adjusted Points Committed (with carry-over): 32.0
+  Points Completed: 32.0
+
+Sprint 70:
+  Carry-over tickets: 2
+  Carry-over points: 8
+  Original Stories Committed: 7
+  Adjusted Stories Committed (with carry-over): 9
+  Stories Completed: 7
+  Original Points Committed: 15.0
+  Adjusted Points Committed (with carry-over): 23.0
+  Points Completed: 15.0
+
+Sprint 71:
+  Carry-over tickets: 2
+  Carry-over points: 6
+  Original Stories Committed: 10
+  Adjusted Stories Committed (with carry-over): 12
+  Stories Completed: 10
+  Original Points Committed: 33.0
+  Adjusted Points Committed (with carry-over): 39.0
+  Points Completed: 33.0
+
+Sprint 72:
+  Carry-over tickets: 1
+  Carry-over points: 3
+  Original Stories Committed: 13
+  Adjusted Stories Committed (with carry-over): 14
+  Stories Completed: 13
+  Original Points Committed: 48.0
+  Adjusted Points Committed (with carry-over): 51.0
+  Points Completed: 48.0
+
+Sprint 73:
+  Original Stories Committed: 8
+  Adjusted Stories Committed (with carry-over): 8
+  Stories Completed: 8
+  Original Points Committed: 35.0
+  Adjusted Points Committed (with carry-over): 35.0
+  Points Completed: 35.0
+
+Sprint 74:
+  Carry-over tickets: 1
+  Carry-over points: 3
+  Original Stories Committed: 9
+  Adjusted Stories Committed (with carry-over): 10
+  Stories Completed: 9
+  Original Points Committed: 30.0
+  Adjusted Points Committed (with carry-over): 33.0
+  Points Completed: 30.0
+
