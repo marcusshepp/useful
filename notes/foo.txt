@@ -1,0 +1,1465 @@
+
+
+C:\Users\mshepherd/p/LegBone/Eva/package.json
+{
+  "name": "eva",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --ssl --ssl-cert %APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem --ssl-key %APPDATA%\\ASP.NET\\https\\%npm_package_name%.key",
+    "build": "cd ckeditor5 && npm run build && cd .. && ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "prestart": "node aspnetcore-https"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~13.3.10",
+    "@angular/cdk": "^13.3.9",
+    "@angular/common": "~13.3.10",
+    "@angular/compiler": "~13.3.10",
+    "@angular/core": "~13.3.10",
+    "@angular/forms": "~13.3.10",
+    "@angular/localize": "~13.3.10",
+    "@angular/material": "^13.3.9",
+    "@angular/material-moment-adapter": "^13.3.9",
+    "@angular/platform-browser": "~13.3.10",
+    "@angular/platform-browser-dynamic": "~13.3.10",
+    "@angular/router": "~13.3.10",
+    "@auth0/angular-jwt": "^5.0.2",
+    "@ckeditor/ckeditor5-angular": "^5.2.0",
+    "@fullcalendar/angular": "^5.11.2",
+    "@fullcalendar/daygrid": "^5.11.2",
+    "@fullcalendar/interaction": "^5.11.2",
+    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
+    "@popperjs/core": "^2.11.5",
+    "@types/lodash": "^4.14.182",
+    "angular-notifier": "^11.0.0",
+    "bootstrap": "^5.1.3",
+    "file-saver": "^2.0.5",
+    "font-awesome": "^4.7.0",
+    "jest-editor-support": "*",
+    "jquery": "^3.6.0",
+    "moment": "^2.30.1",
+    "popper.js": "^1.16.1",
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "underscore": "^1.13.3",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~13.3.2",
+    "@angular/cli": "~13.3.2",
+    "@angular/compiler-cli": "~13.3.10",
+    "@ckeditor/ckeditor5-alignment": "^18.0.0",
+    "@types/file-saver": "^2.0.5",
+    "@types/jasmine": "~3.10.0",
+    "@types/node": "^12.11.1",
+    "@types/underscore": "^1.11.4",
+    "jasmine-core": "~4.0.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.1.0",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "~1.7.0",
+    "typescript": "~4.6.2"
+  }
+}
+
+
+C:\Users\mshepherd/p/LegBone/Eva/angular.json
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "Eva": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:application": {
+                    "strict": true
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/eva",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": [
+                            "src/custom-theme.scss",
+                            "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "./node_modules/font-awesome/css/font-awesome.css",
+                            "src/styles.css"
+                        ],
+                        "scripts": [
+                            "./node_modules/jquery/dist/jquery.js",
+                            "./node_modules/popper.js/dist/umd/popper.min.js",
+                            "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+                            "./node_modules/bootstrap/dist/js/bootstrap.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        },
+                        "int": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.int.ts"
+                                }
+                            ]
+                        },
+                        "qa": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.qa.ts"
+                                }
+                            ]
+                        },
+                        "demo": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.demo.ts"
+                                }
+                            ]
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "Eva:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "Eva:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development",
+                    "options": {
+                        "proxyConfig": "src/proxy.conf.js"
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "Eva:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma.conf.js",
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": ["src/styles.css"],
+                        "scripts": []
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "Eva"
+}
+
+
+C:\Users\mshepherd/p/LegBone/Eva/tsconfig.json
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": false,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "strictPropertyInitialization": false
+  }
+}
+
+
+C:\Users\mshepherd/p/LegBone/Eva/src/styles.css
+@charset "UTF-8";
+@import '~angular-notifier/styles';
+/********************************************************************
+****                                                             ****
+                          S T A N D A R D S
+****                                                             ****
+********************************************************************/
+/*                        C O L O R S                              */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #eef3f6;
+    font: 400 14px 'Open Sans', Helvetica, Arial, sans-serif;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+#layout,
+#menu,
+.menu-link {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+.center-content {
+    text-align: center;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/********************************************************************
+****                                                             ****
+                          N A V B A R
+****                                                             ****
+********************************************************************/
+.mi-site-logo {
+    background-image: url('/agendaAngular/src/assets/images/m2-logo-tiny.png');
+    background-repeat: no-repeat;
+    width: 70px;
+    height: 70px;
+    display: block;
+    float: left;
+}
+
+.mi-site-name {
+    margin-top: 20px;
+    font-size: 1.5em;
+    float: left;
+    color: #ffffff;
+}
+
+.mi-site-name a:hover {
+    color: #ccc;
+}
+
+.mi-nav {
+    border-color: #063c56;
+    background-color: #063c56;
+    color: #ffffff;
+    margin-bottom: 0;
+    min-height: 68px;
+    height: 68px;
+    top: 0;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    list-style: none;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    -webkit-transition: height 0.5s;
+    -moz-transition: height 0.5s;
+    -ms-transition: height 0.5s;
+    transition: height 0.5s;
+}
+
+.mi-nav.open {
+    height: 14em;
+}
+
+.mi-nav ul {
+    float: right;
+}
+
+.mi-nav-item {
+    padding-top: 6px;
+    text-align: center;
+    height: 68px;
+}
+
+.mi-nav-item a {
+    color: #ffffff;
+}
+
+.mi-nav-item a:hover {
+    background-color: #063c56;
+    border-bottom: 5px solid #ff9900;
+    text-decoration: none;
+}
+
+.mi-nav-user {
+    color: #ffffff;
+    margin: 0 10px 0 10px;
+}
+
+.active-nav {
+    border-bottom: 5px solid #ff9900;
+}
+
+.session-day-display {
+    border-top: 1px solid #063c56;
+    text-align: center;
+    margin: 0;
+    margin-top: 0px;
+    padding: 8px 8px 4px;
+    line-height: 20px;
+    background: #ff9900;
+    color: #ffffff;
+    border-radius: 0 0 5px 5px;
+    text-align: center;
+    z-index: 5;
+}
+
+.session-day-day {
+    font-weight: 700;
+    display: inline-block;
+}
+
+.session-day-date {
+    margin-left: 10px;
+    display: inline-block;
+}
+.nav-contents {
+    width: 100%;
+    height: 100%;
+}
+
+.head-nav {
+    padding-top: 15px;
+    text-align: center;
+    color: #fff;
+}
+
+.mat-drawer {
+    overflow: hidden !important;
+    height: 100%;
+    width: 200px;
+    background-color: #9497992a;
+}
+.mat-drawer-content {
+    background-color: #eef3f6;
+    overflow: hidden !important;
+}
+
+.mat-drawer-inner-container {
+    /*use to style inner nav container*/
+}
+
+/********************************************************************
+****                                                             ****
+                           S I D E B A R
+****                                                             ****
+********************************************************************/
+#mi-sidebar {
+    /*margin-left: -200px;*/
+    /* "#menu" width */
+    width: 200px;
+    position: fixed;
+    top: 68px;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    /* so the menu or its navicon stays above all content */
+    background: #063c56;
+    overflow-y: auto;
+}
+
+#mi-sidebar.active {
+    width: 80px;
+}
+
+#mi-sidebar.active a {
+    padding-left: 143px;
+}
+
+/*
+    All anchors inside the menu should be styled like this.
+    */
+#mi-sidebar a {
+    color: #ffffff;
+    border: none;
+    padding: 0.6em 0 0.6em 1.5em;
+    line-height: 2.5em;
+    border-bottom: 1px solid #41535d;
+}
+
+/*
+    Remove all background/borders, since we are applying them to #menu.
+    */
+#mi-sidebar .pure-menu,
+#mi-sidebar .pure-menu ul {
+    border: none;
+    background: transparent;
+}
+
+/*
+    Add that light border to separate items into groups.
+    */
+#mi-sidebar .pure-menu ul,
+#mi-sidebar .pure-menu .menu-item-divided {
+    border-top: 1px solid #333;
+}
+
+#mi-sidebar .pure-menu li {
+    height: auto;
+}
+
+/*
+        Change color of the anchor links on hover/focus.
+        */
+#mi-sidebar .pure-menu li a:hover,
+#mi-sidebar .pure-menu li a:focus {
+    filter: brightness(90%);
+    text-decoration: none;
+    border-right: 5px solid #ff9900 !important;
+}
+
+/*
+    This styles the selected menu item `<li>`.
+    */
+#mi-sidebar .pure-menu-selected,
+#mi-sidebar .pure-menu-heading {
+    filter: brightness(110%);
+}
+
+/*
+        This styles a link within a selected menu item `<li>`.
+        */
+#mi-sidebar .pure-menu-selected a {
+    color: #ffffff;
+}
+
+/*
+    This styles the menu heading.
+    */
+#mi-sidebar .pure-menu-heading {
+    font-size: 110%;
+    color: #ffffff;
+    margin: 0;
+}
+
+#mi-sidebar .mi-sidebar-brand {
+    color: #ffffff;
+    text-decoration: none;
+    height: 58px;
+}
+
+#mi-sidebar .mi-sidebar-text {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+#mi-sidebar.active .mi-sidebar-text {
+    display: none;
+}
+
+#mi-sidebar .material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+#mi-sidebar.active .material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+/********************************************************************
+****                                                             ****
+                           M A I N  C O N T E N T
+****                                                             ****
+********************************************************************/
+
+#main {
+    width: 100%;
+    position: fixed;
+    top: 68px;
+    left: 200px;
+    height: 100%;
+    bottom: 0;
+}
+
+#main.active {
+    left: 80px;
+}
+
+.mi-sidebar-toggle {
+    display: inline-flex;
+    vertical-align: middle;
+    padding-right: 15px;
+    text-decoration: none;
+    color: #fff;
+}
+.mi-sidebar-toggle:hover {
+    cursor: pointer;
+}
+
+.mi-sidebar-toggle a {
+    color: #333333;
+}
+
+.mi-content {
+    background-color: #eef3f6;
+    padding: 15px 15px 15px 15px;
+}
+
+#main.active .mi-content {
+    width: calc(100vw - 80px);
+}
+
+.mi-content-header {
+    font-size: 24px;
+    line-height: 1.1em;
+    margin: 0;
+    color: #fff;
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #333333;
+    background-color: #00287e;
+    vertical-align: middle;
+    display: inline-flex;
+    width: 100%;
+    height: 58px;
+}
+
+.mi-index-header {
+    position: fixed;
+    top: 68px;
+    font-size: 24px;
+    line-height: 1.1em;
+    margin: 0;
+    color: #333333;
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #333333;
+    background-color: #e5eaee;
+    vertical-align: middle;
+    display: inline-flex;
+    width: 100%;
+    height: 58px;
+}
+
+.mi-index-content {
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    border-left: 1px solid #333333;
+    padding: 15px;
+    position: fixed;
+    top: 126px;
+}
+
+.theme-primary-btn {
+    background-color: #00287e;
+    color: #fff;
+}
+
+.theme-warn-btn {
+    background-color: #940303;
+    color: #fff;
+}
+
+.theme-primary-btn:disabled {
+    background-color: silver;
+}
+
+.btn-border {
+    border: 2px #000000;
+    margin: 5px;
+}
+
+.btn-ang-arrow {
+    background-color: #0d6efd !important;
+    color: #fff !important;
+}
+
+.theme-primary-btn:hover {
+    color: #f1a415;
+}
+
+.theme-warn-btn:hover {
+    color: #00ffea;
+}
+
+.btn-ang-arrow:hover {
+    color: #f1a415 !important;
+}
+
+.ck-editor__editable_inline {
+    font-size: 10.667px; /* 10.667px equates to 8pt font */
+    font-family: 'Times New Roman', Times, serif;
+    color: #000000;
+    min-height: 150px;
+}
+
+.ck-content hr {
+    /* hr styles when we get requirements*/
+}
+
+.ck .ck-horizontal-rule {
+    /* hr styles when we get requirements*/
+}
+
+.ck-editor__editable .ck-horizontal-line {
+    /* this class ensures that styles for each line are the same!*/
+    /* hr styles when we get requirements*/
+    display: block !important;
+    background: #000;
+    height: 1px;
+    margin-bottom: var(--ck-spacing-large);
+}
+
+/********************************************************************
+****                                                             ****
+                            T A B L E S
+****                                                             ****
+********************************************************************/
+.mi-table {
+    width: 100%;
+}
+
+/*tr:nth-child(2n) {
+    background-color: $table-nth-child;
+}
+*/
+.mi-add-element {
+    margin: 0 0 10px 0;
+}
+
+.mi-add-element-text {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.mi-add-element-text .material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+/********************************************************************
+****                                                             ****
+                     A C C O R D I O N S
+****                                                             ****
+********************************************************************/
+.mi-accordion {
+    border: 1px solid #ddd;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding-bottom: 10px;
+}
+
+.mi-accordion-header {
+    background: #d6d6d6;
+    padding: 10px 0 10px 25px;
+    width: 100%;
+    line-height: 22pt;
+    color: #000000;
+    font-weight: bold;
+}
+
+.mi-accordion-header-text {
+    display: inline-flex;
+    vertical-align: middle;
+    padding-right: 20px;
+}
+
+/*input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}*/
+.mi-accordion-col {
+    display: flex;
+    padding: 10px 10px 10px 5px;
+    /*height: calc(100vh - 210px);*/
+}
+
+.mi-accordion-col .mi-accordion-row {
+    flex: 1;
+}
+
+.mi-accordion-col .mi-accordion-row:last-child {
+    margin-left: 1em;
+}
+
+/* Accordion styles */
+.mi-tabs {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+}
+
+.mi-tab {
+    width: 100%;
+    color: #333333;
+    overflow: hidden;
+}
+
+.mi-tab-label {
+    /*display: block;*/
+    /*justify-content: space-between;*/
+    padding: 0.5em;
+    vertical-align: middle;
+    font-size: 16px;
+    cursor: pointer;
+    /* Icon */
+}
+
+.mi-tab-label:hover {
+    filter: brightness(90%);
+}
+
+.mi-tab-label::after {
+    content: 'Γ¥»';
+    width: 1em;
+    height: 1em;
+    /*text-align: right;*/
+    transition: all 0.35s;
+    float: right;
+}
+
+.mi-tab-content {
+    max-height: 0;
+    padding: 0 1em;
+    color: #333333;
+    background: white;
+    transition: all 0.35s;
+}
+
+.mi-tab-close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    font-size: 0.75em;
+    background: #d6d6d6;
+    cursor: pointer;
+}
+
+.mi-tab-close:hover {
+    background: #bdbdbd;
+}
+
+.mi-isSponsor {
+    background-color: #e7f5e7;
+}
+
+.mi-notSponsor {
+    background-color: #c9e8fa;
+}
+
+.mi-isSponsor-icon {
+    /*font-size:;*/
+    font-weight: 700;
+    display: inline-flex;
+    vertical-align: middle;
+    color: #5cb85c;
+    padding-right: 10px;
+}
+
+.mi-notSponsor-icon {
+    opacity: 0;
+    padding-right: 10px;
+}
+
+input:checked + .mi-tab-label {
+    background: darken(sponsored-selected, 10%);
+}
+
+input:checked + .mi-tab-label::after {
+    transform: rotate(90deg);
+}
+
+input:checked + .mi-isSponsor {
+    background-color: #5cb85c;
+    color: #ffffff;
+}
+
+input:checked + .mi-isSponsor > .mi-isSponsor-icon {
+    color: #ffffff;
+}
+
+input:checked + .mi-notSponsor {
+    background-color: #0d7fb5;
+    color: #ffffff;
+}
+
+input:checked ~ .mi-tab-content {
+    max-height: 100vh;
+    padding: 30px 15px 15px 35px;
+}
+
+/********************************************************************
+****                                                             ****
+                            I C O N S
+****                                                             ****
+********************************************************************/
+.mi-icon {
+    padding: 3px;
+}
+
+.mi-icon:hover {
+    filter: brightness(90%);
+}
+
+.mi-icon-action {
+    color: #00f;
+}
+
+.mi-icon-positive {
+    color: #5cb85c;
+}
+
+.mi-icon-negative {
+    color: #f00;
+}
+
+/********************************************************************
+****                                                             ****
+                         B U T T O N S
+****                                                             ****
+********************************************************************/
+.mi-button {
+    vertical-align: middle;
+    border-radius: 4px;
+    line-height: 10px;
+    cursor: pointer;
+}
+
+.mi-button-icon {
+    font-size: 50%;
+}
+
+.mi-button-xsmall {
+    font-size: 70%;
+}
+
+.mi-button-small {
+    font-size: 85%;
+}
+
+.mi-button-large {
+    font-size: 110%;
+}
+
+.mi-button-xlarge {
+    font-size: 120%;
+}
+
+.mi-button-round {
+    margin: 2px;
+    padding: 5px !important;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.mi-button-cancel {
+    background-color: #fff;
+    color: #f00;
+    border: 2px solid #f00;
+}
+
+.mi-button-submit {
+    background-color: #0d7fb5;
+    color: #ffffff;
+}
+
+.mi-button-default {
+    background-color: #fff;
+    border: 2px solid #0d7fb5;
+    color: #0d7fb5;
+}
+
+.mi-button-text {
+    display: inline-flex;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+.mi-button > .material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.mi-button:hover {
+    filter: brightness(95%);
+}
+
+/********************************************************************
+****                                                             ****
+                           M O D A L S
+****                                                             ****
+********************************************************************/
+.modal-mask {
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: table;
+    transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.modal-container {
+    width: 100%;
+    min-width: 300px;
+    margin: 0px auto;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    transition: all 0.3s ease;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header {
+    margin-top: 0;
+    color: #ffffff;
+    background-color: #00287e;
+    line-height: 28px;
+    border-radius: 0px;
+}
+
+.modal-header-text {
+    padding: 15px 10px 10px 20px;
+    font-size: 18px;
+}
+
+.modal-header-close {
+    display: block;
+    text-align: center;
+    padding: 15px 0 0;
+    cursor: pointer;
+}
+
+.modal-body {
+    overflow-y: auto;
+}
+
+.modal-footer {
+    border-top: 1px solid #ccc;
+    padding: 20px;
+}
+
+.modal-default-button {
+    float: right;
+}
+
+/*inline*/
+.alertbox {
+    padding: 15px;
+    text-align: center;
+    background-color: #f1a415;
+    margin-bottom: 2px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.modal-alertbox {
+    padding: 10px;
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+    margin-bottom: 10px;
+}
+
+/* * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.*/
+.modal-footer .div-buttons li .act:hover {
+    background-color: brown;
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.modal-close {
+    display: block;
+    padding: 3px 6px;
+    border: 1px solid #f7f7f7;
+    border-radius: 3px;
+    color: #a40325;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+}
+
+.modal-close:hover {
+    color: white;
+    background-color: #a40325;
+}
+
+.modal-enter {
+    opacity: 0;
+}
+
+.modal-leave-active {
+    opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.dragArea .parent {
+    color: antiquewhite;
+    display: block;
+}
+
+/**cornsilk darkcyan*/
+.dateshort {
+    display: inline-block;
+}
+
+.dateshort input {
+    width: 100px;
+}
+
+.input-group {
+    margin: 0 0 !important;
+}
+
+.datepickerrequired {
+    font-size: 13px !important;
+}
+
+.datepickerrequired input {
+    font-size: 13px !important;
+    min-width: 6em !important;
+    background-image: radial-gradient(
+        ellipse farthest-corner at center,
+        rgba(255, 100, 0, 0.02) 10%,
+        rgba(255, 100, 0, 0.05) 100%
+    );
+    border: 1px solid rgba(255, 0, 0, 0.3) !important;
+}
+
+.required {
+    background-image: radial-gradient(
+        ellipse farthest-corner at center,
+        rgba(255, 100, 0, 0.02) 10%,
+        rgba(255, 100, 0, 0.05) 100%
+    );
+    border: 1px solid rgba(255, 0, 0, 0.3) !important;
+}
+
+.validation-fail {
+    border-color: red !important;
+    background-color: rgba(255, 0, 0, 0.25);
+}
+
+.validation-message-fail {
+    color: red !important;
+}
+::ng-deep .mat-drawer.mat-drawer-side {
+    z-index: 1;
+}
+/********************************************************************
+****                                                             ****
+                            M A S K S
+****                                                             ****
+********************************************************************/
+.loading-mask {
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #eef3f6;
+    display: table;
+    transition: opacity 0.3s ease;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    -moz-opacity: 0.6;
+}
+
+.loading-icon {
+    background-image: url('/agendaAngular/src/assets/images/loader.gif');
+    width: 55px;
+    height: 55px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+/********************************************************************
+****                                                             ****
+                     S C R E E N  &  M E D I A
+****                                                             ****
+********************************************************************/
+@media (min-width: 48em) {
+    /* .header
+  {
+      padding-left: 2em;
+      padding-right: 2em;
+  }*/
+    /*#main {
+      padding-left: 200px;
+      left: 0;
+  }*/
+    /*
+  #mi-sidebar {
+      left: 100px;
+  }*/
+    #layout.active .menu-link {
+        left: 200px;
+    }
+}
+/*@media (max-width: 48em) {
+     Only apply this when the window is small. Otherwise, the following
+    case results in extra padding on the left:
+        * Make the window small.
+        * Tap the menu to trigger the active state.
+        * Make the window large again.
+
+    #main.active {
+        position: relative;
+        left: 50px;
+    }
+}*/
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.loadingIndicator .mat-progress-bar-fill::after {
+    background: #0d6efd;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+/* Scroll Styles */
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.party-tooltip-red {
+    background-color: red;
+    color: white;
+}
+
+.party-tooltip-blue {
+    background-color: blue;
+    color: white;
+}
+
+
+C:\Users\mshepherd/p/LegBone/Eva/node_modules/angular-notifier/lib/components/notifier-notification.component.d.ts
+import { AfterViewInit, ElementRef, EventEmitter, Renderer2 } from '@angular/core';
+import { NotifierConfig } from '../models/notifier-config.model';
+import { NotifierNotification } from '../models/notifier-notification.model';
+import { NotifierService } from '../services/notifier.service';
+import { NotifierAnimationService } from '../services/notifier-animation.service';
+import { NotifierTimerService } from '../services/notifier-timer.service';
+import * as i0 from "@angular/core";
+/**
+ * Notifier notification component
+ * -------------------------------
+ * This component is responsible for actually displaying the notification on screen. In addition, it's able to show and hide this
+ * notification, in particular to animate this notification in and out, as well as shift (move) this notification vertically around.
+ * Furthermore, the notification component handles all interactions the user has with this notification / component, such as clicks and
+ * mouse movements.
+ */
+export declare class NotifierNotificationComponent implements AfterViewInit {
+    /**
+     * Input: Notification object, contains all details necessary to construct the notification
+     */
+    notification: NotifierNotification;
+    /**
+     * Output: Ready event, handles the initialization success by emitting a reference to this notification component
+     */
+    ready: EventEmitter<NotifierNotificationComponent>;
+    /**
+     * Output: Dismiss event, handles the click on the dismiss button by emitting the notification ID of this notification component
+     */
+    dismiss: EventEmitter<string>;
+    /**
+     * Notifier configuration
+     */
+    readonly config: NotifierConfig;
+    /**
+     * Notifier timer service
+     */
+    private readonly timerService;
+    /**
+     * Notifier animation service
+     */
+    private readonly animationService;
+    /**
+     * Angular renderer, used to preserve the overall DOM abstraction & independence
+     */
+    private readonly renderer;
+    /**
+     * Native element reference, used for manipulating DOM properties
+     */
+    private readonly element;
+    /**
+     * Current notification height, calculated and cached here (#perfmatters)
+     */
+    private elementHeight;
+    /**
+     * Current notification width, calculated and cached here (#perfmatters)
+     */
+    private elementWidth;
+    /**
+     * Current notification shift, calculated and cached here (#perfmatters)
+     */
+    private elementShift;
+    /**
+     * Constructor
+     *
+     * @param elementRef               Reference to the component's element
+     * @param renderer                 Angular renderer
+     * @param notifierService          Notifier service
+     * @param notifierTimerService     Notifier timer service
+     * @param notifierAnimationService Notifier animation service
+     */
+    constructor(elementRef: ElementRef, renderer: Renderer2, notifierService: NotifierService, notifierTimerService: NotifierTimerService, notifierAnimationService: NotifierAnimationService);
+    /**
+     * Component after view init lifecycle hook, setts up the component and then emits the ready event
+     */
+    ngAfterViewInit(): void;
+    /**
+     * Get the notifier config
+     *
+     * @returns Notifier configuration
+     */
+    getConfig(): NotifierConfig;
+    /**
+     * Get notification element height (in px)
+     *
+     * @returns Notification element height (in px)
+     */
+    getHeight(): number;
+    /**
+     * Get notification element width (in px)
+     *
+     * @returns Notification element height (in px)
+     */
+    getWidth(): number;
+    /**
+     * Get notification shift offset (in px)
+     *
+     * @returns Notification element shift offset (in px)
+     */
+    getShift(): number;
+    /**
+     * Show (animate in) this notification
+     *
+     * @returns Promise, resolved when done
+     */
+    show(): Promise<void>;
+    /**
+     * Hide (animate out) this notification
+     *
+     * @returns Promise, resolved when done
+     */
+    hide(): Promise<void>;
+    /**
+     * Shift (move) this notification
+     *
+     * @param   distance         Distance to shift (in px)
+     * @param   shiftToMakePlace Flag, defining in which direction to shift
+     * @returns Promise, resolved when done
+     */
+    shift(distance: number, shiftToMakePlace: boolean): Promise<void>;
+    /**
+     * Handle click on dismiss button
+     */
+    onClickDismiss(): void;
+    /**
+     * Handle mouseover over notification area
+     */
+    onNotificationMouseover(): void;
+    /**
+     * Handle mouseout from notification area
+     */
+    onNotificationMouseout(): void;
+    /**
+     * Handle click on notification area
+     */
+    onNotificationClick(): void;
+    /**
+     * Start the auto hide timer (if enabled)
+     */
+    private startAutoHideTimer;
+    /**
+     * Pause the auto hide timer (if enabled)
+     */
+    private pauseAutoHideTimer;
+    /**
+     * Continue the auto hide timer (if enabled)
+     */
+    private continueAutoHideTimer;
+    /**
+     * Stop the auto hide timer (if enabled)
+     */
+    private stopAutoHideTimer;
+    /**
+     * Initial notification setup
+     */
+    private setup;
+    static ╔╡fac: i0.╔╡╔╡FactoryDeclaration<NotifierNotificationComponent, never>;
+    static ╔╡cmp: i0.╔╡╔╡ComponentDeclaration<NotifierNotificationComponent, "notifier-notification", never, { "notification": "notification"; }, { "ready": "ready"; "dismiss": "dismiss"; }, never, never>;
+}
+
