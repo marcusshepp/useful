@@ -1,0 +1,2083 @@
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { distinctUntilChanged, filter, Observable, of, switchMap, takeUntil } from 'rxjs';
+import { LegislationDto, LegislationItemsCodegenService, SimpleLegislationDto } from '../../api';
+import { DestroyableComponent } from '../../shared/base-classes/destroyable-component';
+import { exists } from '../../shared/functions/exists';
+
+@Component({
+    selector: 'app-legislation-search',
+    templateUrl: './legislation-search.component.html',
+    styleUrls: ['./legislation-search.component.css'],
+})
+export class LegislationSearchComponent extends DestroyableComponent {
+    public foo(): void {
+        console.log('this.selectedItem', this.selectedItem);
+        console.log('searchInput', this.searchInput.value);
+    }
+    @Input() sessionId: number;
+    @Input() legislationTypes: string[] = [];
+    @Input() legislationPrefixes: string[] = [];
+    @Input() selectedItems: SimpleLegislationDto[] = [];
+    @Input() allowNonPublic: boolean = false;
+
+    @Input() set selectedItem(value: SimpleLegislationDto) {
+        console.log('selcetedItem', value);
+        if (value == null) {
+            this.selectedItemText = '';
+        } else {
+            this.selectedItemText = value.prefix + value.identifier;
+        }
+    }
+    @Input() set selectedItemId(value: number) {
+        console.log('selcetedItem id', value);
+        if (value > 0) {
+            this.setValue(value);
+        }
+    }
+    @Input() initialSearch: string = 'SB';
+    @Input() allowMultiple: boolean = false;
+    @Input() placeholderText: string = 'Legislation';
+    @Input() label: string = 'Legislation';
+    @Input() resetAfterSelected: boolean = false;
+    @Input() set dataSource(items: SimpleLegislationDto[]) {
+        this.dataSourceItems = items;
+        this.filteredLegItems = this.filterDataSource(this.searchInput.value);
+    }
+    @Input() set disabled(isDisabled: boolean) {
+        this.isDisabled = isDisabled;
+        if (isDisabled) {
+            this.searchInput.disable();
+        } else {
+            this.searchInput.enable();
+        }
+    }
+    @Input() set required(isRequired: boolean) {
+        if (isRequired) {
+            this.searchInput.setValidators([Validators.required]);
+        } else {
+            this.searchInput.enable();
+            this.searchInput.clearValidators();
+        }
+    }
+
+    public selectedItemText: string = '';
+    public isDisabled: boolean = false;
+
+    @Output() selectedItemsChange: EventEmitter<SimpleLegislationDto[]> = new EventEmitter<
+        SimpleLegislationDto[]
+    >();
+    @Output() valueSelected: EventEmitter<SimpleLegislationDto> =
+        new EventEmitter<SimpleLegislationDto>();
+    @Output() valueRemoved: EventEmitter<SimpleLegislationDto> =
+        new EventEmitter<SimpleLegislationDto>();
+
+    @ViewChild('searchInputField') searchInputField: ElementRef<HTMLInputElement>;
+    @ViewChild(MatAutocompleteTrigger) autocompleteTrigger: MatAutocompleteTrigger;
+    searchInput = new FormControl();
+
+    public form: FormGroup;
+    public filteredLegItems: SimpleLegislationDto[] = [];
+    public placeholder;
+    public searching: boolean = false;
+    private selectAfterReload: boolean = false;
+    private dataSourceItems: SimpleLegislationDto[] = null;
+
+    constructor(
+        private legItemsService: LegislationItemsCodegenService,
+        private changeDetector: ChangeDetectorRef,
+        formBuilder: FormBuilder
+    ) {
+        super();
+        this.form = formBuilder.group({
+            legislationItems: this.searchInput,
+        });
+        this.listenForSearchValueChanges();
+    }
+
+    public focus(): void {
+        this.searchInputField.nativeElement.focus();
+    }
+
+    public addEvent(event: MatChipInputEvent): void {
+        event.chipInput.clear();
+    }
+
+    public addPlaceholder(): void {
+        this.placeholder = this.placeholderText;
+    }
+
+    public clearPlaceholder(): void {
+        if (this.selectedItems.length > 0) {
+            this.placeholder = '';
+        }
+    }
+
+    public searchKeydown(event: KeyboardEvent): void {
+        if (this.searching && event.key == 'Enter') {
+            this.selectAfterReload = true;
+        }
+    }
+
+    public itemSelected(item: SimpleLegislationDto): void {
+
+        console.log('itemSelected', item);
+        if (item == null) {
+            return;
+        }
+
+        if (this.resetAfterSelected) {
+            this.filteredLegItems = this.dataSourceItems ?? [];
+            this.searchInput.setValue(null);
+            this.valueSelected.next(item);
+            return;
+        }
+
+        if (!this.allowMultiple && !this.resetAfterSelected) {
+            this.searchInput.setValue(item.prefix + item.identifier);
+            this.valueSelected.next(item);
+            return;
+        }
+
+        const alreadyAdded: boolean = this.selectedItems.some(
+            (legItem: SimpleLegislationDto): boolean => {
+                return legItem.id == item.id;
+            }
+        );
+
+        if (alreadyAdded) {
+            return;
+        }
+        this.valueSelected.next(item);
+        this.searchInputField.nativeElement.value = '';
+        this.searchInput.setValue(null);
+        this.selectedItems.push(item);
+        this.selectedItemsChange.emit(this.selectedItems);
+    }
+
+    public setValue(legislationId: number): void {
+        this.legItemsService
+            .apiSessionIdLegislationItemsLegislationIdGet(this.sessionId, legislationId)
+            .subscribe((legItem: LegislationDto): void => {
+                if (legItem != null) {
+                    this.searchInput.setValue(legItem.prefix + legItem.identifier);
+                }
+            });
+    }
+
+    public closePanel(): void {
+        this.autocompleteTrigger.closePanel();
+    }
+
+    public removeSelectedItem(item: SimpleLegislationDto): void {
+        const itemIndex: number = this.selectedItems.findIndex(
+            (legItem: SimpleLegislationDto): boolean => {
+                return legItem.id == item.id;
+            }
+        );
+
+        if (itemIndex < 0) {
+            return;
+        }
+
+        this.valueRemoved.next(item);
+        this.selectedItems.splice(itemIndex, 1);
+        this.selectedItemsChange.emit(this.selectedItems);
+    }
+
+    private listenForSearchValueChanges(): void {
+        this.filteredLegItems = [];
+
+        this.searchInput.valueChanges
+            .pipe(
+                takeUntil(this.destroy$),
+                distinctUntilChanged(),
+                filter((value) => typeof value == 'string'),
+                switchMap((searchValue: string): Observable<SimpleLegislationDto[]> => {
+                    this.searching = true;
+                    this.filteredLegItems = [];
+                    return this.dataSourceItems != null
+                        ? of(this.filterDataSource(searchValue))
+                        : this.searchLegislationItems(searchValue);
+                })
+            )
+            .subscribe((legItems: SimpleLegislationDto[]): void => {
+                this.filteredLegItems = legItems;
+                this.changeDetector.detectChanges();
+                this.searching = false;
+                if (this.selectAfterReload && this.filteredLegItems.length > 0) {
+                    this.itemSelected(this.filteredLegItems[0]);
+                    this.autocompleteTrigger.closePanel();
+                }
+
+                this.selectAfterReload = false;
+            });
+    }
+
+    private searchLegislationItems(searchValue: string): Observable<SimpleLegislationDto[]> {
+        return this.legItemsService.apiSessionIdLegislationSearchLegislationSearchTermGet(
+            this.sessionId,
+            exists(searchValue) ? searchValue : this.initialSearch,
+            this.legislationTypes,
+            this.legislationPrefixes,
+            this.allowNonPublic
+        );
+    }
+
+    public clearValue(): void {
+        this.searchInput.setValue(null);
+        this.selectedItemText = '';
+        this.filteredLegItems = [];
+        this.selectedItems = [];
+        this.selectedItemsChange.emit(this.selectedItems);
+    }
+
+    private filterDataSource(searchValue: string): SimpleLegislationDto[] {
+        const value = exists(searchValue)
+            ? searchValue.toLowerCase()
+            : this.initialSearch.toLowerCase();
+        return this.dataSourceItems.filter((item: SimpleLegislationDto): boolean => {
+            const liid = item.prefix.toLowerCase() + item.identifier.toLowerCase();
+            return liid.includes(value);
+        });
+    }
+}
+
+
+<div class="amendment-management-container col-12">
+    <div class="row">
+        <div class="main-container col-12">
+            <div>
+                <div class="container-fluid internal-container">
+                    <div class="row">
+                        <div class="create-edit-container col-lg-4 col-12">
+                            <mat-card class="form-card"
+                                ><div class="search-container" [formGroup]="searchForm">
+                                    <h2>Bill/Res Amend Order</h2>
+                                    <app-legislation-search
+                                        [sessionId]="currentSessionId"
+                                        [label]="'Search Legislation'"
+                                        [resetAfterSelected]="true"
+                                        (valueSelected)="selectLegItem($event)"
+                                        [legislationPrefixes]="
+                                            prefixes
+                                        "></app-legislation-search></div
+                            ></mat-card>
+                            <mat-card class="form-card">
+                                <ng-container [formGroup]="createAmendmentForm">
+                                <div
+                                    class="container"
+                                    *ngIf="!isEditingAmendment">
+                                    <div class="row create-amend-title-container">
+                                        <h2 class="col-11">Create Amendment</h2>
+                                        <div class="col-1">
+                                            <i
+                                                (click)="clearCreateAdmentmentForm()"
+                                                class="fa fa-undo fa-lg com-icon form-reset"
+                                                matTooltip="Reset Form"></i>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <mat-checkbox
+                                                class="napkin-check"
+                                                (change)="isNapkinChange()"
+                                                [formControl]="isNapkin">
+                                                Is Napkin
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                    <div
+                                        *ngIf="!isNapkin.value && !isMessagesFromTheHouse"
+                                        class="row">
+                                        <div class="col-6">
+                                            <mat-form-field
+                                                appearance="fill"
+                                                class="white-form-field">
+                                                <mat-label>Enter Document Key</mat-label>
+                                                <input
+                                                    type="text"
+                                                    #doc
+                                                    matInput
+                                                    [formControl]="documentKey"
+                                                    autocomplete="off"
+                                                    id="documentKey" />
+                                                <mat-error *ngIf="documentKey.hasError('required')"
+                                                    >Document Key is
+                                                    <strong>required</strong></mat-error
+                                                >
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-1">
+                                            <button
+                                                class="doc-btn"
+                                                type="button"
+                                                mat-raised-button
+                                                [disabled]="!documentKey.valid"
+                                                (click)="getChamberDocumentByDocumentKey()"
+                                                id="retrieve-document">
+                                                <i
+                                                    class="fa fa-reply fa-lg action-icon"
+                                                    matTooltip="Retrieve Document"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <button
+                                                class="doc-btn preview-btn"
+                                                type="button"
+                                                mat-raised-button
+                                                [disabled]="!exists(chamberDocument)"
+                                                (click)="previewDoc()"
+                                                id="preview-document">
+                                                <i
+                                                    class="fa fa-download fa-lg action-icon"
+                                                    matTooltip="Preview Document"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div
+                                        *ngIf="isNapkin.value || isMessagesFromTheHouse"
+                                        class="row file-upload-row">
+                                        <div class="col-5 file-upload-col">
+                                            <button
+                                                mat-raised-button
+                                                color="white"
+                                                (click)="fileInput.click()">
+                                                Upload Document
+                                            </button>
+                                            <input
+                                                hidden
+                                                accept=".doc,.docx,.pdf"
+                                                type="file"
+                                                #fileInput
+                                                (change)="uploadDocument($event)" />
+                                            <span class="file-name">{{ selectedFilename }}</span>
+                                            <i
+                                                *ngIf="selectedFilename != null"
+                                                class="fa fa-times clear-file-btn"
+                                                (click)="clearFile()"
+                                                matTooltip="Remove selected file."></i>
+                                        </div>
+                                        <div
+                                            *ngIf="uploadedDocument.hasError('required')"
+                                            class="file-required">
+                                            A document must be uploaded for a napkin amendment.
+                                        </div>
+                                    </div>
+                                    <div *ngIf="isMessagesFromTheHouse" class="row">
+                                        <div class="col-11">
+                                            <mat-form-field
+                                                appearance="fill"
+                                                class="white-form-field">
+                                                <mat-label>House Version</mat-label>
+                                                <mat-select
+                                                    [disabled]="
+                                                        houseVersions == null ||
+                                                        houseVersions.length == 0
+                                                    "
+                                                    [formControl]="selectedHouseVersion">
+                                                    <mat-option
+                                                        *ngFor="let version of houseVersions"
+                                                        [value]="version.chamberDocumentId">
+                                                        {{ version.versionType.versionName }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error
+                                                    *ngIf="
+                                                        selectedHouseVersion.hasError('required')
+                                                    ">
+                                                    A House version must be selected, or a document
+                                                    must be uploaded.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="exists(this.chamberDocument)" class="row doc-label">
+                                        {{ this.chamberDocument.documentName }}
+                                    </div>
+                                    <div class="row f-field">
+                                        <app-legislation-search
+                                            [sessionId]="currentSessionId"
+                                                [selectedItem]="legislationItem.value"
+                                            [label]="'Search Legislation'"
+                                            [resetAfterSelected]="false"
+                                            [required]="true"
+                                            [formControl]="legislationItem"
+                                            [legislationPrefixes]="prefixes"
+                                            #formLegSearch
+                                            (valueSelected)="
+                                                selectLegItem($event)
+                                            "></app-legislation-search>
+                                    </div>
+                                    <div class="f-field error-oob">
+                                        <mat-form-field appearance="fill" class="white-form-field">
+                                            <mat-label>Order of Business</mat-label>
+                                            <mat-select [formControl]="orderOfBusiness">
+                                                <mat-option
+                                                    *ngFor="let oob of oobList"
+                                                    [value]="oob"
+                                                    >{{ oob }}</mat-option
+                                                >
+                                            </mat-select>
+                                            <mat-error *ngIf="orderOfBusiness.hasError('required')"
+                                                >Order of business is <strong>required.</strong> If
+                                                no options are present, the published calendar does
+                                                not contain any valid orders.</mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="f-field row">
+                                        <div class="col-11">
+                                            <mat-form-field
+                                                appearance="fill"
+                                                class="white-form-field">
+                                                <mat-label>Committee</mat-label>
+                                                <mat-select
+                                                    [formControl]="committee"
+                                                    (selectionChange)="setSponsorNull()">
+                                                    <mat-option
+                                                        *ngFor="let c of standingCommittees"
+                                                        [value]="c"
+                                                        >{{ c.name }}</mat-option
+                                                    ><mat-option [value]="houseOfRepsString">{{
+                                                        houseOfRepsString
+                                                    }}</mat-option>
+                                                    <mat-option
+                                                        *ngFor="let c of conferenceCommittees"
+                                                        [value]="c"
+                                                        >{{ c.name }}</mat-option
+                                                    >
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-1">
+                                            <i
+                                                (click)="committee.setValue(null)"
+                                                class="fa fa-undo fa-lg com-icon"
+                                                matTooltip="Remove Committee"></i>
+                                        </div>
+                                    </div>
+                                    <div class="f-field row">
+                                        <div class="col-11">
+                                            <mat-form-field
+                                                appearance="fill"
+                                                class="white-form-field">
+                                                <mat-label>Sponsor</mat-label>
+                                                <input
+                                                    matInput
+                                                    [formControl]="sponsor"
+                                                    [matAutocomplete]="auto"
+                                                    (input)="filterSelectableSponsors($event)" />
+                                                <mat-autocomplete
+                                                    #auto="matAutocomplete"
+                                                    [displayWith]="sponsorSelectionDisplay"
+                                                    (optionSelected)="setCommitteeNull()">
+                                                    <mat-option
+                                                        *ngFor="
+                                                            let s of potentialSelectableSponsors
+                                                        "
+                                                        [value]="s">
+                                                        {{ s.firstName + ' ' + s.lastName }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                                <mat-error *ngIf="sponsor.hasError('required')"
+                                                    >Sponsor is <strong>required</strong></mat-error
+                                                >
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-1">
+                                            <i
+                                                (click)="resetSponsorControl()"
+                                                class="fa fa-undo fa-lg com-icon"
+                                                matTooltip="Remove Sponsor"></i>
+                                        </div>
+                                    </div>
+                                    <div class="doc-row">
+                                        <div class="f-field">
+                                            <mat-form-field
+                                                appearance="fill"
+                                                class="white-form-field">
+                                                <mat-label>Amendment Identifier</mat-label>
+                                                <input
+                                                    matInput
+                                                    type="text"
+                                                    [formControl]="amendmentIdentifier"
+                                                    autocomplete="off"
+                                                    id="amendmentIdentifier" />
+                                                <mat-error
+                                                    *ngIf="amendmentIdentifier.hasError('required')"
+                                                    >Amendment identifier is
+                                                    <strong>required</strong></mat-error
+                                                >
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="f-field">
+                                            <mat-checkbox
+                                                class="is-sub-check"
+                                                [checked]="isAmendmentSubstitute"
+                                                (change)="isSub()"
+                                                >Is Substitute</mat-checkbox
+                                            >
+                                        </div>
+                                    </div>
+
+                                    <div class="f-field" *ngIf="isAmendmentSubstitute">
+                                        <mat-form-field appearance="fill" class="white-form-field">
+                                            <mat-label>Substitute Identifier</mat-label>
+                                            <input
+                                                matInput
+                                                type="text"
+                                                [formControl]="substituteIdentifier"
+                                                autocomplete="off"
+                                                id="substituteIdentifier" />
+                                            <mat-error
+                                                *ngIf="substituteIdentifier.hasError('required')"
+                                                >Substitute identifier is
+                                                <strong>required</strong></mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="f-field">
+                                        <mat-form-field appearance="fill" class="white-form-field">
+                                            <mat-label>Date Offered</mat-label>
+                                            <input
+                                                matInput
+                                                [matDatepicker]="offerDate"
+                                                [formControl]="dateOffered" />
+                                            <mat-datepicker-toggle
+                                                matSuffix
+                                                [for]="offerDate"></mat-datepicker-toggle>
+                                            <mat-datepicker #offerDate></mat-datepicker>
+                                            <mat-error *ngIf="dateOffered.hasError('required')"
+                                                >Date offered is
+                                                <strong>required</strong></mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <mat-error *ngIf="isValidExceptSponsorOrCommittee"
+                                                >Please select either a sponsor or committee.
+                                            </mat-error>
+                                            <mat-error *ngIf="isValidExceptChamberDoc"
+                                                >You must retrieve the entered chamber document.
+                                            </mat-error>
+                                            <mat-error *ngIf="noVersionOrDocument">
+                                                Please select a House Version or upload a document.
+                                            </mat-error>
+                                        </div>
+                                        <button
+                                            class="dl-button doc-btn"
+                                            type="button"
+                                            mat-raised-button
+                                            color="primary"
+                                            (click)="assignAmendment()"
+                                            [disabled]="!checkCreateForm()"
+                                            id="submit-amendment">
+                                            Assign Amendment
+                                        </button>
+                                    </div>
+                                </div>
+</ng-container>
+
+                                <ng-container [formGroup]="editAmendmentForm">
+                                <div *ngIf="isEditingAmendment">
+                                    <h2>Edit Amendment</h2>
+
+                                    <div
+                                        class="row file-upload-row"
+                                        *ngIf="currentlyEditingDto.isNapkin">
+                                        <div class="col-5 file-upload-col">
+                                            <button
+                                                mat-raised-button
+                                                color="white"
+                                                (click)="editFileInput.click()">
+                                                Upload Document
+                                            </button>
+                                            <input
+                                                hidden
+                                                accept=".doc,.docx,.pdf"
+                                                type="file"
+                                                #editFileInput
+                                                (change)="uploadDocument($event, true)" />
+                                            <span class="file-name">{{ selectedFilename }}</span>
+                                            <i
+                                                *ngIf="selectedFilename != null"
+                                                class="fa fa-times clear-file-btn"
+                                                (click)="clearFile()"
+                                                matTooltip="Remove selected file."></i>
+                                            <div
+                                                *ngIf="editUploadedDocument.hasError('required')"
+                                                class="file-required-edit">
+                                                A document must be uploaded for a napkin amendment.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="f-field error-oob">
+                                        <mat-form-field appearance="fill" class="white-form-field">
+                                            <mat-label>Order of Business</mat-label>
+                                            <mat-select [formControl]="editOrderOfBusiness">
+                                                <mat-option
+                                                    *ngFor="let oob of oobList"
+                                                    [value]="oob"
+                                                    >{{ oob }}</mat-option
+                                                >
+                                            </mat-select>
+                                            <mat-error *ngIf="orderOfBusiness.hasError('required')"
+                                                >Order of business is <strong>required.</strong> If
+                                                no options are present, the published calendar does
+                                                not contain any valid orders.</mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="f-field">
+                                        <mat-form-field appearance="fill" class="white-form-field">
+                                            <mat-label>Disposition</mat-label>
+                                            <mat-select [formControl]="disposition">
+                                                <mat-option
+                                                    *ngFor="let d of dispositions"
+                                                    [value]="d"
+                                                    >{{ d }}</mat-option
+                                                >
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="f-field row">
+                                        <div class="col-11">
+                                            <mat-form-field
+                                                appearance="fill"
+                                                class="white-form-field">
+                                                <mat-label>Committee</mat-label>
+                                                <mat-select
+                                                    [formControl]="editCommittee"
+                                                    (selectionChange)="setSponsorNull()">
+                                                    <mat-option
+                                                        *ngFor="let c of standingCommittees"
+                                                        [value]="c"
+                                                        >{{ c.name }}</mat-option
+                                                    ><mat-option [value]="houseOfRepsString">{{
+                                                        houseOfRepsString
+                                                    }}</mat-option>
+                                                    <mat-option
+                                                        *ngFor="let c of conferenceCommittees"
+                                                        [value]="c"
+                                                        >{{ c.name }}</mat-option
+                                                    >
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-1">
+                                            <i
+                                                (click)="editCommittee.setValue(null)"
+                                                class="fa fa-undo fa-lg com-icon"
+                                                matTooltip="Remove Committee and Enable Sponsor Select"></i>
+                                        </div>
+                                    </div>
+                                    <div class="f-field row">
+                                        <div class="col-11">
+                                            <mat-form-field
+                                                appearance="fill"
+                                                class="white-form-field">
+                                                <mat-label>Sponsor</mat-label>
+                                                <input
+                                                    matInput
+                                                    [formControl]="editSponsor"
+                                                    [matAutocomplete]="auto"
+                                                    (input)="filterSelectableSponsors($event)" />
+                                                <mat-autocomplete
+                                                    #auto="matAutocomplete"
+                                                    [displayWith]="sponsorSelectionDisplay"
+                                                    (optionSelected)="setCommitteeNull()">
+                                                    <mat-option
+                                                        *ngFor="
+                                                            let s of potentialSelectableSponsors
+                                                        "
+                                                        [value]="s">
+                                                        {{ s.firstName + ' ' + s.lastName }}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                                <mat-error *ngIf="sponsor.hasError('required')"
+                                                    >Sponsor is <strong>required</strong></mat-error
+                                                >
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-1">
+                                            <i
+                                                (click)="resetSponsorControl()"
+                                                class="fa fa-undo fa-lg com-icon"
+                                                matTooltip="Remove Committee and Enable Sponsor Select"></i>
+                                        </div>
+                                    </div>
+                                    <div class="doc-row">
+                                        <div class="f-field">
+                                            <mat-form-field
+                                                appearance="fill"
+                                                class="white-form-field">
+                                                <mat-label>Amendment Identifier</mat-label>
+                                                <input
+                                                    matInput
+                                                    type="text"
+                                                    [formControl]="editAmendmentIdentifier"
+                                                    autocomplete="off"
+                                                    id="amendmentIdentifier" />
+                                                <mat-error
+                                                    *ngIf="amendmentIdentifier.hasError('required')"
+                                                    >Amendment identifier is
+                                                    <strong>required</strong></mat-error
+                                                >
+                                            </mat-form-field>
+                                        </div>
+                                        <div
+                                            class="f-field"
+                                            matTooltip="Cannot convert an existing amendment to a substitute or an existing substitue to an amendment.">
+                                            <mat-checkbox
+                                                class="is-sub-check"
+                                                [checked]="isAmendmentSubstitute"
+                                                [disabled]="true"
+                                                (change)="isSub()"
+                                                >Is Substitute</mat-checkbox
+                                            >
+                                        </div>
+                                    </div>
+
+                                    <div class="f-field" *ngIf="isAmendmentSubstitute">
+                                        <mat-form-field appearance="fill" class="white-form-field">
+                                            <mat-label>Substitute Identifier</mat-label>
+                                            <input
+                                                matInput
+                                                type="text"
+                                                [formControl]="editSubstituteIdentifier"
+                                                autocomplete="off"
+                                                id="substituteIdentifier" />
+                                            <mat-error
+                                                *ngIf="substituteIdentifier.hasError('required')"
+                                                >Substitute identifier is
+                                                <strong>required</strong></mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="f-field">
+                                        <mat-form-field appearance="fill" class="white-form-field">
+                                            <mat-label>Date Offered</mat-label>
+                                            <input
+                                                matInput
+                                                [matDatepicker]="offerDate"
+                                                [formControl]="editDateOffered" />
+                                            <mat-datepicker-toggle
+                                                matSuffix
+                                                [for]="offerDate"></mat-datepicker-toggle>
+                                            <mat-datepicker #offerDate></mat-datepicker>
+                                            <mat-error *ngIf="editDateOffered.hasError('required')"
+                                                >Date offered is
+                                                <strong>required</strong></mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <mat-error *ngIf="isValidExceptSponsorOrCommittee"
+                                                >Please select either a sponsor or committee.
+                                            </mat-error>
+                                        </div>
+                                        <button
+                                            class="dl-button doc-btn"
+                                            type="button"
+                                            mat-raised-button
+                                            (click)="cancelUpdate()"
+                                            id="submit-amendment">
+                                            Cancel
+                                        </button>
+                                        <button
+                                            class="dl-button doc-btn"
+                                            type="button"
+                                            mat-raised-button
+                                            color="primary"
+                                            (click)="updateAmendment()"
+                                            [disabled]="!checkEditForm()"
+                                            id="submit-amendment">
+                                            Update Amendment
+                                        </button>
+                                    </div>
+                                </div>
+                                </ng-container>
+                            </mat-card>
+                        </div>
+                        <div class="col-lg-7 col-12 right-container" id="right-container">
+                            <div class="legislationLabel">
+                                <h1>{{ currentLegislationLabel }}</h1>
+                                <hr />
+                            </div>
+                            <div class="no-amends center" *ngIf="legislationAmendments.length == 0">
+                                {{ noAmendments }}
+                            </div>
+                            <app-pdf-preview
+                                [documentToDisplay]="documentToDisplay$"
+                                [heightOverride]="'100%'"
+                                [exitButtonOnTop]="true"></app-pdf-preview>
+                            <div
+                                *ngIf="
+                                    !(documentToDisplay$ | async) &&
+                                    currentLegislationOrders.length > 0 &&
+                                    legislationAmendments.length > 0
+                                ">
+                                <div [formGroup]="orderByFormGroup">
+                                    <mat-form-field appearance="fill" class="white-form-field">
+                                        <mat-label>Reorder of Orders of Business</mat-label>
+                                        <mat-select [formControl]="orderByFormControl">
+                                            <mat-option
+                                                *ngFor="let order of orderByOptions"
+                                                [value]="order">
+                                                {{ order }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="toggle-btn">
+                                    <button
+                                        mat-button
+                                        color="primary"
+                                        (click)="openClosePanel(true)"
+                                        matTooltip="Open all orders of business">
+                                        Show
+                                    </button>
+                                    |
+                                    <button
+                                        mat-button
+                                        color="primary"
+                                        (click)="openClosePanel(false)"
+                                        matTooltip="Collapse all orders of business">
+                                        Hide
+                                    </button>
+                                </div>
+
+                                <mat-accordion [multi]="true">
+                                    <mat-expansion-panel
+                                        *ngFor="let oob of currentLegislationOrders"
+                                        class="accordion-style"
+                                        [expanded]="getAccordionOpenState(oob)"
+                                        (afterExpand)="amendmentAddScrollTo()"
+                                        (opened)="updateAccordionOpenState(oob, true)"
+                                        (closed)="updateAccordionOpenState(oob, false)">
+                                        <mat-expansion-panel-header
+                                            matTooltip="Click to expand or collapse order of business">
+                                            <mat-panel-title *ngIf="exists(oob)" class="heading">
+                                                {{ oob }}
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Amendment</th>
+                                                    <th>Sponsor</th>
+                                                    <th>Date Offered</th>
+                                                    <th>Disposition</th>
+                                                    <th class="center">Published</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngFor="let amendment of legislationAmendments">
+                                                <tr
+                                                    *ngIf="
+                                                        amendment.orderOfBusiness == oob ||
+                                                        (amendment.orderOfBusiness == null &&
+                                                            oob == miscOobName)
+                                                    ">
+                                                    <td class="amendment-cell" [id]="amendment.id">
+                                                        <span
+                                                            >{{ amendment.amendmentIdentifier }}
+                                                            {{ amendment.isNapkin ? '| ' : '' }}
+                                                            <strong
+                                                                *ngIf="amendment.isNapkin"
+                                                                matTooltip="Napkin Amendment"
+                                                                aria-hidden="true"
+                                                                >Napkin</strong
+                                                            ></span
+                                                        >
+                                                        <span *ngIf="amendment.isSubstitute">
+                                                            {{ amendment.substituteIdentifier }}
+                                                        </span>
+                                                    </td>
+                                                    <td
+                                                        *ngIf="
+                                                            amendment.sponsorId !=
+                                                            houseOfRepsSponsor?.id
+                                                        ">
+                                                        {{
+                                                            amendment.sponsorCommitteeName ||
+                                                                'Sen. ' +
+                                                                    amendment.sponsorFirstName +
+                                                                    ' ' +
+                                                                    amendment.sponsorLastName
+                                                        }}
+                                                    </td>
+                                                    <td
+                                                        *ngIf="
+                                                            amendment.sponsorId ==
+                                                            houseOfRepsSponsor?.id
+                                                        ">
+                                                        {{ houseOfRepsString }}
+                                                    </td>
+                                                    <td>
+                                                        {{
+                                                            amendment.dateOffered
+                                                                | date : 'MM/dd/yyyy'
+                                                        }}
+                                                    </td>
+                                                    <td>
+                                                        <mat-form-field
+                                                            appearance="fill"
+                                                            class="white-form-field options-select">
+                                                            <mat-label>Disposition</mat-label>
+                                                            <mat-select
+                                                                [(ngModel)]="
+                                                                    amendment.senateDisposition
+                                                                "
+                                                                id="dispositionSelect">
+                                                                <mat-option
+                                                                    [value]="d"
+                                                                    *ngFor="let d of dispositions"
+                                                                    (click)="
+                                                                        updateDisposition(amendment)
+                                                                    "
+                                                                    >{{ d }}</mat-option
+                                                                >
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td class="center">
+                                                        <i
+                                                            *ngIf="amendment.isPublic"
+                                                            class="fa fa-check fa-lg action-icon check-color"></i>
+                                                    </td>
+                                                    <td>
+                                                        <i
+                                                            *ngIf="
+                                                                !amendment.isNapkin &&
+                                                                amendment.isSubstitute
+                                                            "
+                                                            class="fa fa-file-text fa-lg action-icon dl-button"
+                                                            matTooltip="Download Substitute Top Sheet (Word)"
+                                                            (click)="
+                                                                getDocumentTopSheet(amendment)
+                                                            "></i>
+                                                    </td>
+                                                    <td>
+                                                        <i
+                                                            *ngIf="amendment.hasWordContent"
+                                                            class="fa fa-file-word-o fa-lg action-icon dl-button"
+                                                            matTooltip="Download Amendment (Word)"
+                                                            (click)="
+                                                                getDocument(amendment, 'docx')
+                                                            "></i>
+                                                    </td>
+                                                    <td>
+                                                        <i
+                                                            class="fa fa-file-pdf-o fa-lg action-icon dl-button"
+                                                            matTooltip="Download Amendment (Pdf)"
+                                                            (click)="
+                                                                getDocument(amendment, 'pdf')
+                                                            "></i>
+                                                    </td>
+                                                    <td>
+                                                        <i
+                                                            class="fa fa-search fa-lg action-icon dl-button"
+                                                            matTooltip="Preview Amendment"
+                                                            (click)="
+                                                                previewDocument(amendment)
+                                                            "></i>
+                                                    </td>
+                                                    <td *ngIf="!amendment.isPublic">
+                                                        <i
+                                                            class="fa fa-paper-plane fa-lg action-icon edit-button"
+                                                            matTooltip="Publish Amendment"
+                                                            (click)="
+                                                                publishAmendment(amendment)
+                                                            "></i>
+                                                    </td>
+                                                    <td>
+                                                        <i
+                                                            class="fa fa-pencil fa-lg action-icon edit-button"
+                                                            matTooltip="Edit Amendment"
+                                                            (click)="editAmendment(amendment)"></i>
+                                                    </td>
+                                                    <td>
+                                                        <i
+                                                            class="fa fa-trash fa-lg action-icon edit-button"
+                                                            matTooltip="Delete Amendment"
+                                                            (click)="
+                                                                deleteAmendment(amendment)
+                                                            "></i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    QueryList,
+    ViewChild,
+    ViewChildren,
+} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { NotifierService } from 'angular-notifier';
+import { saveAs } from 'file-saver';
+import { first, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
+import {
+    AmendmentManagementCodegenService,
+    AmendmentManagementDto,
+    CommitteeDto,
+    CommitteeManagementCodegenService,
+    CommitteesCodegenService,
+    CommitteeTypeDto,
+    LegislationAmendmentDto,
+    LegislationDto,
+    LegislationSubstituteDto,
+    LegislatorCodegenService,
+    LegislatorDto,
+    SimpleLegislationDto,
+} from 'src/app/api';
+import { LegislationItemsCodegenService } from 'src/app/api/api/legislationItems.service';
+import { ChamberDocumentDto } from 'src/app/api/model/chamberDocumentDto';
+import { GeneralConfirmationModalComponent } from 'src/app/components/general-confirmation-modal/general-confirmation-modal.component';
+import { FileDownloaderService } from 'src/app/services/file-downloader.service';
+import { DestroyableComponent } from 'src/app/shared/base-classes/destroyable-component';
+import { exists } from 'src/app/shared/functions/exists';
+import { sortByLastNameThenFirstName } from 'src/app/shared/functions/sort-by-first-name-then-last-name';
+import {
+    STANDING,
+    CONFERENCE,
+    CONFERENCE_POLICY,
+} from 'src/app/shared/models/committee-types.models';
+import { DISPOSITIONS } from 'src/app/shared/models/dispositions';
+import { ChamberAbbreviationString, M2Chambers } from 'src/app/shared/models/m2-chambers.models';
+import { ORDER_OF_BUSINESS_ENUM, ORDER_OF_BUSINESS_LIST } from 'src/app/shared/models/oobs';
+import { PREFIXES } from 'src/app/shared/models/prefixes.models';
+import { SessionStateService } from 'src/app/shared/services/session-state.service';
+import { LegislationVersionDto } from '../../api/model/legislationVersionDto';
+import { LegislationSearchComponent } from '../../components/legislation-search/legislation-search.component';
+import { LEGISLATION_VERSION_TYPES } from '../../shared/models/legislation-version-types';
+import {
+    ALPHA_ORDER,
+    CALENDAR_ORDER,
+    CHRONOLOGICAL_ORDER,
+    ORDER_BY_OPTIONS,
+} from './amendment-management.models';
+
+@Component({
+    selector: 'app-amendment-management',
+    templateUrl: './amendment-management.component.html',
+    styleUrls: ['./amendment-management.component.css'],
+})
+export class AmendmentManagementComponent extends DestroyableComponent {
+    @ViewChildren(MatExpansionPanel) panels: QueryList<MatExpansionPanel>;
+    @ViewChild('formLegSearch') formLegItemSearch: LegislationSearchComponent;
+    @ViewChild('doc') doc: ElementRef;
+    public noAmendments = 'No legislation item selected';
+    public exists = exists;
+    public dispositions = DISPOSITIONS;
+    public prefixes: string[] = [
+        PREFIXES.SB,
+        PREFIXES.SJR,
+        PREFIXES.SCR,
+        PREFIXES.SR,
+        PREFIXES.HB,
+        PREFIXES.HJR,
+        PREFIXES.HCR,
+    ];
+    public oobList: string[];
+    public currentSessionId: number;
+    public search: FormControl = new FormControl(null, []);
+    public searchForm: FormGroup = this.fb.group({
+        search: this.search,
+    });
+    public orderByFormControl: FormControl = new FormControl(CALENDAR_ORDER, []);
+    public orderByFormGroup: FormGroup = this.fb.group({
+        orderByFormControl: this.orderByFormControl,
+    });
+    public isNapkin: FormControl = new FormControl(null);
+    public uploadedDocument: FormControl = new FormControl(null);
+    public editUploadedDocument: FormControl = new FormControl(null);
+    public selectedHouseVersion: FormControl = new FormControl(null);
+    public documentKey: FormControl = new FormControl(null, [Validators.required]);
+    public orderOfBusiness: FormControl = new FormControl(null, [Validators.required]);
+    public editOrderOfBusiness: FormControl = new FormControl(null, [Validators.required]);
+    public legislationItem: FormControl = new FormControl(null, [Validators.required]);
+    public amendmentIdentifier: FormControl = new FormControl(null, [Validators.required]);
+    public editAmendmentIdentifier: FormControl = new FormControl(null, [Validators.required]);
+    public substituteIdentifier: FormControl = new FormControl(null, [Validators.required]);
+    public editSubstituteIdentifier: FormControl = new FormControl(null, [Validators.required]);
+    public dateOffered: FormControl = new FormControl(null, [Validators.required]);
+    public editDateOffered: FormControl = new FormControl(null, [Validators.required]);
+    public disposition: FormControl = new FormControl(null, [Validators.required]);
+    public sponsor: FormControl = new FormControl(null, []);
+    public editSponsor: FormControl = new FormControl(null, []);
+    public committee: FormControl = new FormControl(null, []);
+    public editCommittee: FormControl = new FormControl(null, []);
+    public createAmendmentForm: FormGroup = this.fb.group({
+        isNapkin: this.isNapkin,
+        napkinDocument: this.uploadedDocument,
+        houseVersion: this.selectedHouseVersion,
+        documentId: this.documentKey,
+        orderOfBusiness: this.orderOfBusiness,
+        amendmentIdentifier: this.amendmentIdentifier,
+        legislationItem: this.legislationItem,
+        dateOffered: this.dateOffered,
+        sponsor: this.sponsor,
+        committee: this.committee,
+    });
+
+    public orderByOptions: typeof ORDER_BY_OPTIONS = ORDER_BY_OPTIONS;
+
+    public editAmendmentForm: FormGroup = this.fb.group({
+        napkinDocument: this.editUploadedDocument,
+        orderOfBusiness: this.editOrderOfBusiness,
+        amendmentIdentifier: this.editAmendmentIdentifier,
+        dateOffered: this.editDateOffered,
+        sponsor: this.editSponsor,
+        committee: this.editCommittee,
+        disposition: this.disposition,
+    });
+    public isLoadingLegItems: boolean = false;
+    public legislationAmendments: AmendmentManagementDto[] = [];
+    public houseVersions: LegislationVersionDto[] = [];
+    public selectedFilename: string = null;
+    public standingCommittees: CommitteeDto[];
+    public conferenceCommittees: CommitteeDto[] = [];
+    public currentLegislationOrders: string[] = [];
+    public calendarLegislationOrders: string[] = [];
+    public currentLegislationLabel: string;
+    public miscOobName = 'Unassigned';
+    public chamberDocument: ChamberDocumentDto;
+    public potentialSponsors: LegislatorDto[];
+    public potentialSponsorsFiltered: LegislatorDto[];
+    public potentialSelectableSponsors: LegislatorDto[] = [];
+    public houseOfRepsSponsor: LegislatorDto;
+    public sortLegislators = sortByLastNameThenFirstName;
+    public isAmendmentSubstitute: boolean = false;
+    public isShowingCreateForm: boolean = false;
+    public noVersionOrDocument: boolean = false;
+    public panelOpenState: boolean = false;
+    public isValidExceptSponsorOrCommittee: boolean;
+    public isValidExceptChamberDoc: boolean;
+    public isEditingAmendment: boolean = false;
+    public currentlyEditingDto: AmendmentManagementDto;
+    public houseOfRepsString: string = 'House of Representatives';
+    public documentToDisplay$: Subject<Blob> = new Subject<Blob>();
+    public accordianOpenStates: { [oob: string]: boolean } = {};
+    private committeeTypes: CommitteeTypeDto[] = [];
+    private lastAddedAmendment: string = null;
+    private scrollToAnimationFrameId: number;
+    private currentLegislationItem: SimpleLegislationDto = null;
+
+    constructor(
+        private fb: FormBuilder,
+        private sessionStateService: SessionStateService,
+        private amendmentService: AmendmentManagementCodegenService,
+        private fileDownloader: FileDownloaderService,
+        private notifierService: NotifierService,
+        private legislationItemsService: LegislationItemsCodegenService,
+        private legislatorService: LegislatorCodegenService,
+        private fileDownloaderService: FileDownloaderService,
+        private committeesService: CommitteesCodegenService,
+        private committeeManagementService: CommitteeManagementCodegenService,
+        private dialog: MatDialog,
+        private cd: ChangeDetectorRef
+    ) {
+        super();
+        this.getOobList();
+        this.getCommitteesAndLegislators();
+        this.listenForOobChanges();
+        this.listenForHouseVersionChanges();
+        this.listenForOrderByChanges();
+    }
+
+    public get isMessagesFromTheHouse(): boolean {
+        return this.orderOfBusiness.value == ORDER_OF_BUSINESS_ENUM.MessagesFromHouse;
+    }
+
+    public selectLegItem(legItem: SimpleLegislationDto): void {
+        if (this.isEditingAmendment) {
+            this.isEditingAmendment = false;
+            this.editAmendmentForm.reset();
+            this.substituteIdentifier.reset();
+        }
+
+        this.search.reset();
+        this.houseVersions = [];
+        this.currentLegislationOrders = [];
+        this.legislationAmendments = [];
+        this.currentLegislationLabel = '';
+        this.formLegItemSearch.setValue(legItem.id);
+        this.assignTo(legItem);
+        this.amendmentService
+            .apiSessionIdAmendmentManagementLegislationIdGet(this.currentSessionId, legItem.id)
+            .subscribe((amendments: AmendmentManagementDto[]): void => {
+                if (amendments.length == 0) {
+                    this.noAmendments = 'No amendments found.';
+                }
+                this.currentLegislationLabel = legItem.prefix + ' ' + legItem.identifier;
+                this.orderByFormControl.setValue(CALENDAR_ORDER);
+                this.handleAmendments(amendments);
+            });
+    }
+
+    public handleAmendments(amendments: AmendmentManagementDto[]): void {
+        this.legislationAmendments = amendments;
+
+        this.currentLegislationOrders = [
+            ORDER_OF_BUSINESS_ENUM.MessagesFromGovernor,
+            ORDER_OF_BUSINESS_ENUM.MessagesFromHouse,
+            ORDER_OF_BUSINESS_ENUM.ConferenceReports,
+            ORDER_OF_BUSINESS_ENUM.ThirdReadingOfBills,
+            ORDER_OF_BUSINESS_ENUM.GeneralOrders,
+            ORDER_OF_BUSINESS_ENUM.Resolutions,
+            ORDER_OF_BUSINESS_ENUM.CommitteeReports,
+        ];
+
+        this.filterLegOrdersBasedOnAmendments();
+
+        this.currentLegislationOrders = this.currentLegislationOrders.filter(
+            (value, index, self) => self.indexOf(value) == index
+        );
+        this.calendarLegislationOrders = this.currentLegislationOrders;
+    }
+
+    public async uploadDocument(fileEvent: Event, isEdit: boolean = false): Promise<void> {
+        const element = fileEvent.currentTarget as HTMLInputElement;
+        if (element.files == null || element.files.length == 0) {
+            if (isEdit) {
+                this.editUploadedDocument.setValue(null);
+            } else {
+                this.uploadedDocument.setValue(null);
+            }
+            return;
+        }
+
+        this.chamberDocument = null;
+
+        const file: File = element.files[0];
+        this.selectedFilename = file.name;
+        const buffer: ArrayBuffer = await file.arrayBuffer();
+        const uintArray: Uint8Array = new Uint8Array(buffer, 0, buffer.byteLength);
+        let binaryString: string = '';
+        for (let i = 0; i < uintArray.byteLength; i++) {
+            binaryString += String.fromCharCode(uintArray[i]);
+        }
+
+        if (isEdit) {
+            this.editUploadedDocument.setValue(btoa(binaryString));
+            return;
+        }
+        this.uploadedDocument.setValue(btoa(binaryString));
+    }
+
+    public clearFile(): void {
+        this.uploadedDocument.setValue(null);
+        this.editUploadedDocument.setValue(null);
+        this.selectedFilename = null;
+        if (this.isEditingAmendment) {
+            this.currentlyEditingDto.hasWordContent = false;
+            this.currentlyEditingDto.hasPdfContent = false;
+            this.setEditFileUploadRequired(true);
+        }
+    }
+
+    public assignTo(legItem: SimpleLegislationDto): void {
+        this.legislationItem.setValue(legItem);
+        this.currentLegislationItem = legItem;
+        this.houseVersions = [];
+
+        this.legislationItemsService
+            .apiSessionIdLegislationLegislationIdVersionsGet(
+                this.currentSessionId,
+                legItem.id,
+                false
+            )
+            .subscribe((versions: LegislationVersionDto[]): void => {
+                const versionTypes: string[] = [
+                    LEGISLATION_VERSION_TYPES.AS_ADOPTED_BY_THE_HOUSE,
+                    LEGISLATION_VERSION_TYPES.HOUSE_CONCURRED,
+                    LEGISLATION_VERSION_TYPES.AS_PASSED_BY_THE_HOUSE,
+                ];
+                this.houseVersions = versions.filter((v: LegislationVersionDto): boolean => {
+                    return (
+                        versionTypes.includes(v.versionType.versionName) &&
+                        v.versionType.chamberId == M2Chambers.House
+                    );
+                });
+            });
+    }
+
+    private getOobList(): void {
+        this.oobList = ORDER_OF_BUSINESS_LIST.filter(
+            (o) =>
+                o.toLowerCase() !== ORDER_OF_BUSINESS_ENUM.MessagesFromGovernor.toLowerCase() &&
+                o.toLowerCase() !== ORDER_OF_BUSINESS_ENUM.CommitteeReports.toLowerCase()
+        );
+    }
+
+    private getCommitteesAndLegislators(): void {
+        this.currentSessionId = this.sessionStateService.getCurrentSessionId();
+        this.dateOffered.setValue(this.sessionStateService.getCurrentSessionDay().date);
+        const committeeTypes: string[] = [STANDING, CONFERENCE, CONFERENCE_POLICY];
+
+        this.committeeManagementService
+            .apiCommitteeManagementTypesGet()
+            .pipe(
+                switchMap((types: CommitteeTypeDto[]): Observable<CommitteeDto[]> => {
+                    this.committeeTypes = types;
+                    return this.committeesService.apiSessionIdCommitteesSenateGet(
+                        this.currentSessionId,
+                        committeeTypes
+                    );
+                }),
+                switchMap((committees: CommitteeDto[]): Observable<LegislatorDto[]> => {
+                    this.populateCommittees(committees);
+                    return this.legislatorService.apiSessionIdLegislatorSenatorsAndRepRowGet(
+                        this.currentSessionId
+                    );
+                })
+            )
+            .subscribe((legislators: LegislatorDto[]): void => {
+                this.houseOfRepsSponsor = legislators.find(
+                    (l) => l.chamber == ChamberAbbreviationString.House
+                );
+                this.potentialSponsors = legislators.filter((l) => l != this.houseOfRepsSponsor);
+                this.potentialSponsorsFiltered = this.sortLegislators(this.potentialSponsors);
+                this.potentialSelectableSponsors = this.potentialSponsors;
+            });
+    }
+
+    public previewDoc(): void {
+        this.fileDownloaderService
+            .getChamberDocumentWord(this.currentSessionId, this.chamberDocument?.chamberDocumentId)
+            .subscribe((document: Blob): void => {
+                saveAs(document, `ChamberDocument-${this.chamberDocument?.documentKey}.docx`);
+            });
+    }
+
+    public getDocument(amendment: AmendmentManagementDto, fileType: string): void {
+        if (amendment.chamberDocumentId <= 0) {
+            this.notifierService.notify('error', 'No document found for this ammendment.');
+        } else {
+            this.fileDownloader
+                .getChamberDocument(this.currentSessionId, amendment.chamberDocumentId, fileType)
+                .subscribe((result: Blob): void => {
+                    saveAs(
+                        result,
+                        `Amendment-${amendment.amendmentIdentifier} on ${this.currentLegislationLabel}.${fileType}`
+                    );
+                });
+        }
+    }
+
+    public getDocumentTopSheet(amendment: AmendmentManagementDto): void {
+        this.fileDownloader
+            .getSubstituteTopsheet(this.currentSessionId, amendment.legislationId, amendment.id)
+            .subscribe((result: Blob): void => {
+                saveAs(
+                    result,
+                    `${this.currentLegislationLabel}-${amendment.substituteIdentifier}-Topsheet.docx`
+                );
+            });
+    }
+
+    public previewDocument(amendment: AmendmentManagementDto): void {
+        this.fileDownloader
+            .getChamberDocument(this.currentSessionId, amendment.chamberDocumentId, 'pdf')
+            .subscribe((result: Blob): void => {
+                this.documentToDisplay$.next(result);
+            });
+    }
+
+    public openClosePanel(toggle: boolean) {
+        this.currentLegislationOrders.forEach((key) => {
+            this.accordianOpenStates[key] = toggle;
+        });
+    }
+
+    public updateAccordionOpenState(oob: string, isOpen: boolean): void {
+        this.accordianOpenStates[oob] = isOpen;
+    }
+
+    public getAccordionOpenState(oob: string): boolean {
+        if (this.accordianOpenStates[oob]) {
+            return this.accordianOpenStates[oob];
+        }
+        return false;
+    }
+
+    public updateDisposition(amendment: AmendmentManagementDto): void {
+        this.amendmentService
+            .apiSessionIdAmendmentManagementAmendmentIdDispositionPatch(
+                this.currentSessionId,
+                amendment.id,
+                amendment
+            )
+            .subscribe((): void => {
+                this.notifierService.notify(
+                    'success',
+                    'Amendment ' + amendment.amendmentIdentifier + ' Updated.'
+                );
+            });
+    }
+
+    public publishAmendment(amendment: AmendmentManagementDto): void {
+        this.amendmentService
+            .apiSessionIdAmendmentManagementAmendmentIdPublishPatch(
+                this.currentSessionId,
+                amendment.id,
+                amendment
+            )
+            .subscribe((): void => {
+                amendment.isPublic = true;
+                this.notifierService.notify(
+                    'success',
+                    'Amendment ' + amendment.amendmentIdentifier + ' Published.'
+                );
+            });
+    }
+
+    public getChamberDocumentByDocumentKey(): void {
+        this.legislationItemsService
+            .apiSessionIdLegislationChamberDocByDocKeyDocKeyGet(
+                this.currentSessionId,
+                this.documentKey.value,
+                true,
+                false
+            )
+            .pipe(
+                switchMap((doc: ChamberDocumentDto): Observable<LegislationDto> => {
+                    this.chamberDocument = doc;
+                    this.isAmendmentSubstitute = doc.isSubstitute;
+                    if (doc.isSubstitute) {
+                        this.substituteIdentifier.setValue(
+                            doc.substituteIdentifier.replace(/[()]/g, '')
+                        );
+                        this.isAmendmentSubstitute = true;
+                    }
+                    return this.legislationItemsService.apiSessionIdLegislationItemByLSBRequestIdLsbRequestIdGet(
+                        this.currentSessionId,
+                        doc.lsbRequestId
+                    );
+                })
+            )
+            .subscribe((leg: LegislationDto): void => {
+                const legItem: SimpleLegislationDto = {
+                    id: leg.id,
+                    prefix: leg.prefix,
+                    identifier: leg.identifier,
+                };
+                //This is a nested subscription
+                this.selectLegItem(legItem);
+            });
+    }
+
+    public setSponsorNull(): void {
+        this.sponsor.setValue(null);
+        this.editSponsor.setValue(null);
+        this.isValidExceptSponsorOrCommittee = false;
+        this.potentialSelectableSponsors = this.potentialSponsors;
+    }
+
+    public setCommitteeNull(): void {
+        this.committee.setValue(null);
+        this.editCommittee.setValue(null);
+    }
+
+    public filterSelectableSponsors(event: Event): void {
+        const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+        this.potentialSelectableSponsors = this.potentialSponsorsFiltered.filter((s) =>
+            `${s.firstName} ${s.lastName}`.toLowerCase().includes(filterValue)
+        );
+    }
+
+    public assignAmendment(): void {
+        let defaultDisposition = 'Offered';
+
+        if (this.committee.value != null) {
+            this.sponsor.setValue(null);
+        }
+
+        const legislationItem: SimpleLegislationDto = this.legislationItem
+            .value as SimpleLegislationDto;
+        let amendmentDto: AmendmentManagementDto = {
+            chamberId: M2Chambers.Senate,
+            legislationId: legislationItem.id,
+            chamberDocumentId: this.isMessagesFromTheHouse
+                ? this.selectedHouseVersion.value
+                : this.chamberDocument?.chamberDocumentId,
+            amendmentIdentifier: this.amendmentIdentifier.value,
+            dateOffered: this.dateOffered.value,
+            senateDisposition: defaultDisposition,
+            sponsorId: this.sponsor.value?.id,
+            sponsorFirstName: this.sponsor.value?.firstName,
+            sponsorLastName: this.sponsor.value?.lastName,
+            orderOfBusiness: this.orderOfBusiness.value,
+            isSubstitute: this.isAmendmentSubstitute,
+            isNapkin: this.isNapkin.value ?? false,
+            substituteIdentifier: this.substituteIdentifier.value,
+            documentContent: this.uploadedDocument.value,
+            documentName: this.selectedFilename,
+        };
+
+        if (this.committee.value == this.houseOfRepsString) {
+            amendmentDto.sponsorId = this.houseOfRepsSponsor?.id;
+        } else if (this.committee.value?.id != null && this.committee.value?.id != 0) {
+            amendmentDto.sponsorCommitteeId = this.committee.value?.id;
+        }
+
+        const apiCall: Observable<LegislationAmendmentDto | LegislationSubstituteDto> = this
+            .isAmendmentSubstitute
+            ? this.amendmentService.apiSessionIdAmendmentManagementCreateAmendmentSubstitutePost(
+                  this.currentSessionId,
+                  amendmentDto
+              )
+            : this.amendmentService.apiSessionIdAmendmentManagementCreateAmendmentPost(
+                  this.currentSessionId,
+                  amendmentDto
+              );
+
+        apiCall
+            .pipe(
+                takeUntil(this.destroy$),
+                switchMap(
+                    (
+                        response: LegislationAmendmentDto | LegislationSubstituteDto
+                    ): Observable<AmendmentManagementDto[]> => {
+                        this.lastAddedAmendment = response.id.toString();
+                        return this.amendmentService.apiSessionIdAmendmentManagementLegislationIdGet(
+                            this.currentSessionId,
+                            this.legislationItem.value.id
+                        );
+                    }
+                )
+            )
+            .subscribe((amendments: AmendmentManagementDto[]): void => {
+                if (amendments.length == 0) {
+                    this.noAmendments = 'No amendments found.';
+                }
+                this.currentLegislationLabel = `${this.legislationItem.value.prefix} ${this.legislationItem.value.identifier}`;
+
+                this.handleAmendments(amendments);
+
+                const oob: string = this.orderOfBusiness.value;
+                const isOobOpened: boolean = this.accordianOpenStates[oob];
+                if (isOobOpened) {
+                    this.scrollToAnimationFrameId = requestAnimationFrame((): void =>
+                        this.amendmentAddScrollTo()
+                    );
+                } else {
+                    if (this.currentLegislationOrders.includes(this.orderOfBusiness.value)) {
+                        this.updateAccordionOpenState(this.orderOfBusiness.value, true);
+                    }
+                }
+
+                this.notifierService.notify(
+                    'success',
+                    `Amendment ${amendmentDto.amendmentIdentifier} created on ${this.currentLegislationLabel}`
+                );
+
+                this.createAmendmentForm.reset();
+                this.substituteIdentifier.reset();
+                this.isAmendmentSubstitute = false;
+                this.chamberDocument = null;
+                this.clearFile();
+                this.assignTo(legislationItem);
+                this.dateOffered.setValue(this.sessionStateService.getCurrentSessionDay().date);
+                this.isValidExceptSponsorOrCommittee = false;
+                this.potentialSelectableSponsors = this.potentialSponsors;
+            });
+    }
+
+    public editAmendment(amendmentDto: AmendmentManagementDto) {
+        if (!this.isEditingAmendment) {
+            this.clearCreateAdmentmentForm();
+        }
+        this.isEditingAmendment = true;
+        this.editAmendmentIdentifier.setValue(amendmentDto.amendmentIdentifier);
+        this.editSubstituteIdentifier.setValue(amendmentDto.substituteIdentifier);
+        this.isAmendmentSubstitute = amendmentDto.isSubstitute;
+        this.disposition.setValue(amendmentDto.senateDisposition);
+        this.editDateOffered.setValue(amendmentDto.dateOffered);
+        const amendmentSponsor = this.potentialSponsors.find((s) => s.id == amendmentDto.sponsorId);
+        this.editSponsor.setValue(amendmentSponsor);
+        const amendmentCommittee = this.standingCommittees.find(
+            (c) => c.id == amendmentDto.sponsorCommitteeId
+        );
+        if (amendmentDto.sponsorId == this.houseOfRepsSponsor?.id) {
+            this.editCommittee.setValue(this.houseOfRepsString);
+        } else {
+            this.editCommittee.setValue(amendmentCommittee);
+        }
+
+        this.editOrderOfBusiness.setValue(amendmentDto.orderOfBusiness);
+
+        if (amendmentDto.isNapkin) {
+            this.editUploadedDocument.setValue(null);
+
+            if (amendmentDto.hasWordContent || amendmentDto.hasPdfContent) {
+                this.setEditFileUploadRequired(false);
+            }
+
+            this.selectedFilename = amendmentDto.documentName;
+        }
+
+        this.currentlyEditingDto = amendmentDto;
+    }
+
+    public updateAmendment(): void {
+        if (this.editCommittee.value != null) {
+            this.sponsor.setValue(null);
+        }
+        let amendmentDto: AmendmentManagementDto = {
+            id: this.currentlyEditingDto.id,
+            chamberId: M2Chambers.Senate,
+            legislationId: this.currentlyEditingDto.legislationId,
+            amendmentIdentifier: this.editAmendmentIdentifier.value,
+            dateOffered: this.editDateOffered.value,
+            sponsorId: this.editSponsor.value?.id,
+            sponsorFirstName: this.editSponsor.value?.firstName,
+            sponsorLastName: this.editSponsor.value?.lastName,
+            orderOfBusiness: this.editOrderOfBusiness.value,
+            isSubstitute: this.isAmendmentSubstitute,
+            substituteIdentifier: this.editSubstituteIdentifier.value,
+            senateDisposition: this.disposition.value,
+        };
+
+        if (this.editUploadedDocument.value != null && this.currentlyEditingDto.isNapkin) {
+            amendmentDto.documentContent = this.editUploadedDocument.value;
+            amendmentDto.documentName = this.selectedFilename;
+        }
+
+        if (this.editCommittee.value == this.houseOfRepsString) {
+            amendmentDto.sponsorId = this.houseOfRepsSponsor?.id;
+        } else if (this.editCommittee.value?.id != null && this.editCommittee.value?.id != 0) {
+            amendmentDto.sponsorCommitteeId = this.editCommittee.value?.id;
+        }
+        const apiCall: Observable<LegislationAmendmentDto | LegislationSubstituteDto> = this
+            .isAmendmentSubstitute
+            ? this.amendmentService.apiSessionIdAmendmentManagementLegislationIdUpdateSubstituteAmendmentAmendmentIdPatch(
+                  this.currentSessionId,
+                  this.currentlyEditingDto.legislationId.toString(),
+                  this.currentlyEditingDto.id.toString(),
+                  amendmentDto
+              )
+            : this.amendmentService.apiSessionIdAmendmentManagementLegislationIdUpdateAmendmentAmendmentIdPatch(
+                  this.currentSessionId,
+                  this.currentlyEditingDto.legislationId.toString(),
+                  this.currentlyEditingDto.id.toString(),
+                  amendmentDto
+              );
+        apiCall
+            .pipe(
+                takeUntil(this.destroy$),
+                switchMap((): Observable<AmendmentManagementDto[]> => {
+                    return this.amendmentService.apiSessionIdAmendmentManagementLegislationIdGet(
+                        this.currentSessionId,
+                        this.currentlyEditingDto.legislationId
+                    );
+                })
+            )
+            .subscribe((amendments: AmendmentManagementDto[]): void => {
+                if (amendments.length == 0) {
+                    this.noAmendments = 'No amendments found.';
+                }
+
+                this.handleAmendments(amendments);
+
+                this.notifierService.notify(
+                    'success',
+                    `Amendment ${this.editAmendmentIdentifier.value} updated on ${this.currentLegislationLabel} under ${this.editOrderOfBusiness.value}`
+                );
+
+                this.editAmendmentForm.reset();
+                this.substituteIdentifier.reset();
+                this.isEditingAmendment = false;
+                this.isAmendmentSubstitute = false;
+                this.chamberDocument = null;
+                this.clearFile();
+                this.setEditFileUploadRequired(false);
+                this.formLegItemSearch.placeholderText = 'Select Legislation Item';
+            });
+        // this.legislationItem.setValue(this.currentLegislationItem);
+        // console.log('canceled', this.legislationItem.value);
+        console.log('update amendment finished');
+    }
+
+    public deleteAmendment(amendmentDto: AmendmentManagementDto): void {
+        const dialogRef = this.dialog.open(GeneralConfirmationModalComponent, {
+            data: {
+                modalHeaderText: 'Delete Amendment',
+                modalBodyText:
+                    'Are you sure you want to delete ' +
+                    amendmentDto.amendmentIdentifier +
+                    ' from ' +
+                    amendmentDto.orderOfBusiness +
+                    '?',
+                action: 'Delete',
+                cssClass: 'black',
+            },
+        });
+        dialogRef
+            .afterClosed()
+            .pipe(
+                first(),
+                switchMap(
+                    (
+                        shouldDelete: boolean
+                    ): Observable<LegislationAmendmentDto | LegislationSubstituteDto> => {
+                        if (shouldDelete) {
+                            const apiCall: Observable<
+                                LegislationAmendmentDto | LegislationSubstituteDto
+                            > = amendmentDto.isSubstitute
+                                ? this.amendmentService.apiSessionIdAmendmentManagementLegislationIdDeleteSubstituteAmendmentAmendmentIdDelete(
+                                      this.currentSessionId,
+                                      amendmentDto.legislationId.toString(),
+                                      amendmentDto.id.toString(),
+                                      amendmentDto
+                                  )
+                                : this.amendmentService.apiSessionIdAmendmentManagementLegislationIdDeleteAmendmentAmendmentIdDelete(
+                                      this.currentSessionId,
+                                      amendmentDto.legislationId.toString(),
+                                      amendmentDto.id.toString(),
+                                      amendmentDto
+                                  );
+                            return apiCall;
+                        }
+                        return of(null);
+                    }
+                ),
+                switchMap(
+                    (
+                        deletedAmendment: LegislationAmendmentDto | LegislationSubstituteDto
+                    ): Observable<AmendmentManagementDto[]> => {
+                        if (deletedAmendment) {
+                            this.notifierService.notify(
+                                'success',
+                                `Amendment ${amendmentDto.amendmentIdentifier} removed from ${this.currentLegislationLabel} under ${amendmentDto.orderOfBusiness}`
+                            );
+                        }
+                        return this.amendmentService.apiSessionIdAmendmentManagementLegislationIdGet(
+                            this.currentSessionId,
+                            amendmentDto.legislationId
+                        );
+                    }
+                )
+            )
+            .subscribe((amendments: AmendmentManagementDto[]): void => {
+                if (amendments.length == 0) {
+                    this.noAmendments = 'No amendments found.';
+                }
+                this.handleAmendments(amendments);
+            });
+    }
+
+    public cancelUpdate(): void {
+        this.clearFile();
+        this.setEditFileUploadRequired(false);
+        this.isEditingAmendment = false;
+        this.editAmendmentForm.reset();
+        this.legislationItem.setValue(this.currentLegislationItem);
+        this.cd.detectChanges();
+        // this.cd.markForCheck();
+        console.log('cancel update called', this.currentLegislationItem.id);
+        setTimeout(() => this.doc?.nativeElement?.focus(), 1000);
+        //this.doc.nativeElement.focus();
+    }
+
+    public isNapkinChange(): void {
+        this.updateDocumentKeyRequired();
+    }
+
+    public isSub(): void {
+        this.isAmendmentSubstitute = !this.isAmendmentSubstitute;
+    }
+
+    public checkEditForm(): boolean {
+        this.isValidExceptSponsorOrCommittee = false;
+        if (this.editSponsor.value == null && this.editCommittee.value == null) {
+            if (this.editAmendmentForm.valid) {
+                this.isValidExceptSponsorOrCommittee = true;
+            }
+            return false;
+        }
+        if (this.editAmendmentForm.valid && !this.isAmendmentSubstitute) {
+            return true;
+        }
+        if (this.editAmendmentForm.valid && this.isAmendmentSubstitute) {
+            if (this.editSubstituteIdentifier.valid) {
+                return true;
+            }
+            return false;
+        } else return false;
+    }
+
+    public checkCreateForm(): boolean {
+        this.isValidExceptSponsorOrCommittee = false;
+        this.isValidExceptChamberDoc = false;
+        this.noVersionOrDocument = false;
+
+        if (this.isMessagesFromTheHouse) {
+            if (!exists(this.selectedHouseVersion.value) && !exists(this.uploadedDocument.value)) {
+                this.noVersionOrDocument = true;
+                return false;
+            }
+        }
+
+        if (this.isNapkin.value && !this.isMessagesFromTheHouse) {
+            if (!exists(this.uploadedDocument.value)) {
+                return false;
+            }
+        }
+
+        if (!this.isNapkin.value && !this.isMessagesFromTheHouse && !exists(this.chamberDocument)) {
+            if (this.createAmendmentForm.valid) {
+                this.isValidExceptChamberDoc = true;
+            }
+
+            return false;
+        }
+
+        if (!exists(this.sponsor.value) && !exists(this.committee.value)) {
+            if (this.createAmendmentForm.valid) {
+                this.isValidExceptSponsorOrCommittee = true;
+            }
+            return false;
+        }
+        if (this.createAmendmentForm.valid && !this.isAmendmentSubstitute) {
+            return true;
+        }
+        if (this.createAmendmentForm.valid && this.isAmendmentSubstitute) {
+            if (this.substituteIdentifier.valid) {
+                return true;
+            }
+            return false;
+        } else return false;
+    }
+
+    public clearCreateAdmentmentForm(): void {
+        this.createAmendmentForm.reset();
+        this.substituteIdentifier.reset();
+        this.isAmendmentSubstitute = false;
+        this.chamberDocument = null;
+        this.clearFile();
+        this.noAmendments = 'No legislation item selected';
+        this.legislationItem.setValue(this.currentLegislationItem);
+        this.houseVersions = [];
+        this.potentialSelectableSponsors = this.potentialSponsors;
+        this.isValidExceptSponsorOrCommittee = false;
+
+        this.dateOffered.setValue(this.sessionStateService.getCurrentSessionDay().date);
+        if (this.legislationAmendments && this.legislationAmendments.length == 0) {
+            this.noAmendments = 'No amendments found.';
+        }
+    }
+
+    public sponsorSelectionDisplay(sponsor: LegislatorDto): string {
+        return sponsor ? `${sponsor.firstName} ${sponsor.lastName}` : '';
+    }
+
+    public amendmentAddScrollTo(): void {
+        if (this.lastAddedAmendment == null) return;
+
+        const element: HTMLElement = document.getElementById(this.lastAddedAmendment);
+        if (!element) return;
+
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        const offset: number = -100;
+        const currentPosition: number = window.pageYOffset || document.documentElement.scrollTop;
+        window.scrollTo({
+            top: currentPosition + offset,
+            behavior: 'smooth',
+        });
+
+        //Removing highlight effect pending discussion
+        // const parentElement: HTMLElement = element.parentElement;
+        // if (parentElement) {
+        //     parentElement.setAttribute('class', 'highlight-row');
+
+        //     setTimeout(() => {
+        //         parentElement.classList.remove('highlight-row');
+        //     }, 7000);
+        // }
+
+        this.lastAddedAmendment = null;
+        if (this.scrollToAnimationFrameId && this.scrollToAnimationFrameId > 0) {
+            //cancelAnimationFrame(this.scrollToAnimationFrameId);
+        }
+    }
+
+    public resetSponsorControl(): void {
+        this.sponsor.setValue(null);
+        this.editSponsor.setValue(null);
+        this.potentialSelectableSponsors = this.potentialSponsorsFiltered;
+    }
+
+    private setEditFileUploadRequired(required: boolean): void {
+        if (required) {
+            this.editUploadedDocument.addValidators(Validators.required);
+        } else {
+            this.editUploadedDocument.removeValidators(Validators.required);
+        }
+        this.editUploadedDocument.updateValueAndValidity();
+    }
+
+    private listenForOobChanges(): void {
+        this.orderOfBusiness.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((): void => {
+            if (this.orderOfBusiness.value == ORDER_OF_BUSINESS_ENUM.MessagesFromHouse) {
+                this.committee.setValue(this.houseOfRepsString);
+            } else {
+                if (this.committee.value == this.houseOfRepsString) {
+                    this.committee.setValue(null);
+                }
+            }
+
+            this.updateDocumentKeyRequired();
+        });
+    }
+
+    private listenForHouseVersionChanges(): void {
+        this.selectedHouseVersion.valueChanges
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((versionId: number): void => {
+                if (versionId != null) {
+                    this.selectedFilename = null;
+                    this.uploadedDocument.setValue(null);
+                }
+            });
+    }
+
+    private updateDocumentKeyRequired(): void {
+        if (this.isNapkin.value || this.isMessagesFromTheHouse) {
+            this.documentKey.removeValidators(Validators.required);
+            if (!this.isMessagesFromTheHouse) {
+                this.uploadedDocument.addValidators(Validators.required);
+            } else {
+                this.uploadedDocument.removeValidators(Validators.required);
+            }
+        } else {
+            this.documentKey.addValidators(Validators.required);
+            this.uploadedDocument.removeValidators(Validators.required);
+        }
+
+        this.documentKey.updateValueAndValidity();
+        this.uploadedDocument.updateValueAndValidity();
+    }
+
+    private populateCommittees(committees: CommitteeDto[]): void {
+        const standingTypeId: number = this.committeeTypes.find(
+            (type: CommitteeTypeDto): boolean => {
+                return type.description == STANDING;
+            }
+        ).id;
+
+        this.standingCommittees = [];
+        this.conferenceCommittees = [];
+
+        this.sortCommittees(committees).forEach((committee: CommitteeDto): void => {
+            if (committee.committeeTypeId == standingTypeId) {
+                this.standingCommittees.push(committee);
+            } else {
+                this.conferenceCommittees.push(committee);
+            }
+        });
+    }
+
+    private sortCommittees(committees: CommitteeDto[]): CommitteeDto[] {
+        const standingTypeId: number = this.committeeTypes.find(
+            (type: CommitteeTypeDto): boolean => {
+                return type.description == STANDING;
+            }
+        ).id;
+
+        return committees.sort((a: CommitteeDto, b: CommitteeDto): number => {
+            if (a.committeeTypeId != b.committeeTypeId) {
+                return a.committeeTypeId == standingTypeId ? -1 : 1;
+            }
+
+            return a.name.localeCompare(b.name);
+        });
+    }
+
+    private listenForOrderByChanges(): void {
+        this.orderByFormControl.valueChanges
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((value: string): void => {
+                switch (value) {
+                    case CHRONOLOGICAL_ORDER:
+                        this.currentLegislationOrders = [
+                            ORDER_OF_BUSINESS_ENUM.GeneralOrders,
+                            ORDER_OF_BUSINESS_ENUM.ThirdReadingOfBills,
+                            ORDER_OF_BUSINESS_ENUM.MessagesFromHouse,
+                            ORDER_OF_BUSINESS_ENUM.ConferenceReports,
+                            ORDER_OF_BUSINESS_ENUM.Resolutions,
+                        ];
+                        break;
+                    case ALPHA_ORDER:
+                        this.currentLegislationOrders = [
+                            ORDER_OF_BUSINESS_ENUM.ConferenceReports,
+                            ORDER_OF_BUSINESS_ENUM.GeneralOrders,
+                            ORDER_OF_BUSINESS_ENUM.MessagesFromHouse,
+                            ORDER_OF_BUSINESS_ENUM.Resolutions,
+                            ORDER_OF_BUSINESS_ENUM.ThirdReadingOfBills,
+                        ];
+                        break;
+                    case CALENDAR_ORDER:
+                        this.currentLegislationOrders = [
+                            ORDER_OF_BUSINESS_ENUM.MessagesFromHouse,
+                            ORDER_OF_BUSINESS_ENUM.ConferenceReports,
+                            ORDER_OF_BUSINESS_ENUM.ThirdReadingOfBills,
+                            ORDER_OF_BUSINESS_ENUM.GeneralOrders,
+                            ORDER_OF_BUSINESS_ENUM.Resolutions,
+                        ];
+                        break;
+                    default:
+                        break;
+                }
+                this.filterLegOrdersBasedOnAmendments();
+            });
+    }
+
+    private filterLegOrdersBasedOnAmendments(): void {
+        this.currentLegislationOrders = this.currentLegislationOrders.filter(
+            (order: string): boolean => {
+                return (
+                    this.legislationAmendments
+                        .map((amend: AmendmentManagementDto): string => amend.orderOfBusiness)
+                        .includes(order) && this.oobList.includes(order)
+                );
+            }
+        );
+    }
+}
+
+
