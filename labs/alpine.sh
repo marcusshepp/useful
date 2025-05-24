@@ -65,4 +65,3 @@ echo "Getting current IP address..."
 IP=$(ip route get 1 | awk '{print $7}' | head -1)
 echo "Setup complete! You can now SSH to this machine at: $IP"
 echo "Username: foo"
-echo "Use 'doas' instead of 'sudo' for admin commands"
