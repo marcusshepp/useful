@@ -1,0 +1,60 @@
+Sprint Analysis Report
+====================
+
+Sprint 72:
+  Carry-over tickets: 1
+  Carry-over points: 3
+  Azure Stories Committed: 13
+  Final Stories Committed (with adjustments): 14
+  Stories Completed: 13
+  Azure Points Committed: 48.0
+  Final Points Committed (with adjustments): 51.0
+  Points Completed: 48.0
+
+Sprint 73:
+  Azure Stories Committed: 8
+  Final Stories Committed (with adjustments): 8
+  Stories Completed: 8
+  Azure Points Committed: 35.0
+  Final Points Committed (with adjustments): 35.0
+  Points Completed: 35.0
+
+Sprint 74:
+  Carry-over tickets: 1
+  Carry-over points: 3
+  Azure Stories Committed: 9
+  Final Stories Committed (with adjustments): 10
+  Stories Completed: 9
+  Azure Points Committed: 30.0
+  Final Points Committed (with adjustments): 33.0
+  Points Completed: 30.0
+
+Sprint 75:
+  Azure Stories Committed: 11
+  Final Stories Committed (with adjustments): 11
+  Stories Completed: 11
+  Azure Points Committed: 32.0
+  Final Points Committed (with adjustments): 32.0
+  Points Completed: 32.0
+
+Sprint 76:
+  Azure Stories Committed: 6
+  Final Stories Committed (with adjustments): 6
+  Stories Completed: 6
+  Azure Points Committed: 30.0
+  Final Points Committed (with adjustments): 30.0
+  Points Completed: 30.0
+
+Sprint 77:
+  Carry-over tickets: 1
+  Carry-over points: 5
+  ** OVERRIDES APPLIED **
+  Final Stories Committed: 8
+  Final Points Committed: 26.0
+  Azure Stories Committed: 8
+  Final Stories Committed (with adjustments): 8
+  Stories Completed: 7
+  Azure Points Committed: 26.0
+  Final Points Committed (with adjustments): 26.0
+  Points Completed: 21.0
+
