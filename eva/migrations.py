@@ -42,7 +42,7 @@ from enum import Enum, auto
 from pathlib import Path
 from typing import Dict, Optional
 
-PATH_TO_WORKING_DIRECTORY = "~/p/lb/EvaAPI"
+PATH_TO_WORKING_DIRECTORY = "~/p/leb/EvaAPI"
 
 EVA_ASCII = """
 ███████╗██╗   ██╗ █████╗ 

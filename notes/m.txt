@@ -1,0 +1,1017 @@
+================================================================================
+File: /home/marcusshep/p/LegBone/docker-compose.yml
+Size: 2028 bytes
+Last Modified: 2025-05-23T20:24:04.509Z
+================================================================================
+
+services:
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password1!
+      - MSSQL_PID=Developer
+    volumes:
+      - mssql-data:/var/opt/mssql
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Password1!", "-C", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 120s
+
+  frontend:
+    build:
+      context: ./Eva
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+      - "49153:49153"
+    volumes:
+      - ./Eva:/app
+      - /app/node_modules
+      - /app/ckeditor5/node_modules
+    networks:
+      - app-network
+    depends_on:
+      - api
+    command: ["npm", "run", "start", "--", "--configuration=docker", "--proxy-config=proxy.conf.docker.json", "--host=0.0.0.0"]
+
+  api:
+    build:
+      context: .
+      dockerfile: EvaAPI/Dockerfile
+      args:
+        NUGET_PAT: ${NUGET_PAT}
+    ports:
+      - "5000:5000"
+      - "7101:5001"
+    volumes:
+      - ./EvaAPI:/app
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=EvaDb;User Id=sa;Password=Password1!;TrustServerCertificate=True;
+      - EvaDb=Server=db,1433;Database=EvaDb;User Id=sa;Password=Password1!;TrustServerCertificate=True;
+      - M2Db=Server=db,1433;Database=Legislature;User Id=senate_dev_user;Password=Password1!;TrustServerCertificate=True;
+      - MISVoteDb=Server=db,1433;Database=MISVoteDb;User Id=sa;Password=Password1!;TrustServerCertificate=True;
+      - ASPNETCORE_URLS=http://+:5000;https://+:5001
+      - ASPNETCORE_HTTPS_PORT=5001
+      - CORS_ORIGINS=http://localhost:4200,http://frontend:4200
+    command: dotnet watch run --project /app/EvaAPI.csproj --urls "http://+:5000;https://+:5001"
+    networks:
+      - app-network
+    depends_on:
+      db:
+        condition: service_healthy
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mssql-data:
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/Dockerfile
+Size: 534 bytes
+Last Modified: 2025-05-23T20:26:08.550Z
+================================================================================
+
+FROM node:20
+
+WORKDIR /app
+
+COPY ckeditor5/package*.json ./ckeditor5/
+RUN cd ckeditor5 && npm ci
+
+COPY ckeditor5/src ./ckeditor5/src
+COPY ckeditor5/plugins ./ckeditor5/plugins
+COPY ckeditor5/webpack.config.js ./ckeditor5/
+RUN cd ckeditor5 && npm run build
+
+RUN mkdir -p /app/src/assets/ckeditor5 && cp /app/ckeditor5/build/* /app/src/assets/ckeditor5/
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+EXPOSE 4200 49153
+CMD ["npm", "run", "start", "--", "--configuration=docker", "--proxy-config=proxy.conf.docker.json", "--host=0.0.0.0"]
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/EvaAPI/Dockerfile
+Size: 445 bytes
+Last Modified: 2025-05-23T18:32:27.870Z
+================================================================================
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+WORKDIR /app
+
+ARG NUGET_PAT
+
+COPY EvaAPI/EvaAPI.csproj ./
+COPY nuget.config ./
+
+RUN sed -i "s|%NUGET_PAT%|${NUGET_PAT}|g" nuget.config && \
+    dotnet restore --configfile nuget.config
+
+COPY EvaAPI/ ./
+
+RUN dotnet dev-certs https --trust
+
+ENV ASPNETCORE_URLS=http://+:5000;https://+:5001
+ENV ASPNETCORE_HTTPS_PORT=5001
+
+EXPOSE 5000
+EXPOSE 5001
+
+CMD ["dotnet", "watch", "run", "--project", "EvaAPI.csproj"]
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/db/Dockerfile
+Size: 228 bytes
+Last Modified: 2025-05-23T17:49:54.114Z
+================================================================================
+
+FROM mcr.microsoft.com/mssql/server:2022-latest
+
+ENV ACCEPT_EULA=Y
+ENV SA_PASSWORD=Password1!
+ENV MSSQL_PID=Developer
+
+WORKDIR /usr/src/app
+
+COPY init.sql .
+COPY --chmod=755 entrypoint.sh .
+
+EXPOSE 1433
+
+CMD ["./entrypoint.sh"]
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/src/environments/environment.ts
+Size: 699 bytes
+Last Modified: 2025-05-23T19:49:10.616Z
+================================================================================
+
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
+export const environment = {
+    production: false,
+    baseUrl: 'http://localhost:5000',
+};
+
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/EvaAPI/appsettings.development.json
+Size: 5538 bytes
+Last Modified: 2025-05-23T18:35:11.078Z
+================================================================================
+
+{
+  "Authentication": {
+    "RefreshTokenExpireDays": 3,
+    "DefaultDomain": "misenate.org",
+    "DomainName": "misenate",
+    "PasswordOverride": "test"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Error",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "Email": {
+    "Server": "kato-dc12.senate.michigan.gov",
+    "FromAddress": "eva@senate.michigan.gov",
+    "ToAddress": "rthompson@senate.michigan.gov,afowler@senate.michigan.gov"
+  },
+  "Jwt": {
+    "Issuer": "Michigan Senate",
+    "Audience": "EvaUsers",
+    "Expires": 2,
+    "Key": "rjw7mvT7aC6CJ8QTOHFXWGnnSiRl8wT1"
+  },
+  "AllowedHosts": "*",
+  "Urls": "http://+:5000;https://+:5001",
+
+  "EvaDb": "Data Source=localhost,1433;Initial Catalog=Eva;User ID=SA;Password=Password1!;TrustServerCertificate=True",
+  "M2Db": "Data Source=localhost,1433;Initial Catalog=Legislature;User=senate_dev_user;Password=Password1!;TrustServerCertificate=True",
+
+  //"EvaDb": "Data Source=uvmwsqls01,1433;Initial Catalog=Eva_DEMO;User ID=EvaDEMOUser;Password=evaDemo4eva;TrustServerCertificate=True",
+  //"M2Db": "Data Source=MLSQL-QA.lsb.legislature.mi.gov,1433;Initial Catalog=Legislature;User=senate_qa_user;Password=Calz0neAndP0p!;TrustServerCertificate=True",
+
+  //"EvaDb": "Data Source=uvmwsqls01,1433;Initial Catalog=Eva_UAT;User ID=EvaUATUser;Password=evaUATuser;TrustServerCertificate=True",
+  //"M2Db": "Data Source=MLSQL-SUP.lsb.legislature.mi.gov,1433;Initial Catalog=Legislature;User=senate_sup_user;Password=HalJ0rdanF01ls!;TrustServerCertificate=True",
+
+  //"EvaDb": "Data Source=tvmwsqls01,1433;Initial Catalog=Eva_QA;User ID=EvaQAUser;Password=eva4eva;TrustServerCertificate=True",
+  //"M2Db": "Data Source=tvmwsqls01,1433;Initial Catalog=Legislature;User=senate_dev_user;Password=ThisIsQA!;TrustServerCertificate=True",
+
+  "MISVoteDb": "Data Source=PBINSQLFC01,1433;Initial Catalog=MISVote;User=LMSremote;Password=jb7EzT@ZhK",
+  "Spire.Doc": "U2RNquKDAQB6tUtqQwTEZae5C936vtLjoHlssx7R+Wsq6Bco13JCqPRnFJ17Ih/2Ql5vE18Ve9g/twFX3Vg2KBobO0KXHifJTSv0x4ECTRptDMbqH6TAr6YZ1w/yCLhKAvbImPmWPEcGobIGWP7g56XhOq5PVD1Un5CiKTPPmC+JVwd5sjBoqIVcdgSl37kl0wj+RhCAsl/nRiwiZ05UxJdzxM8o/LEtDH9KxaZnw0+MYSE4fVIcX3lw70dznAZrGPJwRuDLGDVDdyx7nyG8ovC8abzjfKDMF3Sk2ntPv+Eoc7DGpVW1p3x0pJCUt02Ks3VrHv47Z+WQUIl8N3Us24gghcNhTTiueMwgIxCWlQgIbFS4t3F1b07F0B09MsefkpTbTkUjcokkcS1n4NSV8Vf/I0MvAepZi5tdqanAXF4Omo121c9NfMJW+wXfBjVltKpJnf1aymDaRHv/nJPiiHxbcOoum0R519JAxKyUPKnP2ivB8na7qd6kuWJ37aafodVhHb9q6rcGcER50YGO/21GIc1uKo3NlB99Wsi1ueDBPtPiilehiWrj0tZgmPYk+qadUDjhJwJbvMm/CHf6zcRdR+n9oPkl5zCdhzkPbv4Ft0r0vde2w1OlGCZAcB9m6IPn50Wu2phts48mOx/YEvo/saZ/9iSrNfcZs/ZUygGP4X7fpBcoDH//5cX9veyg/Dx/s7zkpI1Aq9BOzOg9lz4qeEAbikPSltgSEBHGvZ2BDZ1Gkq+G3E10aMQiS5BiFa+XOt7hb2pAe9MoAxt2WA6ITqZPrEoL/OWNbJScFfppkMT9KkAJiTorxWJe5FlGwmCwLXPJ9BAD93x1VtNbTeErkcqRLh6tijsc3p3csiymtEMY+Y57Css19R5gHNHDRx+YUcvqSeiRnasiJobylxwrHsRU8vOdR860yqB38QNxlo/DtJfr38BV1lD/QucE0ufseeIPKCBVyu7a1ecI50j0j0LjdoFBkA22jcE05qryFebMFnW2KmA8bCql6CiC7I1S3MRGiR16bZ6xmcD1/tUq43zdujbTg1e5uL8tsUyqpPG/dFtWoAKVIPvRewVVFl4m4ECLXhJskD2qVWgEpg+9YhtEirIvRCoowlkZtm6I58ZiMxREUfzDfGmy/48p6OiclobR6ctZPd+OHSG9KwHhfAL3PJq9farvIjHiWQ2U7InNc2o4hJTzNoc/YoS2Ebuw02b6G31pydksaoeFk0k5raUDukXzFexyUUWYB1KDlFHZOx/Y4vHjrxvox0fJAxPyS9KvtnRr6r/qFliKtIuHt6MSpcuIgms8pLLpXKW/B5dQw0dYfOQlyBuRDLwjTYxoMlE3fbcJsdBwp4qdVILumpJ1wzmBSFaXjDrkSDQkyd2/hfkzM8PH3OIB7gI26+xVZaA05W0AwQ/+Ud+QoL+1KUiFWci13+tkCvws4Okq1GAyo4FdIScgg4egRBk42E/XKLewJkU6nEDUWxprEewGXr9Qz/jLVBwjWr3tBOfinyRAaTqb+fp/R/FNFjdwVi92e9PLsa6vsld2Vx94C58blfQ0KGRpXA42w9rqy9POcpL8FLSMDg==",
+  "Spire.Pdf": "MsqbGne8U0qsy02vAQBZA/lBI1AEJfElfoI3tW4LqwbBv4k6VFmWq7h5I4YGxoyIuBSsfNEWm8kbebYjgwA2nHd24GpJHpMh9QtHEBJkl8A88SzotDchWUeczwhcDPlrsopE+AOKO996kJQhi4HzYP41xj4kpe0j61Z+G5NYPzZ5fkcakY5NKqaTNmBRkZ7lPTyTJ0ITbH6LGD1+0LpvVfawtYv65n0x9yvNZZwYCXJ6Bu9qt5rUhjZXPfpaDag/acDKmx+la0w9m7i2VEngM21p/Em0299IYmK96DWnF+ae+MAjB3ywwxpeF3pRUegzvQaq7fYQwFRvKgey1Vd7kqjTF2JwvGGIOV5VetQ8AQgxgfp2LPP7CVMWb4b/zx61k+HmqAbI+eF2svgQE7+AKb35YG33yVvw+utSo8ghOF73dli+dAsLZM/ckBVqGhymmMN9S3d8CNamEMmBdHfS5Du1rTz/NNI8RRzCLED89JZ8og8I0j8tW6cFAvMzK/iiWyx7zWJHkNIdsXtGkXo7TO/sCGvE5bFeRNHyWQ2BwxstCUK97wTnOZEc3v0fxji1qQgFMFA++GGsw0kyAPQ6BlsSpYZ0Ji/IivIuYeo0IidUtyAtQk2+yefoCc/eaKm2syJfjZ0oyE9u9o6o9dsGvkLbyd7sKFCPMG2I3stF5UQE/LBnZkpKU1p0+V3WX/EbdMbPfsyP1F5KPymGeNY6bVWwJF6fNACyeJFTFfosKiSx4lX/eP6C7Dt/JSV0e6iN8ap6Ql2spc6I1DxSBxD3/Df1N4+/G4QISerKBrV32kU/S8EpqAjEHAdsd86d8WlswH2XTHSiLZo+tEkLbN6cEHkAUGSTd/riBguQqq8GFHa1jiA8JU+rbaoXqZJqkIWFh1wV5+6WZiqWquxdOMlPo5T34+S/CBfMdp/1Zu1BmrQ2quVMttI+UuQmGlhk7LT4L+IKQRK7ywNlhBzoq3EWNOVANIktgAfXGSoMSICJ4+yyHk6TaBit7Rqz4kVBPtu1mehiu0LVNfxCVDrvb0pOPMXKYRzqIxi/oM1A8vv3uQMMxV5gkm8KEkYcrfScS70RoQhhHWud0IAIhFeoCN2GUyXcbK8htQgwD+DGi+U8UT7BOaBM35PDHpYL4B41SHBKZjIuZzbMYrtcvVc/iKVZjt5lKa8j8bTQWynBZ74y6n9B8jjP5125ntssi6+9Zuc5djd5BY1lQFnLwkemCaAABmvHrx1sZWv80ICvVaT49vu2OS871MyovdEnASoCrT15q3GdCJQyd2zHzH145d2ERxtTz98lQvuNjNbL+1Xj4+DCIvJHU9KREPYgo10eV9vBBooMKLNA5Z4sDyrqF1i+mGD35/6TvcotIJpW6miJHwHk5V68292U2yy8yeNM3uOxq3VpBezxr90yZsHyiDrY/z94Pa51AJVBivzutglIVZOW/rZ5Q63DgWmJPbGNCh87RTny09vvMwqmteLsvXbGrTBW6kQPxn0/AWLxr77ftEHua9plzE+dw/yk4Gzps08+Iek1w9KZCt9v2kPgSJUYsgisO4TXflnxoNjqvtFBzlq4wrA7U3ZJ7Q==",
+  "Milenia2": {
+    "Url": "http://mileniaservices-uat.lsb.legislature.mi.gov/mainservice.asmx",
+    "User": "misenate\\snap32",
+    "Pass": "misen"
+  },
+  "LSBApi": {
+    "Url": "http://lws-dev.dev.legislature.mi.gov/",
+    "User": "senate_dev_user",
+    "Pass": "PizzaAndP0p!",
+    "Domain": "DEV"
+  },
+  "IntroAndReferralSettings": {
+    "IsDocumentKeyUnique": false,
+    "MakeChamberReadyCall": false
+  }
+}
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/src/environments/environment.docker.ts
+Size: 93 bytes
+Last Modified: 2025-05-24T14:42:55.288Z
+================================================================================
+
+export const environment = {
+    production: false,
+    baseUrl: 'http://localhost:5000',
+};
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/angular.json
+Size: 7497 bytes
+Last Modified: 2025-05-23T20:23:51.849Z
+================================================================================
+
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "Eva": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:application": {
+                    "strict": true
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/eva",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": [
+                            "src/custom-theme.scss",
+                            "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "./node_modules/font-awesome/css/font-awesome.css",
+                            "src/styles.css"
+                        ],
+                        "scripts": [
+                            "./node_modules/jquery/dist/jquery.js",
+                            "./node_modules/popper.js/dist/umd/popper.min.js",
+                            "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+                            "./node_modules/bootstrap/dist/js/bootstrap.js"
+                        ]
+                    },
+                    "configurations": {
+                        "docker": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.docker.ts"
+                                }
+                            ],
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        },
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        },
+                        "int": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.int.ts"
+                                }
+                            ]
+                        },
+                        "qa": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.qa.ts"
+                                }
+                            ]
+                        },
+                        "demo": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.demo.ts"
+                                }
+                            ]
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "Eva:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "Eva:build:development"
+                        },
+                        "docker": {
+                            "browserTarget": "Eva:build:docker"
+                        }
+                    },
+                    "defaultConfiguration": "development",
+                    "options": {
+                        "proxyConfig": "proxy.conf.json",
+                        "host": "0.0.0.0"
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "Eva:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma.conf.js",
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": ["src/styles.css"],
+                        "scripts": []
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "Eva"
+}
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/src/app/api/variables.ts
+Size: 219 bytes
+Last Modified: 2025-05-15T14:44:41.367Z
+================================================================================
+
+import { InjectionToken } from '@angular/core';
+
+export const BASE_PATH = new InjectionToken<string>('basePath');
+export const COLLECTION_FORMATS = {
+    'csv': ',',
+    'tsv': '   ',
+    'ssv': ' ',
+    'pipes': '|'
+}
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/src/app/api/api/billPrefix.service.ts
+Size: 6482 bytes
+Last Modified: 2025-05-15T14:44:41.357Z
+================================================================================
+
+/**
+ * EvaAPI
+ * No description provided (generated by Openapi Generator https://github.com/openapitools/openapi-generator)
+ *
+ * The version of the OpenAPI document: 1.0
+ * 
+ *
+ * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
+ * https://openapi-generator.tech
+ * Do not edit the class manually.
+ */
+/* tslint:disable:no-unused-variable member-ordering */
+
+import { Inject, Injectable, Optional }                      from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams,
+         HttpResponse, HttpEvent, HttpParameterCodec, HttpContext 
+        }       from '@angular/common/http';
+import { CustomHttpParameterCodec }                          from '../encoder';
+import { Observable }                                        from 'rxjs';
+
+// @ts-ignore
+import { BillPrefixResponse } from '../model/billPrefixResponse';
+
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
+import { Configuration }                                     from '../configuration';
+
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BillPrefixCodegenService {
+
+    protected basePath = 'http://localhost';
+    public defaultHeaders = new HttpHeaders();
+    public configuration = new Configuration();
+    public encoder: HttpParameterCodec;
+
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string|string[], @Optional() configuration: Configuration) {
+        if (configuration) {
+            this.configuration = configuration;
+        }
+        if (typeof this.configuration.basePath !== 'string') {
+            if (Array.isArray(basePath) && basePath.length > 0) {
+                basePath = basePath[0];
+            }
+
+            if (typeof basePath !== 'string') {
+                basePath = this.basePath;
+            }
+            this.configuration.basePath = basePath;
+        }
+        this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+    }
+
+
+    // @ts-ignore
+    private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+        if (typeof value === "object" && value instanceof Date === false) {
+            httpParams = this.addToHttpParamsRecursive(httpParams, value);
+        } else {
+            httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
+        }
+        return httpParams;
+    }
+
+    private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
+        if (value == null) {
+            return httpParams;
+        }
+
+        if (typeof value === "object") {
+            if (Array.isArray(value)) {
+                (value as any[]).forEach( elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
+            } else if (value instanceof Date) {
+                if (key != null) {
+                    httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
+                } else {
+                   throw Error("key may not be null if value is Date");
+                }
+            } else {
+                Object.keys(value).forEach( k => httpParams = this.addToHttpParamsRecursive(
+                    httpParams, value[k], key != null ? `${key}.${k}` : k));
+            }
+        } else if (key != null) {
+            httpParams = httpParams.append(key, value);
+        } else {
+            throw Error("key may not be null if value is not object or array");
+        }
+        return httpParams;
+    }
+
+    /**
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiBillPrefixesGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<Array<BillPrefixResponse>>;
+    public apiBillPrefixesGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<HttpResponse<Array<BillPrefixResponse>>>;
+    public apiBillPrefixesGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<HttpEvent<Array<BillPrefixResponse>>>;
+    public apiBillPrefixesGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext}): Observable<any> {
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'text/plain',
+                'application/json',
+                'text/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/BillPrefixes`;
+        return this.httpClient.request<Array<BillPrefixResponse>>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+}
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/src/proxy.conf.js
+Size: 157 bytes
+Last Modified: 2025-05-15T14:44:41.437Z
+================================================================================
+
+const PROXY_CONFIG = [
+  {
+    context: [
+      "/api",
+    ],
+    target: "https://localhost:7101",
+    secure: false
+  }
+]
+
+module.exports = PROXY_CONFIG;
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/EvaAPI/Program.cs
+Size: 4412 bytes
+Last Modified: 2025-05-24T14:34:39.305Z
+================================================================================
+
+using EvaAPI.Data;
+using EvaAPI.Data.M2;
+using EvaAPI.Data.Voting;
+using EvaAPI.Extensions;
+using EvaAPI.Filters;
+using EvaAPI.Mapping.Profiles;
+using EvaAPI.Services;
+using EvaAPI.Services.Milenia;
+using EvaAPI.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<EvaExceptionFilter>();
+});
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+builder.Services.Configure<Milenia20Settings>(builder.Configuration.GetSection("Milenia2"));
+builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("Authentication"));
+builder.Services.Configure<LsbApiSettings>(builder.Configuration.GetSection("LSBApi"));
+builder.Services.Configure<LogSettings>(builder.Configuration.GetSection("Logging"));
+builder.Services.Configure<IntroAndReferralSettings>(builder.Configuration.GetSection("IntroAndReferralSettings"));
+
+builder.Services.AddCors();
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GzipCompressionProvider>();
+});
+builder.Services.AddMemoryCache();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddAutoMapper(typeof(MockDataMappingProfile), typeof(MappingProfile), typeof(M2MappingProfile), typeof(VotingMappingProfile));
+
+builder.Services.AddServices();
+builder.Services.AddHostedService<BackgroundQueueProcessor>();
+builder.Services.AddScoped<IMileniaConnector, Integrations2Connector>();
+builder.Services.AddDbContext<EvaDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration["EvaDb"]);
+});
+builder.Services.AddDbContext<M2DbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration["M2Db"]);
+});
+builder.Services.AddDbContext<VotingContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration["MISVoteDb"]);
+});
+
+JwtSettings jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ClockSkew = TimeSpan.Zero,
+        ValidateAudience = true,
+        ValidateIssuer = true,
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        ValidAudience = jwtSettings.Audience,
+        ValidIssuer = jwtSettings.Issuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+    };
+});
+
+if (!string.IsNullOrEmpty(builder.Configuration["Spire.Doc"]))
+{
+    Spire.Doc.License.LicenseProvider.SetLicenseKey(builder.Configuration["Spire.Doc"]);
+    Spire.Doc.License.LicenseProvider.LoadLicense();
+}
+
+if (!string.IsNullOrEmpty(builder.Configuration["Spire.Pdf"]))
+{
+    Spire.Pdf.License.LicenseProvider.SetLicenseKey(builder.Configuration["Spire.Pdf"]);
+    Spire.Pdf.License.LicenseProvider.LoadLicense();
+}
+
+var app = builder.Build();
+
+SystemData.ServiceProvider = app.Services;
+
+app.UseResponseCompression();
+
+string[] corsOrigins = builder.Configuration["CORS_ORIGINS"]?.Split(',') ?? new string[] { "http://localhost:4200", "http://frontend:4200" };
+app.UseCors(builder =>
+{
+    builder.WithOrigins(corsOrigins);
+    builder.AllowAnyMethod();
+    builder.AllowAnyHeader();
+    builder.AllowCredentials();
+});
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    try
+    {
+        await DataSeeder.InitializeAsync(app.Services);
+    }
+    catch (Exception ex)
+    {
+    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers().RequireAuthorization();
+
+// force run database migrations
+using (var scope = app.Services.CreateScope())
+{
+    EvaDbContext dbContext = scope.ServiceProvider.GetRequiredService<EvaDbContext>();
+    dbContext.Database.Migrate();
+}
+
+app.Run();
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/start-dev.sh
+Size: 1065 bytes
+Last Modified: 2025-05-23T02:54:13.989Z
+================================================================================
+
+#!/bin/bash
+
+echo "Starting LegBone development environment..."
+
+if ! command -v docker-compose &> /dev/null; then
+    echo "docker-compose is not installed. Please install Docker and docker-compose first."
+    exit 1
+fi
+
+export COMPOSE_PROJECT_NAME=legbone-dev
+
+echo "Stopping any existing containers..."
+docker-compose down
+
+echo "Building and starting all services..."
+docker-compose up --build -d
+
+echo "Waiting for database to be ready..."
+until docker-compose exec -T db /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'Password1!' -Q "SELECT 1" &> /dev/null; do
+    echo "Database is not ready yet. Waiting..."
+    sleep 5
+done
+
+echo "Database is ready!"
+
+echo "Running database migrations..."
+docker-compose exec api dotnet ef database update
+
+echo ""
+echo "✅ All services are running!"
+echo ""
+echo "📝 Access points:"
+echo "   - Frontend: http://localhost:4200"
+echo "   - API: http://localhost:5000"
+echo "   - Database: localhost:1433"
+echo ""
+echo "To view logs: docker-compose logs -f [service-name]"
+echo "To stop: docker-compose down"
+echo ""
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/proxy.conf.docker.json
+Size: 165 bytes
+Last Modified: 2025-05-23T20:22:57.618Z
+================================================================================
+
+[
+    {
+        "context": ["/api"],
+        "target": "http://api:5000",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+]
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/proxy.conf.json
+Size: 115 bytes
+Last Modified: 2025-05-15T20:11:51.340Z
+================================================================================
+
+{
+    "/api": {
+        "target": "http://api:5000",
+        "secure": false,
+        "changeOrigin": true
+    }
+}
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/codegen/scripts/generate.ps1
+Size: 1812 bytes
+Last Modified: 2025-05-15T14:44:41.357Z
+================================================================================
+
+write-host "Fetching swagger.json from API" 
+Invoke-WebRequest https://localhost:7101/swagger/v1/swagger.json -OutFile ./swagger.json
+
+write-host "Generating Angular code using OpenAPI" 
+openapi-generator-cli generate -g typescript-angular -i ./swagger.json -o ../generated -c ./config.yaml --type-mappings=DateTime=Date --additional-properties=ngVersion=13.0.0 --additional-properties=serviceSuffix='CodegenService'
+
+write-host "Removing existing services and models" 
+$ServiceDirectory = "../../src/app/api/"
+get-childitem $ServiceDirectory | remove-item -recurse -force
+
+write-host "Copying newly generated items into an appropriate namespace" 
+$GeneratedDirectory = "../generated/*"
+copy-item $GeneratedDirectory $ServiceDirectory -recurse -force
+
+write-host "Removing code from codegen directory" 
+get-childitem $GeneratedDirectory | remove-item -recurse -force
+
+write-host "Removing unnecessary items"
+$gitignoreExists = test-path -path "../../src/app/api/.gitignore"
+if ($gitignoreExists) {
+    remove-item "../../src/app/api/.gitignore"
+}
+$gitpushExists = test-path -path "../../src/app/api/git_push.sh"
+if ($gitpushExists) {
+    remove-item "../../src/app/api/git_push.sh"
+}
+$readMeExists = test-path -path "../../src/app/api/README.md"
+if ($readMeExists) {
+    remove-item "../../src/app/api/README.md"
+}
+$genIgnoreExists = test-path -path "../../src/app/api/.openapi-generator-ignore"
+if ($genIgnoreExists) {
+    remove-item "../../src/app/api/.openapi-generator-ignore"
+}
+$genFileExists = test-path -path "../../src/app/api/.openapi-generator"
+if ($genFileExists) {
+    remove-item "../../src/app/api/.openapi-generator" -recurse -force
+}
+$swaggerJsonExists = test-path -path "./swagger.json"
+if ($swaggerJsonExists) {
+    remove-item "./swagger.json"
+}
+
+write-host ""
+write-host "Codegen Successful"
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/src/app/interceptors/base-url.interceptor.ts
+Size: 1666 bytes
+Last Modified: 2025-05-15T14:44:41.397Z
+================================================================================
+
+import { Injectable } from '@angular/core';
+import {
+    HttpRequest,
+    HttpHandler,
+    HttpEvent,
+    HttpInterceptor,
+    HttpContextToken,
+    HttpContext,
+    HttpHeaders,
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { BaseUrlService } from '../services/base-url.service';
+
+const yearOverride = new HttpContextToken(() => new Date().getFullYear());
+
+export function setYearOverride(year: number) {
+    return new HttpContext().set(yearOverride, year);
+}
+
+@Injectable()
+export class BaseUrlInterceptor implements HttpInterceptor {
+    private sessionId: number = new Date().getFullYear();
+
+    constructor(private baseUrlService: BaseUrlService) {}
+
+    public intercept(
+        request: HttpRequest<unknown>,
+        next: HttpHandler
+    ): Observable<HttpEvent<unknown>> {
+        let url = request.url;
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        };
+
+        if (this.baseUrlService.isUrlPreCodeGen(url)) {
+            url = environment.baseUrl + '/api/' + this.sessionId + '/' + request.url;
+
+            if (request.url.startsWith('authentication')) {
+                url = environment.baseUrl + '/api/' + request.url;
+            } else if (request.context.get(yearOverride) != this.sessionId) {
+                this.sessionId = request.context.get(yearOverride);
+                url = environment.baseUrl + '/api/' + this.sessionId + '/' + request.url;
+            }
+        }
+
+        return next.handle(request.clone({ ...httpOptions, url: url }));
+    }
+}
+
+
+================================================================================
+File: /home/marcusshep/p/LegBone/Eva/aspnetcore-https.js
+Size: 1309 bytes
+Last Modified: 2025-05-15T14:44:41.357Z
+================================================================================
+
+// This script sets up HTTPS for the application using the ASP.NET Core HTTPS certificate
+const fs = require('fs');
+const spawn = require('child_process').spawn;
+const path = require('path');
+
+const baseFolder =
+    process.env.APPDATA !== undefined && process.env.APPDATA !== ''
+        ? `${process.env.APPDATA}/ASP.NET/https`
+        : `${process.env.HOME}/.aspnet/https`;
+
+const certificateArg = process.argv
+    .map((arg) => arg.match(/--name=(?<value>.+)/i))
+    .filter(Boolean)[0];
+const certificateName = certificateArg
+    ? certificateArg.groups.value
+    : process.env.npm_package_name;
+
+if (!certificateName) {
+    console.error(
+        'Invalid certificate name. Run this script in the context of an npm/yarn script or pass --name=<<app>> explicitly.'
+    );
+    process.exit(-1);
+}
+
+const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
+const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+
+if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+    spawn(
+        'dotnet',
+        [
+            'dev-certs',
+            'https',
+            '--export-path',
+            certFilePath,
+            '--format',
+            'Pem',
+            '--no-password',
+        ],
+        { stdio: 'inherit' }
+    ).on('exit', (code) => process.exit(code));
+}
