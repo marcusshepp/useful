@@ -433,13 +433,15 @@ class DataRestorer:
         is_recommendation_int: int = 1 if is_recommendation else 0
         is_published_int: int = 1 if is_published else 0
         
+        action_sub_text: str | None = action.get("Sub")
+        
         self.eva_db.execute_non_query(
             queries.insert_action_query(),
             (
                 new_agenda_item_id,
                 row_action_id,
                 action_text,
-                action.get("Sub"),
+                action_sub_text,
                 action.get("SortOrder", 0),
                 is_recommendation_int,
                 custom_recommended,
