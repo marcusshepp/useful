@@ -1,4 +1,0 @@
-OUTPUT_PATH=local_data/migration_data.json
-INPUT_PATH=local_data/migration_data.json
-EVA_DB_CONNECTION=Driver={ODBC Driver 17 for SQL Server};Server=localhost,1433;Database=Eva;UID=SA;PWD=Password1!;Encrypt=no
-SHARED_DB_CONNECTION=Driver={ODBC Driver 17 for SQL Server};Server=localhost,1433;Database=Legislature;UID=senate_dev_user;PWD=Password1!;Encrypt=no
