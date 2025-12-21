@@ -1,11 +1,5 @@
 # Environment variables with sensitive data
 .env
-.env.*
-*.env
-env-vars.ps1
-
-# Keys and sensitive files
-key.txt
 
 # PowerShell profile and local settings
 *.local
@@ -23,17 +17,3 @@ key.txt
 .DS_Store
 Thumbs.db
 desktop.ini
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Node
-node_modules/
-dist/
-
-# Data directories
-*_data/
-backups/
