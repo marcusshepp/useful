@@ -1,6 +1,0 @@
-G6lea3Z1ZULmbpQlHiiSh8EEAwHfe6M1hvsNVIgC5RB4Htb40AZQJQQJ99BEACAAAAATbLuLAAASAZDO34zY
-
-organization = 'Legislative'
-project = 'LegBone'
-team = 'LegBone Team'
-token = '23IcywOgHQTktCPK6D1r1zLjJkRiDu9m0udhpuOnl9XKhUzybqlMJQQJ99BAACAAAAATbLuLAAASAZDOWP8X'
