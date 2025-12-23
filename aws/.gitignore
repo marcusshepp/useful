@@ -1,0 +1,13 @@
+# Environment files
+.env
+
+# PowerShell
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
