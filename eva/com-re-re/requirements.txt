@@ -1,7 +1,0 @@
-# Note: For Python 3.13, use pyodbc>=4.0.40 when available
-# For now, either downgrade Python to 3.11/3.12 or try one of these:
-pyodbc
-# Alternative options:
-# turbodbc
-# pypyodbc
-python-dotenv==1.0.0
