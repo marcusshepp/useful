@@ -1,0 +1,32 @@
+2025-04-15 12:04:49,475 - INFO - Starting pre-deployment data gathering
+2025-04-15 12:04:49,557 - INFO - Database connection established
+2025-04-15 12:04:49,576 - INFO - Database connection established
+2025-04-15 12:04:49,576 - INFO - Gathering committee reports...
+2025-04-15 12:04:49,583 - INFO - Found 80 meetings with committee reports
+2025-04-15 12:04:49,583 - INFO - Gathering all removed agenda items...
+2025-04-15 12:04:49,585 - INFO - Found 0 removed agenda items
+2025-04-15 12:04:49,585 - INFO - Gathering committee meeting agenda items for these meetings that aren't removed...
+2025-04-15 12:04:49,592 - INFO - Found 207 agenda items connected to meetings with committee reports
+2025-04-15 12:04:49,592 - INFO - Gathering additional meeting and committee information...
+2025-04-15 12:04:49,597 - INFO - appending committee info to 207 agenda items
+2025-04-15 12:04:49,597 - INFO - Gathering CommitteeReportPublishedItems...
+2025-04-15 12:04:49,598 - INFO - Gathered 3 CommitteeReportPublishedItems.
+2025-04-15 12:04:49,599 - INFO - Marked 3 published agenda items.
+2025-04-15 12:04:49,599 - INFO - Gathering CommitteeReportCommitteeActionToAgendaItems...
+2025-04-15 12:04:49,600 - INFO - Gathered 5 action to agenda items.
+2025-04-15 12:04:49,600 - INFO - Gathering CommitteeReportPublishedActions...
+2025-04-15 12:04:49,602 - INFO - Gathered 5 CommitteeReportPublishedActions.
+2025-04-15 12:04:49,602 - INFO - Gathering member roll calls...
+2025-04-15 12:04:49,604 - INFO - === PRE-DEPLOYMENT DATA COUNTS ===
+2025-04-15 12:04:49,604 - INFO - COMMITTEE_REPORTS: 80
+2025-04-15 12:04:49,604 - INFO - AGENDA_ITEMS: 207
+2025-04-15 12:04:49,604 - INFO - PUBLISHED_AGENDA_ITEMS: 3
+2025-04-15 12:04:49,605 - INFO - ROLL_CALLS: 9
+2025-04-15 12:04:49,605 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-15 12:04:49,605 - INFO - AGENDA_ITEM_ACTIONS: 5
+2025-04-15 12:04:49,605 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 5
+2025-04-15 12:04:49,605 - INFO - REMOVED_AGENDA_ITEMS: 0
+2025-04-15 12:04:49,607 - INFO - Database connection closed
+2025-04-15 12:04:49,608 - INFO - Database connection closed
+2025-04-15 12:04:49,616 - INFO - Data saved to migration_data.json
+2025-04-15 12:04:49,616 - INFO - Pre-deployment data gathering completed successfully and saved to migration_data.json

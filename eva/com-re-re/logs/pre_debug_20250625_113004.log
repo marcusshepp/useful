@@ -1,0 +1,37 @@
+2025-06-25 11:30:04,803 - INFO - Starting pre-deployment data gathering
+2025-06-25 11:30:05,201 - INFO - Database connection established
+2025-06-25 11:30:05,561 - INFO - Database connection established
+2025-06-25 11:30:05,561 - INFO - Gathering committee actions...
+2025-06-25 11:30:05,591 - INFO - Gathered 21 committee actions.
+2025-06-25 11:30:05,592 - INFO - Gathering committee reports...
+2025-06-25 11:30:18,921 - INFO - Found 122 meetings with committee reports
+2025-06-25 11:30:18,921 - INFO - Gathering all removed agenda items...
+2025-06-25 11:30:18,952 - INFO - Found 2 removed agenda items
+2025-06-25 11:30:18,953 - INFO - Gathering committee meeting agenda items for these meetings that aren't removed...
+2025-06-25 11:30:19,150 - INFO - Found 141 legislation items for agenda items
+2025-06-25 11:30:19,152 - INFO - Found 311 agenda items connected to meetings with committee reports
+2025-06-25 11:30:19,153 - INFO - Gathering additional meeting and committee information...
+2025-06-25 11:30:19,194 - INFO - appending committee info to 311 agenda items
+2025-06-25 11:30:19,195 - INFO - Gathering CommitteeReportPublishedItems...
+2025-06-25 11:30:19,229 - INFO - Gathered 172 CommitteeReportPublishedItems.
+2025-06-25 11:30:19,229 - INFO - Marked 172 published agenda items.
+2025-06-25 11:30:19,230 - INFO - Gathering CommitteeReportCommitteeActionToAgendaItems...
+2025-06-25 11:30:19,262 - INFO - Gathered 269 action to agenda items.
+2025-06-25 11:30:19,263 - INFO - Gathering CommitteeReportPublishedActions...
+2025-06-25 11:30:19,294 - INFO - Gathered 162 CommitteeReportPublishedActions.
+2025-06-25 11:30:19,295 - INFO - Gathering member roll calls...
+2025-06-25 11:30:19,997 - INFO - === PRE-DEPLOYMENT DATA COUNTS ===
+2025-06-25 11:30:19,998 - INFO - COMMITTEE_REPORTS: 122
+2025-06-25 11:30:19,998 - INFO - AGENDA_ITEMS: 311
+2025-06-25 11:30:19,999 - INFO - PUBLISHED_AGENDA_ITEMS: 172
+2025-06-25 11:30:19,999 - INFO - ROLL_CALLS: 2725
+2025-06-25 11:30:19,999 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-06-25 11:30:19,999 - INFO - AGENDA_ITEM_ACTIONS: 269
+2025-06-25 11:30:20,000 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 162
+2025-06-25 11:30:20,000 - INFO - REMOVED_AGENDA_ITEMS: 2
+2025-06-25 11:30:20,000 - INFO - LEGISLATION_ITEMS: 141
+2025-06-25 11:30:20,001 - INFO - COMMITTEE_ACTIONS: 21
+2025-06-25 11:30:20,061 - INFO - Database connection closed
+2025-06-25 11:30:20,120 - INFO - Database connection closed
+2025-06-25 11:30:20,231 - INFO - Data saved to uat_data/migration_data.json
+2025-06-25 11:30:20,231 - INFO - Pre-deployment data gathering completed successfully and saved to uat_data/migration_data.json

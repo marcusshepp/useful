@@ -1,0 +1,1773 @@
+2025-04-16 14:58:30,104 - INFO - Starting post-deployment data restoration
+2025-04-16 14:58:30,605 - INFO - Database connection established
+2025-04-16 14:58:30,912 - INFO - Database connection established
+2025-04-16 14:58:30,912 - INFO - Transaction started
+2025-04-16 14:58:30,953 - INFO - Data loaded from iso_data/migration_data.json
+2025-04-16 14:58:30,953 - INFO - Found 73 items for committee_reports
+2025-04-16 14:58:30,954 - INFO - Found 73 items for committee_report_ids
+2025-04-16 14:58:30,954 - INFO - Found 1364 items for member_roll_calls
+2025-04-16 14:58:30,955 - INFO - Found 6 items for committee_report_published_actions
+2025-04-16 14:58:30,963 - INFO - Found 82 items for published_items
+2025-04-16 14:58:30,964 - INFO - Found 164 items for committee_meeting_agenda_items
+2025-04-16 14:58:30,965 - INFO - Found 110 items for action_to_agenda_items
+2025-04-16 14:58:30,965 - INFO - === PRE-DEPLOYMENT DATA COUNTS (FROM JSON) ===
+2025-04-16 14:58:30,966 - INFO - COMMITTEE_REPORTS: 73
+2025-04-16 14:58:30,967 - INFO - AGENDA_ITEMS: 164
+2025-04-16 14:58:30,968 - INFO - PUBLISHED_AGENDA_ITEMS: 82
+2025-04-16 14:58:30,968 - INFO - ROLL_CALLS: 1364
+2025-04-16 14:58:30,969 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-16 14:58:30,970 - INFO - AGENDA_ITEM_ACTIONS: 110
+2025-04-16 14:58:30,970 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 6
+2025-04-16 14:58:30,971 - INFO - REMOVED_AGENDA_ITEMS: 0
+2025-04-16 14:58:30,971 - INFO - LEGISLATION_ITEMS: 59
+2025-04-16 14:58:30,972 - INFO - COMMITTEE_ACTIONS: 21
+2025-04-16 14:58:30,972 - INFO - Loading CommitteeReportCommitteeActions reference data...
+2025-04-16 14:58:31,011 - INFO - Loaded 21 committee actions for reference
+2025-04-16 14:58:31,011 - INFO - Updating CommitteeReports table with meeting details...
+2025-04-16 14:58:31,118 - INFO - Updated CommitteeReport ID 1 with meeting details
+2025-04-16 14:58:31,221 - INFO - Updated CommitteeReport ID 2 with meeting details
+2025-04-16 14:58:31,330 - INFO - Updated CommitteeReport ID 3 with meeting details
+2025-04-16 14:58:31,434 - INFO - Updated CommitteeReport ID 4 with meeting details
+2025-04-16 14:58:31,535 - INFO - Updated CommitteeReport ID 5 with meeting details
+2025-04-16 14:58:31,630 - INFO - Updated CommitteeReport ID 6 with meeting details
+2025-04-16 14:58:31,729 - INFO - Updated CommitteeReport ID 7 with meeting details
+2025-04-16 14:58:31,823 - INFO - Updated CommitteeReport ID 8 with meeting details
+2025-04-16 14:58:31,914 - INFO - Updated CommitteeReport ID 9 with meeting details
+2025-04-16 14:58:32,010 - INFO - Updated CommitteeReport ID 10 with meeting details
+2025-04-16 14:58:32,115 - INFO - Updated CommitteeReport ID 11 with meeting details
+2025-04-16 14:58:32,217 - INFO - Updated CommitteeReport ID 12 with meeting details
+2025-04-16 14:58:32,323 - INFO - Updated CommitteeReport ID 13 with meeting details
+2025-04-16 14:58:32,418 - INFO - Updated CommitteeReport ID 14 with meeting details
+2025-04-16 14:58:32,522 - INFO - Updated CommitteeReport ID 15 with meeting details
+2025-04-16 14:58:32,627 - INFO - Updated CommitteeReport ID 16 with meeting details
+2025-04-16 14:58:32,723 - INFO - Updated CommitteeReport ID 17 with meeting details
+2025-04-16 14:58:32,819 - INFO - Updated CommitteeReport ID 18 with meeting details
+2025-04-16 14:58:32,917 - INFO - Updated CommitteeReport ID 19 with meeting details
+2025-04-16 14:58:33,010 - INFO - Updated CommitteeReport ID 20 with meeting details
+2025-04-16 14:58:33,108 - INFO - Updated CommitteeReport ID 21 with meeting details
+2025-04-16 14:58:33,221 - INFO - Updated CommitteeReport ID 22 with meeting details
+2025-04-16 14:58:33,323 - INFO - Updated CommitteeReport ID 23 with meeting details
+2025-04-16 14:58:33,436 - INFO - Updated CommitteeReport ID 24 with meeting details
+2025-04-16 14:58:33,537 - INFO - Updated CommitteeReport ID 25 with meeting details
+2025-04-16 14:58:33,643 - INFO - Updated CommitteeReport ID 26 with meeting details
+2025-04-16 14:58:33,739 - INFO - Updated CommitteeReport ID 27 with meeting details
+2025-04-16 14:58:33,839 - INFO - Updated CommitteeReport ID 28 with meeting details
+2025-04-16 14:58:33,943 - INFO - Updated CommitteeReport ID 29 with meeting details
+2025-04-16 14:58:34,045 - INFO - Updated CommitteeReport ID 30 with meeting details
+2025-04-16 14:58:34,144 - INFO - Updated CommitteeReport ID 31 with meeting details
+2025-04-16 14:58:34,243 - INFO - Updated CommitteeReport ID 32 with meeting details
+2025-04-16 14:58:34,337 - INFO - Updated CommitteeReport ID 33 with meeting details
+2025-04-16 14:58:34,436 - INFO - Updated CommitteeReport ID 34 with meeting details
+2025-04-16 14:58:34,534 - INFO - Updated CommitteeReport ID 35 with meeting details
+2025-04-16 14:58:34,681 - INFO - Updated CommitteeReport ID 36 with meeting details
+2025-04-16 14:58:34,789 - INFO - Updated CommitteeReport ID 37 with meeting details
+2025-04-16 14:58:35,116 - INFO - Updated CommitteeReport ID 38 with meeting details
+2025-04-16 14:58:35,221 - INFO - Updated CommitteeReport ID 39 with meeting details
+2025-04-16 14:58:35,327 - INFO - Updated CommitteeReport ID 40 with meeting details
+2025-04-16 14:58:35,420 - INFO - Updated CommitteeReport ID 41 with meeting details
+2025-04-16 14:58:35,520 - INFO - Updated CommitteeReport ID 42 with meeting details
+2025-04-16 14:58:35,617 - INFO - Updated CommitteeReport ID 43 with meeting details
+2025-04-16 14:58:35,733 - INFO - Updated CommitteeReport ID 44 with meeting details
+2025-04-16 14:58:35,836 - INFO - Updated CommitteeReport ID 45 with meeting details
+2025-04-16 14:58:35,937 - INFO - Updated CommitteeReport ID 46 with meeting details
+2025-04-16 14:58:36,040 - INFO - Updated CommitteeReport ID 47 with meeting details
+2025-04-16 14:58:36,135 - INFO - Updated CommitteeReport ID 48 with meeting details
+2025-04-16 14:58:36,242 - INFO - Updated CommitteeReport ID 49 with meeting details
+2025-04-16 14:58:36,339 - INFO - Updated CommitteeReport ID 50 with meeting details
+2025-04-16 14:58:36,437 - INFO - Updated CommitteeReport ID 51 with meeting details
+2025-04-16 14:58:36,532 - INFO - Updated CommitteeReport ID 52 with meeting details
+2025-04-16 14:58:36,634 - INFO - Updated CommitteeReport ID 53 with meeting details
+2025-04-16 14:58:36,730 - INFO - Updated CommitteeReport ID 54 with meeting details
+2025-04-16 14:58:36,825 - INFO - Updated CommitteeReport ID 55 with meeting details
+2025-04-16 14:58:36,927 - INFO - Updated CommitteeReport ID 56 with meeting details
+2025-04-16 14:58:37,025 - INFO - Updated CommitteeReport ID 57 with meeting details
+2025-04-16 14:58:37,119 - INFO - Updated CommitteeReport ID 58 with meeting details
+2025-04-16 14:58:37,223 - INFO - Updated CommitteeReport ID 59 with meeting details
+2025-04-16 14:58:37,325 - INFO - Updated CommitteeReport ID 60 with meeting details
+2025-04-16 14:58:37,432 - INFO - Updated CommitteeReport ID 61 with meeting details
+2025-04-16 14:58:37,527 - INFO - Updated CommitteeReport ID 62 with meeting details
+2025-04-16 14:58:37,627 - INFO - Updated CommitteeReport ID 63 with meeting details
+2025-04-16 14:58:37,725 - INFO - Updated CommitteeReport ID 64 with meeting details
+2025-04-16 14:58:37,827 - INFO - Updated CommitteeReport ID 65 with meeting details
+2025-04-16 14:58:37,925 - INFO - Updated CommitteeReport ID 66 with meeting details
+2025-04-16 14:58:38,030 - INFO - Updated CommitteeReport ID 67 with meeting details
+2025-04-16 14:58:38,140 - INFO - Updated CommitteeReport ID 68 with meeting details
+2025-04-16 14:58:38,245 - INFO - Updated CommitteeReport ID 69 with meeting details
+2025-04-16 14:58:38,357 - INFO - Updated CommitteeReport ID 70 with meeting details
+2025-04-16 14:58:38,452 - INFO - Updated CommitteeReport ID 71 with meeting details
+2025-04-16 14:58:38,553 - INFO - Updated CommitteeReport ID 72 with meeting details
+2025-04-16 14:58:38,654 - INFO - Updated CommitteeReport ID 73 with meeting details
+2025-04-16 14:58:38,655 - INFO - Updated 73 committee reports with meeting details
+2025-04-16 14:58:38,655 - INFO - Inserting data into CommitteeReportAgendaItems...
+2025-04-16 14:58:38,656 - INFO - Creating set of published agenda item IDs...
+2025-04-16 14:58:38,657 - INFO - Found 82 published agenda item IDs
+2025-04-16 14:58:38,845 - INFO - Inserted agenda item: reportId: 1 agendaItemId: 16582 legId: None
+2025-04-16 14:58:38,921 - INFO - Inserted agenda item: reportId: 1 agendaItemId: 16581 legId: None
+2025-04-16 14:58:38,987 - INFO - Inserted agenda item: reportId: 2 agendaItemId: 16601 legId: 13132
+2025-04-16 14:58:39,056 - INFO - Inserted agenda item: reportId: 2 agendaItemId: 16600 legId: 13131
+2025-04-16 14:58:39,124 - INFO - Inserted agenda item: reportId: 2 agendaItemId: 16590 legId: None
+2025-04-16 14:58:39,192 - INFO - Inserted agenda item: reportId: 2 agendaItemId: 16589 legId: None
+2025-04-16 14:58:39,264 - INFO - Inserted agenda item: reportId: 2 agendaItemId: 16588 legId: None
+2025-04-16 14:58:39,344 - INFO - Inserted agenda item: reportId: 2 agendaItemId: 16587 legId: None
+2025-04-16 14:58:39,412 - INFO - Inserted agenda item: reportId: 3 agendaItemId: 16586 legId: None
+2025-04-16 14:58:39,478 - INFO - Inserted agenda item: reportId: 3 agendaItemId: 16585 legId: 13049
+2025-04-16 14:58:39,544 - INFO - Inserted agenda item: reportId: 4 agendaItemId: 16584 legId: None
+2025-04-16 14:58:39,613 - INFO - Inserted agenda item: reportId: 5 agendaItemId: 16597 legId: 13024
+2025-04-16 14:58:39,683 - INFO - Inserted agenda item: reportId: 5 agendaItemId: 16596 legId: None
+2025-04-16 14:58:39,751 - INFO - Inserted agenda item: reportId: 6 agendaItemId: 16594 legId: 13148
+2025-04-16 14:58:39,825 - INFO - Inserted agenda item: reportId: 6 agendaItemId: 16593 legId: None
+2025-04-16 14:58:39,889 - INFO - Inserted agenda item: reportId: 7 agendaItemId: 16592 legId: 13054
+2025-04-16 14:58:39,960 - INFO - Inserted agenda item: reportId: 7 agendaItemId: 16591 legId: None
+2025-04-16 14:58:40,025 - INFO - Inserted agenda item: reportId: 8 agendaItemId: 16607 legId: 13024
+2025-04-16 14:58:40,104 - INFO - Inserted agenda item: reportId: 9 agendaItemId: 16617 legId: 13117
+2025-04-16 14:58:40,184 - INFO - Inserted agenda item: reportId: 9 agendaItemId: 16616 legId: 13102
+2025-04-16 14:58:40,253 - INFO - Inserted agenda item: reportId: 9 agendaItemId: 16615 legId: None
+2025-04-16 14:58:40,338 - INFO - Inserted agenda item: reportId: 10 agendaItemId: 16622 legId: 13058
+2025-04-16 14:58:40,406 - INFO - Inserted agenda item: reportId: 10 agendaItemId: 16621 legId: None
+2025-04-16 14:58:40,469 - INFO - Inserted agenda item: reportId: 11 agendaItemId: 16624 legId: 13024
+2025-04-16 14:58:40,534 - INFO - Inserted agenda item: reportId: 11 agendaItemId: 16623 legId: 13014
+2025-04-16 14:58:40,602 - INFO - Inserted agenda item: reportId: 12 agendaItemId: 16606 legId: None
+2025-04-16 14:58:40,682 - INFO - Inserted agenda item: reportId: 13 agendaItemId: 16629 legId: 13014
+2025-04-16 14:58:40,774 - INFO - Inserted agenda item: reportId: 14 agendaItemId: 16648 legId: None
+2025-04-16 14:58:40,842 - INFO - Inserted agenda item: reportId: 15 agendaItemId: 16646 legId: 13182
+2025-04-16 14:58:40,909 - INFO - Inserted agenda item: reportId: 15 agendaItemId: 16645 legId: 13163
+2025-04-16 14:58:40,986 - INFO - Inserted agenda item: reportId: 15 agendaItemId: 16643 legId: None
+2025-04-16 14:58:41,052 - INFO - Inserted agenda item: reportId: 16 agendaItemId: 16671 legId: None
+2025-04-16 14:58:41,118 - INFO - Inserted agenda item: reportId: 17 agendaItemId: 16691 legId: None
+2025-04-16 14:58:41,184 - INFO - Inserted agenda item: reportId: 17 agendaItemId: 16692 legId: None
+2025-04-16 14:58:41,258 - INFO - Inserted agenda item: reportId: 17 agendaItemId: 16693 legId: None
+2025-04-16 14:58:41,332 - INFO - Inserted agenda item: reportId: 18 agendaItemId: 16695 legId: 13049
+2025-04-16 14:58:41,413 - INFO - Inserted agenda item: reportId: 19 agendaItemId: 16689 legId: None
+2025-04-16 14:58:41,491 - INFO - Inserted agenda item: reportId: 19 agendaItemId: 16690 legId: 13042
+2025-04-16 14:58:41,562 - INFO - Inserted agenda item: reportId: 20 agendaItemId: 16701 legId: None
+2025-04-16 14:58:41,628 - INFO - Inserted agenda item: reportId: 21 agendaItemId: 16711 legId: None
+2025-04-16 14:58:41,702 - INFO - Inserted agenda item: reportId: 22 agendaItemId: 16702 legId: None
+2025-04-16 14:58:41,769 - INFO - Inserted agenda item: reportId: 22 agendaItemId: 16703 legId: None
+2025-04-16 14:58:41,836 - INFO - Inserted agenda item: reportId: 22 agendaItemId: 16704 legId: None
+2025-04-16 14:58:41,905 - INFO - Inserted agenda item: reportId: 23 agendaItemId: 16700 legId: None
+2025-04-16 14:58:41,971 - INFO - Inserted agenda item: reportId: 24 agendaItemId: 16705 legId: 13157
+2025-04-16 14:58:42,042 - INFO - Inserted agenda item: reportId: 24 agendaItemId: 16706 legId: 13213
+2025-04-16 14:58:42,109 - INFO - Inserted agenda item: reportId: 24 agendaItemId: 16707 legId: 13215
+2025-04-16 14:58:42,187 - INFO - Inserted agenda item: reportId: 24 agendaItemId: 16708 legId: 13251
+2025-04-16 14:58:42,273 - INFO - Inserted agenda item: reportId: 24 agendaItemId: 16709 legId: 13252
+2025-04-16 14:58:42,339 - INFO - Inserted agenda item: reportId: 24 agendaItemId: 16710 legId: 13253
+2025-04-16 14:58:42,418 - INFO - Inserted agenda item: reportId: 25 agendaItemId: 16717 legId: None
+2025-04-16 14:58:42,484 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16727 legId: None
+2025-04-16 14:58:42,558 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16728 legId: 13247
+2025-04-16 14:58:42,624 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16729 legId: 13248
+2025-04-16 14:58:42,693 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16730 legId: None
+2025-04-16 14:58:42,758 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16731 legId: None
+2025-04-16 14:58:42,831 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16732 legId: None
+2025-04-16 14:58:42,904 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16733 legId: None
+2025-04-16 14:58:42,976 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16740 legId: 13271
+2025-04-16 14:58:43,050 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16741 legId: 13273
+2025-04-16 14:58:43,133 - INFO - Inserted agenda item: reportId: 26 agendaItemId: 16742 legId: 13274
+2025-04-16 14:58:43,212 - INFO - Inserted agenda item: reportId: 27 agendaItemId: 16718 legId: None
+2025-04-16 14:58:43,453 - INFO - Inserted agenda item: reportId: 27 agendaItemId: 16719 legId: None
+2025-04-16 14:58:43,533 - INFO - Inserted agenda item: reportId: 28 agendaItemId: 16772 legId: None
+2025-04-16 14:58:43,613 - INFO - Inserted agenda item: reportId: 29 agendaItemId: 16798 legId: None
+2025-04-16 14:58:43,687 - INFO - Inserted agenda item: reportId: 30 agendaItemId: 16804 legId: None
+2025-04-16 14:58:43,752 - INFO - Inserted agenda item: reportId: 31 agendaItemId: 16805 legId: None
+2025-04-16 14:58:43,818 - INFO - Inserted agenda item: reportId: 32 agendaItemId: 16781 legId: None
+2025-04-16 14:58:43,885 - INFO - Inserted agenda item: reportId: 32 agendaItemId: 16782 legId: 13189
+2025-04-16 14:58:43,949 - INFO - Inserted agenda item: reportId: 33 agendaItemId: 16788 legId: None
+2025-04-16 14:58:44,019 - INFO - Inserted agenda item: reportId: 34 agendaItemId: 16778 legId: None
+2025-04-16 14:58:44,083 - INFO - Inserted agenda item: reportId: 34 agendaItemId: 16779 legId: None
+2025-04-16 14:58:44,148 - INFO - Inserted agenda item: reportId: 35 agendaItemId: 16813 legId: None
+2025-04-16 14:58:44,224 - INFO - Inserted agenda item: reportId: 36 agendaItemId: 16796 legId: None
+2025-04-16 14:58:44,310 - INFO - Inserted agenda item: reportId: 37 agendaItemId: 16789 legId: 13163
+2025-04-16 14:58:44,397 - INFO - Inserted agenda item: reportId: 37 agendaItemId: 16790 legId: 13116
+2025-04-16 14:58:44,466 - INFO - Inserted agenda item: reportId: 37 agendaItemId: 16791 legId: 13188
+2025-04-16 14:58:44,534 - INFO - Inserted agenda item: reportId: 37 agendaItemId: 16792 legId: 13325
+2025-04-16 14:58:44,601 - INFO - Inserted agenda item: reportId: 37 agendaItemId: 16793 legId: 13326
+2025-04-16 14:58:44,669 - INFO - Inserted agenda item: reportId: 37 agendaItemId: 16794 legId: 13327
+2025-04-16 14:58:44,736 - INFO - Inserted agenda item: reportId: 37 agendaItemId: 16795 legId: 13328
+2025-04-16 14:58:44,805 - INFO - Inserted agenda item: reportId: 38 agendaItemId: 16814 legId: None
+2025-04-16 14:58:44,872 - INFO - Inserted agenda item: reportId: 39 agendaItemId: 16816 legId: None
+2025-04-16 14:58:44,944 - INFO - Inserted agenda item: reportId: 40 agendaItemId: 16873 legId: None
+2025-04-16 14:58:45,010 - INFO - Inserted agenda item: reportId: 41 agendaItemId: 16889 legId: None
+2025-04-16 14:58:45,079 - INFO - Inserted agenda item: reportId: 42 agendaItemId: 16899 legId: None
+2025-04-16 14:58:45,151 - INFO - Inserted agenda item: reportId: 42 agendaItemId: 16900 legId: None
+2025-04-16 14:58:45,244 - INFO - Inserted agenda item: reportId: 42 agendaItemId: 16901 legId: None
+2025-04-16 14:58:45,336 - INFO - Inserted agenda item: reportId: 43 agendaItemId: 16919 legId: None
+2025-04-16 14:58:45,406 - INFO - Inserted agenda item: reportId: 43 agendaItemId: 16920 legId: None
+2025-04-16 14:58:45,474 - INFO - Inserted agenda item: reportId: 44 agendaItemId: 16902 legId: None
+2025-04-16 14:58:45,539 - INFO - Inserted agenda item: reportId: 44 agendaItemId: 16903 legId: 13287
+2025-04-16 14:58:45,647 - INFO - Inserted agenda item: reportId: 45 agendaItemId: 16911 legId: None
+2025-04-16 14:58:45,723 - INFO - Inserted agenda item: reportId: 46 agendaItemId: 16859 legId: None
+2025-04-16 14:58:45,797 - INFO - Inserted agenda item: reportId: 46 agendaItemId: 16860 legId: None
+2025-04-16 14:58:45,863 - INFO - Inserted agenda item: reportId: 47 agendaItemId: 16917 legId: 13055
+2025-04-16 14:58:45,932 - INFO - Inserted agenda item: reportId: 47 agendaItemId: 16918 legId: 13336
+2025-04-16 14:58:46,006 - INFO - Inserted agenda item: reportId: 48 agendaItemId: 16921 legId: None
+2025-04-16 14:58:46,074 - INFO - Inserted agenda item: reportId: 49 agendaItemId: 16857 legId: None
+2025-04-16 14:58:46,160 - INFO - Inserted agenda item: reportId: 49 agendaItemId: 16858 legId: None
+2025-04-16 14:58:46,263 - INFO - Inserted agenda item: reportId: 50 agendaItemId: 16894 legId: None
+2025-04-16 14:58:46,372 - INFO - Inserted agenda item: reportId: 51 agendaItemId: 16678 legId: None
+2025-04-16 14:58:46,442 - INFO - Inserted agenda item: reportId: 52 agendaItemId: 16884 legId: None
+2025-04-16 14:58:46,521 - INFO - Inserted agenda item: reportId: 53 agendaItemId: 16922 legId: None
+2025-04-16 14:58:46,586 - INFO - Inserted agenda item: reportId: 54 agendaItemId: 17008 legId: 13370
+2025-04-16 14:58:46,651 - INFO - Inserted agenda item: reportId: 54 agendaItemId: 17009 legId: 13325
+2025-04-16 14:58:46,728 - INFO - Inserted agenda item: reportId: 54 agendaItemId: 17010 legId: 13326
+2025-04-16 14:58:46,798 - INFO - Inserted agenda item: reportId: 54 agendaItemId: 17011 legId: 13327
+2025-04-16 14:58:46,872 - INFO - Inserted agenda item: reportId: 54 agendaItemId: 17012 legId: 13328
+2025-04-16 14:58:46,941 - INFO - Inserted agenda item: reportId: 55 agendaItemId: 16995 legId: None
+2025-04-16 14:58:47,011 - INFO - Inserted agenda item: reportId: 55 agendaItemId: 16996 legId: None
+2025-04-16 14:58:47,078 - INFO - Inserted agenda item: reportId: 56 agendaItemId: 16992 legId: 13246
+2025-04-16 14:58:47,144 - INFO - Inserted agenda item: reportId: 56 agendaItemId: 16993 legId: None
+2025-04-16 14:58:47,219 - INFO - Inserted agenda item: reportId: 57 agendaItemId: 17036 legId: None
+2025-04-16 14:58:47,297 - INFO - Inserted agenda item: reportId: 57 agendaItemId: 17037 legId: None
+2025-04-16 14:58:47,372 - INFO - Inserted agenda item: reportId: 57 agendaItemId: 17038 legId: None
+2025-04-16 14:58:47,438 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 16997 legId: 13042
+2025-04-16 14:58:47,503 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 16998 legId: 13063
+2025-04-16 14:58:47,569 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 16999 legId: 13064
+2025-04-16 14:58:47,635 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 17000 legId: 13065
+2025-04-16 14:58:47,705 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 17001 legId: 13066
+2025-04-16 14:58:47,776 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 17002 legId: 13067
+2025-04-16 14:58:47,843 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 17003 legId: 13068
+2025-04-16 14:58:47,911 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 17004 legId: 13070
+2025-04-16 14:58:47,980 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 17005 legId: 13071
+2025-04-16 14:58:48,049 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 17006 legId: 13072
+2025-04-16 14:58:48,118 - INFO - Inserted agenda item: reportId: 58 agendaItemId: 17007 legId: 13073
+2025-04-16 14:58:48,201 - INFO - Inserted agenda item: reportId: 59 agendaItemId: 16980 legId: None
+2025-04-16 14:58:48,272 - INFO - Inserted agenda item: reportId: 59 agendaItemId: 16981 legId: None
+2025-04-16 14:58:48,342 - INFO - Inserted agenda item: reportId: 60 agendaItemId: 17069 legId: None
+2025-04-16 14:58:48,410 - INFO - Inserted agenda item: reportId: 61 agendaItemId: 17067 legId: None
+2025-04-16 14:58:48,484 - INFO - Inserted agenda item: reportId: 61 agendaItemId: 17068 legId: None
+2025-04-16 14:58:48,560 - INFO - Inserted agenda item: reportId: 62 agendaItemId: 17059 legId: 13289
+2025-04-16 14:58:48,631 - INFO - Inserted agenda item: reportId: 62 agendaItemId: 17060 legId: 13396
+2025-04-16 14:58:48,700 - INFO - Inserted agenda item: reportId: 62 agendaItemId: 17061 legId: 13399
+2025-04-16 14:58:48,775 - INFO - Inserted agenda item: reportId: 62 agendaItemId: 17062 legId: 13424
+2025-04-16 14:58:48,844 - INFO - Inserted agenda item: reportId: 63 agendaItemId: 17041 legId: None
+2025-04-16 14:58:48,917 - INFO - Inserted agenda item: reportId: 63 agendaItemId: 17042 legId: None
+2025-04-16 14:58:48,993 - INFO - Inserted agenda item: reportId: 63 agendaItemId: 17043 legId: None
+2025-04-16 14:58:49,077 - INFO - Inserted agenda item: reportId: 63 agendaItemId: 17044 legId: None
+2025-04-16 14:58:49,153 - INFO - Inserted agenda item: reportId: 64 agendaItemId: 17050 legId: None
+2025-04-16 14:58:49,219 - INFO - Inserted agenda item: reportId: 65 agendaItemId: 17056 legId: 13390
+2025-04-16 14:58:49,286 - INFO - Inserted agenda item: reportId: 65 agendaItemId: 17057 legId: 13391
+2025-04-16 14:58:49,358 - INFO - Inserted agenda item: reportId: 65 agendaItemId: 17058 legId: 13462
+2025-04-16 14:58:49,429 - INFO - Inserted agenda item: reportId: 66 agendaItemId: 17063 legId: None
+2025-04-16 14:58:49,497 - INFO - Inserted agenda item: reportId: 66 agendaItemId: 17064 legId: None
+2025-04-16 14:58:49,569 - INFO - Inserted agenda item: reportId: 67 agendaItemId: 17065 legId: None
+2025-04-16 14:58:49,638 - INFO - Inserted agenda item: reportId: 67 agendaItemId: 17066 legId: None
+2025-04-16 14:58:49,705 - INFO - Inserted agenda item: reportId: 68 agendaItemId: 17079 legId: None
+2025-04-16 14:58:49,771 - INFO - Inserted agenda item: reportId: 68 agendaItemId: 17080 legId: None
+2025-04-16 14:58:49,846 - INFO - Inserted agenda item: reportId: 68 agendaItemId: 17081 legId: None
+2025-04-16 14:58:49,917 - INFO - Inserted agenda item: reportId: 68 agendaItemId: 17082 legId: None
+2025-04-16 14:58:49,991 - INFO - Inserted agenda item: reportId: 68 agendaItemId: 17083 legId: None
+2025-04-16 14:58:50,062 - INFO - Inserted agenda item: reportId: 69 agendaItemId: 17135 legId: 13275
+2025-04-16 14:58:50,135 - INFO - Inserted agenda item: reportId: 70 agendaItemId: 17131 legId: 13400
+2025-04-16 14:58:50,204 - INFO - Inserted agenda item: reportId: 70 agendaItemId: 17132 legId: 13401
+2025-04-16 14:58:50,272 - INFO - Inserted agenda item: reportId: 70 agendaItemId: 17133 legId: 13402
+2025-04-16 14:58:50,346 - INFO - Inserted agenda item: reportId: 70 agendaItemId: 17134 legId: None
+2025-04-16 14:58:50,419 - INFO - Inserted agenda item: reportId: 71 agendaItemId: 17129 legId: None
+2025-04-16 14:58:50,491 - INFO - Inserted agenda item: reportId: 71 agendaItemId: 17130 legId: None
+2025-04-16 14:58:50,568 - INFO - Inserted agenda item: reportId: 72 agendaItemId: 17136 legId: 13430
+2025-04-16 14:58:50,642 - INFO - Inserted agenda item: reportId: 72 agendaItemId: 17137 legId: 13483
+2025-04-16 14:58:50,720 - INFO - Inserted agenda item: reportId: 73 agendaItemId: 17140 legId: None
+2025-04-16 14:58:50,792 - INFO - Inserted agenda item: reportId: 73 agendaItemId: 17141 legId: None
+2025-04-16 14:58:50,793 - INFO - Inserted 164 agenda items (82 published)
+2025-04-16 14:58:50,793 - INFO - Inserting data into CommitteeReportActions...
+2025-04-16 14:58:50,932 - INFO - Inserted CommitteeReportAction for agenda item 4, published=False, is_recommendation=False
+2025-04-16 14:58:51,073 - INFO - Inserted CommitteeReportAction for agenda item 4, published=False, is_recommendation=False
+2025-04-16 14:58:51,202 - INFO - Inserted CommitteeReportAction for agenda item 3, published=False, is_recommendation=False
+2025-04-16 14:58:51,328 - INFO - Inserted CommitteeReportAction for agenda item 3, published=False, is_recommendation=False
+2025-04-16 14:58:51,475 - INFO - Inserted CommitteeReportAction for agenda item 4, published=False, is_recommendation=False
+2025-04-16 14:58:51,604 - INFO - Inserted CommitteeReportAction for agenda item 3, published=False, is_recommendation=False
+2025-04-16 14:58:51,733 - INFO - Inserted CommitteeReportAction for agenda item 9, published=False, is_recommendation=True
+2025-04-16 14:58:51,835 - INFO - Inserted CommitteeReportAction for agenda item 9, published=False, is_recommendation=False
+2025-04-16 14:58:51,979 - INFO - Inserted CommitteeReportAction for agenda item 14, published=False, is_recommendation=False
+2025-04-16 14:58:52,124 - INFO - Inserted CommitteeReportAction for agenda item 14, published=False, is_recommendation=False
+2025-04-16 14:58:52,269 - INFO - Inserted CommitteeReportAction for agenda item 16, published=False, is_recommendation=False
+2025-04-16 14:58:52,419 - INFO - Inserted CommitteeReportAction for agenda item 16, published=False, is_recommendation=False
+2025-04-16 14:58:52,556 - INFO - Inserted CommitteeReportAction for agenda item 20, published=False, is_recommendation=False
+2025-04-16 14:58:52,700 - INFO - Inserted CommitteeReportAction for agenda item 20, published=False, is_recommendation=False
+2025-04-16 14:58:52,844 - INFO - Inserted CommitteeReportAction for agenda item 19, published=False, is_recommendation=False
+2025-04-16 14:58:52,982 - INFO - Inserted CommitteeReportAction for agenda item 19, published=False, is_recommendation=False
+2025-04-16 14:58:53,138 - INFO - Inserted CommitteeReportAction for agenda item 22, published=False, is_recommendation=False
+2025-04-16 14:58:53,291 - INFO - Inserted CommitteeReportAction for agenda item 22, published=False, is_recommendation=False
+2025-04-16 14:58:53,429 - INFO - Inserted CommitteeReportAction for agenda item 24, published=False, is_recommendation=False
+2025-04-16 14:58:53,568 - INFO - Inserted CommitteeReportAction for agenda item 24, published=False, is_recommendation=False
+2025-04-16 14:58:53,697 - INFO - Inserted CommitteeReportAction for agenda item 27, published=False, is_recommendation=False
+2025-04-16 14:58:53,829 - INFO - Inserted CommitteeReportAction for agenda item 27, published=False, is_recommendation=False
+2025-04-16 14:58:53,967 - INFO - Inserted CommitteeReportAction for agenda item 29, published=False, is_recommendation=False
+2025-04-16 14:58:54,097 - INFO - Inserted CommitteeReportAction for agenda item 29, published=False, is_recommendation=False
+2025-04-16 14:58:54,226 - INFO - Inserted CommitteeReportAction for agenda item 36, published=False, is_recommendation=False
+2025-04-16 14:58:54,358 - INFO - Inserted CommitteeReportAction for agenda item 36, published=False, is_recommendation=False
+2025-04-16 14:58:54,494 - INFO - Inserted CommitteeReportAction for agenda item 45, published=False, is_recommendation=False
+2025-04-16 14:58:54,627 - INFO - Inserted CommitteeReportAction for agenda item 45, published=False, is_recommendation=False
+2025-04-16 14:58:54,768 - INFO - Inserted CommitteeReportAction for agenda item 46, published=False, is_recommendation=False
+2025-04-16 14:58:54,906 - INFO - Inserted CommitteeReportAction for agenda item 46, published=False, is_recommendation=False
+2025-04-16 14:58:55,051 - INFO - Inserted CommitteeReportAction for agenda item 47, published=False, is_recommendation=False
+2025-04-16 14:58:55,193 - INFO - Inserted CommitteeReportAction for agenda item 47, published=False, is_recommendation=False
+2025-04-16 14:58:55,342 - INFO - Inserted CommitteeReportAction for agenda item 48, published=False, is_recommendation=False
+2025-04-16 14:58:55,479 - INFO - Inserted CommitteeReportAction for agenda item 48, published=False, is_recommendation=False
+2025-04-16 14:58:55,620 - INFO - Inserted CommitteeReportAction for agenda item 49, published=False, is_recommendation=False
+2025-04-16 14:58:55,770 - INFO - Inserted CommitteeReportAction for agenda item 49, published=False, is_recommendation=False
+2025-04-16 14:58:55,910 - INFO - Inserted CommitteeReportAction for agenda item 50, published=False, is_recommendation=False
+2025-04-16 14:58:56,045 - INFO - Inserted CommitteeReportAction for agenda item 50, published=False, is_recommendation=False
+2025-04-16 14:58:56,187 - INFO - Inserted CommitteeReportAction for agenda item 53, published=False, is_recommendation=False
+2025-04-16 14:58:56,337 - INFO - Inserted CommitteeReportAction for agenda item 53, published=False, is_recommendation=False
+2025-04-16 14:58:56,529 - INFO - Inserted CommitteeReportAction for agenda item 54, published=False, is_recommendation=False
+2025-04-16 14:58:56,692 - INFO - Inserted CommitteeReportAction for agenda item 54, published=False, is_recommendation=False
+2025-04-16 14:58:56,823 - INFO - Inserted CommitteeReportAction for agenda item 59, published=False, is_recommendation=False
+2025-04-16 14:58:56,953 - INFO - Inserted CommitteeReportAction for agenda item 59, published=False, is_recommendation=False
+2025-04-16 14:58:57,092 - INFO - Inserted CommitteeReportAction for agenda item 60, published=False, is_recommendation=False
+2025-04-16 14:58:57,249 - INFO - Inserted CommitteeReportAction for agenda item 60, published=False, is_recommendation=False
+2025-04-16 14:58:57,391 - INFO - Inserted CommitteeReportAction for agenda item 61, published=False, is_recommendation=False
+2025-04-16 14:58:57,522 - INFO - Inserted CommitteeReportAction for agenda item 61, published=False, is_recommendation=False
+2025-04-16 14:58:57,658 - INFO - Inserted CommitteeReportAction for agenda item 69, published=False, is_recommendation=False
+2025-04-16 14:58:57,799 - INFO - Inserted CommitteeReportAction for agenda item 69, published=False, is_recommendation=False
+2025-04-16 14:58:57,972 - INFO - Inserted CommitteeReportAction for agenda item 75, published=False, is_recommendation=False
+2025-04-16 14:58:58,140 - INFO - Inserted CommitteeReportAction for agenda item 75, published=False, is_recommendation=False
+2025-04-16 14:58:58,309 - INFO - Inserted CommitteeReportAction for agenda item 76, published=False, is_recommendation=False
+2025-04-16 14:58:58,452 - INFO - Inserted CommitteeReportAction for agenda item 76, published=False, is_recommendation=False
+2025-04-16 14:58:58,598 - INFO - Inserted CommitteeReportAction for agenda item 77, published=False, is_recommendation=False
+2025-04-16 14:58:58,733 - INFO - Inserted CommitteeReportAction for agenda item 77, published=False, is_recommendation=False
+2025-04-16 14:58:58,981 - INFO - Inserted CommitteeReportAction for agenda item 92, published=False, is_recommendation=False
+2025-04-16 14:58:59,119 - INFO - Inserted CommitteeReportAction for agenda item 92, published=False, is_recommendation=False
+2025-04-16 14:58:59,258 - INFO - Inserted CommitteeReportAction for agenda item 96, published=False, is_recommendation=False
+2025-04-16 14:58:59,419 - INFO - Inserted CommitteeReportAction for agenda item 96, published=False, is_recommendation=False
+2025-04-16 14:58:59,557 - INFO - Inserted CommitteeReportAction for agenda item 97, published=False, is_recommendation=False
+2025-04-16 14:58:59,692 - INFO - Inserted CommitteeReportAction for agenda item 97, published=False, is_recommendation=False
+2025-04-16 14:58:59,826 - INFO - Inserted CommitteeReportAction for agenda item 106, published=False, is_recommendation=False
+2025-04-16 14:58:59,983 - INFO - Inserted CommitteeReportAction for agenda item 106, published=False, is_recommendation=False
+2025-04-16 14:59:00,250 - INFO - Inserted CommitteeReportAction for agenda item 107, published=False, is_recommendation=False
+2025-04-16 14:59:00,438 - INFO - Inserted CommitteeReportAction for agenda item 107, published=False, is_recommendation=False
+2025-04-16 14:59:00,600 - INFO - Inserted CommitteeReportAction for agenda item 108, published=False, is_recommendation=False
+2025-04-16 14:59:00,842 - INFO - Inserted CommitteeReportAction for agenda item 108, published=False, is_recommendation=False
+2025-04-16 14:59:01,017 - INFO - Inserted CommitteeReportAction for agenda item 109, published=False, is_recommendation=False
+2025-04-16 14:59:01,172 - INFO - Inserted CommitteeReportAction for agenda item 109, published=False, is_recommendation=False
+2025-04-16 14:59:01,368 - INFO - Inserted CommitteeReportAction for agenda item 105, published=False, is_recommendation=False
+2025-04-16 14:59:01,617 - INFO - Inserted CommitteeReportAction for agenda item 105, published=False, is_recommendation=False
+2025-04-16 14:59:01,762 - INFO - Inserted CommitteeReportAction for agenda item 112, published=False, is_recommendation=False
+2025-04-16 14:59:01,911 - INFO - Inserted CommitteeReportAction for agenda item 112, published=False, is_recommendation=False
+2025-04-16 14:59:02,094 - INFO - Inserted CommitteeReportAction for agenda item 113, published=False, is_recommendation=True
+2025-04-16 14:59:02,259 - INFO - Inserted CommitteeReportAction for agenda item 117, published=False, is_recommendation=False
+2025-04-16 14:59:02,467 - INFO - Inserted CommitteeReportAction for agenda item 117, published=False, is_recommendation=False
+2025-04-16 14:59:02,610 - INFO - Inserted CommitteeReportAction for agenda item 118, published=False, is_recommendation=False
+2025-04-16 14:59:02,743 - INFO - Inserted CommitteeReportAction for agenda item 118, published=False, is_recommendation=False
+2025-04-16 14:59:02,891 - INFO - Inserted CommitteeReportAction for agenda item 119, published=False, is_recommendation=False
+2025-04-16 14:59:03,047 - INFO - Inserted CommitteeReportAction for agenda item 119, published=False, is_recommendation=False
+2025-04-16 14:59:03,311 - INFO - Inserted CommitteeReportAction for agenda item 120, published=False, is_recommendation=False
+2025-04-16 14:59:03,464 - INFO - Inserted CommitteeReportAction for agenda item 120, published=False, is_recommendation=False
+2025-04-16 14:59:03,605 - INFO - Inserted CommitteeReportAction for agenda item 121, published=False, is_recommendation=False
+2025-04-16 14:59:03,754 - INFO - Inserted CommitteeReportAction for agenda item 121, published=False, is_recommendation=False
+2025-04-16 14:59:03,895 - INFO - Inserted CommitteeReportAction for agenda item 122, published=False, is_recommendation=False
+2025-04-16 14:59:04,036 - INFO - Inserted CommitteeReportAction for agenda item 122, published=False, is_recommendation=False
+2025-04-16 14:59:04,188 - INFO - Inserted CommitteeReportAction for agenda item 123, published=False, is_recommendation=False
+2025-04-16 14:59:04,331 - INFO - Inserted CommitteeReportAction for agenda item 123, published=False, is_recommendation=False
+2025-04-16 14:59:04,470 - INFO - Inserted CommitteeReportAction for agenda item 124, published=False, is_recommendation=False
+2025-04-16 14:59:04,604 - INFO - Inserted CommitteeReportAction for agenda item 124, published=False, is_recommendation=False
+2025-04-16 14:59:04,742 - INFO - Inserted CommitteeReportAction for agenda item 125, published=False, is_recommendation=False
+2025-04-16 14:59:04,869 - INFO - Inserted CommitteeReportAction for agenda item 125, published=False, is_recommendation=False
+2025-04-16 14:59:05,006 - INFO - Inserted CommitteeReportAction for agenda item 126, published=False, is_recommendation=False
+2025-04-16 14:59:05,143 - INFO - Inserted CommitteeReportAction for agenda item 126, published=False, is_recommendation=False
+2025-04-16 14:59:05,293 - INFO - Inserted CommitteeReportAction for agenda item 127, published=False, is_recommendation=False
+2025-04-16 14:59:05,425 - INFO - Inserted CommitteeReportAction for agenda item 127, published=False, is_recommendation=False
+2025-04-16 14:59:05,553 - INFO - Inserted CommitteeReportAction for agenda item 133, published=False, is_recommendation=False
+2025-04-16 14:59:05,717 - INFO - Inserted CommitteeReportAction for agenda item 133, published=False, is_recommendation=False
+2025-04-16 14:59:05,858 - INFO - Inserted CommitteeReportAction for agenda item 134, published=False, is_recommendation=False
+2025-04-16 14:59:05,997 - INFO - Inserted CommitteeReportAction for agenda item 134, published=False, is_recommendation=False
+2025-04-16 14:59:06,126 - INFO - Inserted CommitteeReportAction for agenda item 135, published=False, is_recommendation=False
+2025-04-16 14:59:06,260 - INFO - Inserted CommitteeReportAction for agenda item 135, published=False, is_recommendation=False
+2025-04-16 14:59:06,398 - INFO - Inserted CommitteeReportAction for agenda item 136, published=False, is_recommendation=False
+2025-04-16 14:59:06,533 - INFO - Inserted CommitteeReportAction for agenda item 136, published=False, is_recommendation=False
+2025-04-16 14:59:06,668 - INFO - Inserted CommitteeReportAction for agenda item 142, published=True, is_recommendation=False
+2025-04-16 14:59:06,798 - INFO - Inserted CommitteeReportAction for agenda item 142, published=True, is_recommendation=False
+2025-04-16 14:59:06,931 - INFO - Inserted CommitteeReportAction for agenda item 143, published=True, is_recommendation=False
+2025-04-16 14:59:07,069 - INFO - Inserted CommitteeReportAction for agenda item 143, published=True, is_recommendation=False
+2025-04-16 14:59:07,208 - INFO - Inserted CommitteeReportAction for agenda item 154, published=True, is_recommendation=False
+2025-04-16 14:59:07,350 - INFO - Inserted CommitteeReportAction for agenda item 154, published=True, is_recommendation=False
+2025-04-16 14:59:07,351 - INFO - Inserted 111 actions (6 published)
+2025-04-16 14:59:07,352 - INFO - Inserting data into CommitteeReportRollCalls...
+2025-04-16 14:59:07,496 - INFO - Inserted CommitteeReportRollCall for agenda item 2, published=False
+2025-04-16 14:59:07,673 - INFO - Inserted CommitteeReportRollCall for agenda item 2, published=False
+2025-04-16 14:59:07,810 - INFO - Inserted CommitteeReportRollCall for agenda item 2, published=False
+2025-04-16 14:59:07,959 - INFO - Inserted CommitteeReportRollCall for agenda item 2, published=False
+2025-04-16 14:59:08,105 - INFO - Inserted CommitteeReportRollCall for agenda item 1, published=False
+2025-04-16 14:59:08,243 - INFO - Inserted CommitteeReportRollCall for agenda item 1, published=False
+2025-04-16 14:59:08,380 - INFO - Inserted CommitteeReportRollCall for agenda item 1, published=False
+2025-04-16 14:59:08,525 - INFO - Inserted CommitteeReportRollCall for agenda item 1, published=False
+2025-04-16 14:59:08,667 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:08,797 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:08,928 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:09,054 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:09,205 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:09,348 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:09,479 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:09,620 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:09,757 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:09,895 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:10,028 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:10,165 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:10,311 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:10,449 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:10,583 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:10,725 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:10,873 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:11,011 - INFO - Inserted CommitteeReportRollCall for agenda item 8, published=False
+2025-04-16 14:59:11,141 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:11,280 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:11,416 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:11,562 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:11,704 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:11,841 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:11,974 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:12,121 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:12,263 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:12,391 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:12,523 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:12,659 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:12,799 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:12,929 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:13,090 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:13,248 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:13,395 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:13,532 - INFO - Inserted CommitteeReportRollCall for agenda item 5, published=False
+2025-04-16 14:59:13,661 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:13,795 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:13,927 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:14,053 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:14,184 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:14,450 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:14,582 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:14,716 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:14,841 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:14,975 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:15,353 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:15,493 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:15,631 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:15,763 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:15,892 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:16,034 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:16,167 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:16,306 - INFO - Inserted CommitteeReportRollCall for agenda item 7, published=False
+2025-04-16 14:59:16,446 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:16,593 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:16,722 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:16,856 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:16,982 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:17,120 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:17,299 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:17,446 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:17,590 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:17,721 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:17,865 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:18,001 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:18,139 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:18,284 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:18,435 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:18,586 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:18,719 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:18,917 - INFO - Inserted CommitteeReportRollCall for agenda item 6, published=False
+2025-04-16 14:59:19,066 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:19,228 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:19,474 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:19,609 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:19,754 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:19,905 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:20,045 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:20,197 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:20,375 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:20,516 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:20,663 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:20,834 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:20,999 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:21,134 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:21,274 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:21,434 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:21,578 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:21,716 - INFO - Inserted CommitteeReportRollCall for agenda item 4, published=False
+2025-04-16 14:59:21,880 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:22,034 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:22,193 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:22,334 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:22,492 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:22,641 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:22,778 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:22,905 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:23,046 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:23,199 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:23,336 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:23,475 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:23,606 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:23,746 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:23,896 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:24,028 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:24,197 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:24,330 - INFO - Inserted CommitteeReportRollCall for agenda item 3, published=False
+2025-04-16 14:59:24,471 - INFO - Inserted CommitteeReportRollCall for agenda item 9, published=False
+2025-04-16 14:59:24,614 - INFO - Inserted CommitteeReportRollCall for agenda item 9, published=False
+2025-04-16 14:59:24,750 - INFO - Inserted CommitteeReportRollCall for agenda item 9, published=False
+2025-04-16 14:59:24,882 - INFO - Inserted CommitteeReportRollCall for agenda item 9, published=False
+2025-04-16 14:59:25,011 - INFO - Inserted CommitteeReportRollCall for agenda item 9, published=False
+2025-04-16 14:59:25,158 - INFO - Inserted CommitteeReportRollCall for agenda item 9, published=False
+2025-04-16 14:59:25,299 - INFO - Inserted CommitteeReportRollCall for agenda item 9, published=False
+2025-04-16 14:59:25,434 - INFO - Inserted CommitteeReportRollCall for agenda item 10, published=False
+2025-04-16 14:59:25,568 - INFO - Inserted CommitteeReportRollCall for agenda item 10, published=False
+2025-04-16 14:59:25,711 - INFO - Inserted CommitteeReportRollCall for agenda item 10, published=False
+2025-04-16 14:59:25,854 - INFO - Inserted CommitteeReportRollCall for agenda item 10, published=False
+2025-04-16 14:59:25,996 - INFO - Inserted CommitteeReportRollCall for agenda item 10, published=False
+2025-04-16 14:59:26,164 - INFO - Inserted CommitteeReportRollCall for agenda item 10, published=False
+2025-04-16 14:59:26,327 - INFO - Inserted CommitteeReportRollCall for agenda item 10, published=False
+2025-04-16 14:59:26,474 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:26,633 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:26,782 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:26,919 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:27,056 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:27,193 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:27,342 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:27,487 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:27,627 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:27,755 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:27,892 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:28,021 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:28,164 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:28,294 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:28,432 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:28,559 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:28,692 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:28,834 - INFO - Inserted CommitteeReportRollCall for agenda item 11, published=False
+2025-04-16 14:59:28,968 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:29,104 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:29,251 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:29,421 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:29,561 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:29,704 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:29,840 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:29,982 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:30,116 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:30,257 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:30,402 - INFO - Inserted CommitteeReportRollCall for agenda item 13, published=False
+2025-04-16 14:59:30,538 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:30,689 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:30,833 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:30,962 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:31,103 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:31,238 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:31,381 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:31,517 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:31,652 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:31,805 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:31,938 - INFO - Inserted CommitteeReportRollCall for agenda item 12, published=False
+2025-04-16 14:59:32,078 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:32,214 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:32,358 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:32,489 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:32,620 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:32,751 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:32,882 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:33,015 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:33,154 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:33,302 - INFO - Inserted CommitteeReportRollCall for agenda item 15, published=False
+2025-04-16 14:59:33,449 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:33,589 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:33,714 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:33,850 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:33,981 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:34,117 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:34,275 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:34,403 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:34,527 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:34,658 - INFO - Inserted CommitteeReportRollCall for agenda item 14, published=False
+2025-04-16 14:59:34,821 - INFO - Inserted CommitteeReportRollCall for agenda item 17, published=False
+2025-04-16 14:59:34,952 - INFO - Inserted CommitteeReportRollCall for agenda item 17, published=False
+2025-04-16 14:59:35,081 - INFO - Inserted CommitteeReportRollCall for agenda item 17, published=False
+2025-04-16 14:59:35,216 - INFO - Inserted CommitteeReportRollCall for agenda item 17, published=False
+2025-04-16 14:59:35,370 - INFO - Inserted CommitteeReportRollCall for agenda item 17, published=False
+2025-04-16 14:59:35,495 - INFO - Inserted CommitteeReportRollCall for agenda item 17, published=False
+2025-04-16 14:59:35,641 - INFO - Inserted CommitteeReportRollCall for agenda item 17, published=False
+2025-04-16 14:59:35,779 - INFO - Inserted CommitteeReportRollCall for agenda item 16, published=False
+2025-04-16 14:59:35,920 - INFO - Inserted CommitteeReportRollCall for agenda item 16, published=False
+2025-04-16 14:59:36,054 - INFO - Inserted CommitteeReportRollCall for agenda item 16, published=False
+2025-04-16 14:59:36,205 - INFO - Inserted CommitteeReportRollCall for agenda item 16, published=False
+2025-04-16 14:59:36,430 - INFO - Inserted CommitteeReportRollCall for agenda item 16, published=False
+2025-04-16 14:59:36,565 - INFO - Inserted CommitteeReportRollCall for agenda item 16, published=False
+2025-04-16 14:59:36,783 - INFO - Inserted CommitteeReportRollCall for agenda item 16, published=False
+2025-04-16 14:59:36,967 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:37,104 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:37,285 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:37,470 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:37,600 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:37,741 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:37,880 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:38,054 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:38,253 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:38,418 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:38,567 - INFO - Inserted CommitteeReportRollCall for agenda item 18, published=False
+2025-04-16 14:59:38,701 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:38,839 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:38,979 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:39,115 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:39,262 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:39,395 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:39,526 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:39,665 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:39,799 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:39,931 - INFO - Inserted CommitteeReportRollCall for agenda item 21, published=False
+2025-04-16 14:59:40,070 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:40,204 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:40,382 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:40,523 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:40,661 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:40,803 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:40,949 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:41,084 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:41,218 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:41,362 - INFO - Inserted CommitteeReportRollCall for agenda item 20, published=False
+2025-04-16 14:59:41,493 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:41,631 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:41,764 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:41,904 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:42,034 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:42,161 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:42,297 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:42,433 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:42,571 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:42,703 - INFO - Inserted CommitteeReportRollCall for agenda item 19, published=False
+2025-04-16 14:59:42,833 - INFO - Inserted CommitteeReportRollCall for agenda item 23, published=False
+2025-04-16 14:59:42,966 - INFO - Inserted CommitteeReportRollCall for agenda item 23, published=False
+2025-04-16 14:59:43,115 - INFO - Inserted CommitteeReportRollCall for agenda item 23, published=False
+2025-04-16 14:59:43,249 - INFO - Inserted CommitteeReportRollCall for agenda item 23, published=False
+2025-04-16 14:59:43,398 - INFO - Inserted CommitteeReportRollCall for agenda item 23, published=False
+2025-04-16 14:59:43,526 - INFO - Inserted CommitteeReportRollCall for agenda item 23, published=False
+2025-04-16 14:59:43,655 - INFO - Inserted CommitteeReportRollCall for agenda item 23, published=False
+2025-04-16 14:59:43,783 - INFO - Inserted CommitteeReportRollCall for agenda item 23, published=False
+2025-04-16 14:59:43,911 - INFO - Inserted CommitteeReportRollCall for agenda item 22, published=False
+2025-04-16 14:59:44,049 - INFO - Inserted CommitteeReportRollCall for agenda item 22, published=False
+2025-04-16 14:59:44,173 - INFO - Inserted CommitteeReportRollCall for agenda item 22, published=False
+2025-04-16 14:59:44,304 - INFO - Inserted CommitteeReportRollCall for agenda item 22, published=False
+2025-04-16 14:59:44,443 - INFO - Inserted CommitteeReportRollCall for agenda item 22, published=False
+2025-04-16 14:59:44,578 - INFO - Inserted CommitteeReportRollCall for agenda item 22, published=False
+2025-04-16 14:59:44,705 - INFO - Inserted CommitteeReportRollCall for agenda item 22, published=False
+2025-04-16 14:59:44,840 - INFO - Inserted CommitteeReportRollCall for agenda item 22, published=False
+2025-04-16 14:59:44,973 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:45,112 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:45,256 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:45,400 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:45,540 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:45,707 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:45,871 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:46,018 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:46,159 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:46,295 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:46,426 - INFO - Inserted CommitteeReportRollCall for agenda item 25, published=False
+2025-04-16 14:59:46,554 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:46,686 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:46,818 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:46,944 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:47,074 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:47,223 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:47,361 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:47,491 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:47,625 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:47,764 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:47,900 - INFO - Inserted CommitteeReportRollCall for agenda item 24, published=False
+2025-04-16 14:59:48,031 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:48,162 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:48,296 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:48,424 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:48,559 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:48,698 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:48,839 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:48,966 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:49,099 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:49,242 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:49,383 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:49,519 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:49,653 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:49,797 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:49,938 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:50,085 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:50,236 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:50,383 - INFO - Inserted CommitteeReportRollCall for agenda item 26, published=False
+2025-04-16 14:59:50,523 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:50,674 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:50,821 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:50,952 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:51,091 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:51,284 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:51,429 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:51,575 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:51,712 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:51,843 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:51,981 - INFO - Inserted CommitteeReportRollCall for agenda item 27, published=False
+2025-04-16 14:59:52,111 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:52,248 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:52,381 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:52,504 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:52,637 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:52,770 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:52,898 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:53,043 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:53,188 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:53,341 - INFO - Inserted CommitteeReportRollCall for agenda item 28, published=False
+2025-04-16 14:59:53,474 - INFO - Inserted CommitteeReportRollCall for agenda item 29, published=False
+2025-04-16 14:59:53,618 - INFO - Inserted CommitteeReportRollCall for agenda item 29, published=False
+2025-04-16 14:59:53,757 - INFO - Inserted CommitteeReportRollCall for agenda item 29, published=False
+2025-04-16 14:59:53,895 - INFO - Inserted CommitteeReportRollCall for agenda item 29, published=False
+2025-04-16 14:59:54,040 - INFO - Inserted CommitteeReportRollCall for agenda item 29, published=False
+2025-04-16 14:59:54,177 - INFO - Inserted CommitteeReportRollCall for agenda item 29, published=False
+2025-04-16 14:59:54,319 - INFO - Inserted CommitteeReportRollCall for agenda item 29, published=False
+2025-04-16 14:59:54,460 - INFO - Inserted CommitteeReportRollCall for agenda item 30, published=False
+2025-04-16 14:59:54,596 - INFO - Inserted CommitteeReportRollCall for agenda item 30, published=False
+2025-04-16 14:59:54,726 - INFO - Inserted CommitteeReportRollCall for agenda item 30, published=False
+2025-04-16 14:59:54,875 - INFO - Inserted CommitteeReportRollCall for agenda item 30, published=False
+2025-04-16 14:59:55,058 - INFO - Inserted CommitteeReportRollCall for agenda item 30, published=False
+2025-04-16 14:59:55,202 - INFO - Inserted CommitteeReportRollCall for agenda item 30, published=False
+2025-04-16 14:59:55,384 - INFO - Inserted CommitteeReportRollCall for agenda item 30, published=False
+2025-04-16 14:59:55,539 - INFO - Inserted CommitteeReportRollCall for agenda item 31, published=False
+2025-04-16 14:59:55,696 - INFO - Inserted CommitteeReportRollCall for agenda item 31, published=False
+2025-04-16 14:59:55,874 - INFO - Inserted CommitteeReportRollCall for agenda item 31, published=False
+2025-04-16 14:59:56,016 - INFO - Inserted CommitteeReportRollCall for agenda item 31, published=False
+2025-04-16 14:59:56,155 - INFO - Inserted CommitteeReportRollCall for agenda item 31, published=False
+2025-04-16 14:59:56,322 - INFO - Inserted CommitteeReportRollCall for agenda item 31, published=False
+2025-04-16 14:59:56,459 - INFO - Inserted CommitteeReportRollCall for agenda item 31, published=False
+2025-04-16 14:59:56,590 - INFO - Inserted CommitteeReportRollCall for agenda item 32, published=False
+2025-04-16 14:59:56,755 - INFO - Inserted CommitteeReportRollCall for agenda item 32, published=False
+2025-04-16 14:59:56,899 - INFO - Inserted CommitteeReportRollCall for agenda item 32, published=False
+2025-04-16 14:59:57,035 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:57,165 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:57,306 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:57,448 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:57,586 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:57,720 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:57,855 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:57,992 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:58,163 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:58,350 - INFO - Inserted CommitteeReportRollCall for agenda item 33, published=False
+2025-04-16 14:59:58,484 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:58,636 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:58,778 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:58,907 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:59,042 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:59,201 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:59,342 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:59,469 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:59,606 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:59,740 - INFO - Inserted CommitteeReportRollCall for agenda item 34, published=False
+2025-04-16 14:59:59,880 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:00,024 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:00,157 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:00,291 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:00,427 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:00,565 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:00,708 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:00,841 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:00,972 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:01,105 - INFO - Inserted CommitteeReportRollCall for agenda item 35, published=False
+2025-04-16 15:00:01,235 - INFO - Inserted CommitteeReportRollCall for agenda item 36, published=False
+2025-04-16 15:00:01,367 - INFO - Inserted CommitteeReportRollCall for agenda item 36, published=False
+2025-04-16 15:00:01,526 - INFO - Inserted CommitteeReportRollCall for agenda item 36, published=False
+2025-04-16 15:00:01,665 - INFO - Inserted CommitteeReportRollCall for agenda item 36, published=False
+2025-04-16 15:00:01,811 - INFO - Inserted CommitteeReportRollCall for agenda item 36, published=False
+2025-04-16 15:00:01,944 - INFO - Inserted CommitteeReportRollCall for agenda item 36, published=False
+2025-04-16 15:00:02,093 - INFO - Inserted CommitteeReportRollCall for agenda item 36, published=False
+2025-04-16 15:00:02,301 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:02,471 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:02,603 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:02,749 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:02,889 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:03,031 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:03,173 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:03,320 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:03,458 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:03,586 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:03,715 - INFO - Inserted CommitteeReportRollCall for agenda item 37, published=False
+2025-04-16 15:00:03,851 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:03,994 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:04,135 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:04,288 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:04,449 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:04,589 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:04,718 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:04,849 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:04,987 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:05,128 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:05,274 - INFO - Inserted CommitteeReportRollCall for agenda item 38, published=False
+2025-04-16 15:00:05,413 - INFO - Inserted CommitteeReportRollCall for agenda item 39, published=False
+2025-04-16 15:00:05,555 - INFO - Inserted CommitteeReportRollCall for agenda item 39, published=False
+2025-04-16 15:00:05,704 - INFO - Inserted CommitteeReportRollCall for agenda item 39, published=False
+2025-04-16 15:00:05,847 - INFO - Inserted CommitteeReportRollCall for agenda item 40, published=False
+2025-04-16 15:00:05,990 - INFO - Inserted CommitteeReportRollCall for agenda item 40, published=False
+2025-04-16 15:00:06,116 - INFO - Inserted CommitteeReportRollCall for agenda item 40, published=False
+2025-04-16 15:00:06,243 - INFO - Inserted CommitteeReportRollCall for agenda item 40, published=False
+2025-04-16 15:00:06,379 - INFO - Inserted CommitteeReportRollCall for agenda item 40, published=False
+2025-04-16 15:00:06,519 - INFO - Inserted CommitteeReportRollCall for agenda item 41, published=False
+2025-04-16 15:00:06,650 - INFO - Inserted CommitteeReportRollCall for agenda item 41, published=False
+2025-04-16 15:00:06,785 - INFO - Inserted CommitteeReportRollCall for agenda item 41, published=False
+2025-04-16 15:00:06,919 - INFO - Inserted CommitteeReportRollCall for agenda item 41, published=False
+2025-04-16 15:00:07,057 - INFO - Inserted CommitteeReportRollCall for agenda item 41, published=False
+2025-04-16 15:00:07,256 - INFO - Inserted CommitteeReportRollCall for agenda item 41, published=False
+2025-04-16 15:00:07,406 - INFO - Inserted CommitteeReportRollCall for agenda item 41, published=False
+2025-04-16 15:00:07,888 - INFO - Inserted CommitteeReportRollCall for agenda item 41, published=False
+2025-04-16 15:00:08,024 - INFO - Inserted CommitteeReportRollCall for agenda item 42, published=False
+2025-04-16 15:00:08,168 - INFO - Inserted CommitteeReportRollCall for agenda item 42, published=False
+2025-04-16 15:00:08,307 - INFO - Inserted CommitteeReportRollCall for agenda item 42, published=False
+2025-04-16 15:00:08,445 - INFO - Inserted CommitteeReportRollCall for agenda item 42, published=False
+2025-04-16 15:00:08,591 - INFO - Inserted CommitteeReportRollCall for agenda item 42, published=False
+2025-04-16 15:00:08,731 - INFO - Inserted CommitteeReportRollCall for agenda item 42, published=False
+2025-04-16 15:00:08,871 - INFO - Inserted CommitteeReportRollCall for agenda item 42, published=False
+2025-04-16 15:00:09,047 - INFO - Inserted CommitteeReportRollCall for agenda item 42, published=False
+2025-04-16 15:00:09,187 - INFO - Inserted CommitteeReportRollCall for agenda item 43, published=False
+2025-04-16 15:00:09,326 - INFO - Inserted CommitteeReportRollCall for agenda item 43, published=False
+2025-04-16 15:00:09,470 - INFO - Inserted CommitteeReportRollCall for agenda item 43, published=False
+2025-04-16 15:00:09,623 - INFO - Inserted CommitteeReportRollCall for agenda item 43, published=False
+2025-04-16 15:00:09,765 - INFO - Inserted CommitteeReportRollCall for agenda item 43, published=False
+2025-04-16 15:00:09,899 - INFO - Inserted CommitteeReportRollCall for agenda item 43, published=False
+2025-04-16 15:00:10,048 - INFO - Inserted CommitteeReportRollCall for agenda item 43, published=False
+2025-04-16 15:00:10,186 - INFO - Inserted CommitteeReportRollCall for agenda item 43, published=False
+2025-04-16 15:00:10,326 - INFO - Inserted CommitteeReportRollCall for agenda item 44, published=False
+2025-04-16 15:00:10,460 - INFO - Inserted CommitteeReportRollCall for agenda item 44, published=False
+2025-04-16 15:00:10,595 - INFO - Inserted CommitteeReportRollCall for agenda item 44, published=False
+2025-04-16 15:00:10,725 - INFO - Inserted CommitteeReportRollCall for agenda item 44, published=False
+2025-04-16 15:00:10,863 - INFO - Inserted CommitteeReportRollCall for agenda item 44, published=False
+2025-04-16 15:00:10,995 - INFO - Inserted CommitteeReportRollCall for agenda item 44, published=False
+2025-04-16 15:00:11,127 - INFO - Inserted CommitteeReportRollCall for agenda item 44, published=False
+2025-04-16 15:00:11,280 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:11,410 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:11,543 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:11,672 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:11,810 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:11,948 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:12,081 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:12,238 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:12,380 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:12,521 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:12,679 - INFO - Inserted CommitteeReportRollCall for agenda item 45, published=False
+2025-04-16 15:00:12,810 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:13,118 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:13,380 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:13,517 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:13,652 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:13,807 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:13,945 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:14,099 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:14,336 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:14,508 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:14,648 - INFO - Inserted CommitteeReportRollCall for agenda item 46, published=False
+2025-04-16 15:00:14,791 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:14,932 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:15,066 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:15,203 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:15,371 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:15,521 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:15,671 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:15,824 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:15,976 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:16,112 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:16,274 - INFO - Inserted CommitteeReportRollCall for agenda item 47, published=False
+2025-04-16 15:00:16,417 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:16,552 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:16,688 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:16,830 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:16,963 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:17,096 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:17,249 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:17,389 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:17,517 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:17,644 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:17,779 - INFO - Inserted CommitteeReportRollCall for agenda item 48, published=False
+2025-04-16 15:00:17,918 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:18,064 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:18,225 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:18,364 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:18,497 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:18,655 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:18,809 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:18,933 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:19,070 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:19,216 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:19,356 - INFO - Inserted CommitteeReportRollCall for agenda item 49, published=False
+2025-04-16 15:00:19,493 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:19,628 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:19,759 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:19,894 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:20,029 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:20,158 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:20,294 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:20,433 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:20,570 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:20,977 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:21,108 - INFO - Inserted CommitteeReportRollCall for agenda item 50, published=False
+2025-04-16 15:00:21,246 - INFO - Inserted CommitteeReportRollCall for agenda item 51, published=False
+2025-04-16 15:00:21,406 - INFO - Inserted CommitteeReportRollCall for agenda item 51, published=False
+2025-04-16 15:00:21,540 - INFO - Inserted CommitteeReportRollCall for agenda item 51, published=False
+2025-04-16 15:00:21,671 - INFO - Inserted CommitteeReportRollCall for agenda item 51, published=False
+2025-04-16 15:00:21,812 - INFO - Inserted CommitteeReportRollCall for agenda item 51, published=False
+2025-04-16 15:00:21,954 - INFO - Inserted CommitteeReportRollCall for agenda item 52, published=False
+2025-04-16 15:00:22,092 - INFO - Inserted CommitteeReportRollCall for agenda item 52, published=False
+2025-04-16 15:00:22,259 - INFO - Inserted CommitteeReportRollCall for agenda item 52, published=False
+2025-04-16 15:00:22,396 - INFO - Inserted CommitteeReportRollCall for agenda item 52, published=False
+2025-04-16 15:00:22,537 - INFO - Inserted CommitteeReportRollCall for agenda item 52, published=False
+2025-04-16 15:00:22,674 - INFO - Inserted CommitteeReportRollCall for agenda item 52, published=False
+2025-04-16 15:00:22,808 - INFO - Inserted CommitteeReportRollCall for agenda item 53, published=False
+2025-04-16 15:00:22,941 - INFO - Inserted CommitteeReportRollCall for agenda item 53, published=False
+2025-04-16 15:00:23,083 - INFO - Inserted CommitteeReportRollCall for agenda item 53, published=False
+2025-04-16 15:00:23,226 - INFO - Inserted CommitteeReportRollCall for agenda item 53, published=False
+2025-04-16 15:00:23,366 - INFO - Inserted CommitteeReportRollCall for agenda item 53, published=False
+2025-04-16 15:00:23,515 - INFO - Inserted CommitteeReportRollCall for agenda item 53, published=False
+2025-04-16 15:00:23,655 - INFO - Inserted CommitteeReportRollCall for agenda item 54, published=False
+2025-04-16 15:00:23,794 - INFO - Inserted CommitteeReportRollCall for agenda item 54, published=False
+2025-04-16 15:00:23,922 - INFO - Inserted CommitteeReportRollCall for agenda item 54, published=False
+2025-04-16 15:00:24,102 - INFO - Inserted CommitteeReportRollCall for agenda item 54, published=False
+2025-04-16 15:00:24,257 - INFO - Inserted CommitteeReportRollCall for agenda item 54, published=False
+2025-04-16 15:00:24,400 - INFO - Inserted CommitteeReportRollCall for agenda item 54, published=False
+2025-04-16 15:00:24,533 - INFO - Inserted CommitteeReportRollCall for agenda item 55, published=False
+2025-04-16 15:00:24,670 - INFO - Inserted CommitteeReportRollCall for agenda item 55, published=False
+2025-04-16 15:00:24,807 - INFO - Inserted CommitteeReportRollCall for agenda item 55, published=False
+2025-04-16 15:00:24,947 - INFO - Inserted CommitteeReportRollCall for agenda item 55, published=False
+2025-04-16 15:00:25,085 - INFO - Inserted CommitteeReportRollCall for agenda item 55, published=False
+2025-04-16 15:00:25,233 - INFO - Inserted CommitteeReportRollCall for agenda item 55, published=False
+2025-04-16 15:00:25,399 - INFO - Inserted CommitteeReportRollCall for agenda item 56, published=False
+2025-04-16 15:00:25,534 - INFO - Inserted CommitteeReportRollCall for agenda item 56, published=False
+2025-04-16 15:00:25,666 - INFO - Inserted CommitteeReportRollCall for agenda item 56, published=False
+2025-04-16 15:00:25,807 - INFO - Inserted CommitteeReportRollCall for agenda item 56, published=False
+2025-04-16 15:00:25,944 - INFO - Inserted CommitteeReportRollCall for agenda item 56, published=False
+2025-04-16 15:00:26,079 - INFO - Inserted CommitteeReportRollCall for agenda item 56, published=False
+2025-04-16 15:00:26,223 - INFO - Inserted CommitteeReportRollCall for agenda item 57, published=False
+2025-04-16 15:00:26,371 - INFO - Inserted CommitteeReportRollCall for agenda item 57, published=False
+2025-04-16 15:00:26,508 - INFO - Inserted CommitteeReportRollCall for agenda item 57, published=False
+2025-04-16 15:00:26,640 - INFO - Inserted CommitteeReportRollCall for agenda item 57, published=False
+2025-04-16 15:00:26,788 - INFO - Inserted CommitteeReportRollCall for agenda item 57, published=False
+2025-04-16 15:00:26,928 - INFO - Inserted CommitteeReportRollCall for agenda item 57, published=False
+2025-04-16 15:00:27,072 - INFO - Inserted CommitteeReportRollCall for agenda item 58, published=False
+2025-04-16 15:00:27,214 - INFO - Inserted CommitteeReportRollCall for agenda item 58, published=False
+2025-04-16 15:00:27,357 - INFO - Inserted CommitteeReportRollCall for agenda item 58, published=False
+2025-04-16 15:00:27,498 - INFO - Inserted CommitteeReportRollCall for agenda item 58, published=False
+2025-04-16 15:00:27,649 - INFO - Inserted CommitteeReportRollCall for agenda item 58, published=False
+2025-04-16 15:00:27,789 - INFO - Inserted CommitteeReportRollCall for agenda item 58, published=False
+2025-04-16 15:00:27,930 - INFO - Inserted CommitteeReportRollCall for agenda item 59, published=False
+2025-04-16 15:00:28,071 - INFO - Inserted CommitteeReportRollCall for agenda item 59, published=False
+2025-04-16 15:00:28,219 - INFO - Inserted CommitteeReportRollCall for agenda item 59, published=False
+2025-04-16 15:00:28,370 - INFO - Inserted CommitteeReportRollCall for agenda item 59, published=False
+2025-04-16 15:00:28,515 - INFO - Inserted CommitteeReportRollCall for agenda item 59, published=False
+2025-04-16 15:00:28,650 - INFO - Inserted CommitteeReportRollCall for agenda item 59, published=False
+2025-04-16 15:00:28,779 - INFO - Inserted CommitteeReportRollCall for agenda item 60, published=False
+2025-04-16 15:00:28,910 - INFO - Inserted CommitteeReportRollCall for agenda item 60, published=False
+2025-04-16 15:00:29,047 - INFO - Inserted CommitteeReportRollCall for agenda item 60, published=False
+2025-04-16 15:00:29,201 - INFO - Inserted CommitteeReportRollCall for agenda item 60, published=False
+2025-04-16 15:00:29,356 - INFO - Inserted CommitteeReportRollCall for agenda item 60, published=False
+2025-04-16 15:00:29,550 - INFO - Inserted CommitteeReportRollCall for agenda item 60, published=False
+2025-04-16 15:00:29,692 - INFO - Inserted CommitteeReportRollCall for agenda item 61, published=False
+2025-04-16 15:00:29,833 - INFO - Inserted CommitteeReportRollCall for agenda item 61, published=False
+2025-04-16 15:00:29,965 - INFO - Inserted CommitteeReportRollCall for agenda item 61, published=False
+2025-04-16 15:00:30,099 - INFO - Inserted CommitteeReportRollCall for agenda item 61, published=False
+2025-04-16 15:00:30,256 - INFO - Inserted CommitteeReportRollCall for agenda item 61, published=False
+2025-04-16 15:00:30,395 - INFO - Inserted CommitteeReportRollCall for agenda item 61, published=False
+2025-04-16 15:00:30,706 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:30,922 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:31,077 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:31,229 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:31,411 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:31,558 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:31,722 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:31,873 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:32,025 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:32,175 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:32,316 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:32,458 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:32,602 - INFO - Inserted CommitteeReportRollCall for agenda item 62, published=False
+2025-04-16 15:00:32,736 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:32,887 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:33,052 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:33,243 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:33,384 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:33,528 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:33,664 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:33,805 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:33,932 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:34,078 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:34,231 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:34,381 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:34,522 - INFO - Inserted CommitteeReportRollCall for agenda item 63, published=False
+2025-04-16 15:00:34,656 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:34,784 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:34,915 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:35,069 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:35,205 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:35,349 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:35,484 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:35,619 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:35,772 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:35,911 - INFO - Inserted CommitteeReportRollCall for agenda item 64, published=False
+2025-04-16 15:00:36,060 - INFO - Inserted CommitteeReportRollCall for agenda item 65, published=False
+2025-04-16 15:00:36,194 - INFO - Inserted CommitteeReportRollCall for agenda item 65, published=False
+2025-04-16 15:00:36,326 - INFO - Inserted CommitteeReportRollCall for agenda item 65, published=False
+2025-04-16 15:00:36,463 - INFO - Inserted CommitteeReportRollCall for agenda item 66, published=False
+2025-04-16 15:00:36,595 - INFO - Inserted CommitteeReportRollCall for agenda item 66, published=False
+2025-04-16 15:00:36,718 - INFO - Inserted CommitteeReportRollCall for agenda item 66, published=False
+2025-04-16 15:00:36,855 - INFO - Inserted CommitteeReportRollCall for agenda item 66, published=False
+2025-04-16 15:00:36,998 - INFO - Inserted CommitteeReportRollCall for agenda item 66, published=False
+2025-04-16 15:00:37,150 - INFO - Inserted CommitteeReportRollCall for agenda item 66, published=False
+2025-04-16 15:00:37,296 - INFO - Inserted CommitteeReportRollCall for agenda item 67, published=False
+2025-04-16 15:00:37,435 - INFO - Inserted CommitteeReportRollCall for agenda item 67, published=False
+2025-04-16 15:00:37,566 - INFO - Inserted CommitteeReportRollCall for agenda item 67, published=False
+2025-04-16 15:00:37,926 - INFO - Inserted CommitteeReportRollCall for agenda item 67, published=False
+2025-04-16 15:00:38,061 - INFO - Inserted CommitteeReportRollCall for agenda item 67, published=False
+2025-04-16 15:00:38,222 - INFO - Inserted CommitteeReportRollCall for agenda item 68, published=False
+2025-04-16 15:00:38,357 - INFO - Inserted CommitteeReportRollCall for agenda item 68, published=False
+2025-04-16 15:00:38,489 - INFO - Inserted CommitteeReportRollCall for agenda item 68, published=False
+2025-04-16 15:00:38,624 - INFO - Inserted CommitteeReportRollCall for agenda item 68, published=False
+2025-04-16 15:00:38,762 - INFO - Inserted CommitteeReportRollCall for agenda item 68, published=False
+2025-04-16 15:00:38,892 - INFO - Inserted CommitteeReportRollCall for agenda item 68, published=False
+2025-04-16 15:00:39,020 - INFO - Inserted CommitteeReportRollCall for agenda item 68, published=False
+2025-04-16 15:00:39,155 - INFO - Inserted CommitteeReportRollCall for agenda item 69, published=False
+2025-04-16 15:00:39,310 - INFO - Inserted CommitteeReportRollCall for agenda item 69, published=False
+2025-04-16 15:00:39,452 - INFO - Inserted CommitteeReportRollCall for agenda item 69, published=False
+2025-04-16 15:00:39,589 - INFO - Inserted CommitteeReportRollCall for agenda item 69, published=False
+2025-04-16 15:00:39,727 - INFO - Inserted CommitteeReportRollCall for agenda item 69, published=False
+2025-04-16 15:00:39,857 - INFO - Inserted CommitteeReportRollCall for agenda item 69, published=False
+2025-04-16 15:00:39,993 - INFO - Inserted CommitteeReportRollCall for agenda item 69, published=False
+2025-04-16 15:00:40,131 - INFO - Inserted CommitteeReportRollCall for agenda item 70, published=False
+2025-04-16 15:00:40,262 - INFO - Inserted CommitteeReportRollCall for agenda item 70, published=False
+2025-04-16 15:00:40,443 - INFO - Inserted CommitteeReportRollCall for agenda item 70, published=False
+2025-04-16 15:00:40,585 - INFO - Inserted CommitteeReportRollCall for agenda item 70, published=False
+2025-04-16 15:00:40,732 - INFO - Inserted CommitteeReportRollCall for agenda item 70, published=False
+2025-04-16 15:00:40,874 - INFO - Inserted CommitteeReportRollCall for agenda item 70, published=False
+2025-04-16 15:00:41,003 - INFO - Inserted CommitteeReportRollCall for agenda item 70, published=False
+2025-04-16 15:00:41,148 - INFO - Inserted CommitteeReportRollCall for agenda item 71, published=False
+2025-04-16 15:00:41,297 - INFO - Inserted CommitteeReportRollCall for agenda item 71, published=False
+2025-04-16 15:00:41,443 - INFO - Inserted CommitteeReportRollCall for agenda item 71, published=False
+2025-04-16 15:00:41,578 - INFO - Inserted CommitteeReportRollCall for agenda item 71, published=False
+2025-04-16 15:00:41,728 - INFO - Inserted CommitteeReportRollCall for agenda item 71, published=False
+2025-04-16 15:00:41,866 - INFO - Inserted CommitteeReportRollCall for agenda item 72, published=False
+2025-04-16 15:00:41,995 - INFO - Inserted CommitteeReportRollCall for agenda item 72, published=False
+2025-04-16 15:00:42,140 - INFO - Inserted CommitteeReportRollCall for agenda item 72, published=False
+2025-04-16 15:00:42,277 - INFO - Inserted CommitteeReportRollCall for agenda item 72, published=False
+2025-04-16 15:00:42,421 - INFO - Inserted CommitteeReportRollCall for agenda item 72, published=False
+2025-04-16 15:00:42,551 - INFO - Inserted CommitteeReportRollCall for agenda item 73, published=False
+2025-04-16 15:00:42,683 - INFO - Inserted CommitteeReportRollCall for agenda item 73, published=False
+2025-04-16 15:00:42,819 - INFO - Inserted CommitteeReportRollCall for agenda item 73, published=False
+2025-04-16 15:00:42,956 - INFO - Inserted CommitteeReportRollCall for agenda item 74, published=False
+2025-04-16 15:00:43,087 - INFO - Inserted CommitteeReportRollCall for agenda item 74, published=False
+2025-04-16 15:00:43,251 - INFO - Inserted CommitteeReportRollCall for agenda item 74, published=False
+2025-04-16 15:00:43,415 - INFO - Inserted CommitteeReportRollCall for agenda item 74, published=False
+2025-04-16 15:00:43,558 - INFO - Inserted CommitteeReportRollCall for agenda item 74, published=False
+2025-04-16 15:00:43,687 - INFO - Inserted CommitteeReportRollCall for agenda item 74, published=False
+2025-04-16 15:00:43,824 - INFO - Inserted CommitteeReportRollCall for agenda item 74, published=False
+2025-04-16 15:00:43,959 - INFO - Inserted CommitteeReportRollCall for agenda item 74, published=False
+2025-04-16 15:00:44,092 - INFO - Inserted CommitteeReportRollCall for agenda item 75, published=False
+2025-04-16 15:00:44,235 - INFO - Inserted CommitteeReportRollCall for agenda item 75, published=False
+2025-04-16 15:00:44,431 - INFO - Inserted CommitteeReportRollCall for agenda item 75, published=False
+2025-04-16 15:00:44,562 - INFO - Inserted CommitteeReportRollCall for agenda item 75, published=False
+2025-04-16 15:00:44,712 - INFO - Inserted CommitteeReportRollCall for agenda item 75, published=False
+2025-04-16 15:00:44,862 - INFO - Inserted CommitteeReportRollCall for agenda item 75, published=False
+2025-04-16 15:00:45,005 - INFO - Inserted CommitteeReportRollCall for agenda item 75, published=False
+2025-04-16 15:00:45,145 - INFO - Inserted CommitteeReportRollCall for agenda item 76, published=False
+2025-04-16 15:00:45,316 - INFO - Inserted CommitteeReportRollCall for agenda item 76, published=False
+2025-04-16 15:00:45,458 - INFO - Inserted CommitteeReportRollCall for agenda item 76, published=False
+2025-04-16 15:00:45,592 - INFO - Inserted CommitteeReportRollCall for agenda item 76, published=False
+2025-04-16 15:00:45,739 - INFO - Inserted CommitteeReportRollCall for agenda item 76, published=False
+2025-04-16 15:00:45,897 - INFO - Inserted CommitteeReportRollCall for agenda item 76, published=False
+2025-04-16 15:00:46,044 - INFO - Inserted CommitteeReportRollCall for agenda item 76, published=False
+2025-04-16 15:00:46,180 - INFO - Inserted CommitteeReportRollCall for agenda item 77, published=False
+2025-04-16 15:00:46,323 - INFO - Inserted CommitteeReportRollCall for agenda item 77, published=False
+2025-04-16 15:00:46,457 - INFO - Inserted CommitteeReportRollCall for agenda item 77, published=False
+2025-04-16 15:00:46,588 - INFO - Inserted CommitteeReportRollCall for agenda item 77, published=False
+2025-04-16 15:00:46,718 - INFO - Inserted CommitteeReportRollCall for agenda item 77, published=False
+2025-04-16 15:00:46,859 - INFO - Inserted CommitteeReportRollCall for agenda item 77, published=False
+2025-04-16 15:00:46,988 - INFO - Inserted CommitteeReportRollCall for agenda item 77, published=False
+2025-04-16 15:00:47,114 - INFO - Inserted CommitteeReportRollCall for agenda item 78, published=False
+2025-04-16 15:00:47,250 - INFO - Inserted CommitteeReportRollCall for agenda item 78, published=False
+2025-04-16 15:00:47,386 - INFO - Inserted CommitteeReportRollCall for agenda item 78, published=False
+2025-04-16 15:00:47,522 - INFO - Inserted CommitteeReportRollCall for agenda item 78, published=False
+2025-04-16 15:00:47,653 - INFO - Inserted CommitteeReportRollCall for agenda item 78, published=False
+2025-04-16 15:00:47,783 - INFO - Inserted CommitteeReportRollCall for agenda item 78, published=False
+2025-04-16 15:00:47,912 - INFO - Inserted CommitteeReportRollCall for agenda item 78, published=False
+2025-04-16 15:00:48,047 - INFO - Inserted CommitteeReportRollCall for agenda item 79, published=False
+2025-04-16 15:00:48,181 - INFO - Inserted CommitteeReportRollCall for agenda item 79, published=False
+2025-04-16 15:00:48,325 - INFO - Inserted CommitteeReportRollCall for agenda item 79, published=False
+2025-04-16 15:00:48,456 - INFO - Inserted CommitteeReportRollCall for agenda item 79, published=False
+2025-04-16 15:00:48,586 - INFO - Inserted CommitteeReportRollCall for agenda item 79, published=False
+2025-04-16 15:00:48,714 - INFO - Inserted CommitteeReportRollCall for agenda item 79, published=False
+2025-04-16 15:00:48,843 - INFO - Inserted CommitteeReportRollCall for agenda item 79, published=False
+2025-04-16 15:00:48,978 - INFO - Inserted CommitteeReportRollCall for agenda item 80, published=False
+2025-04-16 15:00:49,101 - INFO - Inserted CommitteeReportRollCall for agenda item 80, published=False
+2025-04-16 15:00:49,237 - INFO - Inserted CommitteeReportRollCall for agenda item 80, published=False
+2025-04-16 15:00:49,433 - INFO - Inserted CommitteeReportRollCall for agenda item 80, published=False
+2025-04-16 15:00:49,631 - INFO - Inserted CommitteeReportRollCall for agenda item 80, published=False
+2025-04-16 15:00:49,767 - INFO - Inserted CommitteeReportRollCall for agenda item 80, published=False
+2025-04-16 15:00:49,897 - INFO - Inserted CommitteeReportRollCall for agenda item 80, published=False
+2025-04-16 15:00:50,022 - INFO - Inserted CommitteeReportRollCall for agenda item 81, published=False
+2025-04-16 15:00:50,155 - INFO - Inserted CommitteeReportRollCall for agenda item 81, published=False
+2025-04-16 15:00:50,307 - INFO - Inserted CommitteeReportRollCall for agenda item 81, published=False
+2025-04-16 15:00:50,447 - INFO - Inserted CommitteeReportRollCall for agenda item 81, published=False
+2025-04-16 15:00:50,586 - INFO - Inserted CommitteeReportRollCall for agenda item 81, published=False
+2025-04-16 15:00:50,749 - INFO - Inserted CommitteeReportRollCall for agenda item 81, published=False
+2025-04-16 15:00:50,884 - INFO - Inserted CommitteeReportRollCall for agenda item 81, published=False
+2025-04-16 15:00:51,037 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:51,165 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:51,306 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:51,471 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:51,614 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:51,745 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:51,891 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:52,031 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:52,168 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:52,309 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:52,468 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:52,596 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:52,734 - INFO - Inserted CommitteeReportRollCall for agenda item 82, published=False
+2025-04-16 15:00:52,867 - INFO - Inserted CommitteeReportRollCall for agenda item 83, published=False
+2025-04-16 15:00:52,997 - INFO - Inserted CommitteeReportRollCall for agenda item 83, published=False
+2025-04-16 15:00:53,149 - INFO - Inserted CommitteeReportRollCall for agenda item 83, published=False
+2025-04-16 15:00:53,297 - INFO - Inserted CommitteeReportRollCall for agenda item 83, published=False
+2025-04-16 15:00:53,435 - INFO - Inserted CommitteeReportRollCall for agenda item 83, published=False
+2025-04-16 15:00:53,573 - INFO - Inserted CommitteeReportRollCall for agenda item 83, published=False
+2025-04-16 15:00:53,697 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:53,828 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:53,962 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:54,088 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:54,239 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:54,380 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:54,507 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:54,643 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:54,775 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:54,912 - INFO - Inserted CommitteeReportRollCall for agenda item 84, published=False
+2025-04-16 15:00:55,040 - INFO - Inserted CommitteeReportRollCall for agenda item 85, published=False
+2025-04-16 15:00:55,181 - INFO - Inserted CommitteeReportRollCall for agenda item 85, published=False
+2025-04-16 15:00:55,316 - INFO - Inserted CommitteeReportRollCall for agenda item 85, published=False
+2025-04-16 15:00:55,446 - INFO - Inserted CommitteeReportRollCall for agenda item 87, published=False
+2025-04-16 15:00:55,585 - INFO - Inserted CommitteeReportRollCall for agenda item 87, published=False
+2025-04-16 15:00:55,739 - INFO - Inserted CommitteeReportRollCall for agenda item 87, published=False
+2025-04-16 15:00:55,870 - INFO - Inserted CommitteeReportRollCall for agenda item 86, published=False
+2025-04-16 15:00:56,005 - INFO - Inserted CommitteeReportRollCall for agenda item 86, published=False
+2025-04-16 15:00:56,148 - INFO - Inserted CommitteeReportRollCall for agenda item 86, published=False
+2025-04-16 15:00:56,282 - INFO - Inserted CommitteeReportRollCall for agenda item 88, published=False
+2025-04-16 15:00:56,426 - INFO - Inserted CommitteeReportRollCall for agenda item 88, published=False
+2025-04-16 15:00:56,557 - INFO - Inserted CommitteeReportRollCall for agenda item 88, published=False
+2025-04-16 15:00:56,689 - INFO - Inserted CommitteeReportRollCall for agenda item 89, published=False
+2025-04-16 15:00:56,820 - INFO - Inserted CommitteeReportRollCall for agenda item 89, published=False
+2025-04-16 15:00:57,002 - INFO - Inserted CommitteeReportRollCall for agenda item 89, published=False
+2025-04-16 15:00:57,137 - INFO - Inserted CommitteeReportRollCall for agenda item 89, published=False
+2025-04-16 15:00:57,291 - INFO - Inserted CommitteeReportRollCall for agenda item 89, published=False
+2025-04-16 15:00:57,431 - INFO - Inserted CommitteeReportRollCall for agenda item 90, published=False
+2025-04-16 15:00:57,571 - INFO - Inserted CommitteeReportRollCall for agenda item 90, published=False
+2025-04-16 15:00:57,709 - INFO - Inserted CommitteeReportRollCall for agenda item 90, published=False
+2025-04-16 15:00:57,837 - INFO - Inserted CommitteeReportRollCall for agenda item 90, published=False
+2025-04-16 15:00:57,982 - INFO - Inserted CommitteeReportRollCall for agenda item 90, published=False
+2025-04-16 15:00:58,131 - INFO - Inserted CommitteeReportRollCall for agenda item 91, published=False
+2025-04-16 15:00:58,308 - INFO - Inserted CommitteeReportRollCall for agenda item 91, published=False
+2025-04-16 15:00:58,452 - INFO - Inserted CommitteeReportRollCall for agenda item 91, published=False
+2025-04-16 15:00:58,580 - INFO - Inserted CommitteeReportRollCall for agenda item 91, published=False
+2025-04-16 15:00:58,722 - INFO - Inserted CommitteeReportRollCall for agenda item 91, published=False
+2025-04-16 15:00:58,855 - INFO - Inserted CommitteeReportRollCall for agenda item 91, published=False
+2025-04-16 15:00:58,979 - INFO - Inserted CommitteeReportRollCall for agenda item 91, published=False
+2025-04-16 15:00:59,117 - INFO - Inserted CommitteeReportRollCall for agenda item 91, published=False
+2025-04-16 15:00:59,247 - INFO - Inserted CommitteeReportRollCall for agenda item 92, published=False
+2025-04-16 15:00:59,396 - INFO - Inserted CommitteeReportRollCall for agenda item 92, published=False
+2025-04-16 15:00:59,535 - INFO - Inserted CommitteeReportRollCall for agenda item 92, published=False
+2025-04-16 15:00:59,671 - INFO - Inserted CommitteeReportRollCall for agenda item 92, published=False
+2025-04-16 15:00:59,805 - INFO - Inserted CommitteeReportRollCall for agenda item 92, published=False
+2025-04-16 15:00:59,942 - INFO - Inserted CommitteeReportRollCall for agenda item 92, published=False
+2025-04-16 15:01:00,082 - INFO - Inserted CommitteeReportRollCall for agenda item 92, published=False
+2025-04-16 15:01:00,218 - INFO - Inserted CommitteeReportRollCall for agenda item 92, published=False
+2025-04-16 15:01:00,366 - INFO - Inserted CommitteeReportRollCall for agenda item 93, published=False
+2025-04-16 15:01:00,505 - INFO - Inserted CommitteeReportRollCall for agenda item 93, published=False
+2025-04-16 15:01:00,639 - INFO - Inserted CommitteeReportRollCall for agenda item 93, published=False
+2025-04-16 15:01:00,772 - INFO - Inserted CommitteeReportRollCall for agenda item 93, published=False
+2025-04-16 15:01:00,910 - INFO - Inserted CommitteeReportRollCall for agenda item 93, published=False
+2025-04-16 15:01:01,045 - INFO - Inserted CommitteeReportRollCall for agenda item 93, published=False
+2025-04-16 15:01:01,172 - INFO - Inserted CommitteeReportRollCall for agenda item 93, published=False
+2025-04-16 15:01:01,342 - INFO - Inserted CommitteeReportRollCall for agenda item 94, published=False
+2025-04-16 15:01:01,506 - INFO - Inserted CommitteeReportRollCall for agenda item 94, published=False
+2025-04-16 15:01:01,659 - INFO - Inserted CommitteeReportRollCall for agenda item 94, published=False
+2025-04-16 15:01:01,802 - INFO - Inserted CommitteeReportRollCall for agenda item 94, published=False
+2025-04-16 15:01:01,934 - INFO - Inserted CommitteeReportRollCall for agenda item 94, published=False
+2025-04-16 15:01:02,077 - INFO - Inserted CommitteeReportRollCall for agenda item 95, published=False
+2025-04-16 15:01:02,212 - INFO - Inserted CommitteeReportRollCall for agenda item 95, published=False
+2025-04-16 15:01:02,362 - INFO - Inserted CommitteeReportRollCall for agenda item 95, published=False
+2025-04-16 15:01:02,502 - INFO - Inserted CommitteeReportRollCall for agenda item 95, published=False
+2025-04-16 15:01:02,633 - INFO - Inserted CommitteeReportRollCall for agenda item 95, published=False
+2025-04-16 15:01:02,773 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:02,903 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:03,043 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:03,185 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:03,323 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:03,461 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:03,589 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:03,731 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:03,860 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:03,996 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:04,144 - INFO - Inserted CommitteeReportRollCall for agenda item 96, published=False
+2025-04-16 15:01:04,349 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:04,485 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:04,615 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:04,744 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:04,878 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:05,003 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:05,141 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:05,273 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:05,409 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:05,537 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:05,673 - INFO - Inserted CommitteeReportRollCall for agenda item 97, published=False
+2025-04-16 15:01:05,808 - INFO - Inserted CommitteeReportRollCall for agenda item 98, published=False
+2025-04-16 15:01:05,946 - INFO - Inserted CommitteeReportRollCall for agenda item 98, published=False
+2025-04-16 15:01:06,083 - INFO - Inserted CommitteeReportRollCall for agenda item 98, published=False
+2025-04-16 15:01:06,218 - INFO - Inserted CommitteeReportRollCall for agenda item 99, published=False
+2025-04-16 15:01:06,352 - INFO - Inserted CommitteeReportRollCall for agenda item 99, published=False
+2025-04-16 15:01:06,480 - INFO - Inserted CommitteeReportRollCall for agenda item 99, published=False
+2025-04-16 15:01:06,607 - INFO - Inserted CommitteeReportRollCall for agenda item 99, published=False
+2025-04-16 15:01:06,734 - INFO - Inserted CommitteeReportRollCall for agenda item 99, published=False
+2025-04-16 15:01:06,871 - INFO - Inserted CommitteeReportRollCall for agenda item 99, published=False
+2025-04-16 15:01:07,003 - INFO - Inserted CommitteeReportRollCall for agenda item 99, published=False
+2025-04-16 15:01:07,147 - INFO - Inserted CommitteeReportRollCall for agenda item 99, published=False
+2025-04-16 15:01:07,291 - INFO - Inserted CommitteeReportRollCall for agenda item 100, published=False
+2025-04-16 15:01:07,426 - INFO - Inserted CommitteeReportRollCall for agenda item 100, published=False
+2025-04-16 15:01:07,555 - INFO - Inserted CommitteeReportRollCall for agenda item 100, published=False
+2025-04-16 15:01:07,684 - INFO - Inserted CommitteeReportRollCall for agenda item 100, published=False
+2025-04-16 15:01:07,854 - INFO - Inserted CommitteeReportRollCall for agenda item 100, published=False
+2025-04-16 15:01:07,992 - INFO - Inserted CommitteeReportRollCall for agenda item 100, published=False
+2025-04-16 15:01:08,137 - INFO - Inserted CommitteeReportRollCall for agenda item 100, published=False
+2025-04-16 15:01:08,276 - INFO - Inserted CommitteeReportRollCall for agenda item 100, published=False
+2025-04-16 15:01:08,418 - INFO - Inserted CommitteeReportRollCall for agenda item 101, published=False
+2025-04-16 15:01:08,550 - INFO - Inserted CommitteeReportRollCall for agenda item 101, published=False
+2025-04-16 15:01:08,681 - INFO - Inserted CommitteeReportRollCall for agenda item 101, published=False
+2025-04-16 15:01:08,806 - INFO - Inserted CommitteeReportRollCall for agenda item 101, published=False
+2025-04-16 15:01:08,944 - INFO - Inserted CommitteeReportRollCall for agenda item 102, published=False
+2025-04-16 15:01:09,195 - INFO - Inserted CommitteeReportRollCall for agenda item 102, published=False
+2025-04-16 15:01:09,393 - INFO - Inserted CommitteeReportRollCall for agenda item 102, published=False
+2025-04-16 15:01:09,534 - INFO - Inserted CommitteeReportRollCall for agenda item 102, published=False
+2025-04-16 15:01:09,666 - INFO - Inserted CommitteeReportRollCall for agenda item 102, published=False
+2025-04-16 15:01:09,804 - INFO - Inserted CommitteeReportRollCall for agenda item 102, published=False
+2025-04-16 15:01:09,941 - INFO - Inserted CommitteeReportRollCall for agenda item 102, published=False
+2025-04-16 15:01:10,072 - INFO - Inserted CommitteeReportRollCall for agenda item 102, published=False
+2025-04-16 15:01:10,209 - INFO - Inserted CommitteeReportRollCall for agenda item 103, published=False
+2025-04-16 15:01:10,384 - INFO - Inserted CommitteeReportRollCall for agenda item 103, published=False
+2025-04-16 15:01:10,529 - INFO - Inserted CommitteeReportRollCall for agenda item 103, published=False
+2025-04-16 15:01:10,697 - INFO - Inserted CommitteeReportRollCall for agenda item 103, published=False
+2025-04-16 15:01:10,855 - INFO - Inserted CommitteeReportRollCall for agenda item 103, published=False
+2025-04-16 15:01:10,983 - INFO - Inserted CommitteeReportRollCall for agenda item 104, published=False
+2025-04-16 15:01:11,120 - INFO - Inserted CommitteeReportRollCall for agenda item 104, published=False
+2025-04-16 15:01:11,243 - INFO - Inserted CommitteeReportRollCall for agenda item 104, published=False
+2025-04-16 15:01:11,377 - INFO - Inserted CommitteeReportRollCall for agenda item 104, published=False
+2025-04-16 15:01:11,512 - INFO - Inserted CommitteeReportRollCall for agenda item 104, published=False
+2025-04-16 15:01:11,643 - INFO - Inserted CommitteeReportRollCall for agenda item 104, published=False
+2025-04-16 15:01:11,781 - INFO - Inserted CommitteeReportRollCall for agenda item 105, published=False
+2025-04-16 15:01:11,917 - INFO - Inserted CommitteeReportRollCall for agenda item 105, published=False
+2025-04-16 15:01:12,050 - INFO - Inserted CommitteeReportRollCall for agenda item 105, published=False
+2025-04-16 15:01:12,193 - INFO - Inserted CommitteeReportRollCall for agenda item 105, published=False
+2025-04-16 15:01:12,360 - INFO - Inserted CommitteeReportRollCall for agenda item 105, published=False
+2025-04-16 15:01:12,496 - INFO - Inserted CommitteeReportRollCall for agenda item 105, published=False
+2025-04-16 15:01:12,634 - INFO - Inserted CommitteeReportRollCall for agenda item 105, published=False
+2025-04-16 15:01:12,771 - INFO - Inserted CommitteeReportRollCall for agenda item 106, published=False
+2025-04-16 15:01:12,904 - INFO - Inserted CommitteeReportRollCall for agenda item 106, published=False
+2025-04-16 15:01:13,045 - INFO - Inserted CommitteeReportRollCall for agenda item 106, published=False
+2025-04-16 15:01:13,262 - INFO - Inserted CommitteeReportRollCall for agenda item 106, published=False
+2025-04-16 15:01:13,422 - INFO - Inserted CommitteeReportRollCall for agenda item 106, published=False
+2025-04-16 15:01:13,555 - INFO - Inserted CommitteeReportRollCall for agenda item 106, published=False
+2025-04-16 15:01:13,697 - INFO - Inserted CommitteeReportRollCall for agenda item 106, published=False
+2025-04-16 15:01:13,839 - INFO - Inserted CommitteeReportRollCall for agenda item 107, published=False
+2025-04-16 15:01:13,970 - INFO - Inserted CommitteeReportRollCall for agenda item 107, published=False
+2025-04-16 15:01:14,107 - INFO - Inserted CommitteeReportRollCall for agenda item 107, published=False
+2025-04-16 15:01:14,252 - INFO - Inserted CommitteeReportRollCall for agenda item 107, published=False
+2025-04-16 15:01:14,393 - INFO - Inserted CommitteeReportRollCall for agenda item 107, published=False
+2025-04-16 15:01:14,524 - INFO - Inserted CommitteeReportRollCall for agenda item 107, published=False
+2025-04-16 15:01:14,658 - INFO - Inserted CommitteeReportRollCall for agenda item 107, published=False
+2025-04-16 15:01:14,798 - INFO - Inserted CommitteeReportRollCall for agenda item 108, published=False
+2025-04-16 15:01:14,927 - INFO - Inserted CommitteeReportRollCall for agenda item 108, published=False
+2025-04-16 15:01:15,058 - INFO - Inserted CommitteeReportRollCall for agenda item 108, published=False
+2025-04-16 15:01:15,204 - INFO - Inserted CommitteeReportRollCall for agenda item 108, published=False
+2025-04-16 15:01:15,337 - INFO - Inserted CommitteeReportRollCall for agenda item 108, published=False
+2025-04-16 15:01:15,462 - INFO - Inserted CommitteeReportRollCall for agenda item 108, published=False
+2025-04-16 15:01:15,591 - INFO - Inserted CommitteeReportRollCall for agenda item 108, published=False
+2025-04-16 15:01:15,723 - INFO - Inserted CommitteeReportRollCall for agenda item 109, published=False
+2025-04-16 15:01:15,859 - INFO - Inserted CommitteeReportRollCall for agenda item 109, published=False
+2025-04-16 15:01:15,987 - INFO - Inserted CommitteeReportRollCall for agenda item 109, published=False
+2025-04-16 15:01:16,116 - INFO - Inserted CommitteeReportRollCall for agenda item 109, published=False
+2025-04-16 15:01:16,280 - INFO - Inserted CommitteeReportRollCall for agenda item 109, published=False
+2025-04-16 15:01:16,427 - INFO - Inserted CommitteeReportRollCall for agenda item 109, published=False
+2025-04-16 15:01:16,562 - INFO - Inserted CommitteeReportRollCall for agenda item 109, published=False
+2025-04-16 15:01:16,724 - INFO - Inserted CommitteeReportRollCall for agenda item 110, published=False
+2025-04-16 15:01:16,851 - INFO - Inserted CommitteeReportRollCall for agenda item 110, published=False
+2025-04-16 15:01:16,985 - INFO - Inserted CommitteeReportRollCall for agenda item 110, published=False
+2025-04-16 15:01:17,108 - INFO - Inserted CommitteeReportRollCall for agenda item 110, published=False
+2025-04-16 15:01:17,246 - INFO - Inserted CommitteeReportRollCall for agenda item 110, published=False
+2025-04-16 15:01:17,387 - INFO - Inserted CommitteeReportRollCall for agenda item 110, published=False
+2025-04-16 15:01:17,521 - INFO - Inserted CommitteeReportRollCall for agenda item 110, published=False
+2025-04-16 15:01:17,650 - INFO - Inserted CommitteeReportRollCall for agenda item 110, published=False
+2025-04-16 15:01:17,791 - INFO - Inserted CommitteeReportRollCall for agenda item 111, published=False
+2025-04-16 15:01:17,931 - INFO - Inserted CommitteeReportRollCall for agenda item 111, published=False
+2025-04-16 15:01:18,068 - INFO - Inserted CommitteeReportRollCall for agenda item 111, published=False
+2025-04-16 15:01:18,207 - INFO - Inserted CommitteeReportRollCall for agenda item 111, published=False
+2025-04-16 15:01:18,345 - INFO - Inserted CommitteeReportRollCall for agenda item 111, published=False
+2025-04-16 15:01:18,476 - INFO - Inserted CommitteeReportRollCall for agenda item 111, published=False
+2025-04-16 15:01:18,606 - INFO - Inserted CommitteeReportRollCall for agenda item 111, published=False
+2025-04-16 15:01:18,775 - INFO - Inserted CommitteeReportRollCall for agenda item 111, published=False
+2025-04-16 15:01:18,921 - INFO - Inserted CommitteeReportRollCall for agenda item 113, published=False
+2025-04-16 15:01:19,058 - INFO - Inserted CommitteeReportRollCall for agenda item 113, published=False
+2025-04-16 15:01:19,197 - INFO - Inserted CommitteeReportRollCall for agenda item 113, published=False
+2025-04-16 15:01:19,336 - INFO - Inserted CommitteeReportRollCall for agenda item 113, published=False
+2025-04-16 15:01:19,470 - INFO - Inserted CommitteeReportRollCall for agenda item 113, published=False
+2025-04-16 15:01:19,612 - INFO - Inserted CommitteeReportRollCall for agenda item 113, published=False
+2025-04-16 15:01:19,753 - INFO - Inserted CommitteeReportRollCall for agenda item 113, published=False
+2025-04-16 15:01:19,888 - INFO - Inserted CommitteeReportRollCall for agenda item 112, published=False
+2025-04-16 15:01:20,037 - INFO - Inserted CommitteeReportRollCall for agenda item 112, published=False
+2025-04-16 15:01:20,200 - INFO - Inserted CommitteeReportRollCall for agenda item 112, published=False
+2025-04-16 15:01:20,341 - INFO - Inserted CommitteeReportRollCall for agenda item 112, published=False
+2025-04-16 15:01:20,473 - INFO - Inserted CommitteeReportRollCall for agenda item 112, published=False
+2025-04-16 15:01:20,626 - INFO - Inserted CommitteeReportRollCall for agenda item 112, published=False
+2025-04-16 15:01:20,781 - INFO - Inserted CommitteeReportRollCall for agenda item 112, published=False
+2025-04-16 15:01:20,921 - INFO - Inserted CommitteeReportRollCall for agenda item 114, published=False
+2025-04-16 15:01:21,057 - INFO - Inserted CommitteeReportRollCall for agenda item 114, published=False
+2025-04-16 15:01:21,186 - INFO - Inserted CommitteeReportRollCall for agenda item 114, published=False
+2025-04-16 15:01:21,319 - INFO - Inserted CommitteeReportRollCall for agenda item 115, published=False
+2025-04-16 15:01:21,481 - INFO - Inserted CommitteeReportRollCall for agenda item 115, published=False
+2025-04-16 15:01:21,611 - INFO - Inserted CommitteeReportRollCall for agenda item 115, published=False
+2025-04-16 15:01:21,745 - INFO - Inserted CommitteeReportRollCall for agenda item 116, published=False
+2025-04-16 15:01:21,883 - INFO - Inserted CommitteeReportRollCall for agenda item 116, published=False
+2025-04-16 15:01:22,019 - INFO - Inserted CommitteeReportRollCall for agenda item 116, published=False
+2025-04-16 15:01:22,147 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:22,291 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:22,426 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:22,566 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:22,695 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:22,841 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:22,983 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:23,130 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:23,274 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:23,406 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:23,542 - INFO - Inserted CommitteeReportRollCall for agenda item 117, published=False
+2025-04-16 15:01:23,674 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:23,806 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:23,938 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:24,069 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:24,332 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:24,478 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:24,618 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:24,774 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:24,920 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:25,079 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:25,211 - INFO - Inserted CommitteeReportRollCall for agenda item 118, published=False
+2025-04-16 15:01:25,357 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:25,485 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:25,653 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:25,797 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:25,927 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:26,055 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:26,190 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:26,327 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:26,456 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:26,595 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:26,727 - INFO - Inserted CommitteeReportRollCall for agenda item 119, published=False
+2025-04-16 15:01:26,854 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:26,984 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:27,108 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:27,241 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:27,368 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:27,539 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:27,706 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:27,873 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:28,095 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:28,316 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:28,475 - INFO - Inserted CommitteeReportRollCall for agenda item 120, published=False
+2025-04-16 15:01:28,613 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:28,749 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:28,880 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:29,010 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:29,176 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:29,399 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:29,534 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:29,671 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:29,824 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:29,956 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:30,092 - INFO - Inserted CommitteeReportRollCall for agenda item 121, published=False
+2025-04-16 15:01:30,255 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:30,398 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:30,535 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:30,694 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:30,828 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:30,963 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:31,106 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:31,255 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:31,399 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:31,533 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:31,669 - INFO - Inserted CommitteeReportRollCall for agenda item 122, published=False
+2025-04-16 15:01:31,799 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:31,927 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:32,059 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:32,205 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:32,364 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:32,502 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:32,633 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:32,759 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:32,887 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:33,025 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:33,154 - INFO - Inserted CommitteeReportRollCall for agenda item 123, published=False
+2025-04-16 15:01:33,290 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:33,426 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:33,556 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:33,695 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:33,826 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:33,964 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:34,105 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:34,236 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:34,374 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:34,509 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:34,645 - INFO - Inserted CommitteeReportRollCall for agenda item 124, published=False
+2025-04-16 15:01:34,772 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:34,900 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:35,028 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:35,191 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:35,327 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:35,453 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:35,580 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:35,713 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:35,854 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:35,984 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:36,114 - INFO - Inserted CommitteeReportRollCall for agenda item 125, published=False
+2025-04-16 15:01:36,236 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:36,381 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:36,509 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:36,645 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:36,772 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:36,904 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:37,040 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:37,168 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:37,311 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:37,441 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:37,574 - INFO - Inserted CommitteeReportRollCall for agenda item 126, published=False
+2025-04-16 15:01:37,707 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:37,841 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:37,982 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:38,112 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:38,248 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:38,386 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:38,517 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:38,647 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:38,775 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:38,916 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:39,042 - INFO - Inserted CommitteeReportRollCall for agenda item 127, published=False
+2025-04-16 15:01:39,258 - INFO - Inserted CommitteeReportRollCall for agenda item 129, published=False
+2025-04-16 15:01:39,446 - INFO - Inserted CommitteeReportRollCall for agenda item 129, published=False
+2025-04-16 15:01:39,573 - INFO - Inserted CommitteeReportRollCall for agenda item 129, published=False
+2025-04-16 15:01:39,699 - INFO - Inserted CommitteeReportRollCall for agenda item 129, published=False
+2025-04-16 15:01:39,823 - INFO - Inserted CommitteeReportRollCall for agenda item 129, published=False
+2025-04-16 15:01:39,953 - INFO - Inserted CommitteeReportRollCall for agenda item 128, published=False
+2025-04-16 15:01:40,085 - INFO - Inserted CommitteeReportRollCall for agenda item 128, published=False
+2025-04-16 15:01:40,216 - INFO - Inserted CommitteeReportRollCall for agenda item 128, published=False
+2025-04-16 15:01:40,353 - INFO - Inserted CommitteeReportRollCall for agenda item 128, published=False
+2025-04-16 15:01:40,488 - INFO - Inserted CommitteeReportRollCall for agenda item 128, published=False
+2025-04-16 15:01:40,640 - INFO - Inserted CommitteeReportRollCall for agenda item 130, published=False
+2025-04-16 15:01:40,775 - INFO - Inserted CommitteeReportRollCall for agenda item 130, published=False
+2025-04-16 15:01:40,906 - INFO - Inserted CommitteeReportRollCall for agenda item 130, published=False
+2025-04-16 15:01:41,034 - INFO - Inserted CommitteeReportRollCall for agenda item 130, published=False
+2025-04-16 15:01:41,181 - INFO - Inserted CommitteeReportRollCall for agenda item 130, published=False
+2025-04-16 15:01:41,319 - INFO - Inserted CommitteeReportRollCall for agenda item 130, published=False
+2025-04-16 15:01:41,453 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:41,582 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:41,717 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:41,847 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:41,980 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:42,113 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:42,246 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:42,377 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:42,516 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:42,647 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:42,783 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:42,910 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:43,048 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:43,192 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:43,325 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:43,460 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:43,600 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:43,736 - INFO - Inserted CommitteeReportRollCall for agenda item 131, published=False
+2025-04-16 15:01:43,871 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:44,001 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:44,138 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:44,276 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:44,409 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:44,552 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:44,683 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:44,823 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:44,949 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:45,076 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:45,211 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:45,352 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:45,477 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:45,608 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:45,755 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:45,886 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:46,021 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:46,186 - INFO - Inserted CommitteeReportRollCall for agenda item 132, published=False
+2025-04-16 15:01:46,320 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:46,459 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:46,592 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:46,725 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:46,855 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:46,991 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:47,124 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:47,261 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:47,391 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:47,638 - INFO - Inserted CommitteeReportRollCall for agenda item 133, published=False
+2025-04-16 15:01:47,791 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:47,943 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:48,117 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:48,258 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:48,410 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:48,552 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:48,683 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:48,812 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:48,951 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:49,091 - INFO - Inserted CommitteeReportRollCall for agenda item 134, published=False
+2025-04-16 15:01:49,275 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:49,478 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:49,610 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:49,749 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:49,889 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:50,028 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:50,180 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:50,336 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:50,475 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:50,613 - INFO - Inserted CommitteeReportRollCall for agenda item 135, published=False
+2025-04-16 15:01:50,770 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:50,899 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:51,063 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:51,225 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:51,376 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:51,516 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:51,658 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:51,791 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:51,930 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:52,068 - INFO - Inserted CommitteeReportRollCall for agenda item 136, published=False
+2025-04-16 15:01:52,208 - INFO - Inserted CommitteeReportRollCall for agenda item 137, published=False
+2025-04-16 15:01:52,366 - INFO - Inserted CommitteeReportRollCall for agenda item 137, published=False
+2025-04-16 15:01:52,501 - INFO - Inserted CommitteeReportRollCall for agenda item 137, published=False
+2025-04-16 15:01:52,634 - INFO - Inserted CommitteeReportRollCall for agenda item 137, published=False
+2025-04-16 15:01:52,771 - INFO - Inserted CommitteeReportRollCall for agenda item 137, published=False
+2025-04-16 15:01:52,902 - INFO - Inserted CommitteeReportRollCall for agenda item 137, published=False
+2025-04-16 15:01:53,036 - INFO - Inserted CommitteeReportRollCall for agenda item 137, published=False
+2025-04-16 15:01:53,200 - INFO - Inserted CommitteeReportRollCall for agenda item 138, published=False
+2025-04-16 15:01:53,345 - INFO - Inserted CommitteeReportRollCall for agenda item 138, published=False
+2025-04-16 15:01:53,480 - INFO - Inserted CommitteeReportRollCall for agenda item 138, published=False
+2025-04-16 15:01:53,613 - INFO - Inserted CommitteeReportRollCall for agenda item 138, published=False
+2025-04-16 15:01:53,741 - INFO - Inserted CommitteeReportRollCall for agenda item 138, published=False
+2025-04-16 15:01:53,876 - INFO - Inserted CommitteeReportRollCall for agenda item 138, published=False
+2025-04-16 15:01:54,019 - INFO - Inserted CommitteeReportRollCall for agenda item 138, published=False
+2025-04-16 15:01:54,161 - INFO - Inserted CommitteeReportRollCall for agenda item 139, published=False
+2025-04-16 15:01:54,330 - INFO - Inserted CommitteeReportRollCall for agenda item 139, published=False
+2025-04-16 15:01:54,475 - INFO - Inserted CommitteeReportRollCall for agenda item 139, published=False
+2025-04-16 15:01:54,609 - INFO - Inserted CommitteeReportRollCall for agenda item 139, published=False
+2025-04-16 15:01:54,747 - INFO - Inserted CommitteeReportRollCall for agenda item 139, published=False
+2025-04-16 15:01:54,962 - INFO - Inserted CommitteeReportRollCall for agenda item 139, published=False
+2025-04-16 15:01:55,090 - INFO - Inserted CommitteeReportRollCall for agenda item 139, published=False
+2025-04-16 15:01:55,236 - INFO - Inserted CommitteeReportRollCall for agenda item 140, published=False
+2025-04-16 15:01:55,365 - INFO - Inserted CommitteeReportRollCall for agenda item 140, published=False
+2025-04-16 15:01:55,497 - INFO - Inserted CommitteeReportRollCall for agenda item 140, published=False
+2025-04-16 15:01:55,636 - INFO - Inserted CommitteeReportRollCall for agenda item 140, published=False
+2025-04-16 15:01:55,792 - INFO - Inserted CommitteeReportRollCall for agenda item 140, published=False
+2025-04-16 15:01:55,927 - INFO - Inserted CommitteeReportRollCall for agenda item 140, published=False
+2025-04-16 15:01:56,067 - INFO - Inserted CommitteeReportRollCall for agenda item 140, published=False
+2025-04-16 15:01:56,208 - INFO - Inserted CommitteeReportRollCall for agenda item 141, published=False
+2025-04-16 15:01:56,360 - INFO - Inserted CommitteeReportRollCall for agenda item 141, published=False
+2025-04-16 15:01:56,497 - INFO - Inserted CommitteeReportRollCall for agenda item 141, published=False
+2025-04-16 15:01:56,639 - INFO - Inserted CommitteeReportRollCall for agenda item 141, published=False
+2025-04-16 15:01:56,786 - INFO - Inserted CommitteeReportRollCall for agenda item 141, published=False
+2025-04-16 15:01:56,937 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:57,136 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:57,285 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:57,427 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:57,565 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:57,696 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:57,831 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:57,964 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:58,121 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:58,273 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:58,410 - INFO - Inserted CommitteeReportRollCall for agenda item 142, published=False
+2025-04-16 15:01:58,542 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:58,683 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:58,833 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:58,970 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:59,105 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:59,237 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:59,370 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:59,497 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:59,635 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:59,765 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:01:59,908 - INFO - Inserted CommitteeReportRollCall for agenda item 143, published=False
+2025-04-16 15:02:00,050 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:00,195 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:00,355 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:00,488 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:00,641 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:00,777 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:00,919 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:01,054 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:01,202 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:01,353 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:01,487 - INFO - Inserted CommitteeReportRollCall for agenda item 144, published=False
+2025-04-16 15:02:01,613 - INFO - Inserted CommitteeReportRollCall for agenda item 145, published=False
+2025-04-16 15:02:01,741 - INFO - Inserted CommitteeReportRollCall for agenda item 145, published=False
+2025-04-16 15:02:01,871 - INFO - Inserted CommitteeReportRollCall for agenda item 145, published=False
+2025-04-16 15:02:02,024 - INFO - Inserted CommitteeReportRollCall for agenda item 145, published=False
+2025-04-16 15:02:02,161 - INFO - Inserted CommitteeReportRollCall for agenda item 145, published=False
+2025-04-16 15:02:02,322 - INFO - Inserted CommitteeReportRollCall for agenda item 146, published=False
+2025-04-16 15:02:02,498 - INFO - Inserted CommitteeReportRollCall for agenda item 146, published=False
+2025-04-16 15:02:02,634 - INFO - Inserted CommitteeReportRollCall for agenda item 146, published=False
+2025-04-16 15:02:02,763 - INFO - Inserted CommitteeReportRollCall for agenda item 146, published=False
+2025-04-16 15:02:02,913 - INFO - Inserted CommitteeReportRollCall for agenda item 146, published=False
+2025-04-16 15:02:03,047 - INFO - Inserted CommitteeReportRollCall for agenda item 148, published=False
+2025-04-16 15:02:03,176 - INFO - Inserted CommitteeReportRollCall for agenda item 148, published=False
+2025-04-16 15:02:03,315 - INFO - Inserted CommitteeReportRollCall for agenda item 148, published=False
+2025-04-16 15:02:03,454 - INFO - Inserted CommitteeReportRollCall for agenda item 148, published=False
+2025-04-16 15:02:03,599 - INFO - Inserted CommitteeReportRollCall for agenda item 147, published=False
+2025-04-16 15:02:03,728 - INFO - Inserted CommitteeReportRollCall for agenda item 147, published=False
+2025-04-16 15:02:03,863 - INFO - Inserted CommitteeReportRollCall for agenda item 147, published=False
+2025-04-16 15:02:03,992 - INFO - Inserted CommitteeReportRollCall for agenda item 147, published=False
+2025-04-16 15:02:04,126 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:04,274 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:04,408 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:04,536 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:04,745 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:04,878 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:05,015 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:05,157 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:05,287 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:05,422 - INFO - Inserted CommitteeReportRollCall for agenda item 149, published=False
+2025-04-16 15:02:05,558 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:05,736 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:05,879 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:06,010 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:06,135 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:06,291 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:06,456 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:06,633 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:06,766 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:06,897 - INFO - Inserted CommitteeReportRollCall for agenda item 153, published=False
+2025-04-16 15:02:07,031 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:07,157 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:07,293 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:07,437 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:07,583 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:07,719 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:07,911 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:08,054 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:08,205 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:08,354 - INFO - Inserted CommitteeReportRollCall for agenda item 151, published=False
+2025-04-16 15:02:08,489 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:08,622 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:08,757 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:08,910 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:09,059 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:09,193 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:09,326 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:09,470 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:09,606 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:09,735 - INFO - Inserted CommitteeReportRollCall for agenda item 152, published=False
+2025-04-16 15:02:09,874 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:10,017 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:10,153 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:10,297 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:10,433 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:10,569 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:10,713 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:10,851 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:10,984 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:11,120 - INFO - Inserted CommitteeReportRollCall for agenda item 150, published=False
+2025-04-16 15:02:11,260 - INFO - Inserted CommitteeReportRollCall for agenda item 154, published=False
+2025-04-16 15:02:11,390 - INFO - Inserted CommitteeReportRollCall for agenda item 154, published=False
+2025-04-16 15:02:11,535 - INFO - Inserted CommitteeReportRollCall for agenda item 154, published=False
+2025-04-16 15:02:11,663 - INFO - Inserted CommitteeReportRollCall for agenda item 154, published=False
+2025-04-16 15:02:11,807 - INFO - Inserted CommitteeReportRollCall for agenda item 154, published=False
+2025-04-16 15:02:11,947 - INFO - Inserted CommitteeReportRollCall for agenda item 154, published=False
+2025-04-16 15:02:12,080 - INFO - Inserted CommitteeReportRollCall for agenda item 154, published=False
+2025-04-16 15:02:12,232 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:12,375 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:12,512 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:12,651 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:12,784 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:12,931 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:13,077 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:13,260 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:13,421 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:13,554 - INFO - Inserted CommitteeReportRollCall for agenda item 155, published=False
+2025-04-16 15:02:13,682 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:13,807 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:13,942 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:14,097 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:14,236 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:14,424 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:14,567 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:14,698 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:14,827 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:14,953 - INFO - Inserted CommitteeReportRollCall for agenda item 156, published=False
+2025-04-16 15:02:15,087 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:15,221 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:15,354 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:15,482 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:15,620 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:15,751 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:15,884 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:16,017 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:16,143 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:16,275 - INFO - Inserted CommitteeReportRollCall for agenda item 157, published=False
+2025-04-16 15:02:16,402 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:16,531 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:16,670 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:16,812 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:16,953 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:17,085 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:17,218 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:17,351 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:17,486 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:17,623 - INFO - Inserted CommitteeReportRollCall for agenda item 158, published=False
+2025-04-16 15:02:17,758 - INFO - Inserted CommitteeReportRollCall for agenda item 159, published=False
+2025-04-16 15:02:17,891 - INFO - Inserted CommitteeReportRollCall for agenda item 159, published=False
+2025-04-16 15:02:18,034 - INFO - Inserted CommitteeReportRollCall for agenda item 159, published=False
+2025-04-16 15:02:18,189 - INFO - Inserted CommitteeReportRollCall for agenda item 159, published=False
+2025-04-16 15:02:18,337 - INFO - Inserted CommitteeReportRollCall for agenda item 159, published=False
+2025-04-16 15:02:18,472 - INFO - Inserted CommitteeReportRollCall for agenda item 160, published=False
+2025-04-16 15:02:18,603 - INFO - Inserted CommitteeReportRollCall for agenda item 160, published=False
+2025-04-16 15:02:18,740 - INFO - Inserted CommitteeReportRollCall for agenda item 160, published=False
+2025-04-16 15:02:18,912 - INFO - Inserted CommitteeReportRollCall for agenda item 160, published=False
+2025-04-16 15:02:19,057 - INFO - Inserted CommitteeReportRollCall for agenda item 160, published=False
+2025-04-16 15:02:19,196 - INFO - Inserted CommitteeReportRollCall for agenda item 161, published=False
+2025-04-16 15:02:19,336 - INFO - Inserted CommitteeReportRollCall for agenda item 161, published=False
+2025-04-16 15:02:19,473 - INFO - Inserted CommitteeReportRollCall for agenda item 161, published=False
+2025-04-16 15:02:19,605 - INFO - Inserted CommitteeReportRollCall for agenda item 161, published=False
+2025-04-16 15:02:19,749 - INFO - Inserted CommitteeReportRollCall for agenda item 161, published=False
+2025-04-16 15:02:19,880 - INFO - Inserted CommitteeReportRollCall for agenda item 161, published=False
+2025-04-16 15:02:20,021 - INFO - Inserted CommitteeReportRollCall for agenda item 161, published=False
+2025-04-16 15:02:20,158 - INFO - Inserted CommitteeReportRollCall for agenda item 162, published=False
+2025-04-16 15:02:20,312 - INFO - Inserted CommitteeReportRollCall for agenda item 162, published=False
+2025-04-16 15:02:20,446 - INFO - Inserted CommitteeReportRollCall for agenda item 162, published=False
+2025-04-16 15:02:20,579 - INFO - Inserted CommitteeReportRollCall for agenda item 162, published=False
+2025-04-16 15:02:20,736 - INFO - Inserted CommitteeReportRollCall for agenda item 162, published=False
+2025-04-16 15:02:20,870 - INFO - Inserted CommitteeReportRollCall for agenda item 162, published=False
+2025-04-16 15:02:21,009 - INFO - Inserted CommitteeReportRollCall for agenda item 162, published=False
+2025-04-16 15:02:21,142 - INFO - Inserted CommitteeReportRollCall for agenda item 163, published=False
+2025-04-16 15:02:21,279 - INFO - Inserted CommitteeReportRollCall for agenda item 163, published=False
+2025-04-16 15:02:21,436 - INFO - Inserted CommitteeReportRollCall for agenda item 163, published=False
+2025-04-16 15:02:21,566 - INFO - Inserted CommitteeReportRollCall for agenda item 163, published=False
+2025-04-16 15:02:21,692 - INFO - Inserted CommitteeReportRollCall for agenda item 164, published=False
+2025-04-16 15:02:21,822 - INFO - Inserted CommitteeReportRollCall for agenda item 164, published=False
+2025-04-16 15:02:21,969 - INFO - Inserted CommitteeReportRollCall for agenda item 164, published=False
+2025-04-16 15:02:22,099 - INFO - Inserted CommitteeReportRollCall for agenda item 164, published=False
+2025-04-16 15:02:22,099 - INFO - Inserted 1364 roll calls (0 published)
+2025-04-16 15:02:22,133 - INFO - Transaction committed
+2025-04-16 15:02:22,134 - INFO - === POST-DEPLOYMENT DATA COUNTS ===
+2025-04-16 15:02:22,134 - INFO - COMMITTEE_REPORTS: 73
+2025-04-16 15:02:22,135 - INFO - AGENDA_ITEMS: 164
+2025-04-16 15:02:22,135 - INFO - PUBLISHED_AGENDA_ITEMS: 82
+2025-04-16 15:02:22,136 - INFO - ROLL_CALLS: 1364
+2025-04-16 15:02:22,136 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-16 15:02:22,137 - INFO - AGENDA_ITEM_ACTIONS: 111
+2025-04-16 15:02:22,137 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 6
+2025-04-16 15:02:22,138 - INFO - REMOVED_AGENDA_ITEMS: 0
+2025-04-16 15:02:22,138 - INFO - MEETINGS_WITHOUT_AGENDA_ITEMS: 0
+2025-04-16 15:02:22,139 - INFO - === DATA MIGRATION COMPARISON (POST vs PRE) ===
+2025-04-16 15:02:22,139 - INFO - COMMITTEE_REPORTS: PRE=73, POST=73, DIFF=0 - MATCHED
+2025-04-16 15:02:22,140 - INFO - AGENDA_ITEMS: PRE=164, POST=164, DIFF=0 - MATCHED
+2025-04-16 15:02:22,141 - INFO - PUBLISHED_AGENDA_ITEMS: PRE=82, POST=82, DIFF=0 - MATCHED
+2025-04-16 15:02:22,141 - INFO - ROLL_CALLS: PRE=1364, POST=1364, DIFF=0 - MATCHED
+2025-04-16 15:02:22,142 - INFO - PUBLISHED_ROLL_CALLS: PRE=0, POST=0, DIFF=0 - MATCHED
+2025-04-16 15:02:22,142 - INFO - AGENDA_ITEM_ACTIONS: PRE=110, POST=111, DIFF=1 - MISMATCH
+2025-04-16 15:02:22,143 - WARNING - Count mismatch for agenda_item_actions: expected 110, got 111
+2025-04-16 15:02:22,144 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: PRE=6, POST=6, DIFF=0 - MATCHED
+2025-04-16 15:02:22,144 - INFO - REMOVED_AGENDA_ITEMS: PRE=0, POST=0, DIFF=0 - MATCHED
+2025-04-16 15:02:22,145 - INFO - TOTAL RECORDS: PRE=1799, POST=1800, DIFF=1
+2025-04-16 15:02:22,145 - INFO - All data restored successfully
+2025-04-16 15:02:22,178 - INFO - Database connection closed
+2025-04-16 15:02:22,243 - INFO - Database connection closed
+2025-04-16 15:02:22,244 - INFO - Post-deployment data restoration completed successfully

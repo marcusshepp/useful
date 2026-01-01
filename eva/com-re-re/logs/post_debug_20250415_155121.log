@@ -1,0 +1,410 @@
+2025-04-15 15:51:21,845 - INFO - Starting post-deployment data restoration
+2025-04-15 15:51:21,977 - INFO - Database connection established
+2025-04-15 15:51:22,015 - INFO - Database connection established
+2025-04-15 15:51:22,015 - INFO - Transaction started
+2025-04-15 15:51:22,038 - INFO - Data loaded from migration_data.json
+2025-04-15 15:51:22,038 - INFO - Found 80 items for committee_reports
+2025-04-15 15:51:22,038 - INFO - Found 80 items for committee_report_ids
+2025-04-15 15:51:22,039 - INFO - Found 12 items for member_roll_calls
+2025-04-15 15:51:22,039 - INFO - Found 5 items for committee_report_published_actions
+2025-04-15 15:51:22,046 - INFO - Found 3 items for published_items
+2025-04-15 15:51:22,047 - INFO - Found 205 items for committee_meeting_agenda_items
+2025-04-15 15:51:22,047 - INFO - Found 5 items for action_to_agenda_items
+2025-04-15 15:51:22,048 - INFO - === PRE-DEPLOYMENT DATA COUNTS (FROM JSON) ===
+2025-04-15 15:51:22,048 - INFO - COMMITTEE_REPORTS: 80
+2025-04-15 15:51:22,049 - INFO - AGENDA_ITEMS: 205
+2025-04-15 15:51:22,049 - INFO - PUBLISHED_AGENDA_ITEMS: 3
+2025-04-15 15:51:22,049 - INFO - ROLL_CALLS: 12
+2025-04-15 15:51:22,050 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-15 15:51:22,050 - INFO - AGENDA_ITEM_ACTIONS: 5
+2025-04-15 15:51:22,050 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 5
+2025-04-15 15:51:22,051 - INFO - REMOVED_AGENDA_ITEMS: 2
+2025-04-15 15:51:22,051 - INFO - LEGISLATION_ITEMS: 134
+2025-04-15 15:51:22,051 - INFO - COMMITTEE_ACTIONS: 21
+2025-04-15 15:51:22,051 - INFO - Loading CommitteeReportCommitteeActions reference data...
+2025-04-15 15:51:22,055 - INFO - Loaded 21 committee actions for reference
+2025-04-15 15:51:22,055 - INFO - Updating CommitteeReports table with meeting details...
+2025-04-15 15:51:22,070 - INFO - Updated CommitteeReport ID 14 with meeting details
+2025-04-15 15:51:22,083 - INFO - Updated CommitteeReport ID 15 with meeting details
+2025-04-15 15:51:22,092 - INFO - Updated CommitteeReport ID 1005 with meeting details
+2025-04-15 15:51:22,102 - INFO - Updated CommitteeReport ID 1006 with meeting details
+2025-04-15 15:51:22,115 - INFO - Updated CommitteeReport ID 1007 with meeting details
+2025-04-15 15:51:22,122 - INFO - Updated CommitteeReport ID 2005 with meeting details
+2025-04-15 15:51:22,128 - INFO - Updated CommitteeReport ID 3005 with meeting details
+2025-04-15 15:51:22,136 - INFO - Updated CommitteeReport ID 3006 with meeting details
+2025-04-15 15:51:22,146 - INFO - Updated CommitteeReport ID 3007 with meeting details
+2025-04-15 15:51:22,153 - INFO - Updated CommitteeReport ID 3008 with meeting details
+2025-04-15 15:51:22,160 - INFO - Updated CommitteeReport ID 3009 with meeting details
+2025-04-15 15:51:22,170 - INFO - Updated CommitteeReport ID 3010 with meeting details
+2025-04-15 15:51:22,176 - INFO - Updated CommitteeReport ID 3011 with meeting details
+2025-04-15 15:51:22,183 - INFO - Updated CommitteeReport ID 3012 with meeting details
+2025-04-15 15:51:22,190 - INFO - Updated CommitteeReport ID 3013 with meeting details
+2025-04-15 15:51:22,196 - INFO - Updated CommitteeReport ID 3014 with meeting details
+2025-04-15 15:51:22,203 - INFO - Updated CommitteeReport ID 3015 with meeting details
+2025-04-15 15:51:22,211 - INFO - Updated CommitteeReport ID 3016 with meeting details
+2025-04-15 15:51:22,220 - INFO - Updated CommitteeReport ID 3017 with meeting details
+2025-04-15 15:51:22,229 - INFO - Updated CommitteeReport ID 3018 with meeting details
+2025-04-15 15:51:22,240 - INFO - Updated CommitteeReport ID 3019 with meeting details
+2025-04-15 15:51:22,247 - INFO - Updated CommitteeReport ID 3020 with meeting details
+2025-04-15 15:51:22,255 - INFO - Updated CommitteeReport ID 3021 with meeting details
+2025-04-15 15:51:22,264 - INFO - Updated CommitteeReport ID 3022 with meeting details
+2025-04-15 15:51:22,271 - INFO - Updated CommitteeReport ID 3023 with meeting details
+2025-04-15 15:51:22,273 - WARNING - No meeting details found for Meeting ID 3665, skipping update
+2025-04-15 15:51:22,275 - WARNING - No meeting details found for Meeting ID 4665, skipping update
+2025-04-15 15:51:22,286 - INFO - Updated CommitteeReport ID 4006 with meeting details
+2025-04-15 15:51:22,296 - INFO - Updated CommitteeReport ID 4007 with meeting details
+2025-04-15 15:51:22,303 - INFO - Updated CommitteeReport ID 4008 with meeting details
+2025-04-15 15:51:22,312 - INFO - Updated CommitteeReport ID 4009 with meeting details
+2025-04-15 15:51:22,322 - INFO - Updated CommitteeReport ID 4010 with meeting details
+2025-04-15 15:51:22,324 - WARNING - No meeting details found for Meeting ID 4667, skipping update
+2025-04-15 15:51:22,331 - INFO - Updated CommitteeReport ID 4012 with meeting details
+2025-04-15 15:51:22,340 - INFO - Updated CommitteeReport ID 4013 with meeting details
+2025-04-15 15:51:22,349 - INFO - Updated CommitteeReport ID 4014 with meeting details
+2025-04-15 15:51:22,356 - INFO - Updated CommitteeReport ID 4015 with meeting details
+2025-04-15 15:51:22,357 - WARNING - No meeting details found for Meeting ID 4670, skipping update
+2025-04-15 15:51:22,359 - WARNING - No meeting details found for Meeting ID 4668, skipping update
+2025-04-15 15:51:22,361 - WARNING - No meeting details found for Meeting ID 4669, skipping update
+2025-04-15 15:51:22,370 - INFO - Updated CommitteeReport ID 4019 with meeting details
+2025-04-15 15:51:22,380 - INFO - Updated CommitteeReport ID 4020 with meeting details
+2025-04-15 15:51:22,390 - INFO - Updated CommitteeReport ID 5016 with meeting details
+2025-04-15 15:51:22,403 - INFO - Updated CommitteeReport ID 6016 with meeting details
+2025-04-15 15:51:22,416 - INFO - Updated CommitteeReport ID 6017 with meeting details
+2025-04-15 15:51:22,426 - INFO - Updated CommitteeReport ID 6018 with meeting details
+2025-04-15 15:51:22,435 - INFO - Updated CommitteeReport ID 7016 with meeting details
+2025-04-15 15:51:22,443 - INFO - Updated CommitteeReport ID 7017 with meeting details
+2025-04-15 15:51:22,451 - INFO - Updated CommitteeReport ID 7018 with meeting details
+2025-04-15 15:51:22,461 - INFO - Updated CommitteeReport ID 7019 with meeting details
+2025-04-15 15:51:22,471 - INFO - Updated CommitteeReport ID 8016 with meeting details
+2025-04-15 15:51:22,480 - INFO - Updated CommitteeReport ID 9016 with meeting details
+2025-04-15 15:51:22,486 - INFO - Updated CommitteeReport ID 10016 with meeting details
+2025-04-15 15:51:22,496 - INFO - Updated CommitteeReport ID 10017 with meeting details
+2025-04-15 15:51:22,504 - INFO - Updated CommitteeReport ID 10018 with meeting details
+2025-04-15 15:51:22,512 - INFO - Updated CommitteeReport ID 10019 with meeting details
+2025-04-15 15:51:22,521 - INFO - Updated CommitteeReport ID 10020 with meeting details
+2025-04-15 15:51:22,529 - INFO - Updated CommitteeReport ID 10021 with meeting details
+2025-04-15 15:51:22,535 - INFO - Updated CommitteeReport ID 10022 with meeting details
+2025-04-15 15:51:22,543 - INFO - Updated CommitteeReport ID 10023 with meeting details
+2025-04-15 15:51:22,552 - INFO - Updated CommitteeReport ID 10024 with meeting details
+2025-04-15 15:51:22,560 - INFO - Updated CommitteeReport ID 10025 with meeting details
+2025-04-15 15:51:22,564 - INFO - Updated CommitteeReport ID 10026 with meeting details
+2025-04-15 15:51:22,573 - INFO - Updated CommitteeReport ID 11025 with meeting details
+2025-04-15 15:51:22,580 - INFO - Updated CommitteeReport ID 11026 with meeting details
+2025-04-15 15:51:22,589 - INFO - Updated CommitteeReport ID 12025 with meeting details
+2025-04-15 15:51:22,596 - INFO - Updated CommitteeReport ID 12026 with meeting details
+2025-04-15 15:51:22,603 - INFO - Updated CommitteeReport ID 13025 with meeting details
+2025-04-15 15:51:22,612 - INFO - Updated CommitteeReport ID 13026 with meeting details
+2025-04-15 15:51:22,619 - INFO - Updated CommitteeReport ID 13027 with meeting details
+2025-04-15 15:51:22,624 - INFO - Updated CommitteeReport ID 13028 with meeting details
+2025-04-15 15:51:22,634 - INFO - Updated CommitteeReport ID 13029 with meeting details
+2025-04-15 15:51:22,643 - INFO - Updated CommitteeReport ID 14025 with meeting details
+2025-04-15 15:51:22,651 - INFO - Updated CommitteeReport ID 14026 with meeting details
+2025-04-15 15:51:22,659 - INFO - Updated CommitteeReport ID 14027 with meeting details
+2025-04-15 15:51:22,669 - INFO - Updated CommitteeReport ID 14028 with meeting details
+2025-04-15 15:51:22,677 - INFO - Updated CommitteeReport ID 14029 with meeting details
+2025-04-15 15:51:22,685 - INFO - Updated CommitteeReport ID 14030 with meeting details
+2025-04-15 15:51:22,694 - INFO - Updated CommitteeReport ID 14031 with meeting details
+2025-04-15 15:51:22,703 - INFO - Updated CommitteeReport ID 14032 with meeting details
+2025-04-15 15:51:22,703 - INFO - Updated 74 committee reports with meeting details
+2025-04-15 15:51:22,704 - INFO - Inserting data into CommitteeReportAgendaItems...
+2025-04-15 15:51:22,704 - INFO - Creating set of published agenda item IDs...
+2025-04-15 15:51:22,704 - INFO - Found 3 published agenda item IDs
+2025-04-15 15:51:22,718 - INFO - Inserted agenda item: reportId: 14 agendaItemId: 4398 legId: 1162
+2025-04-15 15:51:22,727 - INFO - Inserted agenda item: reportId: 14 agendaItemId: 4399 legId: 1471
+2025-04-15 15:51:22,736 - INFO - Inserted agenda item: reportId: 14 agendaItemId: 4400 legId: 70
+2025-04-15 15:51:22,745 - INFO - Inserted agenda item: reportId: 14 agendaItemId: 4401 legId: 71
+2025-04-15 15:51:22,754 - INFO - Inserted agenda item: reportId: 14 agendaItemId: 4402 legId: 72
+2025-04-15 15:51:22,763 - INFO - Inserted agenda item: reportId: 15 agendaItemId: 14774 legId: 1
+2025-04-15 15:51:22,773 - INFO - Inserted agenda item: reportId: 1005 agendaItemId: 5824 legId: None
+2025-04-15 15:51:22,781 - INFO - Inserted agenda item: reportId: 1005 agendaItemId: 5825 legId: None
+2025-04-15 15:51:22,790 - INFO - Inserted agenda item: reportId: 1005 agendaItemId: 5826 legId: None
+2025-04-15 15:51:22,798 - INFO - Inserted agenda item: reportId: 1006 agendaItemId: 9152 legId: 6568
+2025-04-15 15:51:22,799 - WARNING - No agenda items found for Meeting ID 934, skipping report 1007
+2025-04-15 15:51:22,805 - INFO - Inserted agenda item: reportId: 2005 agendaItemId: 5830 legId: None
+2025-04-15 15:51:22,814 - INFO - Inserted agenda item: reportId: 2005 agendaItemId: 5831 legId: None
+2025-04-15 15:51:22,824 - INFO - Inserted agenda item: reportId: 3005 agendaItemId: 3403 legId: None
+2025-04-15 15:51:22,831 - INFO - Inserted agenda item: reportId: 3005 agendaItemId: 3404 legId: None
+2025-04-15 15:51:22,838 - INFO - Inserted agenda item: reportId: 3005 agendaItemId: 3405 legId: None
+2025-04-15 15:51:22,846 - INFO - Inserted agenda item: reportId: 3005 agendaItemId: 3406 legId: 2529
+2025-04-15 15:51:22,855 - INFO - Inserted agenda item: reportId: 3006 agendaItemId: 3487 legId: None
+2025-04-15 15:51:22,863 - INFO - Inserted agenda item: reportId: 3006 agendaItemId: 3488 legId: 3772
+2025-04-15 15:51:22,871 - INFO - Inserted agenda item: reportId: 3007 agendaItemId: 5796 legId: None
+2025-04-15 15:51:22,879 - INFO - Inserted agenda item: reportId: 3007 agendaItemId: 5797 legId: None
+2025-04-15 15:51:22,886 - INFO - Inserted agenda item: reportId: 3007 agendaItemId: 5798 legId: None
+2025-04-15 15:51:22,894 - INFO - Inserted agenda item: reportId: 3007 agendaItemId: 5799 legId: None
+2025-04-15 15:51:22,901 - INFO - Inserted agenda item: reportId: 3007 agendaItemId: 5800 legId: None
+2025-04-15 15:51:22,911 - INFO - Inserted agenda item: reportId: 3007 agendaItemId: 5801 legId: None
+2025-04-15 15:51:22,918 - INFO - Inserted agenda item: reportId: 3008 agendaItemId: 3374 legId: 3559
+2025-04-15 15:51:22,925 - INFO - Inserted agenda item: reportId: 3008 agendaItemId: 3375 legId: 1545
+2025-04-15 15:51:22,935 - INFO - Inserted agenda item: reportId: 3008 agendaItemId: 3376 legId: 2311
+2025-04-15 15:51:22,945 - INFO - Inserted agenda item: reportId: 3008 agendaItemId: 3377 legId: 2493
+2025-04-15 15:51:22,951 - INFO - Inserted agenda item: reportId: 3008 agendaItemId: 3378 legId: 2529
+2025-04-15 15:51:22,962 - INFO - Inserted agenda item: reportId: 3008 agendaItemId: 3379 legId: 2537
+2025-04-15 15:51:22,970 - INFO - Inserted agenda item: reportId: 3008 agendaItemId: 3380 legId: 2538
+2025-04-15 15:51:22,971 - WARNING - No agenda items found for Meeting ID 1268, skipping report 3009
+2025-04-15 15:51:22,983 - INFO - Inserted agenda item: reportId: 3010 agendaItemId: 4392 legId: 757
+2025-04-15 15:51:22,995 - INFO - Inserted agenda item: reportId: 3010 agendaItemId: 4393 legId: 427
+2025-04-15 15:51:23,004 - INFO - Inserted agenda item: reportId: 3010 agendaItemId: 4394 legId: 3672
+2025-04-15 15:51:23,014 - INFO - Inserted agenda item: reportId: 3010 agendaItemId: 4395 legId: 3591
+2025-04-15 15:51:23,023 - INFO - Inserted agenda item: reportId: 3010 agendaItemId: 4396 legId: 3592
+2025-04-15 15:51:23,031 - INFO - Inserted agenda item: reportId: 3010 agendaItemId: 4397 legId: 1162
+2025-04-15 15:51:23,040 - INFO - Inserted agenda item: reportId: 3010 agendaItemId: 15774 legId: 1
+2025-04-15 15:51:23,040 - WARNING - No agenda items found for Meeting ID 1280, skipping report 3011
+2025-04-15 15:51:23,049 - INFO - Inserted agenda item: reportId: 3012 agendaItemId: 4373 legId: 3588
+2025-04-15 15:51:23,059 - INFO - Inserted agenda item: reportId: 3012 agendaItemId: 4374 legId: 3589
+2025-04-15 15:51:23,066 - INFO - Inserted agenda item: reportId: 3012 agendaItemId: 4375 legId: 3590
+2025-04-15 15:51:23,074 - INFO - Inserted agenda item: reportId: 3012 agendaItemId: 4376 legId: 427
+2025-04-15 15:51:23,084 - INFO - Inserted agenda item: reportId: 3013 agendaItemId: 4421 legId: 3563
+2025-04-15 15:51:23,093 - INFO - Inserted agenda item: reportId: 3013 agendaItemId: 4422 legId: 3564
+2025-04-15 15:51:23,101 - INFO - Inserted agenda item: reportId: 3013 agendaItemId: 4423 legId: 3467
+2025-04-15 15:51:23,110 - INFO - Inserted agenda item: reportId: 3013 agendaItemId: 4424 legId: 1769
+2025-04-15 15:51:23,120 - INFO - Inserted agenda item: reportId: 3013 agendaItemId: 4425 legId: 1770
+2025-04-15 15:51:23,126 - INFO - Inserted agenda item: reportId: 3013 agendaItemId: 4426 legId: 3633
+2025-04-15 15:51:23,135 - INFO - Inserted agenda item: reportId: 3014 agendaItemId: 4349 legId: 3640
+2025-04-15 15:51:23,144 - INFO - Inserted agenda item: reportId: 3014 agendaItemId: 4350 legId: 3641
+2025-04-15 15:51:23,150 - INFO - Inserted agenda item: reportId: 3014 agendaItemId: 4351 legId: 3563
+2025-04-15 15:51:23,156 - INFO - Inserted agenda item: reportId: 3014 agendaItemId: 4352 legId: 3564
+2025-04-15 15:51:23,161 - INFO - Inserted agenda item: reportId: 3015 agendaItemId: 4358 legId: 1769
+2025-04-15 15:51:23,166 - INFO - Inserted agenda item: reportId: 3015 agendaItemId: 4359 legId: 1770
+2025-04-15 15:51:23,175 - INFO - Inserted agenda item: reportId: 3015 agendaItemId: 4360 legId: 3494
+2025-04-15 15:51:23,183 - INFO - Inserted agenda item: reportId: 3015 agendaItemId: 4361 legId: 3495
+2025-04-15 15:51:23,191 - INFO - Inserted agenda item: reportId: 3015 agendaItemId: 4362 legId: 3496
+2025-04-15 15:51:23,200 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4405 legId: 2038
+2025-04-15 15:51:23,209 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4406 legId: 2039
+2025-04-15 15:51:23,215 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4407 legId: 3542
+2025-04-15 15:51:23,221 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4408 legId: 3494
+2025-04-15 15:51:23,226 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4409 legId: 3495
+2025-04-15 15:51:23,231 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4410 legId: 3496
+2025-04-15 15:51:23,236 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4411 legId: 757
+2025-04-15 15:51:23,243 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4412 legId: 2238
+2025-04-15 15:51:23,252 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4413 legId: 2239
+2025-04-15 15:51:23,261 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4414 legId: 2240
+2025-04-15 15:51:23,269 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4415 legId: 2241
+2025-04-15 15:51:23,275 - INFO - Inserted agenda item: reportId: 3016 agendaItemId: 4416 legId: 2242
+2025-04-15 15:51:23,283 - INFO - Inserted agenda item: reportId: 3017 agendaItemId: 4384 legId: 1268
+2025-04-15 15:51:23,292 - INFO - Inserted agenda item: reportId: 3017 agendaItemId: 4385 legId: 1284
+2025-04-15 15:51:23,299 - INFO - Inserted agenda item: reportId: 3017 agendaItemId: 4386 legId: 295
+2025-04-15 15:51:23,305 - INFO - Inserted agenda item: reportId: 3017 agendaItemId: 4387 legId: 296
+2025-04-15 15:51:23,318 - INFO - Inserted agenda item: reportId: 3017 agendaItemId: 4388 legId: 869
+2025-04-15 15:51:23,330 - INFO - Inserted agenda item: reportId: 3017 agendaItemId: 4389 legId: 1976
+2025-04-15 15:51:23,336 - INFO - Inserted agenda item: reportId: 3018 agendaItemId: 4458 legId: 1284
+2025-04-15 15:51:23,344 - INFO - Inserted agenda item: reportId: 3018 agendaItemId: 4459 legId: 1268
+2025-04-15 15:51:23,353 - INFO - Inserted agenda item: reportId: 3019 agendaItemId: 4345 legId: 818
+2025-04-15 15:51:23,361 - INFO - Inserted agenda item: reportId: 3019 agendaItemId: 4346 legId: 819
+2025-04-15 15:51:23,371 - INFO - Inserted agenda item: reportId: 3019 agendaItemId: 4347 legId: 888
+2025-04-15 15:51:23,381 - INFO - Inserted agenda item: reportId: 3020 agendaItemId: 3654 legId: 3621
+2025-04-15 15:51:23,388 - INFO - Inserted agenda item: reportId: 3020 agendaItemId: 3655 legId: 3622
+2025-04-15 15:51:23,399 - INFO - Inserted agenda item: reportId: 3021 agendaItemId: 4365 legId: 1611
+2025-04-15 15:51:23,406 - INFO - Inserted agenda item: reportId: 3021 agendaItemId: 4366 legId: 1613
+2025-04-15 15:51:23,416 - INFO - Inserted agenda item: reportId: 3021 agendaItemId: 4367 legId: 988
+2025-04-15 15:51:23,425 - INFO - Inserted agenda item: reportId: 3021 agendaItemId: 4368 legId: 989
+2025-04-15 15:51:23,433 - INFO - Inserted agenda item: reportId: 3021 agendaItemId: 4369 legId: 3467
+2025-04-15 15:51:23,439 - INFO - Inserted agenda item: reportId: 3021 agendaItemId: 4370 legId: 3588
+2025-04-15 15:51:23,446 - INFO - Inserted agenda item: reportId: 3021 agendaItemId: 4371 legId: 3589
+2025-04-15 15:51:23,453 - INFO - Inserted agenda item: reportId: 3021 agendaItemId: 4372 legId: 3590
+2025-04-15 15:51:23,460 - INFO - Inserted agenda item: reportId: 3022 agendaItemId: 4438 legId: 3494
+2025-04-15 15:51:23,467 - INFO - Inserted agenda item: reportId: 3022 agendaItemId: 4439 legId: 3495
+2025-04-15 15:51:23,475 - INFO - Inserted agenda item: reportId: 3022 agendaItemId: 4440 legId: 3496
+2025-04-15 15:51:23,485 - INFO - Inserted agenda item: reportId: 3023 agendaItemId: 4441 legId: 286
+2025-04-15 15:51:23,493 - INFO - Inserted agenda item: reportId: 3023 agendaItemId: 4442 legId: 287
+2025-04-15 15:51:23,502 - INFO - Inserted agenda item: reportId: 3023 agendaItemId: 4443 legId: 400
+2025-04-15 15:51:23,509 - INFO - Inserted agenda item: reportId: 3023 agendaItemId: 4444 legId: None
+2025-04-15 15:51:23,510 - WARNING - No agenda items found for Meeting ID 3665, skipping report 3024
+2025-04-15 15:51:23,510 - WARNING - No agenda items found for Meeting ID 4665, skipping report 4005
+2025-04-15 15:51:23,516 - INFO - Inserted agenda item: reportId: 4006 agendaItemId: 3407 legId: None
+2025-04-15 15:51:23,525 - INFO - Inserted agenda item: reportId: 4006 agendaItemId: 3408 legId: 2564
+2025-04-15 15:51:23,534 - INFO - Inserted agenda item: reportId: 4006 agendaItemId: 3409 legId: None
+2025-04-15 15:51:23,543 - INFO - Inserted agenda item: reportId: 4006 agendaItemId: 3410 legId: 229
+2025-04-15 15:51:23,550 - INFO - Inserted agenda item: reportId: 4006 agendaItemId: 3411 legId: 234
+2025-04-15 15:51:23,560 - INFO - Inserted agenda item: reportId: 4006 agendaItemId: 3412 legId: 3188
+2025-04-15 15:51:23,568 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3430 legId: 3726
+2025-04-15 15:51:23,576 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3431 legId: 3704
+2025-04-15 15:51:23,585 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3432 legId: 3670
+2025-04-15 15:51:23,594 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3433 legId: 3548
+2025-04-15 15:51:23,602 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3434 legId: 3615
+2025-04-15 15:51:23,613 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3435 legId: 3737
+2025-04-15 15:51:23,621 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3436 legId: 3637
+2025-04-15 15:51:23,630 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3437 legId: 535
+2025-04-15 15:51:23,635 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3438 legId: 3693
+2025-04-15 15:51:23,644 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3439 legId: 3604
+2025-04-15 15:51:23,652 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3440 legId: 3570
+2025-04-15 15:51:23,662 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3441 legId: 3715
+2025-04-15 15:51:23,671 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3442 legId: 3582
+2025-04-15 15:51:23,679 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3443 legId: 3626
+2025-04-15 15:51:23,684 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3444 legId: 3681
+2025-04-15 15:51:23,695 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3445 legId: 3659
+2025-04-15 15:51:23,705 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3446 legId: 3593
+2025-04-15 15:51:23,712 - INFO - Inserted agenda item: reportId: 4007 agendaItemId: 3447 legId: 3648
+2025-04-15 15:51:23,718 - INFO - Inserted agenda item: reportId: 4008 agendaItemId: 3461 legId: 3582
+2025-04-15 15:51:23,725 - INFO - Inserted agenda item: reportId: 4009 agendaItemId: 3471 legId: 3760
+2025-04-15 15:51:23,730 - INFO - Inserted agenda item: reportId: 4009 agendaItemId: 3472 legId: 34
+2025-04-15 15:51:23,739 - INFO - Inserted agenda item: reportId: 4009 agendaItemId: 3473 legId: 861
+2025-04-15 15:51:23,749 - INFO - Inserted agenda item: reportId: 4009 agendaItemId: 3474 legId: 862
+2025-04-15 15:51:23,756 - INFO - Inserted agenda item: reportId: 4009 agendaItemId: 3475 legId: 863
+2025-04-15 15:51:23,764 - INFO - Inserted agenda item: reportId: 4009 agendaItemId: 3476 legId: 864
+2025-04-15 15:51:23,772 - INFO - Inserted agenda item: reportId: 4009 agendaItemId: 3477 legId: 2330
+2025-04-15 15:51:23,781 - INFO - Inserted agenda item: reportId: 4010 agendaItemId: 3467 legId: 446
+2025-04-15 15:51:23,789 - INFO - Inserted agenda item: reportId: 4010 agendaItemId: 3468 legId: 158
+2025-04-15 15:51:23,795 - INFO - Inserted agenda item: reportId: 4010 agendaItemId: 3469 legId: 202
+2025-04-15 15:51:23,806 - INFO - Inserted agenda item: reportId: 4010 agendaItemId: 3470 legId: 621
+2025-04-15 15:51:23,806 - WARNING - No agenda items found for Meeting ID 4667, skipping report 4011
+2025-04-15 15:51:23,813 - INFO - Inserted agenda item: reportId: 4012 agendaItemId: 3382 legId: 413
+2025-04-15 15:51:23,819 - INFO - Inserted agenda item: reportId: 4012 agendaItemId: 3383 legId: 424
+2025-04-15 15:51:23,823 - INFO - Inserted agenda item: reportId: 4012 agendaItemId: 3384 legId: 435
+2025-04-15 15:51:23,829 - INFO - Inserted agenda item: reportId: 4012 agendaItemId: 3385 legId: 3792
+2025-04-15 15:51:23,840 - INFO - Inserted agenda item: reportId: 4012 agendaItemId: 3386 legId: 364
+2025-04-15 15:51:23,849 - INFO - Inserted agenda item: reportId: 4012 agendaItemId: 3387 legId: 843
+2025-04-15 15:51:23,853 - INFO - Inserted agenda item: reportId: 4013 agendaItemId: 3451 legId: None
+2025-04-15 15:51:23,862 - INFO - Inserted agenda item: reportId: 4013 agendaItemId: 3452 legId: None
+2025-04-15 15:51:23,870 - INFO - Inserted agenda item: reportId: 4014 agendaItemId: 3418 legId: None
+2025-04-15 15:51:23,876 - INFO - Inserted agenda item: reportId: 4015 agendaItemId: 3413 legId: 395
+2025-04-15 15:51:23,885 - INFO - Inserted agenda item: reportId: 4015 agendaItemId: 3414 legId: 409
+2025-04-15 15:51:23,895 - INFO - Inserted agenda item: reportId: 4015 agendaItemId: 3415 legId: 1089
+2025-04-15 15:51:23,902 - INFO - Inserted agenda item: reportId: 4015 agendaItemId: 3416 legId: None
+2025-04-15 15:51:23,903 - WARNING - No agenda items found for Meeting ID 4670, skipping report 4016
+2025-04-15 15:51:23,903 - WARNING - No agenda items found for Meeting ID 4668, skipping report 4017
+2025-04-15 15:51:23,903 - WARNING - No agenda items found for Meeting ID 4669, skipping report 4018
+2025-04-15 15:51:23,904 - WARNING - No agenda items found for Meeting ID 937, skipping report 4019
+2025-04-15 15:51:23,913 - INFO - Inserted agenda item: reportId: 4020 agendaItemId: 3460 legId: None
+2025-04-15 15:51:23,921 - INFO - Inserted agenda item: reportId: 5016 agendaItemId: 3293 legId: None
+2025-04-15 15:51:23,930 - INFO - Inserted agenda item: reportId: 5016 agendaItemId: 3294 legId: None
+2025-04-15 15:51:23,940 - INFO - Inserted agenda item: reportId: 5016 agendaItemId: 3295 legId: None
+2025-04-15 15:51:23,950 - INFO - Inserted agenda item: reportId: 5016 agendaItemId: 10774 legId: None
+2025-04-15 15:51:23,960 - INFO - Inserted agenda item: reportId: 5016 agendaItemId: 10775 legId: None
+2025-04-15 15:51:23,966 - INFO - Inserted agenda item: reportId: 5016 agendaItemId: 10782 legId: None
+2025-04-15 15:51:23,974 - INFO - Inserted agenda item: reportId: 6016 agendaItemId: 9438 legId: 1678
+2025-04-15 15:51:23,981 - INFO - Inserted agenda item: reportId: 6016 agendaItemId: 9439 legId: 2789
+2025-04-15 15:51:23,988 - INFO - Inserted agenda item: reportId: 6016 agendaItemId: 10780 legId: None
+2025-04-15 15:51:23,995 - INFO - Inserted agenda item: reportId: 6016 agendaItemId: 11774 legId: 3759
+2025-04-15 15:51:24,004 - INFO - Inserted agenda item: reportId: 6016 agendaItemId: 11775 legId: 289
+2025-04-15 15:51:24,010 - INFO - Inserted agenda item: reportId: 6016 agendaItemId: 11776 legId: 3475
+2025-04-15 15:51:24,015 - INFO - Inserted agenda item: reportId: 6016 agendaItemId: 11777 legId: 3748
+2025-04-15 15:51:24,023 - INFO - Inserted agenda item: reportId: 6016 agendaItemId: 11778 legId: 1101
+2025-04-15 15:51:24,031 - INFO - Inserted agenda item: reportId: 6017 agendaItemId: 3399 legId: None
+2025-04-15 15:51:24,040 - INFO - Inserted agenda item: reportId: 6017 agendaItemId: 3400 legId: 181
+2025-04-15 15:51:24,052 - INFO - Inserted agenda item: reportId: 6017 agendaItemId: 3401 legId: 182
+2025-04-15 15:51:24,062 - INFO - Inserted agenda item: reportId: 6017 agendaItemId: 3402 legId: 204
+2025-04-15 15:51:24,069 - INFO - Inserted agenda item: reportId: 6017 agendaItemId: 10783 legId: None
+2025-04-15 15:51:24,075 - INFO - Inserted agenda item: reportId: 6018 agendaItemId: 10784 legId: 3548
+2025-04-15 15:51:24,082 - INFO - Inserted agenda item: reportId: 6018 agendaItemId: 10785 legId: None
+2025-04-15 15:51:24,090 - INFO - Inserted agenda item: reportId: 6018 agendaItemId: 11779 legId: None
+2025-04-15 15:51:24,095 - INFO - Inserted agenda item: reportId: 6018 agendaItemId: 11780 legId: None
+2025-04-15 15:51:24,102 - INFO - Inserted agenda item: reportId: 7016 agendaItemId: 12776 legId: 3548
+2025-04-15 15:51:24,109 - INFO - Inserted agenda item: reportId: 7016 agendaItemId: 12781 legId: 3630
+2025-04-15 15:51:24,115 - INFO - Inserted agenda item: reportId: 7017 agendaItemId: 12782 legId: 3548
+2025-04-15 15:51:24,122 - INFO - Inserted agenda item: reportId: 7017 agendaItemId: 12783 legId: 3548
+2025-04-15 15:51:24,130 - INFO - Inserted agenda item: reportId: 7017 agendaItemId: 12784 legId: 3570
+2025-04-15 15:51:24,138 - INFO - Inserted agenda item: reportId: 7017 agendaItemId: 12786 legId: 3593
+2025-04-15 15:51:24,145 - INFO - Inserted agenda item: reportId: 7018 agendaItemId: 12787 legId: 3548
+2025-04-15 15:51:24,153 - INFO - Inserted agenda item: reportId: 7018 agendaItemId: 12788 legId: 3548
+2025-04-15 15:51:24,160 - INFO - Inserted agenda item: reportId: 7019 agendaItemId: 12789 legId: 3548
+2025-04-15 15:51:24,169 - INFO - Inserted agenda item: reportId: 8016 agendaItemId: 3355 legId: 2425
+2025-04-15 15:51:24,179 - INFO - Inserted agenda item: reportId: 8016 agendaItemId: 3356 legId: 2462
+2025-04-15 15:51:24,186 - INFO - Inserted agenda item: reportId: 8016 agendaItemId: 3357 legId: 68
+2025-04-15 15:51:24,195 - INFO - Inserted agenda item: reportId: 8016 agendaItemId: 3358 legId: 188
+2025-04-15 15:51:24,203 - INFO - Inserted agenda item: reportId: 9016 agendaItemId: 4194 legId: 2721
+2025-04-15 15:51:24,211 - INFO - Inserted agenda item: reportId: 9016 agendaItemId: 4195 legId: 270
+2025-04-15 15:51:24,221 - INFO - Inserted agenda item: reportId: 9016 agendaItemId: 4196 legId: 271
+2025-04-15 15:51:24,228 - INFO - Inserted agenda item: reportId: 9016 agendaItemId: 4197 legId: 272
+2025-04-15 15:51:24,234 - INFO - Inserted agenda item: reportId: 9016 agendaItemId: 4198 legId: 273
+2025-04-15 15:51:24,241 - INFO - Inserted agenda item: reportId: 9016 agendaItemId: 4199 legId: 1158
+2025-04-15 15:51:24,250 - INFO - Inserted agenda item: reportId: 9016 agendaItemId: 4200 legId: 1159
+2025-04-15 15:51:24,258 - INFO - Inserted agenda item: reportId: 9016 agendaItemId: 4201 legId: 1160
+2025-04-15 15:51:24,268 - INFO - Inserted agenda item: reportId: 9016 agendaItemId: 4202 legId: 1161
+2025-04-15 15:51:24,273 - INFO - Inserted agenda item: reportId: 10016 agendaItemId: 14774 legId: 1
+2025-04-15 15:51:24,278 - INFO - Inserted agenda item: reportId: 10017 agendaItemId: 4398 legId: 1162
+2025-04-15 15:51:24,283 - INFO - Inserted agenda item: reportId: 10017 agendaItemId: 4399 legId: 1471
+2025-04-15 15:51:24,289 - INFO - Inserted agenda item: reportId: 10017 agendaItemId: 4400 legId: 70
+2025-04-15 15:51:24,294 - INFO - Inserted agenda item: reportId: 10017 agendaItemId: 4401 legId: 71
+2025-04-15 15:51:24,301 - INFO - Inserted agenda item: reportId: 10017 agendaItemId: 4402 legId: 72
+2025-04-15 15:51:24,306 - INFO - Inserted agenda item: reportId: 10018 agendaItemId: 4373 legId: 3588
+2025-04-15 15:51:24,313 - INFO - Inserted agenda item: reportId: 10018 agendaItemId: 4374 legId: 3589
+2025-04-15 15:51:24,320 - INFO - Inserted agenda item: reportId: 10018 agendaItemId: 4375 legId: 3590
+2025-04-15 15:51:24,327 - INFO - Inserted agenda item: reportId: 10018 agendaItemId: 4376 legId: 427
+2025-04-15 15:51:24,333 - INFO - Inserted agenda item: reportId: 10019 agendaItemId: 4392 legId: 757
+2025-04-15 15:51:24,339 - INFO - Inserted agenda item: reportId: 10019 agendaItemId: 4393 legId: 427
+2025-04-15 15:51:24,344 - INFO - Inserted agenda item: reportId: 10019 agendaItemId: 4394 legId: 3672
+2025-04-15 15:51:24,351 - INFO - Inserted agenda item: reportId: 10019 agendaItemId: 4395 legId: 3591
+2025-04-15 15:51:24,356 - INFO - Inserted agenda item: reportId: 10019 agendaItemId: 4396 legId: 3592
+2025-04-15 15:51:24,364 - INFO - Inserted agenda item: reportId: 10019 agendaItemId: 4397 legId: 1162
+2025-04-15 15:51:24,369 - INFO - Inserted agenda item: reportId: 10019 agendaItemId: 15774 legId: 1
+2025-04-15 15:51:24,378 - INFO - Inserted agenda item: reportId: 10020 agendaItemId: 4446 legId: None
+2025-04-15 15:51:24,385 - INFO - Inserted agenda item: reportId: 10020 agendaItemId: 4447 legId: None
+2025-04-15 15:51:24,392 - INFO - Inserted agenda item: reportId: 10021 agendaItemId: 14774 legId: 1
+2025-04-15 15:51:24,400 - INFO - Inserted agenda item: reportId: 10022 agendaItemId: 4301 legId: 3753
+2025-04-15 15:51:24,416 - INFO - Inserted agenda item: reportId: 10023 agendaItemId: 4296 legId: 190
+2025-04-15 15:51:24,437 - INFO - Inserted agenda item: reportId: 10024 agendaItemId: 4304 legId: 3794
+2025-04-15 15:51:24,455 - INFO - Inserted agenda item: reportId: 10025 agendaItemId: 4349 legId: 3640
+2025-04-15 15:51:24,472 - INFO - Inserted agenda item: reportId: 10025 agendaItemId: 4350 legId: 3641
+2025-04-15 15:51:24,490 - INFO - Inserted agenda item: reportId: 10025 agendaItemId: 4351 legId: 3563
+2025-04-15 15:51:24,508 - INFO - Inserted agenda item: reportId: 10025 agendaItemId: 4352 legId: 3564
+2025-04-15 15:51:24,508 - WARNING - No agenda items found for Meeting ID 1280, skipping report 10026
+2025-04-15 15:51:24,527 - INFO - Inserted agenda item: reportId: 11025 agendaItemId: 4299 legId: 706
+2025-04-15 15:51:24,547 - INFO - Inserted agenda item: reportId: 11025 agendaItemId: 4300 legId: 871
+2025-04-15 15:51:24,548 - WARNING - No agenda items found for Meeting ID 1268, skipping report 11026
+2025-04-15 15:51:24,565 - INFO - Inserted agenda item: reportId: 12025 agendaItemId: 16774 legId: 3679
+2025-04-15 15:51:24,565 - WARNING - No agenda items found for Meeting ID 7976, skipping report 12026
+2025-04-15 15:51:24,565 - WARNING - No agenda items found for Meeting ID 7976, skipping report 13025
+2025-04-15 15:51:24,583 - INFO - Inserted agenda item: reportId: 13026 agendaItemId: 16774 legId: 3679
+2025-04-15 15:51:24,583 - WARNING - No agenda items found for Meeting ID 8975, skipping report 13027
+2025-04-15 15:51:24,584 - WARNING - No agenda items found for Meeting ID 8976, skipping report 13028
+2025-04-15 15:51:24,584 - WARNING - No agenda items found for Meeting ID 8977, skipping report 13029
+2025-04-15 15:51:24,584 - WARNING - No agenda items found for Meeting ID 8975, skipping report 14025
+2025-04-15 15:51:24,585 - WARNING - No agenda items found for Meeting ID 8976, skipping report 14026
+2025-04-15 15:51:24,585 - WARNING - No agenda items found for Meeting ID 8977, skipping report 14027
+2025-04-15 15:51:24,605 - INFO - Inserted agenda item: reportId: 14028 agendaItemId: 18774 legId: 495
+2025-04-15 15:51:24,622 - INFO - Inserted agenda item: reportId: 14028 agendaItemId: 18775 legId: None
+2025-04-15 15:51:24,642 - INFO - Inserted agenda item: reportId: 14028 agendaItemId: 18776 legId: None
+2025-04-15 15:51:24,642 - WARNING - No agenda items found for Meeting ID 9975, skipping report 14029
+2025-04-15 15:51:24,659 - INFO - Inserted agenda item: reportId: 14030 agendaItemId: 17778 legId: None
+2025-04-15 15:51:24,659 - WARNING - No agenda items found for Meeting ID 9979, skipping report 14031
+2025-04-15 15:51:24,667 - INFO - Inserted agenda item: reportId: 14032 agendaItemId: 17782 legId: 2290
+2025-04-15 15:51:24,667 - INFO - Inserted 228 agenda items (3 published)
+2025-04-15 15:51:24,667 - INFO - Inserting data into CommitteeReportActions...
+2025-04-15 15:51:24,689 - INFO - Inserted CommitteeReportAction for agenda item 681, published=True
+2025-04-15 15:51:24,702 - INFO - Inserted CommitteeReportAction for agenda item 681, published=True
+2025-04-15 15:51:24,714 - INFO - Inserted CommitteeReportAction for agenda item 681, published=True
+2025-04-15 15:51:24,727 - INFO - Inserted CommitteeReportAction for agenda item 683, published=False
+2025-04-15 15:51:24,742 - INFO - Inserted CommitteeReportAction for agenda item 681, published=True
+2025-04-15 15:51:24,742 - INFO - Inserted 5 actions (4 published)
+2025-04-15 15:51:24,743 - INFO - Inserting data into CommitteeReportRollCalls...
+2025-04-15 15:51:24,758 - INFO - Inserted CommitteeReportRollCall for agenda item 681, published=False
+2025-04-15 15:51:24,771 - INFO - Inserted CommitteeReportRollCall for agenda item 681, published=False
+2025-04-15 15:51:24,783 - INFO - Inserted CommitteeReportRollCall for agenda item 681, published=False
+2025-04-15 15:51:24,793 - INFO - Inserted CommitteeReportRollCall for agenda item 682, published=False
+2025-04-15 15:51:24,803 - INFO - Inserted CommitteeReportRollCall for agenda item 682, published=False
+2025-04-15 15:51:24,815 - INFO - Inserted CommitteeReportRollCall for agenda item 682, published=False
+2025-04-15 15:51:24,825 - INFO - Inserted CommitteeReportRollCall for agenda item 683, published=False
+2025-04-15 15:51:24,835 - INFO - Inserted CommitteeReportRollCall for agenda item 683, published=False
+2025-04-15 15:51:24,847 - INFO - Inserted CommitteeReportRollCall for agenda item 683, published=False
+2025-04-15 15:51:24,859 - INFO - Inserted CommitteeReportRollCall for agenda item 684, published=False
+2025-04-15 15:51:24,871 - INFO - Inserted CommitteeReportRollCall for agenda item 684, published=False
+2025-04-15 15:51:24,883 - INFO - Inserted CommitteeReportRollCall for agenda item 684, published=False
+2025-04-15 15:51:24,884 - INFO - Inserted 12 roll calls (0 published)
+2025-04-15 15:51:24,886 - INFO - Transaction committed
+2025-04-15 15:51:24,886 - INFO - === POST-DEPLOYMENT DATA COUNTS ===
+2025-04-15 15:51:24,886 - INFO - COMMITTEE_REPORTS: 74
+2025-04-15 15:51:24,886 - INFO - AGENDA_ITEMS: 228
+2025-04-15 15:51:24,887 - INFO - PUBLISHED_AGENDA_ITEMS: 3
+2025-04-15 15:51:24,887 - INFO - ROLL_CALLS: 12
+2025-04-15 15:51:24,887 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-15 15:51:24,887 - INFO - AGENDA_ITEM_ACTIONS: 5
+2025-04-15 15:51:24,887 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 4
+2025-04-15 15:51:24,887 - INFO - REMOVED_AGENDA_ITEMS: 0
+2025-04-15 15:51:24,888 - INFO - === DATA MIGRATION COMPARISON (POST vs PRE) ===
+2025-04-15 15:51:24,888 - INFO - COMMITTEE_REPORTS: PRE=80, POST=74, DIFF=-6 - MISMATCH
+2025-04-15 15:51:24,888 - WARNING - Count mismatch for committee_reports: expected 80, got 74
+2025-04-15 15:51:24,888 - INFO - AGENDA_ITEMS: PRE=205, POST=228, DIFF=23 - MISMATCH
+2025-04-15 15:51:24,889 - WARNING - Count mismatch for agenda_items: expected 205, got 228
+2025-04-15 15:51:24,889 - INFO - PUBLISHED_AGENDA_ITEMS: PRE=3, POST=3, DIFF=0 - MATCHED
+2025-04-15 15:51:24,889 - INFO - ROLL_CALLS: PRE=12, POST=12, DIFF=0 - MATCHED
+2025-04-15 15:51:24,889 - INFO - PUBLISHED_ROLL_CALLS: PRE=0, POST=0, DIFF=0 - MATCHED
+2025-04-15 15:51:24,890 - INFO - AGENDA_ITEM_ACTIONS: PRE=5, POST=5, DIFF=0 - MATCHED
+2025-04-15 15:51:24,890 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: PRE=5, POST=4, DIFF=-1 - MISMATCH
+2025-04-15 15:51:24,890 - WARNING - Count mismatch for published_agenda_item_actions: expected 5, got 4
+2025-04-15 15:51:24,890 - INFO - REMOVED_AGENDA_ITEMS: PRE=2, POST=0, DIFF=-2 - MISMATCH
+2025-04-15 15:51:24,890 - WARNING - Count mismatch for removed_agenda_items: expected 2, got 0
+2025-04-15 15:51:24,891 - INFO - TOTAL RECORDS: PRE=312, POST=326, DIFF=14
+2025-04-15 15:51:24,891 - INFO - All data restored successfully
+2025-04-15 15:51:24,893 - INFO - Database connection closed
+2025-04-15 15:51:24,898 - INFO - Database connection closed
+2025-04-15 15:51:24,898 - INFO - Post-deployment data restoration completed successfully

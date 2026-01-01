@@ -1,0 +1,43 @@
+2025-04-16 10:26:26,678 - INFO - Starting post-deployment data restoration
+2025-04-16 10:26:26,758 - INFO - Database connection established
+2025-04-16 10:26:26,774 - INFO - Database connection established
+2025-04-16 10:26:26,774 - INFO - Transaction started
+2025-04-16 10:26:26,782 - INFO - Data loaded from migration_data.json
+2025-04-16 10:26:26,783 - INFO - Found 1 items for committee_reports
+2025-04-16 10:26:26,783 - INFO - Found 1 items for committee_report_ids
+2025-04-16 10:26:26,783 - INFO - Found 6 items for member_roll_calls
+2025-04-16 10:26:26,783 - INFO - Found 0 items for committee_report_published_actions
+2025-04-16 10:26:26,784 - INFO - Found 0 items for published_items
+2025-04-16 10:26:26,784 - INFO - Found 2 items for committee_meeting_agenda_items
+2025-04-16 10:26:26,785 - INFO - Found 2 items for action_to_agenda_items
+2025-04-16 10:26:26,785 - INFO - === PRE-DEPLOYMENT DATA COUNTS (FROM JSON) ===
+2025-04-16 10:26:26,785 - INFO - COMMITTEE_REPORTS: 1
+2025-04-16 10:26:26,785 - INFO - AGENDA_ITEMS: 2
+2025-04-16 10:26:26,785 - INFO - PUBLISHED_AGENDA_ITEMS: 0
+2025-04-16 10:26:26,785 - INFO - ROLL_CALLS: 6
+2025-04-16 10:26:26,785 - INFO - PUBLISHED_ROLL_CALLS: 0
+2025-04-16 10:26:26,785 - INFO - AGENDA_ITEM_ACTIONS: 2
+2025-04-16 10:26:26,786 - INFO - PUBLISHED_AGENDA_ITEM_ACTIONS: 0
+2025-04-16 10:26:26,786 - INFO - REMOVED_AGENDA_ITEMS: 0
+2025-04-16 10:26:26,786 - INFO - LEGISLATION_ITEMS: 1
+2025-04-16 10:26:26,786 - INFO - COMMITTEE_ACTIONS: 21
+2025-04-16 10:26:26,786 - INFO - Loading CommitteeReportCommitteeActions reference data...
+2025-04-16 10:26:26,790 - INFO - Loaded 21 committee actions for reference
+2025-04-16 10:26:26,790 - INFO - Updating CommitteeReports table with meeting details...
+2025-04-16 10:26:26,799 - INFO - Updated CommitteeReport ID 15032 with meeting details
+2025-04-16 10:26:26,800 - INFO - Updated 1 committee reports with meeting details
+2025-04-16 10:26:26,800 - INFO - Inserting data into CommitteeReportAgendaItems...
+2025-04-16 10:26:26,800 - INFO - Creating set of published agenda item IDs...
+2025-04-16 10:26:26,800 - INFO - Found 0 published agenda item IDs
+2025-04-16 10:26:26,809 - INFO - Inserted agenda item: reportId: 15032 agendaItemId: 18774 legId: 495
+2025-04-16 10:26:26,816 - INFO - Inserted agenda item: reportId: 15032 agendaItemId: 19774 legId: None
+2025-04-16 10:26:26,816 - INFO - Inserted 2 agenda items (0 published)
+2025-04-16 10:26:26,816 - INFO - Inserting data into CommitteeReportActions...
+2025-04-16 10:26:26,824 - INFO - Inserted CommitteeReportAction for agenda item 1, published=False, is_recommendation=0
+2025-04-16 10:26:26,828 - INFO - Inserted CommitteeReportAction for agenda item 3, published=False, is_recommendation=0
+2025-04-16 10:26:26,829 - INFO - Splitting action for agenda item 19774 into two separate action rows
+2025-04-16 10:26:26,831 - INFO - Transaction rolled back
+2025-04-16 10:26:26,832 - ERROR - Error during data restoration: object of type 'NoneType' has no len()
+2025-04-16 10:26:26,833 - INFO - Database connection closed
+2025-04-16 10:26:26,836 - INFO - Database connection closed
+2025-04-16 10:26:26,836 - ERROR - Error during data restoration: object of type 'NoneType' has no len()

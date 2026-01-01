@@ -25,6 +25,13 @@ Python tool for generating sprint performance reports and visualizations.
 - Bug metrics
 - See [azure/README.md](azure/README.md) for setup and usage
 
+### Eva Tools (`eva/`)
+Database migration and management scripts for Eva project.
+- Database switching utilities (PowerShell and Python)
+- Migration scripts for database changes
+- Committee reports refactoring tools
+- Contains: `migrations.py`, `migrations.ps1`, `switch-db.py`, `switch-db.ps1`, and subdirectories for specific tasks
+
 ### Stock Media (`unsplash/`)
 PowerShell module for querying Unsplash and Pexels APIs.
 - Search photos and videos
