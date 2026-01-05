@@ -2,6 +2,24 @@
 
 PowerShell module for managing Azure DevOps work items, designed to work seamlessly with GitHub Copilot CLI.
 
+## 🚀 Quick Setup for New Copilot Sessions
+
+**Run this before using any tools:**
+
+```powershell
+cd C:\Users\mshepherd\p\useful\network
+$env:AZURE_DEVOPS_PAT = (Get-Content .env | Select-String "AZURE_DEVOPS_PAT").ToString().Split('=')[1]
+$env:AZURE_DEVOPS_ORG = "Legislative"
+$env:AZURE_DEVOPS_PROJECT = "LegBone"
+$env:EVA_QA_PASSWORD = "eva4eva"
+$env:M2_QA_PASSWORD = "ThisIsQA!"
+Import-Module .\AzureDevOpsTools\AzureDevOpsTools.psd1 -Force
+Import-Module .\EvaSql.psm1 -Force
+Initialize-AzureDevOps
+```
+
+📚 **See [.github/skills/](/.github/skills/)** for detailed skills and workflows.
+
 ## Overview
 
 This module provides natural language integration between GitHub Copilot and Azure DevOps. Instead of learning WIQL syntax or navigating the Azure DevOps UI, you can ask Copilot to find, update, and manage work items using plain English.

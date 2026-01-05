@@ -2,11 +2,26 @@
 
 This directory contains Agent Skills that teach GitHub Copilot how to work with the Michigan Senate's database systems.
 
+## 🚀 QUICKSTART - Read This First!
+
+**New Copilot session? Run this setup command:**
+
+See [QUICKSTART.md](QUICKSTART.md) for the one-command setup to initialize everything.
+
 ## What are Agent Skills?
 
 Agent Skills are a new feature in GitHub Copilot that allows you to teach specialized capabilities through folders containing instructions, scripts, and resources. They follow the [Agent Skills open standard](https://agentskills.io/).
 
 ## Available Skills
+
+### 0. common-workflows ⭐ START HERE
+
+Common patterns and efficient workflows for Azure DevOps and database queries. **Read this to avoid inefficient searches and tangents.**
+
+**Use this skill to:**
+- Understand which database has which data (Committees = M2-QA, Sessions = Eva QA)
+- Learn efficient search patterns
+- Avoid common mistakes and timeouts
 
 ### 1. eva-qa-database
 

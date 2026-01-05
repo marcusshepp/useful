@@ -18,7 +18,11 @@
         'Update-WorkItem',
         'Add-WorkItemComment',
         'New-WorkItem',
-        'Export-WorkItemsToMarkdown'
+        'Export-WorkItemsToMarkdown',
+        'Get-PullRequests',
+        'Get-PullRequestDetails',
+        'Get-PullRequestComments',
+        'Get-MyUnresolvedPRComments'
     )
     CmdletsToExport = @()
     VariablesToExport = @()

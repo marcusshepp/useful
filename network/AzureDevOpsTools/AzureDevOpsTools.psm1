@@ -910,6 +910,396 @@ function Export-WorkItemsToMarkdown {
 
 #endregion
 
+#region Pull Request Functions
+
+<#
+.SYNOPSIS
+    Get pull requests from Azure DevOps.
+.DESCRIPTION
+    Retrieves pull requests with various filter options.
+.PARAMETER Status
+    Filter by PR status: Active, Completed, Abandoned, All. Default is Active.
+.PARAMETER CreatedBy
+    Filter by creator username or email.
+.PARAMETER SourceBranch
+    Filter by source branch name.
+.PARAMETER TargetBranch
+    Filter by target branch name (default is main/master).
+.PARAMETER RepositoryName
+    Repository name. If not provided, searches all repos in the project.
+.PARAMETER Top
+    Maximum number of results to return. Default is 100.
+.EXAMPLE
+    Get-PullRequests -Status Active
+.EXAMPLE
+    Get-PullRequests -CreatedBy "mshepherd" -Status Active
+.EXAMPLE
+    Get-PullRequests -Status All -Top 50
+#>
+function Get-PullRequests {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $false)]
+        [ValidateSet('Active', 'Completed', 'Abandoned', 'All')]
+        [string]$Status = 'Active',
+        
+        [Parameter(Mandatory = $false)]
+        [string]$CreatedBy,
+        
+        [Parameter(Mandatory = $false)]
+        [string]$SourceBranch,
+        
+        [Parameter(Mandatory = $false)]
+        [string]$TargetBranch,
+        
+        [Parameter(Mandatory = $false)]
+        [string]$RepositoryName,
+        
+        [Parameter(Mandatory = $false)]
+        [int]$Top = 100
+    )
+    
+    Test-AzureDevOpsInitialized
+    
+    try {
+        # Build the API URL
+        $org = $Script:AzureDevOpsConfig.Organization
+        $project = $Script:AzureDevOpsConfig.Project
+        
+        if ($RepositoryName) {
+            $apiUrl = "https://dev.azure.com/$org/$project/_apis/git/repositories/$RepositoryName/pullrequests?api-version=7.0"
+        } else {
+            $apiUrl = "https://dev.azure.com/$org/$project/_apis/git/pullrequests?api-version=7.0"
+        }
+        
+        # Add search criteria
+        $criteria = @()
+        
+        if ($Status -ne 'All') {
+            $criteria += "searchCriteria.status=$Status"
+        }
+        
+        if ($CreatedBy) {
+            $criteria += "searchCriteria.creatorId=$CreatedBy"
+        }
+        
+        if ($SourceBranch) {
+            $criteria += "searchCriteria.sourceRefName=refs/heads/$SourceBranch"
+        }
+        
+        if ($TargetBranch) {
+            $criteria += "searchCriteria.targetRefName=refs/heads/$TargetBranch"
+        }
+        
+        $criteria += "`$top=$Top"
+        
+        if ($criteria.Count -gt 0) {
+            $apiUrl += "&" + ($criteria -join "&")
+        }
+        
+        Write-Verbose "Getting pull requests from: $apiUrl"
+        
+        $response = Invoke-RestMethod -Uri $apiUrl -Headers $Script:AzureDevOpsConfig.Headers -Method Get
+        
+        $prs = $response.value | ForEach-Object {
+            [PSCustomObject]@{
+                PullRequestId = $_.pullRequestId
+                Title = $_.title
+                Description = $_.description
+                Status = $_.status
+                CreatedBy = $_.createdBy.displayName
+                CreatedByEmail = $_.createdBy.uniqueName
+                CreatedDate = $_.creationDate
+                SourceBranch = $_.sourceRefName -replace '^refs/heads/', ''
+                TargetBranch = $_.targetRefName -replace '^refs/heads/', ''
+                Repository = $_.repository.name
+                IsDraft = $_.isDraft
+                MergeStatus = $_.mergeStatus
+                Url = $_.url
+                WebUrl = "https://dev.azure.com/$org/$project/_git/$($_.repository.name)/pullrequest/$($_.pullRequestId)"
+            }
+        }
+        
+        # Apply CreatedBy filter if specified (filter by display name or email)
+        if ($CreatedBy) {
+            $prs = $prs | Where-Object { 
+                $_.CreatedBy -like "*$CreatedBy*" -or 
+                $_.CreatedByEmail -like "*$CreatedBy*" 
+            }
+        }
+        
+        Write-Verbose "Found $($prs.Count) pull requests"
+        return $prs
+        
+    } catch {
+        Write-Error "Failed to get pull requests: $($_.Exception.Message)"
+    }
+}
+
+<#
+.SYNOPSIS
+    Get detailed information about a specific pull request.
+.DESCRIPTION
+    Retrieves full details of a pull request including reviewers, work items, and commits.
+.PARAMETER PullRequestId
+    The ID of the pull request.
+.PARAMETER RepositoryName
+    The name of the repository containing the pull request.
+.EXAMPLE
+    Get-PullRequestDetails -PullRequestId 1234 -RepositoryName "eva-api"
+#>
+function Get-PullRequestDetails {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [int]$PullRequestId,
+        
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryName
+    )
+    
+    Test-AzureDevOpsInitialized
+    
+    try {
+        $org = $Script:AzureDevOpsConfig.Organization
+        $project = $Script:AzureDevOpsConfig.Project
+        
+        $apiUrl = "https://dev.azure.com/$org/$project/_apis/git/repositories/$RepositoryName/pullrequests/$PullRequestId`?api-version=7.0"
+        
+        Write-Verbose "Getting PR details from: $apiUrl"
+        
+        $pr = Invoke-RestMethod -Uri $apiUrl -Headers $Script:AzureDevOpsConfig.Headers -Method Get
+        
+        # Get reviewers
+        $reviewers = $pr.reviewers | ForEach-Object {
+            [PSCustomObject]@{
+                DisplayName = $_.displayName
+                Vote = switch ($_.vote) {
+                    10 { "Approved" }
+                    5 { "Approved with suggestions" }
+                    0 { "No vote" }
+                    -5 { "Waiting for author" }
+                    -10 { "Rejected" }
+                    default { $_.vote }
+                }
+                IsRequired = $_.isRequired
+            }
+        }
+        
+        # Get work item references
+        $workItemRefs = $pr.workItemRefs | ForEach-Object {
+            $id = $_.id
+            [PSCustomObject]@{
+                Id = $id
+                Url = $_.url
+            }
+        }
+        
+        $details = [PSCustomObject]@{
+            PullRequestId = $pr.pullRequestId
+            Title = $pr.title
+            Description = $pr.description
+            Status = $pr.status
+            CreatedBy = $pr.createdBy.displayName
+            CreatedByEmail = $pr.createdBy.uniqueName
+            CreatedDate = $pr.creationDate
+            ClosedDate = $pr.closedDate
+            SourceBranch = $pr.sourceRefName -replace '^refs/heads/', ''
+            TargetBranch = $pr.targetRefName -replace '^refs/heads/', ''
+            Repository = $pr.repository.name
+            IsDraft = $pr.isDraft
+            MergeStatus = $pr.mergeStatus
+            Reviewers = $reviewers
+            WorkItems = $workItemRefs
+            WebUrl = "https://dev.azure.com/$org/$project/_git/$($pr.repository.name)/pullrequest/$($pr.pullRequestId)"
+            CompletionOptions = $pr.completionOptions
+        }
+        
+        return $details
+        
+    } catch {
+        Write-Error "Failed to get pull request details: $($_.Exception.Message)"
+    }
+}
+
+<#
+.SYNOPSIS
+    Get comments/threads from a pull request.
+.DESCRIPTION
+    Retrieves all comment threads from a pull request.
+.PARAMETER PullRequestId
+    The ID of the pull request.
+.PARAMETER RepositoryName
+    The name of the repository containing the pull request.
+.EXAMPLE
+    Get-PullRequestComments -PullRequestId 1234 -RepositoryName "eva-api"
+#>
+function Get-PullRequestComments {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [int]$PullRequestId,
+        
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryName
+    )
+    
+    Test-AzureDevOpsInitialized
+    
+    try {
+        $org = $Script:AzureDevOpsConfig.Organization
+        $project = $Script:AzureDevOpsConfig.Project
+        
+        $apiUrl = "https://dev.azure.com/$org/$project/_apis/git/repositories/$RepositoryName/pullrequests/$PullRequestId/threads?api-version=7.0"
+        
+        Write-Verbose "Getting PR comments from: $apiUrl"
+        
+        $response = Invoke-RestMethod -Uri $apiUrl -Headers $Script:AzureDevOpsConfig.Headers -Method Get
+        
+        $threads = $response.value | ForEach-Object {
+            $comments = $_.comments | ForEach-Object {
+                [PSCustomObject]@{
+                    Id = $_.id
+                    Author = $_.author.displayName
+                    Content = $_.content
+                    PublishedDate = $_.publishedDate
+                    CommentType = $_.commentType
+                }
+            }
+            
+            [PSCustomObject]@{
+                ThreadId = $_.id
+                Status = $_.status
+                ThreadContext = $_.threadContext
+                Comments = $comments
+                IsDeleted = $_.isDeleted
+            }
+        }
+        
+        return $threads
+        
+    } catch {
+        Write-Error "Failed to get pull request comments: $($_.Exception.Message)"
+    }
+}
+
+<#
+.SYNOPSIS
+    Get unresolved comments from your active pull requests.
+.DESCRIPTION
+    Retrieves all unresolved comment threads from active pull requests created by you.
+.PARAMETER Username
+    Username to filter PRs by. If not provided, uses AZURE_DEVOPS_USERNAME environment variable.
+.PARAMETER RepositoryName
+    Optional. Filter to a specific repository.
+.EXAMPLE
+    Get-MyUnresolvedPRComments
+.EXAMPLE
+    Get-MyUnresolvedPRComments -RepositoryName "LegBone"
+#>
+function Get-MyUnresolvedPRComments {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $false)]
+        [string]$Username,
+        
+        [Parameter(Mandatory = $false)]
+        [string]$RepositoryName
+    )
+    
+    Test-AzureDevOpsInitialized
+    
+    # Use environment variable if username not provided
+    if (-not $Username) {
+        $Username = $env:AZURE_DEVOPS_USERNAME
+        if (-not $Username) {
+            Write-Error "Username not provided and AZURE_DEVOPS_USERNAME environment variable not set"
+            return
+        }
+    }
+    
+    try {
+        # Get active PRs by user
+        $prs = Get-PullRequests -Status Active -CreatedBy $Username
+        
+        if ($RepositoryName) {
+            $prs = $prs | Where-Object { $_.Repository -eq $RepositoryName }
+        }
+        
+        if (-not $prs) {
+            Write-Host "No active pull requests found for user: $Username" -ForegroundColor Yellow
+            return
+        }
+        
+        Write-Verbose "Found $($prs.Count) active PR(s) for $Username"
+        
+        $allUnresolvedComments = @()
+        
+        foreach ($pr in $prs) {
+            Write-Verbose "Checking PR #$($pr.PullRequestId): $($pr.Title)"
+            
+            $comments = Get-PullRequestComments -PullRequestId $pr.PullRequestId -RepositoryName $pr.Repository
+            
+            $unresolved = $comments | Where-Object { 
+                $_.Status -eq "active" -or $_.Status -eq "pending"
+            }
+            
+            foreach ($thread in $unresolved) {
+                $allUnresolvedComments += [PSCustomObject]@{
+                    PullRequestId = $pr.PullRequestId
+                    PullRequestTitle = $pr.Title
+                    Repository = $pr.Repository
+                    ThreadId = $thread.ThreadId
+                    Status = $thread.Status
+                    Comments = $thread.Comments
+                    FilePath = $thread.ThreadContext.filePath
+                    LineStart = $thread.ThreadContext.rightFileStart.line
+                    LineEnd = $thread.ThreadContext.rightFileEnd.line
+                    WebUrl = $pr.WebUrl
+                }
+            }
+        }
+        
+        if ($allUnresolvedComments.Count -eq 0) {
+            Write-Host "No unresolved comments found! 🎉" -ForegroundColor Green
+            return
+        }
+        
+        Write-Host "`nFound $($allUnresolvedComments.Count) unresolved comment thread(s):`n" -ForegroundColor Cyan
+        
+        foreach ($item in $allUnresolvedComments) {
+            Write-Host "PR #$($item.PullRequestId) - $($item.PullRequestTitle) [$($item.Repository)]" -ForegroundColor Yellow
+            Write-Host "  Thread $($item.ThreadId) - Status: $($item.Status)" -ForegroundColor Gray
+            
+            if ($item.FilePath) {
+                $fileInfo = "$($item.FilePath)"
+                if ($item.LineStart) {
+                    $fileInfo += " (Line $($item.LineStart)"
+                    if ($item.LineEnd -and $item.LineEnd -ne $item.LineStart) {
+                        $fileInfo += "-$($item.LineEnd)"
+                    }
+                    $fileInfo += ")"
+                }
+                Write-Host "  File: $fileInfo" -ForegroundColor Cyan
+            }
+            
+            Write-Host "  Link: $($item.WebUrl)" -ForegroundColor Gray
+            
+            foreach ($comment in $item.Comments) {
+                Write-Host "    [$($comment.Author)] $($comment.Content)" -ForegroundColor White
+            }
+            Write-Host ""
+        }
+        
+        return $allUnresolvedComments
+        
+    } catch {
+        Write-Error "Failed to get unresolved PR comments: $($_.Exception.Message)"
+    }
+}
+
+#endregion
+
 # Export module members
 Export-ModuleMember -Function @(
     'Initialize-AzureDevOps',
@@ -922,7 +1312,11 @@ Export-ModuleMember -Function @(
     'Update-WorkItem',
     'Add-WorkItemComment',
     'New-WorkItem',
-    'Export-WorkItemsToMarkdown'
+    'Export-WorkItemsToMarkdown',
+    'Get-PullRequests',
+    'Get-PullRequestDetails',
+    'Get-PullRequestComments',
+    'Get-MyUnresolvedPRComments'
 )
 
 # Auto-initialize if all environment variables are set
