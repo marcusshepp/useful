@@ -1,5 +1,0 @@
-Package       Version
-------------- -------
-pip           24.3.1
-pyodbc        5.2.0
-python-dotenv 1.0.1
